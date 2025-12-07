@@ -96,7 +96,7 @@
   display: flex;
   flex-shrink: 0;
   position: absolute;
-  right: 120px;
+  right: 170px;
   top: 50%;
   transform: translateY(-50%);
 }
