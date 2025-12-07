@@ -6,11 +6,12 @@
   scroll-behavior: smooth;
 }
 
-/* Video Section - Full viewport */
+/* Video Section - Full viewport minus header */
 .videoSection {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 95px);
+  margin-top: 95px;
   flex-shrink: 0;
 }
 
