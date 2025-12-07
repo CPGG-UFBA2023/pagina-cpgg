@@ -79,7 +79,7 @@
 .block1 h1 {
   padding: 0;
   margin: 2px 0;
-  font-size: clamp(15px, 2.25vw, 27px);
+  font-size: clamp(10px, 1.5vw, 22px);
   text-align: center;
   white-space: normal;
   font-family: Roboto;
@@ -340,7 +340,7 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .block1 h1 {
-    font-size: clamp(15px, 2.25vw, 27px);
+    font-size: clamp(10px, 1.5vw, 22px);
     line-height: 1.2;
   }
 
@@ -370,7 +370,7 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .block1 h1 {
-    font-size: clamp(15px, 2.25vw, 27px);
+    font-size: clamp(10px, 1.5vw, 22px);
     line-height: 1.2;
   }
 }
@@ -408,7 +408,7 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .block1 h1 {
-    font-size: clamp(15px, 2.25vw, 27px);
+    font-size: clamp(10px, 1.5vw, 22px);
     line-height: 1.2;
   }
 
@@ -438,7 +438,7 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .block1 h1 {
-    font-size: clamp(15px, 2.25vw, 27px);
+    font-size: clamp(10px, 1.5vw, 22px);
     line-height: 1.2;
   }
 }
@@ -462,7 +462,7 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .block1 h1 {
-    font-size: clamp(15px, 2.25vw, 27px);
+    font-size: clamp(10px, 1.5vw, 22px);
     line-height: 1.2;
   }
 
@@ -501,7 +501,7 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .block1 h1 {
-    font-size: clamp(15px, 2.25vw, 27px);
+    font-size: clamp(10px, 1.5vw, 22px);
     line-height: 1.2;
   }
 
@@ -541,7 +541,7 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .block1 h1 {
-    font-size: clamp(15px, 2.25vw, 27px);
+    font-size: clamp(10px, 1.5vw, 22px);
     line-height: 1.2;
   }
 }
@@ -561,7 +561,7 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .block1 h1 {
-    font-size: clamp(15px, 2.25vw, 27px);
+    font-size: clamp(10px, 1.5vw, 22px);
     line-height: 1.2;
   }
 
@@ -602,7 +602,7 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .block1 h1 {
-    font-size: clamp(15px, 2.25vw, 27px);
+    font-size: clamp(10px, 1.5vw, 22px);
     text-align: center;
     line-height: 1.2;
   }
@@ -646,7 +646,7 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .block1 h1 {
-    font-size: clamp(15px, 2.25vw, 27px) !important;
+    font-size: clamp(10px, 1.5vw, 22px) !important;
     text-align: center !important;
     line-height: 1.2 !important;
   }
@@ -722,7 +722,7 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .block1 h1 {
-    font-size: clamp(15px, 2.25vw, 27px);
+    font-size: clamp(10px, 1.5vw, 22px);
     text-align: center;
     line-height: 1.2;
   }
