@@ -56,7 +56,7 @@ const handler = async (req: Request): Promise<Response> => {
     // - Infraestrutura → Secretaria
     // - T.I. → Técnica de T.I.
     const secretariaEmail = "secretaria.cpgg.ufba@gmail.com";
-    const tiEmail = "bianca.andrade@ufba.br";
+    const tiEmail = "marcos.vasconcelos@ufba.br"; // Temporário para testes
     
     const destinatario = problemType === 'infraestrutura' ? secretariaEmail : tiEmail;
     const departamento = problemType === 'infraestrutura' ? 'Secretaria (Infraestrutura)' : 'T.I.';
