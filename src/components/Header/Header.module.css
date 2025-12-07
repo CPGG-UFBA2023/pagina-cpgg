@@ -79,7 +79,7 @@
 .block1 h1 {
   padding: 0;
   margin: 2px 0;
-  font-size: clamp(18px, 2.5vw, 30px);
+  font-size: clamp(54px, 7.5vw, 90px);
   text-align: center;
   white-space: normal;
   font-family: Roboto;
