@@ -57,9 +57,8 @@
 .buttonContainer {
   display: flex;
   justify-content: center;
-  margin-top: -430px;
-  position: relative;
-  z-index: 100010;
+  margin-top: auto;
+  padding-top: 15px;
 }
 
 .auditory1 img {
@@ -140,7 +139,8 @@
   }
 
   .buttonContainer {
-    margin-top: -580px;
+    margin-top: auto;
+    padding-top: 15px;
   }
 }
 
@@ -164,7 +164,8 @@
   }
 
   .buttonContainer {
-    margin-top: -580px;
+    margin-top: auto;
+    padding-top: 15px;
   }
 }
 
@@ -190,7 +191,8 @@
   }
 
   .buttonContainer {
-    margin-top: -580px;
+    margin-top: auto;
+    padding-top: 15px;
   }
 }
 
@@ -205,7 +207,8 @@
   }
 
   .buttonContainer {
-    margin-top: -40px;
+    margin-top: auto;
+    padding-top: 10px;
   }
 }
 
