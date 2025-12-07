@@ -6,6 +6,7 @@ export function GlobalEarth() {
   
   // Hide on specific pages
   const hideOnRoutes = [
+    '/',
     '/researchers', 
     '/Researchers',
     '/technicians', 
