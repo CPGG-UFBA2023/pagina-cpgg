@@ -18,9 +18,6 @@ export function VideoSection({ videoUrl }: VideoSectionProps) {
         Seu navegador não suporta vídeos HTML5.
       </video>
       <div className={styles.overlay}>
-        <h1 className={styles.title}>
-          Centro de Pesquisa em Geofísica e Geologia
-        </h1>
         <div className={styles.scrollIndicator}>
           <span>Deslize para explorar</span>
           <div className={styles.scrollArrow}>↓</div>
