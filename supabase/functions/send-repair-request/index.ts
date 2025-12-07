@@ -52,11 +52,37 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log('Solicitação salva no banco:', savedRequest);
 
-    // Emails configurados conforme especificação:
-    // - Infraestrutura → Secretaria
-    // - T.I. → Técnica de T.I.
-    const secretariaEmail = "secretaria.cpgg.ufba@gmail.com";
-    const tiEmail = "marcos.vasconcelos@ufba.br"; // Temporário para testes
+    // Buscar email do técnico de TI da tabela admin_users
+    let tiEmail = "bianca.andrade@ufba.br"; // Email padrão como fallback
+    const { data: tiUser, error: tiError } = await supabase
+      .from('admin_users')
+      .select('email')
+      .eq('role', 'ti')
+      .limit(1)
+      .single();
+    
+    if (tiUser && tiUser.email) {
+      tiEmail = tiUser.email;
+      console.log('Email do técnico de TI encontrado:', tiEmail);
+    } else {
+      console.log('Usando email padrão de TI:', tiEmail, 'Erro:', tiError?.message);
+    }
+
+    // Buscar email da secretaria da tabela admin_users
+    let secretariaEmail = "secretaria.cpgg.ufba@gmail.com"; // Email padrão como fallback
+    const { data: secretariaUser, error: secretariaError } = await supabase
+      .from('admin_users')
+      .select('email')
+      .eq('role', 'secretaria')
+      .limit(1)
+      .single();
+    
+    if (secretariaUser && secretariaUser.email) {
+      secretariaEmail = secretariaUser.email;
+      console.log('Email da secretaria encontrado:', secretariaEmail);
+    } else {
+      console.log('Usando email padrão de secretaria:', secretariaEmail, 'Erro:', secretariaError?.message);
+    }
     
     const destinatario = problemType === 'infraestrutura' ? secretariaEmail : tiEmail;
     const departamento = problemType === 'infraestrutura' ? 'Secretaria (Infraestrutura)' : 'T.I.';
