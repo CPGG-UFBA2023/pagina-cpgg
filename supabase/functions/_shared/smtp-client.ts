@@ -34,8 +34,12 @@ export async function sendEmail(options: EmailOptions): Promise<EmailResult> {
 
   try {
     const port = parseInt(smtpPort);
-    const useTls = port === 465; // Direct TLS for port 465
-    const useStartTls = port === 587; // STARTTLS for port 587
+    // Port 465 = Direct TLS (tls: true)
+    // Port 587 = STARTTLS (tls: false, library upgrades automatically)
+    // Port 25 = No encryption (tls: false)
+    const useTls = port === 465;
+
+    console.log(`🔧 Configuração: port=${port}, tls=${useTls}`);
 
     const client = new SMTPClient({
       connection: {
