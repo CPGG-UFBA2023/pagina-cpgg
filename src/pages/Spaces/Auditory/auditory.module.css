@@ -57,7 +57,7 @@
 .buttonContainer {
   display: flex;
   justify-content: center;
-  margin-top: -430px;
+  margin-top: -450px;
   position: relative;
   z-index: 100010;
 }
