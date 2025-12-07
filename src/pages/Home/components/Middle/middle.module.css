@@ -1,31 +1,13 @@
-.middle {
+/* Main wrapper for the middle content */
+.middleWrapper {
   display: flex;
   flex-direction: row;
-  padding-top: 140px;
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-bottom: 0;
-  font-family: "Poppins", sans-serif;
-  margin-bottom: 0;
-  height: calc(100vh - 200px);
-  overflow: hidden !important;
-  position: relative;
-}
-
-/* Force no scroll on Home page - desktop only */
-@media (min-width: 1025px) {
-  :global(.Container:has(.middle)) {
-    overflow: hidden !important;
-    height: 100vh !important;
-  }
-  
-  :global(.Container:has(.middle) main) {
-    overflow: hidden !important;
-    overflow-y: hidden !important;
-    padding-bottom: 0 !important;
-    height: auto !important;
-    flex: none !important;
-  }
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: calc(100vh - 200px);
+  padding: 0 2rem;
+  gap: 2rem;
 }
 
 .loading {
@@ -36,31 +18,15 @@
   padding: 2rem;
 }
 
+/* News Carousel */
 .carouselContainer {
   width: 35%;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 2rem;
-  margin-top: -180px;
   flex-shrink: 0;
-  max-height: 100%;
-}
-
-/* 1440px and up - maintain current size */
-@media (min-width: 1440px) {
-  .carouselContainer {
-    width: 35%;
-  }
-  
-  .static {
-    font-size: 45px;
-  }
-  
-  .static > strong {
-    font-size: 90px;
-  }
+  order: 1;
 }
 
 .newsLink {
@@ -155,7 +121,7 @@
 
 .controls {
   position: absolute;
-  bottom: 220px;
+  bottom: -60px;
   left: 0;
   right: 0;
   display: flex;
@@ -212,15 +178,14 @@
   background: white;
 }
 
+/* Static phrase */
 .static {
   color: #fff;
-  margin-top: 50px;
   line-height: 0.5;
-  margin-left: 4.5rem;
   font-size: 45px;
   flex-shrink: 0;
-  overflow: hidden;
-  transform: translateX(-60px);
+  order: 2;
+  text-align: center;
 }
 
 .static > strong {
@@ -247,318 +212,239 @@
   -webkit-text-fill-color: transparent;
 }
 
-.staticFigure img {
-  height: calc(36rem - 50px);
-  margin-top: -3px;
-  padding-left: 300px;
-  margin-bottom: 0;
+/* Earth image - desktop only */
+.earthContainer {
+  order: 3;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.staticFigure {
-  margin-left: 0;
+.earthImage {
+  height: 400px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 50%;
 }
 
-/* Media Queries */
+/* ========== RESPONSIVE STYLES ========== */
 
-/* 1025px to 1439px - ensure horizontal layout is maintained */
-@media (min-width: 1025px) and (max-width: 1439px) {
-  .middle {
-    flex-direction: row !important;
+/* Desktop large (>1440px) */
+@media (min-width: 1440px) {
+  .static {
+    font-size: 50px;
   }
   
-  .static {
-    display: block !important;
-    order: initial !important;
+  .static > strong {
+    font-size: 100px;
+  }
+  
+  .earthImage {
+    height: 450px;
+  }
+}
+
+/* Desktop (1201px - 1439px) */
+@media (min-width: 1201px) and (max-width: 1439px) {
+  .middleWrapper {
+    gap: 1.5rem;
   }
   
   .carouselContainer {
-    order: initial !important;
-    margin-top: -180px !important;
+    width: 32%;
+  }
+  
+  .static {
+    font-size: 40px;
+  }
+  
+  .static > strong {
+    font-size: 80px;
+  }
+  
+  .enjoy {
+    font-size: 26px;
+  }
+  
+  .enjoy > strong {
+    font-size: 26px;
+  }
+  
+  .earthImage {
+    height: 350px;
   }
 }
 
-/* 1024px and below - stack vertically with text on top */
+/* Tablet/Mobile (≤1024px) - Three sections: Phrase, News, Footer */
 @media (max-width: 1024px) {
-  .middle {
-    flex-direction: column !important;
-    align-items: center !important;
-    padding-top: 140px;
-    gap: 1rem;
-    justify-content: flex-start !important;
+  .middleWrapper {
+    flex-direction: column;
+    padding: 2rem 1rem;
+    gap: 3rem;
+    min-height: auto;
   }
   
-  :global(.middle) {
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-  }
-  
+  /* Static phrase first */
   .static {
-    order: 1 !important;
-    font-size: 32px !important;
-    margin: 0 !important;
-    text-align: center !important;
-    transform: none !important;
-    width: 100% !important;
-    position: relative !important;
-    line-height: 0.5 !important;
-    display: block !important;
+    order: 1;
+    font-size: 32px;
+    text-align: center;
+    width: 100%;
+    padding: 2rem 0;
   }
   
   .static > strong {
-    font-size: 64px !important;
+    font-size: 64px;
   }
   
   .enjoy {
-    font-size: 22px !important;
-    text-align: center !important;
-    padding-top: 30px !important;
+    font-size: 22px;
+    padding-top: 25px;
   }
   
   .enjoy > strong {
-    font-size: 22px !important;
+    font-size: 22px;
   }
   
+  /* News carousel second */
   .carouselContainer {
-    order: 2 !important;
-    width: 70% !important;
-    max-width: 600px !important;
-    margin: 0 auto !important;
-    margin-top: -250px !important;
-    position: relative !important;
-  }
-  
-  .imageWrapper {
-    height: 220px !important;
-  }
-  
-  .newsTitle {
-    font-size: 1.1rem !important;
-  }
-  
-  .newsDescription {
-    font-size: 0.9rem !important;
-  }
-  
-  .staticFigure {
-    display: none !important;
-  }
-}
-
-/* 834px and below - keep text above news */
-@media (max-width: 834px) {
-  .middle {
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    padding-top: 200px !important;
-    padding-bottom: 100px !important;
-  }
-  
-  .static {
-    display: block !important;
-    order: 1 !important;
-    font-size: 24px !important;
-    margin: 0 !important;
-    text-align: center !important;
-    transform: none !important;
-    width: 100% !important;
-    line-height: 0.8 !important;
-    margin-bottom: 30px !important;
-  }
-  
-  .static > strong {
-    font-size: 48px !important;
-  }
-  
-  .enjoy {
-    font-size: 18px !important;
-    padding-top: 25px !important;
-    line-height: 1.4 !important;
-  }
-  
-  .enjoy > strong {
-    font-size: 18px !important;
-  }
-  
-  .carouselContainer {
-    order: 2 !important;
-    width: 90%;
+    order: 2;
+    width: 80%;
     max-width: 600px;
     margin: 0 auto;
-    margin-top: 0;
-  }
-  
-  .newsCard {
-    transform: scale(0.85);
-  }
-  
-  .newsCard:hover {
-    transform: scale(0.85) translateY(-4px);
-  }
-  
-  .staticFigure {
-    display: none !important;
   }
   
   .imageWrapper {
-    height: 280px;
+    height: 250px;
+  }
+  
+  .controls {
+    bottom: -50px;
+  }
+  
+  /* Hide earth on mobile */
+  .earthContainer {
+    display: none;
   }
 }
 
-@media (min-width: 1201px) and (max-width: 1439px) and (max-height: 1100px) {
-  .staticFigure img {
-    padding-left: 150px;
-    margin-top: 20px;
-  }
-
+/* Smaller tablets (≤834px) */
+@media (max-width: 834px) {
   .static {
-    margin-top: 50px;
-    margin-left: 3rem;
+    font-size: 28px;
+  }
+  
+  .static > strong {
+    font-size: 56px;
+  }
+  
+  .enjoy {
+    font-size: 20px;
+  }
+  
+  .enjoy > strong {
+    font-size: 20px;
+  }
+  
+  .carouselContainer {
+    width: 90%;
+  }
+  
+  .imageWrapper {
+    height: 220px;
   }
 }
 
-
+/* Mobile (≤600px) */
 @media (max-width: 600px) {
+  .middleWrapper {
+    padding: 1.5rem 1rem;
+    gap: 2rem;
+  }
+  
+  .static {
+    font-size: 22px;
+    padding: 1.5rem 0;
+  }
+  
+  .static > strong {
+    font-size: 44px;
+  }
+  
+  .enjoy {
+    font-size: 16px;
+    padding-top: 20px;
+  }
+  
+  .enjoy > strong {
+    font-size: 16px;
+  }
+  
   .carouselContainer {
-    width: 95%;
+    width: 100%;
   }
-
+  
   .imageWrapper {
-    height: 240px;
+    height: 200px;
   }
-
+  
   .newsTitle {
     font-size: 1rem;
   }
-
+  
   .newsDescription {
     font-size: 0.85rem;
   }
-
+  
   .navButton {
     width: 36px;
     height: 36px;
   }
 }
 
-@media (max-width: 500px) {
-  .carouselContainer {
-    width: calc(100% + 40px) !important;
-    margin-left: -20px !important;
-    margin-right: -20px !important;
-  }
-}
-
-@media (max-width: 500px) and (max-height: 980px) {
-  .middle {
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    gap: 0 !important;
-    padding-top: 150px !important;
-    padding-bottom: 120px !important;
-  }
-  
+/* Small phones (≤390px) */
+@media (max-width: 390px) {
   .static {
-    display: block !important;
-    order: 1 !important;
-    font-size: 17px !important;
-    margin: 0 !important;
-    text-align: center !important;
-    transform: translateY(-55px) !important;
-    width: 100% !important;
-    position: relative !important;
-    line-height: 0.8 !important;
-    margin-bottom: 20px !important;
-    padding-top: 0 !important;
+    font-size: 18px;
   }
   
   .static > strong {
-    font-size: 34px !important;
+    font-size: 36px;
   }
   
   .enjoy {
-    font-size: 14px !important;
-    text-align: center !important;
-    padding-top: 20px !important;
-    line-height: 1.4 !important;
+    font-size: 14px;
   }
   
   .enjoy > strong {
-    font-size: 14px !important;
-  }
-  
-  .carouselContainer {
-    transform: translateY(-320px);
-    order: 2 !important;
-    margin-top: 20px !important;
-  }
-  
-  .newsCard {
-    transform: scale(0.63);
-  }
-  
-  .newsCard:hover {
-    transform: scale(0.63) translateY(-4px);
+    font-size: 14px;
   }
   
   .imageWrapper {
-    height: 253px;
+    height: 180px;
   }
   
-  .playPauseButton {
-    padding: 3px 6px;
-    font-size: 6px;
-  }
-  
-  .dot {
-    width: 5px;
-    height: 5px;
-  }
-  
-  .dotActive {
-    width: 6px;
-    height: 6px;
+  .newsContent {
+    padding: 1rem;
   }
   
   .controls {
-    bottom: 215px;
-  }
-}
-
-@media (orientation: portrait) and (max-width: 414px) {
-  .imageWrapper {
-    height: 220px;
-  }
-}
-
-@media (orientation: portrait) and (max-width: 375px) {
-  .imageWrapper {
-    height: 200px;
-  }
-}
-
-/* Reduce news cards by 8% for resolutions <= 390x844 */
-@media (max-width: 390px) and (max-height: 844px) {
-  .newsCard {
-    transform: scale(0.58);
+    bottom: -40px;
   }
   
-  .newsCard:hover {
-    transform: scale(0.58) translateY(-4px);
+  .playPauseButton {
+    padding: 4px 8px;
+    font-size: 10px;
   }
   
-  .navButton {
-    width: 29px;
-    height: 29px;
+  .dot {
+    width: 8px;
+    height: 8px;
   }
   
-  .navButtonLeft {
-    left: 8px;
-  }
-  
-  .navButtonRight {
-    right: 8px;
+  .dotActive {
+    width: 10px;
+    height: 10px;
   }
 }

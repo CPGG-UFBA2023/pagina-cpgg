@@ -107,7 +107,22 @@ export function Middle() {
   const currentArticle = displayArticles[currentIndex]
 
   return (
-    <>
+    <div className={styles.middleWrapper}>
+      {/* Desktop: News on left, static text center, earth right */}
+      {/* Mobile: Phrase section, then news section */}
+      
+      {/* Static phrase section */}
+      <div className={styles.static}>
+        <strong>Earth</strong>
+        <h1>is our Goal</h1>
+        <div className={styles.enjoy}>
+          <h1>Enjoy our best solutions for </h1>
+          <strong>scientific</strong>
+          <h1>and trade proposals</h1>
+        </div>
+      </div>
+
+      {/* News carousel section */}
       <div className={styles.carouselContainer}>
         {currentArticle && (
           <a href={getNewsRoute(currentArticle.news_position)} className={styles.newsLink}>
@@ -171,15 +186,10 @@ export function Middle() {
         )}
       </div>
 
-      <div className={styles.static}>
-        <strong>Earth</strong>
-        <h1>is our Goal</h1>
-        <div className={styles.enjoy}>
-          <h1>Enjoy our best solutions for </h1>
-          <strong>scientific</strong>
-          <h1>and trade proposals</h1>
-        </div>
+      {/* Earth image - desktop only */}
+      <div className={styles.earthContainer}>
+        <img src={earth} alt="Earth" className={styles.earthImage} />
       </div>
-    </>
+    </div>
   )
 }
