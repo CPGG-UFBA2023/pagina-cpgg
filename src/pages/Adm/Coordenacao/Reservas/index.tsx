@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useToast } from '@/hooks/use-toast'
 import { supabase } from '@/integrations/supabase/client'
-import { LogOut, Download, FileText, BarChart3, Calendar, User, MapPin, Clock, ArrowLeft, Edit, Save, X, Trash2 } from 'lucide-react'
+import { LogOut, Download, FileText, BarChart3, Calendar, User, MapPin, Clock, ArrowLeft, Edit, Save, X, Trash2, Undo2 } from 'lucide-react'
 import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts'
@@ -47,6 +47,8 @@ export function ReservasAdmin() {
   const [isLoading, setIsLoading] = useState(true)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editData, setEditData] = useState<Partial<Reservation>>({})
+  const [deletedReservations, setDeletedReservations] = useState<Reservation[]>([])
+  const [lastDeleteType, setLastDeleteType] = useState<'physical' | 'laboratory' | 'all' | null>(null)
   const { toast } = useToast()
   const navigate = useNavigate()
 
@@ -234,29 +236,120 @@ export function ReservasAdmin() {
     }
   }
 
-  const handleDeleteAllReservations = async () => {
-    if (!confirm('Tem certeza que deseja apagar TODAS as reservas? Esta ação não pode ser desfeita.')) {
+  const handleDeleteReservationsByType = async (type: 'physical' | 'laboratory' | 'all') => {
+    const typeLabels = {
+      physical: 'espaços físicos',
+      laboratory: 'laboratórios',
+      all: 'TODAS as reservas'
+    }
+
+    if (!confirm(`Tem certeza que deseja apagar as reservas de ${typeLabels[type]}?`)) {
       return
     }
 
     try {
+      const physicalSpaces = ['auditorio', 'sala_reuniao']
+      const laboratories = ['laiga_equipments', 'lagep', 'lamod']
+      
+      let reservationsToDelete: Reservation[] = []
+      
+      if (type === 'physical') {
+        reservationsToDelete = reservations.filter(r => physicalSpaces.includes(r.tipo_reserva))
+      } else if (type === 'laboratory') {
+        reservationsToDelete = reservations.filter(r => laboratories.includes(r.tipo_reserva))
+      } else {
+        reservationsToDelete = [...reservations]
+      }
+
+      if (reservationsToDelete.length === 0) {
+        toast({
+          title: "Aviso",
+          description: "Não há reservas para apagar nesta categoria",
+        })
+        return
+      }
+
+      // Store for undo
+      setDeletedReservations(reservationsToDelete)
+      setLastDeleteType(type)
+
+      const idsToDelete = reservationsToDelete.map(r => r.id)
+
       const { error } = await supabase
         .from('reservations')
         .delete()
-        .neq('id', '00000000-0000-0000-0000-000000000000') // Delete all records
+        .in('id', idsToDelete)
 
       if (error) throw error
 
       await fetchReservations()
       toast({
         title: "Sucesso",
-        description: "Todas as reservas foram apagadas",
+        description: `${reservationsToDelete.length} reservas de ${typeLabels[type]} foram apagadas`,
+        action: (
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={handleUndoDelete}
+            className="gap-1"
+          >
+            <Undo2 className="w-3 h-3" />
+            Desfazer
+          </Button>
+        ),
       })
     } catch (error: any) {
-      console.error('Erro ao apagar todas as reservas:', error)
+      console.error('Erro ao apagar reservas:', error)
       toast({
         title: "Erro",
-        description: "Erro ao apagar todas as reservas",
+        description: "Erro ao apagar reservas",
+        variant: "destructive",
+      })
+    }
+  }
+
+  const handleUndoDelete = async () => {
+    if (deletedReservations.length === 0) {
+      toast({
+        title: "Aviso",
+        description: "Não há reservas para restaurar",
+      })
+      return
+    }
+
+    try {
+      // Reinsert all deleted reservations
+      const { error } = await supabase
+        .from('reservations')
+        .insert(deletedReservations.map(r => ({
+          id: r.id,
+          nome: r.nome,
+          sobrenome: r.sobrenome,
+          email: r.email,
+          uso: r.uso,
+          tipo_reserva: r.tipo_reserva,
+          inicio: r.inicio,
+          termino: r.termino,
+          status: r.status,
+          created_at: r.created_at,
+          equipamento: r.equipamento
+        })))
+
+      if (error) throw error
+
+      setDeletedReservations([])
+      setLastDeleteType(null)
+      await fetchReservations()
+      
+      toast({
+        title: "Sucesso",
+        description: `${deletedReservations.length} reservas foram restauradas`,
+      })
+    } catch (error: any) {
+      console.error('Erro ao restaurar reservas:', error)
+      toast({
+        title: "Erro",
+        description: "Erro ao restaurar reservas",
         variant: "destructive",
       })
     }
@@ -615,10 +708,17 @@ export function ReservasAdmin() {
                 Gerar PDF
               </Button>
               
-              <Button onClick={handleDeleteAllReservations} variant="destructive">
+              <Button onClick={() => handleDeleteReservationsByType('physical')} variant="destructive">
                 <Trash2 className="w-4 h-4 mr-2" />
-                Apagar Todas
+                Apagar Espaços Físicos
               </Button>
+              
+              {deletedReservations.length > 0 && lastDeleteType === 'physical' && (
+                <Button onClick={handleUndoDelete} variant="outline" className="gap-1">
+                  <Undo2 className="w-4 h-4" />
+                  Desfazer ({deletedReservations.length})
+                </Button>
+              )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -923,10 +1023,17 @@ export function ReservasAdmin() {
                 Gerar PDF
               </Button>
               
-              <Button onClick={handleDeleteAllReservations} variant="destructive">
+              <Button onClick={() => handleDeleteReservationsByType('laboratory')} variant="destructive">
                 <Trash2 className="w-4 h-4 mr-2" />
-                Apagar Todas
+                Apagar Laboratórios
               </Button>
+              
+              {deletedReservations.length > 0 && lastDeleteType === 'laboratory' && (
+                <Button onClick={handleUndoDelete} variant="outline" className="gap-1">
+                  <Undo2 className="w-4 h-4" />
+                  Desfazer ({deletedReservations.length})
+                </Button>
+              )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -1214,6 +1321,26 @@ export function ReservasAdmin() {
 
           {/* Visão Geral Tab */}
           <TabsContent value="overview" className="space-y-6">
+            <div className="flex flex-wrap gap-3 mb-6">
+              <Button onClick={() => handleDeleteReservationsByType('physical')} variant="outline" className="gap-2">
+                <Trash2 className="w-4 h-4" />
+                Apagar Espaços Físicos
+              </Button>
+              <Button onClick={() => handleDeleteReservationsByType('laboratory')} variant="outline" className="gap-2">
+                <Trash2 className="w-4 h-4" />
+                Apagar Laboratórios
+              </Button>
+              <Button onClick={() => handleDeleteReservationsByType('all')} variant="destructive" className="gap-2">
+                <Trash2 className="w-4 h-4" />
+                Apagar Todas
+              </Button>
+              {deletedReservations.length > 0 && (
+                <Button onClick={handleUndoDelete} variant="secondary" className="gap-2">
+                  <Undo2 className="w-4 h-4" />
+                  Desfazer ({deletedReservations.length} reservas)
+                </Button>
+              )}
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
