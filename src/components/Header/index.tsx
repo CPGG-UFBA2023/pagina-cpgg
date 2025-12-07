@@ -44,11 +44,13 @@ export function Header() {
       <div className={styles.figure}>
         <img src={logocpgg} alt='CPGG' />
       </div>
-      
-      <div className={styles.block1}>
-        <h1>{t('header.institutionTitle1')}</h1>
-        <h1>{t('header.institutionTitle2')}</h1>
-        <h1>{t('header.institutionTitle3')}</h1>
+
+      <div className={styles.centerContent}>
+        <div className={styles.block1}>
+          <h1>{t('header.institutionTitle1')}</h1>
+          <h1>{t('header.institutionTitle2')}</h1>
+          <h1>{t('header.institutionTitle3')}</h1>
+        </div>
       </div>
 
       <div className={styles.logoufba}>
