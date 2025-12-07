@@ -148,13 +148,13 @@
   background-color: rgba(255,255,255, 0.2);
   position: absolute;
   width: 200px;
-  height: 130px;
+  height: 200px;
   top: 860px;
   left: 2%;
   padding: 10px;
   border-radius: 20px;
   gap: 5px;
-  background-size: contain;
+  background-size: 130%;
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -163,7 +163,7 @@
   font-size: 10px;
   right: 10px;
   left: 10px;
-  bottom: -25px;
+  bottom: -40px;
   position: absolute;
   line-height: 1.2;
 }
