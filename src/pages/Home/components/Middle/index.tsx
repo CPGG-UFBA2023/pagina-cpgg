@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from '@/integrations/supabase/client'
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
 import styles from './middle.module.css'
-import earth from '../../../../assets/earth-photos.jpg'
+
 
 interface NewsArticle {
   id: string
@@ -186,10 +186,6 @@ export function Middle() {
         )}
       </div>
 
-      {/* Earth image - desktop only */}
-      <div className={styles.earthContainer}>
-        <img src={earth} alt="Earth" className={styles.earthImage} />
-      </div>
     </div>
   )
 }
