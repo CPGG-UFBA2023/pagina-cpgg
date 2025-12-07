@@ -209,11 +209,15 @@ export function ReservasAdmin() {
   }
 
   const handleDeleteReservation = async (id: string) => {
-    if (!confirm('Tem certeza que deseja apagar esta reserva? Esta ação não pode ser desfeita.')) {
+    if (!confirm('Tem certeza que deseja apagar esta reserva?')) {
       return
     }
 
     try {
+      // Find the reservation to delete and store it for undo
+      const reservationToDelete = reservations.find(r => r.id === id)
+      if (!reservationToDelete) return
+
       const { error } = await supabase
         .from('reservations')
         .delete()
@@ -221,10 +225,25 @@ export function ReservasAdmin() {
 
       if (error) throw error
 
+      // Store for undo
+      setDeletedReservations([reservationToDelete])
+      setLastDeleteType('individual')
+
       await fetchReservations()
       toast({
         title: "Sucesso",
         description: "Reserva apagada com sucesso",
+        action: (
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={handleUndoDelete}
+            className="gap-1"
+          >
+            <Undo2 className="w-3 h-3" />
+            Desfazer
+          </Button>
+        ),
       })
     } catch (error: any) {
       console.error('Erro ao apagar reserva:', error)
