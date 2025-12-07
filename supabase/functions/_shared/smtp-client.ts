@@ -51,6 +51,12 @@ export async function sendEmail(options: EmailOptions): Promise<EmailResult> {
 
     const result = await resend.emails.send(emailConfig);
     
+    // Check if Resend returned an error
+    if (result.error) {
+      console.error("❌ Erro do Resend:", result.error);
+      return { success: false, error: result.error.message };
+    }
+    
     console.log("✅ Email enviado com sucesso via Resend:", result);
     return { success: true };
   } catch (error) {
