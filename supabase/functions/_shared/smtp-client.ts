@@ -33,11 +33,15 @@ export async function sendEmail(options: EmailOptions): Promise<EmailResult> {
   console.log(`📧 Enviando email via SMTP (${smtpHost}:${smtpPort}) para ${toAddresses.join(", ")}`);
 
   try {
+    const port = parseInt(smtpPort);
+    const useTls = port === 465; // Direct TLS for port 465
+    const useStartTls = port === 587; // STARTTLS for port 587
+
     const client = new SMTPClient({
       connection: {
         hostname: smtpHost,
-        port: parseInt(smtpPort),
-        tls: true,
+        port: port,
+        tls: useTls,
         auth: {
           username: smtpUser,
           password: smtpPassword,
