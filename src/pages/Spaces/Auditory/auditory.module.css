@@ -22,17 +22,16 @@
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   color: #fff;
   position: relative;
-  overflow: visible;
-  padding-top: 20px;
+  overflow: hidden !important;
 }
 
 .box ul {
-  font-size: 22px;
+  font-size: 28px;
   color: #363F5;
-  margin: 0 0 12px 0;
+  margin: 0 0 20px 0;
   padding: 0;
   list-style: none;
   text-align: center;
@@ -41,23 +40,26 @@
 .gallery {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 120px;
+  grid-template-rows: repeat(1, 18vw);
   grid-gap: 10px;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
 .textContent {
-  font-size: 12px;
+  font-size: 14px;
   text-align: justify;
-  line-height: 16px;
+  line-height: 20px;
   color: #fff;
-  margin-bottom: 8px;
+  margin-bottom: 20px;
+  flex: 1;
 }
 
 .buttonContainer {
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: -430px;
+  position: relative;
+  z-index: 100010;
 }
 
 .auditory1 img {
@@ -96,20 +98,18 @@
   background-color: rgba(255, 255, 255, 0.2);
   position: absolute;
   width: 600px;
-  max-height: calc(100vh - 200px);
-  overflow-y: auto;
-  top: 110px;
+  height: 600px;
+  top: calc(50% - 5px);
   left: 50%;
-  transform: translateX(calc(-50% - 330px));
+  transform: translate(calc(-50% - 330px), -50%);
   padding: 20px;
-  padding-bottom: 30px;
   border-radius: 20px;
   margin: 0;
 }
 
 @media (min-width: 1201px) {
   .box {
-    top: 130px;
+    top: calc(50% + 50px);
   }
 }
 
@@ -136,11 +136,11 @@
   }
 
   .gallery {
-    grid-template-rows: 160px;
+    grid-template-rows: repeat(1, 22vw);
   }
 
   .buttonContainer {
-    margin-top: 10px;
+    margin-top: -580px;
   }
 }
 
@@ -160,11 +160,11 @@
   }
 
   .gallery {
-    grid-template-rows: 140px;
+    grid-template-rows: repeat(1, 28vw);
   }
 
   .buttonContainer {
-    margin-top: 10px;
+    margin-top: -580px;
   }
 }
 
@@ -186,13 +186,14 @@
   }
 
   .gallery {
-    grid-template-rows: 120px;
+    grid-template-rows: repeat(1, 35vw);
   }
 
   .buttonContainer {
-    margin-top: 10px;
+    margin-top: -580px;
   }
 }
+
 
 /* Scroll dentro da box para resoluções 390x844 ou menores */
 @media (max-width: 390px) and (max-height: 844px) {
@@ -204,7 +205,7 @@
   }
 
   .buttonContainer {
-    margin-top: 10px;
+    margin-top: -40px;
   }
 }
 
