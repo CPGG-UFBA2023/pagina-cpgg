@@ -22,16 +22,17 @@
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   color: #fff;
   position: relative;
-  overflow: hidden !important;
+  overflow: visible;
+  padding-top: 20px;
 }
 
 .box ul {
-  font-size: 28px;
+  font-size: 22px;
   color: #363F5;
-  margin: 0 0 20px 0;
+  margin: 0 0 12px 0;
   padding: 0;
   list-style: none;
   text-align: center;
@@ -40,17 +41,17 @@
 .gallery {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(1, 18vw);
+  grid-template-rows: 120px;
   grid-gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .textContent {
-  font-size: 14px;
+  font-size: 12px;
   text-align: justify;
-  line-height: 20px;
+  line-height: 16px;
   color: #fff;
-  margin-bottom: 15px;
+  margin-bottom: 8px;
 }
 
 .buttonContainer {
@@ -95,18 +96,20 @@
   background-color: rgba(255, 255, 255, 0.2);
   position: absolute;
   width: 600px;
-  height: 600px;
-  top: calc(50% - 5px);
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  top: 110px;
   left: 50%;
-  transform: translate(calc(-50% - 330px), -50%);
+  transform: translateX(calc(-50% - 330px));
   padding: 20px;
+  padding-bottom: 30px;
   border-radius: 20px;
   margin: 0;
 }
 
 @media (min-width: 1201px) {
   .box {
-    top: calc(50% + 50px);
+    top: 130px;
   }
 }
 
@@ -133,7 +136,7 @@
   }
 
   .gallery {
-    grid-template-rows: repeat(1, 22vw);
+    grid-template-rows: 160px;
   }
 
   .buttonContainer {
@@ -157,7 +160,7 @@
   }
 
   .gallery {
-    grid-template-rows: repeat(1, 28vw);
+    grid-template-rows: 140px;
   }
 
   .buttonContainer {
@@ -183,7 +186,7 @@
   }
 
   .gallery {
-    grid-template-rows: repeat(1, 35vw);
+    grid-template-rows: 120px;
   }
 
   .buttonContainer {
