@@ -48,8 +48,8 @@ export function Header() {
       <div className={styles.centerContent}>
         <div className={styles.block1}>
           <h1>{t('header.institutionTitle1')}</h1>
-          <h1>{t('header.institutionTitle2')}</h1>
-          <h1>{t('header.institutionTitle3')}</h1>
+          <h2 className={styles.subTitle}>{t('header.institutionTitle2')}</h2>
+          <h2 className={styles.subTitle}>{t('header.institutionTitle3')}</h2>
         </div>
       </div>
 

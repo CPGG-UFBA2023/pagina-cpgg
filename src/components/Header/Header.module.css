@@ -89,6 +89,18 @@
   line-height: 1.2;
 }
 
+.subTitle {
+  padding: 0;
+  margin: 2px 0;
+  font-size: clamp(4px, 0.85vw, 15px);
+  text-align: center;
+  white-space: normal;
+  font-family: Roboto;
+  font-weight: 600;
+  color: white;
+  line-height: 1.2;
+}
+
 .logo {
   margin-left: 0;
 }
