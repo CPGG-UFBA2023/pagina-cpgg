@@ -48,7 +48,7 @@ export function ReservasAdmin() {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editData, setEditData] = useState<Partial<Reservation>>({})
   const [deletedReservations, setDeletedReservations] = useState<Reservation[]>([])
-  const [lastDeleteType, setLastDeleteType] = useState<'physical' | 'laboratory' | 'all' | null>(null)
+  const [lastDeleteType, setLastDeleteType] = useState<string | null>(null)
   const { toast } = useToast()
   const navigate = useNavigate()
 
@@ -236,14 +236,19 @@ export function ReservasAdmin() {
     }
   }
 
-  const handleDeleteReservationsByType = async (type: 'physical' | 'laboratory' | 'all') => {
-    const typeLabels = {
+  const handleDeleteReservationsByType = async (type: string) => {
+    const typeLabels: Record<string, string> = {
       physical: 'espaços físicos',
       laboratory: 'laboratórios',
-      all: 'TODAS as reservas'
+      all: 'TODAS as reservas',
+      auditorio: 'Auditório',
+      sala_reuniao: 'Sala de Reuniões',
+      laiga_equipments: 'LAIGA',
+      lagep: 'LAGEP',
+      lamod: 'LAMOD'
     }
 
-    if (!confirm(`Tem certeza que deseja apagar as reservas de ${typeLabels[type]}?`)) {
+    if (!confirm(`Tem certeza que deseja apagar as reservas de ${typeLabels[type] || type}?`)) {
       return
     }
 
@@ -257,8 +262,11 @@ export function ReservasAdmin() {
         reservationsToDelete = reservations.filter(r => physicalSpaces.includes(r.tipo_reserva))
       } else if (type === 'laboratory') {
         reservationsToDelete = reservations.filter(r => laboratories.includes(r.tipo_reserva))
-      } else {
+      } else if (type === 'all') {
         reservationsToDelete = [...reservations]
+      } else {
+        // Specific type (auditorio, sala_reuniao, laiga_equipments, lagep, lamod)
+        reservationsToDelete = reservations.filter(r => r.tipo_reserva === type)
       }
 
       if (reservationsToDelete.length === 0) {
@@ -285,7 +293,7 @@ export function ReservasAdmin() {
       await fetchReservations()
       toast({
         title: "Sucesso",
-        description: `${reservationsToDelete.length} reservas de ${typeLabels[type]} foram apagadas`,
+        description: `${reservationsToDelete.length} reservas de ${typeLabels[type] || type} foram apagadas`,
         action: (
           <Button 
             variant="outline" 
@@ -708,12 +716,22 @@ export function ReservasAdmin() {
                 Gerar PDF
               </Button>
               
-              <Button onClick={() => handleDeleteReservationsByType('physical')} variant="destructive">
+              <Button onClick={() => handleDeleteReservationsByType('auditorio')} variant="outline" className="text-destructive border-destructive hover:bg-destructive hover:text-destructive-foreground">
                 <Trash2 className="w-4 h-4 mr-2" />
-                Apagar Espaços Físicos
+                Apagar Auditório
               </Button>
               
-              {deletedReservations.length > 0 && lastDeleteType === 'physical' && (
+              <Button onClick={() => handleDeleteReservationsByType('sala_reuniao')} variant="outline" className="text-destructive border-destructive hover:bg-destructive hover:text-destructive-foreground">
+                <Trash2 className="w-4 h-4 mr-2" />
+                Apagar Sala Reuniões
+              </Button>
+              
+              <Button onClick={() => handleDeleteReservationsByType('physical')} variant="destructive">
+                <Trash2 className="w-4 h-4 mr-2" />
+                Apagar Todos Espaços
+              </Button>
+              
+              {deletedReservations.length > 0 && (lastDeleteType === 'physical' || lastDeleteType === 'auditorio' || lastDeleteType === 'sala_reuniao') && (
                 <Button onClick={handleUndoDelete} variant="outline" className="gap-1">
                   <Undo2 className="w-4 h-4" />
                   Desfazer ({deletedReservations.length})
@@ -1023,12 +1041,27 @@ export function ReservasAdmin() {
                 Gerar PDF
               </Button>
               
-              <Button onClick={() => handleDeleteReservationsByType('laboratory')} variant="destructive">
+              <Button onClick={() => handleDeleteReservationsByType('laiga_equipments')} variant="outline" className="text-destructive border-destructive hover:bg-destructive hover:text-destructive-foreground">
                 <Trash2 className="w-4 h-4 mr-2" />
-                Apagar Laboratórios
+                Apagar LAIGA
               </Button>
               
-              {deletedReservations.length > 0 && lastDeleteType === 'laboratory' && (
+              <Button onClick={() => handleDeleteReservationsByType('lagep')} variant="outline" className="text-destructive border-destructive hover:bg-destructive hover:text-destructive-foreground">
+                <Trash2 className="w-4 h-4 mr-2" />
+                Apagar LAGEP
+              </Button>
+              
+              <Button onClick={() => handleDeleteReservationsByType('lamod')} variant="outline" className="text-destructive border-destructive hover:bg-destructive hover:text-destructive-foreground">
+                <Trash2 className="w-4 h-4 mr-2" />
+                Apagar LAMOD
+              </Button>
+              
+              <Button onClick={() => handleDeleteReservationsByType('laboratory')} variant="destructive">
+                <Trash2 className="w-4 h-4 mr-2" />
+                Apagar Todos Labs
+              </Button>
+              
+              {deletedReservations.length > 0 && (lastDeleteType === 'laboratory' || lastDeleteType === 'laiga_equipments' || lastDeleteType === 'lagep' || lastDeleteType === 'lamod') && (
                 <Button onClick={handleUndoDelete} variant="outline" className="gap-1">
                   <Undo2 className="w-4 h-4" />
                   Desfazer ({deletedReservations.length})
@@ -1322,22 +1355,47 @@ export function ReservasAdmin() {
           {/* Visão Geral Tab */}
           <TabsContent value="overview" className="space-y-6">
             <div className="flex flex-wrap gap-3 mb-6">
-              <Button onClick={() => handleDeleteReservationsByType('physical')} variant="outline" className="gap-2">
-                <Trash2 className="w-4 h-4" />
-                Apagar Espaços Físicos
+              <span className="text-sm font-medium text-muted-foreground self-center">Espaços:</span>
+              <Button onClick={() => handleDeleteReservationsByType('auditorio')} variant="outline" size="sm" className="gap-1">
+                <Trash2 className="w-3 h-3" />
+                Auditório
               </Button>
-              <Button onClick={() => handleDeleteReservationsByType('laboratory')} variant="outline" className="gap-2">
-                <Trash2 className="w-4 h-4" />
-                Apagar Laboratórios
+              <Button onClick={() => handleDeleteReservationsByType('sala_reuniao')} variant="outline" size="sm" className="gap-1">
+                <Trash2 className="w-3 h-3" />
+                Sala Reuniões
               </Button>
-              <Button onClick={() => handleDeleteReservationsByType('all')} variant="destructive" className="gap-2">
-                <Trash2 className="w-4 h-4" />
+              <Button onClick={() => handleDeleteReservationsByType('physical')} variant="outline" size="sm" className="gap-1 text-destructive border-destructive">
+                <Trash2 className="w-3 h-3" />
+                Todos Espaços
+              </Button>
+              
+              <span className="text-sm font-medium text-muted-foreground self-center ml-4">Labs:</span>
+              <Button onClick={() => handleDeleteReservationsByType('laiga_equipments')} variant="outline" size="sm" className="gap-1">
+                <Trash2 className="w-3 h-3" />
+                LAIGA
+              </Button>
+              <Button onClick={() => handleDeleteReservationsByType('lagep')} variant="outline" size="sm" className="gap-1">
+                <Trash2 className="w-3 h-3" />
+                LAGEP
+              </Button>
+              <Button onClick={() => handleDeleteReservationsByType('lamod')} variant="outline" size="sm" className="gap-1">
+                <Trash2 className="w-3 h-3" />
+                LAMOD
+              </Button>
+              <Button onClick={() => handleDeleteReservationsByType('laboratory')} variant="outline" size="sm" className="gap-1 text-destructive border-destructive">
+                <Trash2 className="w-3 h-3" />
+                Todos Labs
+              </Button>
+              
+              <Button onClick={() => handleDeleteReservationsByType('all')} variant="destructive" size="sm" className="gap-1 ml-4">
+                <Trash2 className="w-3 h-3" />
                 Apagar Todas
               </Button>
+              
               {deletedReservations.length > 0 && (
-                <Button onClick={handleUndoDelete} variant="secondary" className="gap-2">
-                  <Undo2 className="w-4 h-4" />
-                  Desfazer ({deletedReservations.length} reservas)
+                <Button onClick={handleUndoDelete} variant="secondary" size="sm" className="gap-1">
+                  <Undo2 className="w-3 h-3" />
+                  Desfazer ({deletedReservations.length})
                 </Button>
               )}
             </div>
