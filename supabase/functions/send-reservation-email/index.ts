@@ -52,8 +52,21 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error(`Erro ao salvar reserva no banco: ${dbError.message}`);
     }
 
-    // Email da secretária (configurável)
-    const secretariaEmail = "secretaria.cpgg.ufba@gmail.com";
+    // Buscar email da secretaria da tabela admin_users
+    let secretariaEmail = "secretaria.cpgg.ufba@gmail.com"; // Email padrão como fallback
+    const { data: secretariaUser, error: secretariaError } = await supabase
+      .from('admin_users')
+      .select('email')
+      .eq('role', 'secretaria')
+      .limit(1)
+      .single();
+    
+    if (secretariaUser && secretariaUser.email) {
+      secretariaEmail = secretariaUser.email;
+      console.log('Email da secretaria encontrado:', secretariaEmail);
+    } else {
+      console.log('Usando email padrão de secretaria:', secretariaEmail, 'Erro:', secretariaError?.message);
+    }
 
     // Formatar datas
     const inicioFormatado = new Date(inicio).toLocaleString('pt-BR');
@@ -61,6 +74,8 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Tipo de espaço
     const espacoNome = tipoReserva === 'auditorio' ? 'Auditório' : 'Sala de Reuniões';
+
+    console.log(`Enviando email para Secretaria: ${secretariaEmail}`);
 
     // Enviar email via SMTP
     const emailResult = await sendEmail({
