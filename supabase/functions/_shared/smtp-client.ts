@@ -1,4 +1,4 @@
-import { Resend } from "npm:resend@2.0.0";
+import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
 
 interface EmailOptions {
   to: string | string[];
@@ -18,49 +18,47 @@ interface EmailResult {
 }
 
 export async function sendEmail(options: EmailOptions): Promise<EmailResult> {
-  const resendApiKey = Deno.env.get("RESEND_API_KEY");
+  const smtpHost = Deno.env.get("SMTP_HOST");
+  const smtpPort = Deno.env.get("SMTP_PORT");
+  const smtpUser = Deno.env.get("SMTP_USER");
+  const smtpPassword = Deno.env.get("SMTP_PASSWORD");
 
-  if (!resendApiKey) {
-    console.error("RESEND_API_KEY not configured");
-    return { success: false, error: "RESEND_API_KEY não configurada" };
+  if (!smtpHost || !smtpPort || !smtpUser || !smtpPassword) {
+    console.error("❌ Configuração SMTP incompleta");
+    return { success: false, error: "Configuração SMTP incompleta" };
   }
 
-  const resend = new Resend(resendApiKey);
   const toAddresses = Array.isArray(options.to) ? options.to : [options.to];
 
-  console.log(`📧 Enviando email via Resend para ${toAddresses.join(", ")}`);
+  console.log(`📧 Enviando email via SMTP (${smtpHost}:${smtpPort}) para ${toAddresses.join(", ")}`);
 
   try {
-    const emailConfig: any = {
-      from: "CPGG UFBA <onboarding@resend.dev>",
+    const client = new SMTPClient({
+      connection: {
+        hostname: smtpHost,
+        port: parseInt(smtpPort),
+        tls: true,
+        auth: {
+          username: smtpUser,
+          password: smtpPassword,
+        },
+      },
+    });
+
+    await client.send({
+      from: `CPGG UFBA <${smtpUser}>`,
       to: toAddresses,
       subject: options.subject,
       html: options.html,
-    };
+      replyTo: options.replyTo,
+    });
 
-    if (options.replyTo) {
-      emailConfig.reply_to = options.replyTo;
-    }
+    await client.close();
 
-    if (options.attachments && options.attachments.length > 0) {
-      emailConfig.attachments = options.attachments.map((att) => ({
-        filename: att.filename,
-        content: att.content, // Resend accepts base64 directly
-      }));
-    }
-
-    const result = await resend.emails.send(emailConfig);
-    
-    // Check if Resend returned an error
-    if (result.error) {
-      console.error("❌ Erro do Resend:", result.error);
-      return { success: false, error: result.error.message };
-    }
-    
-    console.log("✅ Email enviado com sucesso via Resend:", result);
+    console.log("✅ Email enviado com sucesso via SMTP");
     return { success: true };
   } catch (error) {
-    console.error("❌ Erro ao enviar email via Resend:", error);
+    console.error("❌ Erro ao enviar email via SMTP:", error);
     return { success: false, error: error.message };
   }
 }
