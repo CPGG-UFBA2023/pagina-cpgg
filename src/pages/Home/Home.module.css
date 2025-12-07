@@ -10,8 +10,8 @@
 .videoSection {
   position: relative;
   width: 100%;
-  height: calc(100vh - 150px);
-  margin-top: 150px;
+  height: calc(100vh - 140px);
+  margin-top: 140px;
   flex-shrink: 0;
 }
 
