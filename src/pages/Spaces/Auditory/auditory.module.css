@@ -209,3 +209,8 @@
   }
 }
 
+@media (max-width: 430px) {
+  .buttonContainer {
+    transform: translateY(50px);
+  }
+}
