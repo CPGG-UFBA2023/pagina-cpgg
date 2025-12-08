@@ -95,3 +95,14 @@
     font-size: 0.8rem;
   }
 }
+
+/* Resoluções ≤430px - Mover controles do vídeo para baixo */
+@media (max-width: 430px) {
+  .video::-webkit-media-controls-panel {
+    transform: translateY(100px) !important;
+  }
+  
+  .video::-webkit-media-controls {
+    transform: translateY(100px) !important;
+  }
+}
