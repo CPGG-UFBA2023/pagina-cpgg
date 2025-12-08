@@ -1270,20 +1270,34 @@ nav ul li:hover .submenu2 ul li a {
   /* SOLUÇÃO MOBILE: MENUS DROPDOWN ORGANIZADOS */
   /* ============================================= */
   
+  /* ESCONDER submenu2 por padrão em mobile */
+  .submenu2,
+  .submenu2.submenu2Institution,
+  .submenu2.submenu2Personnel,
+  .hoversub .submenu2,
+  .hoversub:hover .submenu2 {
+    display: none !important;
+    position: static !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    visibility: hidden !important;
+  }
+  
   /* Menu principal "Sobre nós" e "Solicitações" - Dropdown abaixo do header */
   .submenu1.submenu1Open {
     display: block !important;
     position: absolute !important;
     top: 100% !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
+    left: 0 !important;
+    transform: none !important;
     bottom: auto !important;
     right: auto !important;
     margin-top: 5px !important;
     margin-left: 0 !important;
     width: auto !important;
-    min-width: 200px !important;
-    max-width: 90vw !important;
+    min-width: 220px !important;
+    max-width: 85vw !important;
     max-height: none !important;
     overflow: visible !important;
     background-color: rgba(89, 44, 187, 0.98) !important;
@@ -1343,12 +1357,7 @@ nav ul li:hover .submenu2 ul li a {
   /* SUBMENUS DE SEGUNDO NÍVEL - Aparecem inline */
   /* ============================================= */
   
-  /* Desabilitar hover - usar apenas clique */
-  .hoversub:hover .submenu2:not(.submenu2Open) {
-    display: none !important;
-  }
-  
-  /* Submenu2 - Aparece dentro do mesmo container, indentado */
+  /* Submenu2 aberto - Aparece dentro do mesmo container, indentado */
   .submenu2.submenu2Open,
   .submenu2.submenu2Institution.submenu2Open,
   .submenu2.submenu2Personnel.submenu2Open,
@@ -1356,6 +1365,7 @@ nav ul li:hover .submenu2 ul li a {
   .hoversub .submenu2.submenu2Institution.submenu2Open,
   .hoversub .submenu2.submenu2Personnel.submenu2Open {
     display: block !important;
+    visibility: visible !important;
     position: relative !important;
     top: auto !important;
     left: auto !important;
@@ -1365,7 +1375,9 @@ nav ul li:hover .submenu2 ul li a {
     margin: 0 !important;
     padding: 5px 0 5px 15px !important;
     width: 100% !important;
+    height: auto !important;
     min-width: auto !important;
+    overflow: visible !important;
     background-color: rgba(70, 30, 150, 0.95) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
