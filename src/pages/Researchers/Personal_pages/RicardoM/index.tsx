@@ -21,8 +21,6 @@ export function RicardoM() {
             staticDescription="Professor e pesquisador especializado em Geologia Marinha e Costeira. Possui experiência em sedimentologia marinha, evolução costeira e oceanografia geológica. Atua principalmente em pesquisas relacionadas à dinâmica sedimentar, mudanças do nível do mar e processos costeiros."
             belowPhoto={<ResearcherEditButton researcherName="Ricardo Piazza Meireles" inline />}
           />
-            <ul> Link para Currículo Lattes</ul>
-
             <nav>
              <a href="https://lattes.cnpq.br/3456789012345678" target="_blank" rel="noopener noreferrer">Currículo</a>
            </nav>
