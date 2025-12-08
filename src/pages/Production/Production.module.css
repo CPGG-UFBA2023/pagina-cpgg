@@ -129,8 +129,22 @@
 }
 
 @media (max-width: 430px) {
+  .Container {
+    max-height: none !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+  
   .container {
     padding-top: 225px !important;
+    padding-bottom: 80px !important;
+  }
+  
+  .scrollArea {
+    max-height: none !important;
+    overflow: visible !important;
   }
 }
 
