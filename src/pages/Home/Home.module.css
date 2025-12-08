@@ -57,12 +57,11 @@
   .contentSection {
     min-height: auto;
     padding-bottom: 0;
-    margin-bottom: -400px;
   }
   
   .middle {
     padding-top: 60px;
-    padding-bottom: 40px;
+    padding-bottom: 0;
     flex-direction: column;
     gap: 2rem;
   }
