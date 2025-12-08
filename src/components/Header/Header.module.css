@@ -1340,7 +1340,7 @@ nav ul li:hover .submenu2 ul li a {
     display: none !important;
   }
   
-  /* Submenu2 aberto - inline sem box */
+  /* Submenu2 aberto - lateral, sem deslocar itens abaixo */
   .submenu2.submenu2Open,
   .submenu2.submenu2Institution.submenu2Open,
   .submenu2.submenu2Personnel.submenu2Open,
@@ -1349,24 +1349,24 @@ nav ul li:hover .submenu2 ul li a {
   .hoversub .submenu2.submenu2Personnel.submenu2Open {
     display: block !important;
     visibility: visible !important;
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -130px !important;
     right: auto !important;
     bottom: auto !important;
     transform: none !important;
-    margin: 2px 0 0 10px !important;
+    margin: 0 !important;
     padding: 0 !important;
-    width: calc(100% - 10px) !important;
+    width: auto !important;
+    min-width: 120px !important;
     height: auto !important;
-    min-width: auto !important;
     max-width: none !important;
     max-height: none !important;
     overflow: visible !important;
     background-color: transparent !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    z-index: auto !important;
+    z-index: 100200 !important;
     opacity: 1 !important;
     pointer-events: auto !important;
   }
