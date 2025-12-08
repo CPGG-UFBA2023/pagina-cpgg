@@ -82,7 +82,6 @@ export function Header() {
             </NavLink>
           </li>
           <li
-            onMouseLeave={closeAllMenus}
           >
             <a 
               href='#' 
@@ -190,7 +189,6 @@ export function Header() {
             </div>
           </li>
           <li
-            onMouseLeave={closeAllMenus}
           >
             <a 
               href='#' 
