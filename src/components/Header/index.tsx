@@ -40,31 +40,22 @@ export function Header() {
     setOpenSubmenu(null);
   };
   return (
-    <>
-      {/* Backdrop escuro quando menu está aberto em mobile */}
-      {openMenu && (
-        <div 
-          className={styles.menuBackdrop} 
-          onClick={closeAllMenus}
-          aria-hidden="true"
-        />
-      )}
-      <header className={styles.header}>
-        <div className={styles.figure}>
-          <img src={logocpgg} alt='CPGG' />
-        </div>
+    <header className={styles.header}>
+      <div className={styles.figure}>
+        <img src={logocpgg} alt='CPGG' />
+      </div>
 
-        <div className={styles.centerContent}>
-          <div className={styles.block1}>
-            <h1>{t('header.institutionTitle1')}</h1>
-            <h2 className={styles.subTitle}>{t('header.institutionTitle2')}</h2>
-            <h2 className={styles.subTitle}>{t('header.institutionTitle3')}</h2>
-          </div>
+      <div className={styles.centerContent}>
+        <div className={styles.block1}>
+          <h1>{t('header.institutionTitle1')}</h1>
+          <h2 className={styles.subTitle}>{t('header.institutionTitle2')}</h2>
+          <h2 className={styles.subTitle}>{t('header.institutionTitle3')}</h2>
         </div>
+      </div>
 
-        <div className={styles.logoufba}>
-          <img src={logoufba} alt='UFBA' />
-        </div>
+      <div className={styles.logoufba}>
+        <img src={logoufba} alt='UFBA' />
+      </div>
 
         <div className={styles.languageContainer}>
           <LanguageSelector />
@@ -235,6 +226,5 @@ export function Header() {
       </nav>
       <GlobalEarth />
     </header>
-    </>
   );
 }
