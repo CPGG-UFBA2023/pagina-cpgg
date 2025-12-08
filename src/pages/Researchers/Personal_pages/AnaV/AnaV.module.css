@@ -179,7 +179,7 @@ nav a:hover {
   
   .box2.box2 {
     position: absolute !important;
-    top: calc(15% - 40px) !important;
+    top: calc(15% - 90px) !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     float: none !important;
