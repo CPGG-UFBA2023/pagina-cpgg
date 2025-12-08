@@ -35,3 +35,37 @@ body:has(.repairs-page) #root {
   margin-top: auto !important;
   flex-shrink: 0 !important;
 }
+
+/* Permitir scroll vertical em resoluções ≤430px */
+@media (max-width: 430px) {
+  html:has(.repairs-page),
+  body:has(.repairs-page) {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+
+  body:has(.repairs-page) > div,
+  body:has(.repairs-page) #root {
+    height: auto !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+
+  .repairs-page {
+    height: auto !important;
+    min-height: 100vh !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+
+  .repairs-page main.repairs {
+    overflow: visible !important;
+    overflow-y: visible !important;
+    max-height: none !important;
+    padding-bottom: 80px !important;
+  }
+}
