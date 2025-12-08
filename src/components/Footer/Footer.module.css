@@ -760,14 +760,14 @@
   }
 }
 
-/* 430px and below - reduce footer height by 10% */
+/* 430px and below - reduce footer height by 30% total */
 @media (max-width: 430px) {
   .bar {
-    height: 154px !important;
-    min-height: 154px !important;
+    height: 123px !important;
+    min-height: 123px !important;
   }
   
   .image {
-    height: 135px !important;
+    height: 108px !important;
   }
 }
