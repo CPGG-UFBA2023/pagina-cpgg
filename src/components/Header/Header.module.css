@@ -1255,8 +1255,8 @@ nav ul li:hover .submenu2 ul li a {
     margin-top: 10px !important;
     margin-bottom: 0 !important;
     margin-left: 0 !important;
-    min-width: 180px !important;
-    max-width: 250px !important;
+    min-width: 200px !important;
+    max-width: 280px !important;
     z-index: 100010 !important;
   }
   
@@ -1271,30 +1271,41 @@ nav ul li:hover .submenu2 ul li a {
     text-align: center !important;
   }
   
-  /* Submenu2 também vertical e abaixo */
+  /* Submenu2 aparece DENTRO da box principal, não flutuando separadamente */
   .submenu2.submenu2Open {
-    display: flex !important;
-    flex-direction: column !important;
-    position: absolute !important;
-    top: 100% !important;
+    display: block !important;
+    position: relative !important;
+    top: auto !important;
     bottom: auto !important;
-    left: 50% !important;
+    left: auto !important;
     right: auto !important;
-    transform: translateX(-50%) !important;
-    margin-top: 5px !important;
-    min-width: 160px !important;
-    z-index: 100015 !important;
+    transform: none !important;
+    margin: 0 !important;
+    padding-left: 15px !important;
+    min-width: auto !important;
+    width: 100% !important;
+    background-color: rgba(70, 30, 160, 0.95) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    z-index: auto !important;
   }
   
   .submenu2.submenu2Open ul {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
+    padding: 5px 0 !important;
   }
   
   .submenu2.submenu2Open ul li {
     width: 100% !important;
-    text-align: center !important;
+    text-align: left !important;
+    padding-left: 10px !important;
+  }
+  
+  .submenu2.submenu2Open ul li a {
+    font-size: 11px !important;
+    padding: 8px 10px !important;
   }
 }
 
