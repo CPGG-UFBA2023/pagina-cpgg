@@ -167,3 +167,38 @@
     max-width: 320px;
   }
 }
+
+/* Resoluções ≤430px - título à direita, botões centralizados, scroll vertical */
+@media (max-width: 430px) {
+  .Container {
+    overflow-y: auto !important;
+  }
+  
+  .recipes {
+    overflow-y: auto !important;
+    max-height: none !important;
+  }
+  
+  .title {
+    margin-left: 110px !important;
+    text-align: left !important;
+  }
+  
+  .container {
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  
+  .logos,
+  .calendars,
+  .power,
+  .latex,
+  .gmt,
+  .python {
+    width: 100% !important;
+    max-width: 280px !important;
+  }
+}
