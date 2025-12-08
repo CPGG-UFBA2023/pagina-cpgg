@@ -1430,7 +1430,7 @@ nav ul li:hover .submenu2 ul li a {
     transform: none !important;
     background-color: rgba(89, 44, 187, 0.95) !important;
     border-radius: 12px !important;
-    padding: 15px 23px 15px 35px !important;
+    padding: 15px 23px 15px 15px !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
   }
   
