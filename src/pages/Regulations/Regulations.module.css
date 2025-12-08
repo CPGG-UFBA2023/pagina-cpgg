@@ -1,9 +1,9 @@
 .pageContainer {
   display: flex;
   flex-direction: column;
-  height: 100vh !important;
-  max-height: 100vh !important;
-  overflow: hidden !important;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .regulations {
@@ -240,11 +240,11 @@
 
 @media (max-width: 430px) {
   .title {
-    margin-top: 225px !important;
+    margin-top: 195px !important;
   }
   
   .container {
-    margin-top: -110px !important;
+    margin-top: -140px !important;
   }
   
   .regulation,
