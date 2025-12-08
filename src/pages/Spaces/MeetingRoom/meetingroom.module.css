@@ -220,9 +220,9 @@
   }
   
   .MeetingRoom {
-    flex: none !important;
+    flex: 1 !important;
     overflow: visible !important;
-    padding-bottom: 0 !important;
+    padding-bottom: 20px !important;
     min-height: auto !important;
     margin-bottom: 0 !important;
   }
@@ -235,7 +235,7 @@
     transform: none !important;
     margin-left: auto !important;
     margin-right: auto !important;
-    margin-bottom: 30px !important;
+    margin-bottom: 60px !important;
     min-height: 440px !important;
     max-height: 440px !important;
   }
@@ -243,5 +243,21 @@
   .buttonContainer {
     transform: translateY(50px);
     margin-bottom: 0 !important;
+  }
+}
+
+/* Ensure footer links stay in position on MeetingRoom page */
+@media (max-width: 430px) {
+  .Container :global(.footer) {
+    flex-shrink: 0 !important;
+    margin-top: auto !important;
+  }
+  
+  .Container :global(.footer .bar nav) {
+    transform: translateY(-125px) !important;
+  }
+  
+  .Container :global(.footer .copyright) {
+    transform: translateY(-125px) !important;
   }
 }
