@@ -165,7 +165,7 @@
 
 @media (max-width: 430px) {
   .contact {
-    transform: translateY(100px);
+    transform: translateY(100px) !important;
   }
   
   .contact ul {
