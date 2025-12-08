@@ -306,8 +306,20 @@
   .Coast {
     overflow: visible !important;
     height: auto !important;
+    max-height: none !important;
     min-height: auto !important;
     padding: 1rem !important;
+  }
+
+  /* Forçar exibição dos links dos pesquisadores */
+  .Oil > *,
+  .Environment > *,
+  .Mineral > *,
+  .Oceanography > *,
+  .Coast > * {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
   .Oil a,
@@ -321,6 +333,7 @@
     font-size: 0.85rem !important;
     padding: 0.4rem 0.5rem !important;
     margin: 0.2rem 0 !important;
+    color: rgba(255, 255, 255, 0.95) !important;
   }
 
   .Oil nav,
@@ -331,6 +344,9 @@
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
   }
 }
 
