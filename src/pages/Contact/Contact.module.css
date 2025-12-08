@@ -164,6 +164,10 @@
 }
 
 @media (max-width: 430px) {
+  .contact {
+    transform: translateY(100px);
+  }
+  
   .contact ul {
     font-size: 20px;
   }
