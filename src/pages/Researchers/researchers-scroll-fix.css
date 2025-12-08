@@ -13,3 +13,14 @@
   right: 0;
   bottom: 0;
 }
+
+/* Para resoluções ≤430px, permitir scroll e mostrar todo o conteúdo */
+@media (max-width: 430px) {
+  .researcherPageContainer {
+    overflow: auto !important;
+    overflow-y: auto !important;
+    position: relative !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+}
