@@ -1293,7 +1293,7 @@ nav ul li:hover .submenu2 ul li a {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
-    padding: 15px 60px 15px 35px !important;
+    padding: 15px 72px 15px 48px !important;
     margin: 0 !important;
     gap: 8px !important;
     background-color: rgba(89, 44, 187, 0.95) !important;
