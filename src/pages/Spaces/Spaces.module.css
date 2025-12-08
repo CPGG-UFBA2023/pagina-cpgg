@@ -272,3 +272,12 @@
   }
 }
 
+@media (max-width: 430px) {
+  .title {
+    transform: translateY(50px);
+  }
+  
+  .container {
+    transform: translateY(50px);
+  }
+}
