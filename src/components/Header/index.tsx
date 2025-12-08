@@ -201,7 +201,7 @@ export function Header() {
             </a>
             
             <div
-              className={`${styles.submenu1} ${styles.requestsSubmenuContainer} ${openMenu === 'requests' ? styles.submenu1Open : ''}`}
+              className={`${styles.submenu1} ${openMenu === 'requests' ? styles.submenu1Open : ''}`}
             >
               <ul className={styles.requestsSubmenu}>
                 <li>
