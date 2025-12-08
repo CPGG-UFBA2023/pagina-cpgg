@@ -240,7 +240,7 @@
   right: 5%;
   width: auto;
   height: 70vh;
-  top: 16%;
+  top: calc(16% + 30px);
   padding: 15px;
   border-radius: 20px;
   margin-left: 5px !important;
