@@ -1276,7 +1276,7 @@ nav ul li:hover .submenu2 ul li a {
     display: block !important;
     position: absolute !important;
     top: 100% !important;
-    left: 50% !important;
+    left: calc(50% + 200px) !important;
     transform: translateX(-50%) !important;
     margin-top: 2px !important;
     margin-left: 0 !important;
