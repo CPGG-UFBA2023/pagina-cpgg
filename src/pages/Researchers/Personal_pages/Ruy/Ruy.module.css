@@ -196,7 +196,15 @@ nav a:hover {
     float: none !important;
     width: 20px !important;
     height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
+    aspect-ratio: 1/1 !important;
+    border-radius: 4px !important;
     margin: 0 !important;
+    background-size: cover !important;
+    background-position: center !important;
   }
   
   .box1 nav {
