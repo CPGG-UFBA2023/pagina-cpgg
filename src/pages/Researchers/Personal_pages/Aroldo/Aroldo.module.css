@@ -189,4 +189,13 @@ nav a:hover {
     height: 70px !important;
     margin: 0 !important;
   }
+  
+  .box1 nav {
+    margin-top: -10px !important;
+    margin-bottom: 5px !important;
+  }
+  
+  .box1 ul {
+    margin-bottom: -5px !important;
+  }
 }
