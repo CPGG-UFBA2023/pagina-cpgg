@@ -1302,6 +1302,23 @@ nav ul li:hover .submenu2 ul li a {
     z-index: auto !important;
   }
   
+  /* Submenu Instituição abre à esquerda para evitar sobreposição */
+  .hoversub .submenu2Institution.submenu2Open,
+  .submenu2Institution.submenu2Open {
+    position: absolute !important;
+    left: -200px !important;
+    right: auto !important;
+    top: 0 !important;
+    transform: none !important;
+    min-width: 180px !important;
+    width: auto !important;
+    background-color: rgba(89, 44, 187, 0.95) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    z-index: 100015 !important;
+    padding-left: 0 !important;
+  }
+  
   .hoversub .submenu2.submenu2Open ul,
   .submenu2.submenu2Open ul {
     display: flex !important;
@@ -1321,6 +1338,15 @@ nav ul li:hover .submenu2 ul li a {
   .submenu2.submenu2Open ul li a {
     font-size: 11px !important;
     padding: 8px 10px !important;
+  }
+  
+  /* Estilos específicos para submenu Instituição à esquerda */
+  .submenu2Institution.submenu2Open ul li {
+    padding-left: 0 !important;
+  }
+  
+  .submenu2Institution.submenu2Open ul li a {
+    padding: 10px 15px !important;
   }
 }
 
