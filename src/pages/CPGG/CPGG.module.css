@@ -59,113 +59,78 @@
   margin-left: 225px;
 }
 
-.box1 {
-  text-align: center;
+/* Container para foto + legenda */
+.photoContainer {
   display: flex;
   flex-direction: column;
-  border: 2px solid rgba(255,255,255,.2);
-  background-color: rgba(255,255,255, 0.2);
+  align-items: center;
   position: absolute;
   width: 200px;
-  height: 200px;
-  top: 860px;
+}
+
+.photoContainer:nth-of-type(1) {
+  top: 50px;
   left: 2%;
-  padding: 10px;
-  border-radius: 20px;
-  gap: 5px;
-  background: linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)),
-  url('https://i.imgur.com/7oNBqkd.jpg') center/cover;
 }
 
-.legend1 {
-  font-size: 10px;
-  right: 10px;
-  left: 10px;
-  bottom: -40px;
-  position: absolute;
-  line-height: 1.2;
-}
-
-.box2 {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  border: 2px solid rgba(255,255,255,.2);
-  background-color: rgba(255,255,255, 0.2);
-  position: absolute;
-  width: 200px;
-  height: 200px;
+.photoContainer:nth-of-type(2) {
   top: 320px;
   left: 2%;
-  padding: 10px;
-  border-radius: 20px;
-  gap: 5px;
-  background: linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)),
-  url('https://i.imgur.com/fQMNk9Y.jpg') center/cover;
 }
 
-.legend2 {
-  font-size: 10px;
-  right: 10px;
-  left: 10px;
-  bottom: -40px;
-  position: absolute;
-  line-height: 1.2;
-}
-
-.box3 {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  border: 2px solid rgba(255,255,255,.2);
-  background-color: rgba(255,255,255, 0.2);
-  position: absolute;
-  width: 200px;
-  height: 200px;
+.photoContainer:nth-of-type(3) {
   top: 590px;
   left: 2%;
-  padding: 10px;
-  border-radius: 20px;
-  gap: 5px;
-  background: linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)),
-  url('https://i.imgur.com/RKAvYyR.jpg') center/cover;
 }
 
-.legend3 {
-  font-size: 10px;
-  right: 10px;
-  left: 10px;
-  bottom: -40px;
-  position: absolute;
-  line-height: 1.2;
+.photoContainer:nth-of-type(4) {
+  top: 860px;
+  left: 2%;
 }
 
+.box1,
+.box2,
+.box3,
 .box4 {
   text-align: center;
   display: flex;
   flex-direction: column;
   border: 2px solid rgba(255,255,255,.2);
   background-color: rgba(255,255,255, 0.2);
-  position: absolute;
   width: 200px;
   height: 200px;
-  top: 50px;
-  left: 2%;
   padding: 10px;
   border-radius: 20px;
   gap: 5px;
+}
+
+.box1 {
+  background: linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)),
+  url('https://i.imgur.com/7oNBqkd.jpg') center/cover;
+}
+
+.box2 {
+  background: linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)),
+  url('https://i.imgur.com/fQMNk9Y.jpg') center/cover;
+}
+
+.box3 {
+  background: linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)),
+  url('https://i.imgur.com/RKAvYyR.jpg') center/cover;
+}
+
+.box4 {
   background-size: 130%;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-.legend4 {
+.legend {
   font-size: 10px;
-  right: 10px;
-  left: 10px;
-  bottom: -20px;
-  position: absolute;
-  line-height: 1.2;
+  text-align: center;
+  line-height: 1.3;
+  margin-top: 8px;
+  color: #fff;
 }
 
 .earthFixed {
@@ -218,6 +183,10 @@
     font-size: 24px;
   }
 
+  .photoContainer {
+    width: 150px;
+  }
+
   .box1, .box2, .box3, .box4 {
     width: 150px;
     height: 150px;
@@ -239,7 +208,7 @@
   .box {
     width: 95%;
     padding: 10px;
-    height: 50vh;
+    height: auto;
     position: relative;
     margin-top: 2rem;
   }
@@ -249,20 +218,22 @@
     white-space: normal;
   }
 
-  .box1, .box2, .box3, .box4 {
+  .photoContainer {
     position: relative;
     width: 100%;
-    height: 120px;
     left: 0;
     top: 0;
-    margin: 10px 0;
+    margin: 15px 0;
   }
 
-  .legend1, .legend2, .legend3, .legend4 {
-    font-size: 8px;
-    position: relative;
-    bottom: 0;
-    margin-top: 5px;
+  .box1, .box2, .box3, .box4 {
+    width: 100%;
+    height: 150px;
+  }
+
+  .legend {
+    font-size: 9px;
+    margin-top: 8px;
   }
 }
 
@@ -325,41 +296,32 @@
     display: none;
   }
 
+  /* Container de fotos em coluna */
+  .photoContainer {
+    position: relative !important;
+    width: 100% !important;
+    left: 0 !important;
+    top: 0 !important;
+    margin: 15px 0 !important;
+    order: 10;
+  }
+
   /* Fotos aparecem após o texto */
   .box1,
   .box2,
   .box3,
   .box4 {
-    position: relative !important;
-    left: 0 !important;
-    top: 0 !important;
     width: 100% !important;
     height: 180px !important;
-    min-width: auto !important;
-    min-height: 180px !important;
-    max-width: 100% !important;
-    max-height: 180px !important;
     display: block !important;
-    margin: 10px 0 !important;
     background-size: cover !important;
     background-position: center !important;
-    right: auto !important;
-    bottom: auto !important;
-    order: 10;
   }
 
-  .legend1,
-  .legend2,
-  .legend3,
-  .legend4 {
+  .legend {
     font-size: 10px !important;
-    position: relative !important;
-    top: auto !important;
-    bottom: auto !important;
-    left: 0 !important;
-    right: 0 !important;
     text-align: center !important;
-    margin-top: 5px !important;
+    margin-top: 8px !important;
   }
 }
 
