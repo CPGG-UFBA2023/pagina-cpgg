@@ -29,11 +29,11 @@
 /* Extra ajuste para telas pequenas 430px de largura e menores */
 @media (max-width: 430px) {
   .container {
-    padding-top: 420px;
+    padding-top: 500px;
   }
 
   .header {
-    margin-top: 230px;
+    margin-top: 310px;
   }
 }
 
