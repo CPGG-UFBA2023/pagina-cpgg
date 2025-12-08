@@ -1426,7 +1426,7 @@ nav ul li:hover .submenu2 ul li a {
     min-width: 200px !important;
     gap: 8px !important;
     position: relative !important;
-    left: -60px !important;
+    left: -80px !important;
     transform: none !important;
     background-color: rgba(89, 44, 187, 0.95) !important;
     border-radius: 12px !important;
