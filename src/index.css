@@ -222,7 +222,6 @@ All colors MUST be HSL.
   
   /* Home page Middle component - no scroll */
   main.middle,
-  main.cpgg,
   main.history,
   main.regulations,
   main.map,
@@ -235,6 +234,14 @@ All colors MUST be HSL.
     overflow: hidden !important;
     overflow-y: hidden !important;
     padding-bottom: 0 !important;
+    height: auto !important;
+  }
+  
+  /* Permitir scroll nas páginas CPGG, Coordination e Researchers */
+  main.cpgg {
+    flex: 1 !important;
+    overflow: visible !important;
+    padding-bottom: 2rem !important;
     height: auto !important;
   }
   
