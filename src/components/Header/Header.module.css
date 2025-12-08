@@ -1267,7 +1267,6 @@ nav ul li:hover .submenu2 ul li a {
   }
   
   /* Submenus aparecem verticalmente e abaixo do botão */
-  .submenu1,
   .submenu1.submenu1Open {
     display: flex !important;
     flex-direction: column !important;
@@ -1285,19 +1284,10 @@ nav ul li:hover .submenu2 ul li a {
     z-index: 100010 !important;
   }
   
-  .submenu1 ul,
   .submenu1.submenu1Open ul {
     display: flex !important;
     flex-direction: column !important;
-    flex-wrap: nowrap !important;
     width: 100% !important;
-  }
-  
-  .submenu1 ul li,
-  .submenu1.submenu1Open ul li {
-    display: block !important;
-    width: 100% !important;
-    float: none !important;
   }
   
   .submenu1.submenu1Open ul li {
