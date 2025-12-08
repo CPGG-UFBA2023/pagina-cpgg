@@ -240,7 +240,7 @@
   right: 5%;
   width: auto;
   height: 70vh;
-  top: calc(16% + 80px);
+  top: 16%;
   padding: 15px;
   border-radius: 20px;
   margin-left: 5px !important;
@@ -767,7 +767,7 @@
 
 @media (max-width: 430px) {
   .boxzero {
-    top: calc(16% + 50px) !important;
+    top: calc(16% + 100px) !important;
   }
 
   .photobox2,
