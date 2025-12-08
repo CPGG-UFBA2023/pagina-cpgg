@@ -217,7 +217,6 @@
     max-height: none !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: flex-start !important;
   }
   
   .MeetingRoom {
