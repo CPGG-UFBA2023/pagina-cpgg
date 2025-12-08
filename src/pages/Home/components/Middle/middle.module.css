@@ -399,10 +399,15 @@
   
   .carouselContainer {
     width: 100%;
+    margin-top: -50px;
   }
   
   .imageWrapper {
     height: 240px;
+  }
+  
+  .controls {
+    bottom: 10px;
   }
   
   .earthImageMobile {
@@ -445,10 +450,15 @@
   
   .carouselContainer {
     width: 100%;
+    margin-top: -50px;
   }
   
   .imageWrapper {
     height: 220px;
+  }
+  
+  .controls {
+    bottom: 10px;
   }
   
   .newsTitle {
