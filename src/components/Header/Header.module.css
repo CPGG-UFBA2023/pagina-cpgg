@@ -1323,24 +1323,24 @@ nav ul li:hover .submenu2 ul li a {
     padding: 8px 10px !important;
   }
   
-  /* Submenu Instituição abre à esquerda igual às outras resoluções */
+  /* Submenu Instituição centralizado na tela */
   .submenu2.submenu2Institution.submenu2Open,
   .hoversub .submenu2.submenu2Institution.submenu2Open {
     display: block !important;
-    position: absolute !important;
-    top: 0 !important;
-    right: 100% !important;
-    left: auto !important;
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
     bottom: auto !important;
-    transform: none !important;
+    transform: translate(-50%, -50%) !important;
     margin: 0 !important;
-    min-width: 150px !important;
+    min-width: 200px !important;
     width: fit-content !important;
-    background-color: rgba(89, 44, 187, 0.95) !important;
-    border-radius: 8px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-    z-index: 100006 !important;
-    padding-left: 0 !important;
+    background-color: rgba(89, 44, 187, 0.98) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+    z-index: 100010 !important;
+    padding: 10px 0 !important;
   }
   
   .submenu2.submenu2Institution.submenu2Open ul,
