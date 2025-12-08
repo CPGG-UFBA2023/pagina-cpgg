@@ -773,5 +773,12 @@
   .boxzero {
     top: calc(16% + 50px) !important;
   }
+
+  .photobox2,
+  .photobox4,
+  .photobox5,
+  .photobox9 {
+    transform: translate(-50%, calc(-50% + 25px)) !important;
+  }
 }
 
