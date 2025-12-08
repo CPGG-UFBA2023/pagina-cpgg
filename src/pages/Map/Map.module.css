@@ -305,3 +305,10 @@
     padding-top: 225px !important;
   }
 }
+
+/* Resoluções ≤430px - mover conteúdo 150px para baixo */
+@media (max-width: 430px) {
+  .main {
+    padding-top: 305px !important;
+  }
+}
