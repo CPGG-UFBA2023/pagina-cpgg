@@ -1203,6 +1203,10 @@ nav ul li:hover .submenu2 ul li a {
     padding: 5px 10px !important;
     width: 100% !important;
   }
+  
+  .logoufba {
+    transform: translateY(-50%) translateX(-20px) !important;
+  }
 }
 
 /* iPhone 12 mini e dispositivos similares (375px width) */
