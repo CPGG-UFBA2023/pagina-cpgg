@@ -140,6 +140,12 @@
   }
 }
 
+@media (width: 1024px) and (height: 1366px) {
+  .contact {
+    transform: translateY(50px) !important;
+  }
+}
+
 @media (max-width: 900px) {
   .contact {
     flex-direction: column;
