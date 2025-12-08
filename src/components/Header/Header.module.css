@@ -1205,11 +1205,11 @@ nav ul li:hover .submenu2 ul li a {
   }
   
   .languageContainer {
-    position: fixed !important;
+    position: absolute !important;
     left: 50% !important;
     right: auto !important;
     transform: translateX(-50%) !important;
-    top: 5px !important;
+    top: 2px !important;
     flex-direction: row !important;
     align-items: center !important;
     gap: 8px !important;
