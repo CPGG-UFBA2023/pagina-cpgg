@@ -1272,6 +1272,7 @@ nav ul li:hover .submenu2 ul li a {
   }
   
   /* Submenu2 aparece DENTRO da box principal, não flutuando separadamente */
+  .hoversub .submenu2.submenu2Open,
   .submenu2.submenu2Open {
     display: block !important;
     position: relative !important;
@@ -1290,6 +1291,7 @@ nav ul li:hover .submenu2 ul li a {
     z-index: auto !important;
   }
   
+  .hoversub .submenu2.submenu2Open ul,
   .submenu2.submenu2Open ul {
     display: flex !important;
     flex-direction: column !important;
@@ -1297,12 +1299,14 @@ nav ul li:hover .submenu2 ul li a {
     padding: 5px 0 !important;
   }
   
+  .hoversub .submenu2.submenu2Open ul li,
   .submenu2.submenu2Open ul li {
     width: 100% !important;
     text-align: left !important;
     padding-left: 10px !important;
   }
   
+  .hoversub .submenu2.submenu2Open ul li a,
   .submenu2.submenu2Open ul li a {
     font-size: 11px !important;
     padding: 8px 10px !important;
