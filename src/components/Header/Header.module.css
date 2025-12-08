@@ -1245,30 +1245,37 @@ nav ul li:hover .submenu2 ul li a {
     font-size: 9px !important;
   }
   
-  /* Submenu1 - duas colunas lado a lado como na imagem de referência */
+  /* =====================================================
+     LAYOUT DOS SUBMENUS - DUAS COLUNAS LADO A LADO
+     Baseado na imagem de referência:
+     - ESQUERDA (branco): submenu2 (O CPGG, Nossa História, etc)
+     - DIREITA (roxo): submenu1 (Instituição, Pessoal, etc)
+     ===================================================== */
+  
+  /* Container do submenu1 - BOX ROXA à DIREITA */
   .submenu1.submenu1Open {
-    display: flex !important;
-    flex-direction: row !important;
-    position: absolute !important;
-    top: 100% !important;
+    display: block !important;
+    position: fixed !important;
+    top: 130px !important;
     left: 50% !important;
-    transform: translateX(-50%) !important;
-    margin-top: 10px !important;
+    transform: translateX(-20px) !important;
     z-index: 100010 !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    padding: 0 !important;
+    background-color: rgba(89, 44, 187, 0.95) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    padding: 10px 0 !important;
+    min-width: 160px !important;
   }
   
   .submenu1.submenu1Open ul {
     display: flex !important;
     flex-direction: column !important;
-    background-color: white !important;
-    border-radius: 8px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-    padding: 10px 0 !important;
-    min-width: 140px !important;
+    width: 100% !important;
+    padding: 0 !important;
     margin: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
   }
   
   .submenu1.submenu1Open ul li {
@@ -1276,50 +1283,51 @@ nav ul li:hover .submenu2 ul li a {
     text-align: left !important;
     margin: 0 !important;
     padding: 0 !important;
+    max-width: none !important;
   }
   
-  .submenu1.submenu1Open ul li a {
+  .submenu1.submenu1Open ul li > a {
     display: block !important;
     padding: 10px 15px !important;
-    color: #592cbb !important;
-    font-size: 12px !important;
+    color: white !important;
+    font-size: 13px !important;
     text-decoration: none !important;
     white-space: nowrap !important;
+    background: transparent !important;
   }
   
-  .submenu1.submenu1Open ul li a:hover {
-    background-color: #f0f0f0 !important;
+  .submenu1.submenu1Open ul li > a:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important;
   }
   
-  /* hoversub dentro do submenu1 */
+  /* hoversub - item clicável para abrir submenu2 */
   .submenu1.submenu1Open .hoversub {
-    position: static !important;
+    position: relative !important;
   }
   
-  /* Submenu2 geral - oculto por padrão */
+  /* Submenu2 - BOX BRANCA à ESQUERDA */
   .submenu2:not(.submenu2Open) {
     display: none !important;
   }
   
-  /* Submenu Instituição - aparece como segunda coluna ao lado */
   .submenu2.submenu2Institution.submenu2Open,
-  .hoversub .submenu2.submenu2Institution.submenu2Open {
-    display: flex !important;
-    flex-direction: column !important;
+  .submenu2.submenu2Personnel.submenu2Open {
+    display: block !important;
     position: fixed !important;
-    top: 165px !important;
-    left: calc(50% + 75px) !important;
-    transform: none !important;
-    min-width: 160px !important;
-    background-color: rgba(89, 44, 187, 0.95) !important;
-    border-radius: 8px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    top: 130px !important;
+    right: 50% !important;
+    left: auto !important;
+    transform: translateX(-30px) !important;
     z-index: 100020 !important;
+    background-color: white !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
     padding: 10px 0 !important;
+    min-width: 160px !important;
   }
   
   .submenu2.submenu2Institution.submenu2Open ul,
-  .hoversub .submenu2.submenu2Institution.submenu2Open ul {
+  .submenu2.submenu2Personnel.submenu2Open ul {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
@@ -1327,10 +1335,11 @@ nav ul li:hover .submenu2 ul li a {
     margin: 0 !important;
     background: transparent !important;
     box-shadow: none !important;
+    border-radius: 0 !important;
   }
   
   .submenu2.submenu2Institution.submenu2Open ul li,
-  .hoversub .submenu2.submenu2Institution.submenu2Open ul li {
+  .submenu2.submenu2Personnel.submenu2Open ul li {
     display: block !important;
     width: 100% !important;
     text-align: left !important;
@@ -1339,72 +1348,19 @@ nav ul li:hover .submenu2 ul li a {
   }
   
   .submenu2.submenu2Institution.submenu2Open ul li a,
-  .hoversub .submenu2.submenu2Institution.submenu2Open ul li a {
+  .submenu2.submenu2Personnel.submenu2Open ul li a {
     display: block !important;
     width: 100% !important;
     font-size: 13px !important;
     padding: 10px 15px !important;
-    color: white !important;
+    color: #592cbb !important;
     background-color: transparent !important;
     text-decoration: none !important;
   }
   
-  .submenu2.submenu2Institution.submenu2Open ul li:hover a,
-  .submenu2.submenu2Institution.submenu2Open ul li a:hover {
-    background-color: rgba(255, 255, 255, 0.2) !important;
-  }
-  
-  /* Submenu Personnel - aparece como segunda coluna ao lado */
-  .submenu2.submenu2Personnel.submenu2Open,
-  .hoversub .submenu2.submenu2Personnel.submenu2Open {
-    display: flex !important;
-    flex-direction: column !important;
-    position: fixed !important;
-    top: 165px !important;
-    left: calc(50% + 75px) !important;
-    transform: none !important;
-    min-width: 160px !important;
-    background-color: rgba(89, 44, 187, 0.95) !important;
-    border-radius: 8px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-    z-index: 100020 !important;
-    padding: 10px 0 !important;
-  }
-  
-  .submenu2.submenu2Personnel.submenu2Open ul,
-  .hoversub .submenu2.submenu2Personnel.submenu2Open ul {
-    display: flex !important;
-    flex-direction: column !important;
-    width: 100% !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
-  }
-  
-  .submenu2.submenu2Personnel.submenu2Open ul li,
-  .hoversub .submenu2.submenu2Personnel.submenu2Open ul li {
-    display: block !important;
-    width: 100% !important;
-    text-align: left !important;
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-  
-  .submenu2.submenu2Personnel.submenu2Open ul li a,
-  .hoversub .submenu2.submenu2Personnel.submenu2Open ul li a {
-    display: block !important;
-    width: 100% !important;
-    font-size: 13px !important;
-    padding: 10px 15px !important;
-    color: white !important;
-    background-color: transparent !important;
-    text-decoration: none !important;
-  }
-  
-  .submenu2.submenu2Personnel.submenu2Open ul li:hover a,
+  .submenu2.submenu2Institution.submenu2Open ul li a:hover,
   .submenu2.submenu2Personnel.submenu2Open ul li a:hover {
-    background-color: rgba(255, 255, 255, 0.2) !important;
+    background-color: #f0f0f0 !important;
   }
 }
 
