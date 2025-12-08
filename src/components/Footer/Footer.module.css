@@ -297,6 +297,10 @@
 
 /* 1024px */
 @media (width: 1024px) {
+  .footer {
+    margin-top: -150px;
+  }
+  
   .footer nav a:first-child,
   .footer nav a:nth-child(2),
   .footer nav a:nth-child(3),
@@ -320,6 +324,10 @@
 
 /* 834px - 1023px */
 @media (min-width: 834px) and (max-width: 1023px) {
+  .footer {
+    margin-top: -150px;
+  }
+  
   .footer nav a:first-child,
   .footer nav a:nth-child(2),
   .footer nav a:nth-child(3),
@@ -347,6 +355,10 @@
 
 /* 769px - 833px */
 @media (min-width: 769px) and (max-width: 833px) {
+  .footer {
+    margin-top: -150px;
+  }
+  
   .footer nav a:first-child,
   .footer nav a:nth-child(2),
   .footer nav a:nth-child(3),
@@ -374,6 +386,10 @@
 
 /* 768px */
 @media (width: 768px) {
+  .footer {
+    margin-top: -150px;
+  }
+  
   .footer nav a:first-child,
   .footer nav a:nth-child(2),
   .footer nav a:nth-child(3),
@@ -411,6 +427,7 @@
 @media (max-width: 500px) {
   .footer {
     position: static;
+    margin-top: -150px;
   }
 
   .image {
@@ -454,6 +471,10 @@
 
 /* 481px - 767px */
 @media (min-width: 481px) and (max-width: 767px) {
+  .footer {
+    margin-top: -150px;
+  }
+  
   .footer nav a:first-child,
   .footer nav a:nth-child(2),
   .footer nav a:nth-child(3),
@@ -489,6 +510,10 @@
 
 /* 414px - 480px */
 @media (min-width: 414px) and (max-width: 480px) {
+  .footer {
+    margin-top: -150px;
+  }
+  
   .footer nav a:first-child,
   .footer nav a:nth-child(2),
   .footer nav a:nth-child(3),
@@ -524,6 +549,10 @@
 
 /* 375px - 413px */
 @media (min-width: 375px) and (max-width: 413px) {
+  .footer {
+    margin-top: -150px;
+  }
+  
   .footer nav a:first-child,
   .footer nav a:nth-child(2),
   .footer nav a:nth-child(3),
@@ -575,6 +604,10 @@
 
 /* 320px - 374px */
 @media (min-width: 320px) and (max-width: 374px) {
+  .footer {
+    margin-top: -150px;
+  }
+  
   .footer nav a:first-child,
   .footer nav a:nth-child(2),
   .footer nav a:nth-child(3),
@@ -617,6 +650,10 @@
 
 /* Below 320px */
 @media (max-width: 319px) {
+  .footer {
+    margin-top: -150px;
+  }
+  
   .footer nav a:first-child,
   .footer nav a:nth-child(2),
   .footer nav a:nth-child(3),
