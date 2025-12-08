@@ -178,6 +178,11 @@
   background: white;
 }
 
+/* Phrase section wrapper */
+.phraseSection {
+  display: contents;
+}
+
 /* Static phrase */
 .static {
   color: #fff;
@@ -210,6 +215,18 @@
   background: -webkit-linear-gradient(#2c66b8, #8859ec);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* Earth image - mobile version (beside phrase) */
+.earthMobile {
+  display: none;
+}
+
+.earthImageMobile {
+  height: 180px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 50%;
 }
 
 /* Earth image - desktop only */
@@ -276,63 +293,37 @@
   }
 }
 
-/* Tablet/Mobile (≤1024px) - Three sections: Phrase, News, Footer */
+/* Tablet/Mobile (≤1024px) - Order: Video, Phrase+Earth, News, Footer */
 @media (max-width: 1024px) {
   .middleWrapper {
     flex-direction: column;
-    padding: 2rem 1rem;
-    gap: 3rem;
+    padding: 2rem 30px;
+    gap: 2rem;
     min-height: auto;
   }
   
-  /* Static phrase first */
-  .static {
-    order: 1;
-    font-size: 32px;
-    text-align: center;
+  /* Phrase section wrapper - flex row with Earth */
+  .phraseSection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
-    padding: 2rem 0;
+    order: 1;
+    gap: 1.5rem;
   }
   
-  .static > strong {
-    font-size: 64px;
-  }
-  
-  .enjoy {
-    font-size: 22px;
-    padding-top: 25px;
-  }
-  
-  .enjoy > strong {
-    font-size: 22px;
-  }
-  
-  /* News carousel second */
-  .carouselContainer {
-    order: 2;
-    width: 80%;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .imageWrapper {
-    height: 250px;
-  }
-  
-  .controls {
-    bottom: -50px;
-  }
-  
-  /* Hide earth on mobile */
-  .earthContainer {
-    display: none;
-  }
-}
-
-/* Smaller tablets (≤834px) */
-@media (max-width: 834px) {
+  /* Phrase content */
   .static {
+    order: unset;
     font-size: 28px;
+    text-align: left;
+    width: auto;
+    flex: 1;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
   
   .static > strong {
@@ -341,44 +332,65 @@
   
   .enjoy {
     font-size: 20px;
+    padding-top: 20px;
   }
   
   .enjoy > strong {
     font-size: 20px;
   }
   
+  /* Show Earth beside phrase */
+  .earthMobile {
+    display: flex;
+    flex-shrink: 0;
+  }
+  
+  .earthImageMobile {
+    height: 180px;
+  }
+  
+  /* News carousel - full width with 30px margins */
   .carouselContainer {
-    width: 90%;
+    order: 2;
+    width: 100%;
+    max-width: none;
+    margin: 0;
   }
   
   .imageWrapper {
-    height: 220px;
+    height: 280px;
+  }
+  
+  .controls {
+    bottom: -50px;
+  }
+  
+  /* Hide desktop earth container */
+  .earthContainer {
+    display: none;
   }
 }
 
-/* Mobile (≤600px) */
-@media (max-width: 600px) {
+/* Smaller tablets (≤834px) */
+@media (max-width: 834px) {
   .middleWrapper {
-    padding: 1.5rem 1rem;
-    gap: 2rem;
+    padding: 2rem 30px;
   }
   
   .static {
-    font-size: 22px;
-    padding: 1.5rem 0;
+    font-size: 24px;
   }
   
   .static > strong {
-    font-size: 44px;
+    font-size: 48px;
   }
   
   .enjoy {
-    font-size: 16px;
-    padding-top: 20px;
+    font-size: 18px;
   }
   
   .enjoy > strong {
-    font-size: 16px;
+    font-size: 18px;
   }
   
   .carouselContainer {
@@ -386,7 +398,53 @@
   }
   
   .imageWrapper {
-    height: 200px;
+    height: 240px;
+  }
+  
+  .earthImageMobile {
+    height: 150px;
+  }
+}
+
+/* Mobile (≤600px) */
+@media (max-width: 600px) {
+  .middleWrapper {
+    padding: 1.5rem 30px;
+    gap: 2rem;
+  }
+  
+  .phraseSection {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .static {
+    font-size: 20px;
+    padding: 0;
+    text-align: center;
+    align-items: center;
+  }
+  
+  .static > strong {
+    font-size: 40px;
+  }
+  
+  .enjoy {
+    font-size: 15px;
+    padding-top: 15px;
+  }
+  
+  .enjoy > strong {
+    font-size: 15px;
+  }
+  
+  .carouselContainer {
+    width: 100%;
+  }
+  
+  .imageWrapper {
+    height: 220px;
   }
   
   .newsTitle {
@@ -401,28 +459,36 @@
     width: 36px;
     height: 36px;
   }
+  
+  .earthImageMobile {
+    height: 120px;
+  }
 }
 
 /* Small phones (≤390px) */
 @media (max-width: 390px) {
+  .middleWrapper {
+    padding: 1rem 30px;
+  }
+  
   .static {
-    font-size: 18px;
+    font-size: 16px;
   }
   
   .static > strong {
-    font-size: 36px;
+    font-size: 32px;
   }
   
   .enjoy {
-    font-size: 14px;
+    font-size: 13px;
   }
   
   .enjoy > strong {
-    font-size: 14px;
+    font-size: 13px;
   }
   
   .imageWrapper {
-    height: 180px;
+    height: 200px;
   }
   
   .newsContent {
@@ -446,5 +512,9 @@
   .dotActive {
     width: 10px;
     height: 10px;
+  }
+  
+  .earthImageMobile {
+    height: 100px;
   }
 }
