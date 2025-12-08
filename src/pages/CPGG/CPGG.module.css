@@ -74,17 +74,17 @@
 }
 
 .photoContainer:nth-of-type(2) {
-  top: 270px;
+  top: 180px;
   left: 2%;
 }
 
 .photoContainer:nth-of-type(3) {
-  top: 490px;
+  top: 310px;
   left: 2%;
 }
 
 .photoContainer:nth-of-type(4) {
-  top: 710px;
+  top: 440px;
   left: 2%;
 }
 
