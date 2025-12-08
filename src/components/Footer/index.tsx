@@ -8,9 +8,9 @@ export function Footer() {
   
   return (
     <footer className={styles.footer}>
-      <VisitorCounter />
       <div className={styles.image} />
       <div className={styles.bar}>
+        <VisitorCounter />
         <nav>
           <a href='http://www.cpgg.ufba.br' target="_blank" >{t('footer.oldPage')}</a>
           <a href='https://www.linkedin.com/in/cpgg-centro-de-pesquisa-94768a304/' target="_blank" className={styles.socialLink} rel="noopener noreferrer">
