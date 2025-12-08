@@ -252,6 +252,6 @@ nav a:hover {
   }
   
   .box1 ul {
-    margin-bottom: -5px !important;
+    display: none !important;
   }
 }
