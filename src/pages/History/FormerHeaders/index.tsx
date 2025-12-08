@@ -96,6 +96,7 @@ export function Former() {
             </div>
       </div>
     </div>
+    <Footer />
   </>
   )
 }

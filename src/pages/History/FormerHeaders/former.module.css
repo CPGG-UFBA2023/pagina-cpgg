@@ -1,13 +1,9 @@
 .former {
-  min-height: 100vh;
-  height: 100vh;
-  max-height: 100vh;
+  min-height: calc(100vh - 150px);
+  height: calc(100vh - 150px);
+  max-height: calc(100vh - 150px);
   overflow: hidden;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: relative;
 }
 
 .Headers{
