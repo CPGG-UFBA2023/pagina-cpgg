@@ -1164,7 +1164,7 @@ nav ul li:hover .submenu2 ul li a {
   }
 }
 
-/* Resoluções ≤430px - Centralizar título */
+/* Resoluções ≤430px - Centralizar título e aumentar fonte 4x */
 @media (max-width: 430px) {
   .block1 {
     width: 100% !important;
@@ -1179,15 +1179,23 @@ nav ul li:hover .submenu2 ul li a {
     text-align: center !important;
     width: 100% !important;
     transform: none !important;
+    font-size: 24px !important;
   }
   
   .block1 h1:first-child {
     transform: none !important;
   }
   
+  .block1 h2 {
+    text-align: center !important;
+    width: 100% !important;
+    font-size: 16px !important;
+  }
+  
   .subTitle {
     text-align: center !important;
     width: 100% !important;
+    font-size: 16px !important;
   }
   
   .centerContent {
