@@ -1178,7 +1178,7 @@ nav ul li:hover .submenu2 ul li a {
   .block1 h1 {
     text-align: center !important;
     width: 100% !important;
-    transform: none !important;
+    transform: translateY(15px) !important;
     font-size: 12px !important;
   }
   
