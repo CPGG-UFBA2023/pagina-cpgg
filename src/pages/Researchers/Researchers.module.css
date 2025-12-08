@@ -1,4 +1,4 @@
-/* Container Principal */
+/* Container Principal - Permite scroll vertical */
 .researchers {
   padding: 2rem 2rem 4rem 2rem;
   min-height: calc(100vh - 100px);
@@ -7,7 +7,8 @@
   margin: 0 auto;
   position: relative;
   z-index: 1;
-  overflow: visible !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
 }
 
 .Programs {

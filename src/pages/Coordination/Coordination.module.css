@@ -1,6 +1,7 @@
-/* Remove scroll de toda a página Coordination */
+/* Permite scroll vertical na página Coordination */
 body:has(.heads) {
-  overflow: hidden !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
 }
 
 /* Container Principal */
@@ -13,17 +14,6 @@ body:has(.heads) {
   position: relative;
   z-index: 1;
   overflow: visible;
-}
-
-/* Permite scroll apenas em telas menores que 500px */
-@media (max-width: 500px) {
-  body:has(.heads) {
-    overflow: auto !important;
-  }
-  
-  .heads {
-    overflow: visible;
-  }
 }
 
 /* Grid de Cards */
