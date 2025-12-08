@@ -23,4 +23,14 @@
     height: auto !important;
     max-height: none !important;
   }
+
+  /* Forçar exibição dos nomes dos pesquisadores */
+  .researcher-nav-item,
+  .researcher-link {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
 }

@@ -64,9 +64,10 @@ export function EditableResearcher({
 
   if (!isEditMode) {
     return (
-      <nav style={{ margin: '0.25rem 0' }}>
+      <nav className="researcher-nav-item" style={{ margin: '0.25rem 0', display: 'block' }}>
         <Link 
           to={researcher.route}
+          className="researcher-link"
           style={{
             display: 'block',
             color: researcher.isChief ? '#facc15' : 'rgba(255, 255, 255, 0.95)',
@@ -75,7 +76,9 @@ export function EditableResearcher({
             padding: '0.5rem 0.75rem',
             borderRadius: '8px',
             textDecoration: 'none',
-            transition: 'all 0.2s ease'
+            transition: 'all 0.2s ease',
+            visibility: 'visible',
+            opacity: 1
           }}
         >
           {researcher.name}
