@@ -349,12 +349,13 @@
     height: 450px;
   }
   
-  /* News carousel - full width with 30px margins */
+  /* News carousel - full width with 30px margins, moved up 50px */
   .carouselContainer {
     order: 2;
     width: 100%;
     max-width: none;
     margin: 0;
+    margin-top: -50px;
   }
   
   .imageWrapper {
@@ -362,7 +363,10 @@
   }
   
   .controls {
-    bottom: -50px;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
   }
   
   /* Hide desktop earth container */
@@ -496,7 +500,7 @@
   }
   
   .controls {
-    bottom: -40px;
+    bottom: 10px;
   }
   
   .playPauseButton {
