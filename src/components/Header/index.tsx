@@ -216,7 +216,7 @@ export function Header() {
                 </li>
                 <li>
                   <NavLink to='/repairs-services' className={styles.navLink} onClick={closeAllMenus}>
-                    Reparos e serviços técnicos
+                    Reparos e serviços<br />técnicos
                   </NavLink>
                 </li>
               </ul>
