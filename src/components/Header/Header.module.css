@@ -1545,14 +1545,10 @@ nav ul li:hover .submenu2 ul li a {
   /* Mover itens do submenu Solicitações 200px para a direita */
   .requestsSubmenu,
   .submenu1 .requestsSubmenu,
-  .submenu1.submenu1Open .requestsSubmenu {
-    margin-left: 200px !important;
-    transform: translateX(0) !important;
-  }
-  
-  .requestsSubmenu li,
-  .submenu1 .requestsSubmenu li {
-    margin-left: 0 !important;
+  .submenu1.submenu1Open .requestsSubmenu,
+  ul.requestsSubmenu {
+    position: relative !important;
+    left: 200px !important;
   }
 }
 
