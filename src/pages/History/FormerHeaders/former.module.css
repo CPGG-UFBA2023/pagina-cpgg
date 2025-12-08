@@ -769,3 +769,9 @@
   }
 }
 
+@media (max-width: 430px) {
+  .boxzero {
+    top: calc(16% + 50px) !important;
+  }
+}
+
