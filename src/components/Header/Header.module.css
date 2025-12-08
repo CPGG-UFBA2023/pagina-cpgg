@@ -1318,7 +1318,7 @@ nav ul li:hover .submenu2 ul li a {
   .submenu1.submenu1Open ul li a {
     white-space: normal !important;
     line-height: 1.3 !important;
-    padding: 10px 12px !important;
+    padding: 10px 12px 10px 212px !important;
     font-size: 13px !important;
     display: block !important;
     width: 100% !important;
