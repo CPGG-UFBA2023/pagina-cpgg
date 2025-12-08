@@ -1304,12 +1304,8 @@ nav ul li:hover .submenu2 ul li a {
     text-align: center !important;
     margin: 0 !important;
     padding: 0 !important;
-    background-color: rgba(89, 44, 187, 0.95) !important;
-    border-radius: 6px !important;
-  }
-  
-  .submenu1.submenu1Open ul li:hover {
-    background-color: white !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
   }
   
   .submenu1.submenu1Open ul li:hover > a {
@@ -1319,7 +1315,7 @@ nav ul li:hover .submenu2 ul li a {
   .submenu1.submenu1Open ul li a {
     display: block !important;
     width: 100% !important;
-    padding: 10px 12px !important;
+    padding: 8px 12px !important;
     font-size: 11px !important;
     font-weight: 500 !important;
     color: white !important;
@@ -1329,7 +1325,7 @@ nav ul li:hover .submenu2 ul li a {
   
   /* Hoversub - item que tem submenu2 */
   .submenu1.submenu1Open ul li.hoversub {
-    background-color: rgba(89, 44, 187, 0.95) !important;
+    background-color: transparent !important;
   }
   
   /* ============================================= */
@@ -1395,8 +1391,8 @@ nav ul li:hover .submenu2 ul li a {
     text-align: center !important;
     padding: 0 !important;
     margin: 0 !important;
-    background-color: rgba(70, 30, 150, 0.95) !important;
-    border-radius: 6px !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
   }
   
   .submenu2.submenu2Open ul li a,
