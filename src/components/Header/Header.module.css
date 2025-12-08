@@ -82,7 +82,19 @@
   margin: 2px 0;
   font-size: clamp(6px, 1vw, 18px);
   text-align: center;
-  white-space: normal;
+  white-space: nowrap;
+  font-family: Roboto;
+  font-weight: 600;
+  color: white;
+  line-height: 1.2;
+}
+
+.block1 h2 {
+  padding: 0;
+  margin: 2px 0;
+  font-size: clamp(4px, 0.85vw, 15px);
+  text-align: center;
+  white-space: nowrap;
   font-family: Roboto;
   font-weight: 600;
   color: white;
@@ -94,7 +106,7 @@
   margin: 2px 0;
   font-size: clamp(4px, 0.85vw, 15px);
   text-align: center;
-  white-space: normal;
+  white-space: nowrap;
   font-family: Roboto;
   font-weight: 600;
   color: white;
