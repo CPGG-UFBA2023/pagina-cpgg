@@ -316,7 +316,7 @@
   /* Phrase content */
   .static {
     order: unset;
-    font-size: 28px;
+    font-size: 42px;
     text-align: left;
     width: auto;
     flex: 1;
@@ -327,16 +327,16 @@
   }
   
   .static > strong {
-    font-size: 56px;
+    font-size: 84px;
   }
   
   .enjoy {
-    font-size: 20px;
+    font-size: 30px;
     padding-top: 20px;
   }
   
   .enjoy > strong {
-    font-size: 20px;
+    font-size: 30px;
   }
   
   /* Show Earth beside phrase */
@@ -378,19 +378,19 @@
   }
   
   .static {
-    font-size: 24px;
+    font-size: 36px;
   }
   
   .static > strong {
-    font-size: 48px;
+    font-size: 72px;
   }
   
   .enjoy {
-    font-size: 18px;
+    font-size: 27px;
   }
   
   .enjoy > strong {
-    font-size: 18px;
+    font-size: 27px;
   }
   
   .carouselContainer {
@@ -420,23 +420,23 @@
   }
   
   .static {
-    font-size: 20px;
+    font-size: 30px;
     padding: 0;
     text-align: center;
     align-items: center;
   }
   
   .static > strong {
-    font-size: 40px;
+    font-size: 60px;
   }
   
   .enjoy {
-    font-size: 15px;
+    font-size: 23px;
     padding-top: 15px;
   }
   
   .enjoy > strong {
-    font-size: 15px;
+    font-size: 23px;
   }
   
   .carouselContainer {
@@ -472,19 +472,19 @@
   }
   
   .static {
-    font-size: 16px;
+    font-size: 24px;
   }
   
   .static > strong {
-    font-size: 32px;
+    font-size: 48px;
   }
   
   .enjoy {
-    font-size: 13px;
+    font-size: 20px;
   }
   
   .enjoy > strong {
-    font-size: 13px;
+    font-size: 20px;
   }
   
   .imageWrapper {
