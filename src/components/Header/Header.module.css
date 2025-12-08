@@ -1155,25 +1155,33 @@ nav ul li:hover .submenu2 ul li a {
 /* Resoluções ≤430px - Centralizar título */
 @media (max-width: 430px) {
   .block1 {
-    width: 100%;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
+    width: 100% !important;
+    text-align: center !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transform: none !important;
+    margin: 0 auto !important;
   }
   
   .block1 h1 {
-    text-align: center;
-    width: 100%;
+    text-align: center !important;
+    width: 100% !important;
+    transform: none !important;
+  }
+  
+  .block1 h1:first-child {
+    transform: none !important;
   }
   
   .subTitle {
-    text-align: center;
-    width: 100%;
+    text-align: center !important;
+    width: 100% !important;
   }
   
   .centerContent {
-    justify-content: center;
-    padding: 5px 10px;
+    justify-content: center !important;
+    padding: 5px 10px !important;
+    width: 100% !important;
   }
 }
 
