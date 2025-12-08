@@ -1243,17 +1243,17 @@ nav ul li:hover .submenu2 ul li a {
     font-size: 9px !important;
   }
   
-  /* Submenus aparecem verticalmente e acima do botão */
+  /* Submenus aparecem verticalmente e abaixo do botão */
   .submenu1.submenu1Open {
     display: flex !important;
     flex-direction: column !important;
     position: absolute !important;
-    bottom: 100% !important;
-    top: auto !important;
+    top: 100% !important;
+    bottom: auto !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    margin-bottom: 10px !important;
-    margin-top: 0 !important;
+    margin-top: 10px !important;
+    margin-bottom: 0 !important;
     margin-left: 0 !important;
     min-width: 180px !important;
     max-width: 250px !important;
@@ -1271,17 +1271,17 @@ nav ul li:hover .submenu2 ul li a {
     text-align: center !important;
   }
   
-  /* Submenu2 também vertical e acima */
+  /* Submenu2 também vertical e abaixo */
   .submenu2.submenu2Open {
     display: flex !important;
     flex-direction: column !important;
     position: absolute !important;
-    bottom: 100% !important;
-    top: auto !important;
+    top: 100% !important;
+    bottom: auto !important;
     left: 50% !important;
     right: auto !important;
     transform: translateX(-50%) !important;
-    margin-bottom: 5px !important;
+    margin-top: 5px !important;
     min-width: 160px !important;
     z-index: 100015 !important;
   }
