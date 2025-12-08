@@ -1171,7 +1171,7 @@ nav ul li:hover .submenu2 ul li a {
     text-align: center !important;
     align-items: center !important;
     justify-content: center !important;
-    transform: none !important;
+    transform: translateX(-30px) !important;
     margin: 0 auto !important;
   }
   
