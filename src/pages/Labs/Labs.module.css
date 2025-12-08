@@ -443,3 +443,9 @@
     font-size: 12px;
   }
 }
+
+@media (max-width: 430px) {
+  .titleContainer {
+    transform: translateY(-80px) translateX(50px);
+  }
+}
