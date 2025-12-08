@@ -1199,6 +1199,10 @@ nav ul li:hover .submenu2 ul li a {
     transform: translateX(30px) !important;
   }
   
+  .block1 h2.subTitle:last-child {
+    transform: translateX(45px) !important;
+  }
+  
   .centerContent {
     justify-content: center !important;
     padding: 5px 10px !important;
