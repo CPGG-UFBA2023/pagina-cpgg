@@ -13,6 +13,8 @@ export function Porsani() {
         <div className={styles.Professor} >
           <BackButton />
           <p> Milton José Porsani </p>
+          <div className={styles.box2}>
+          </div>
           <div className={styles.box1}>
           <DynamicResearcherProfile 
             researcherName="Milton José Porsani"
@@ -24,8 +26,6 @@ export function Porsani() {
            </nav>
            <b> e-mail</b>
            <p>milton.porsani@gmail.com</p> 
-            <div className={styles.box2}>
-            </div>
           </div>
         </div>
       </div>
