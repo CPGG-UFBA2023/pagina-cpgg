@@ -355,7 +355,7 @@
     width: 100%;
     max-width: none;
     margin: 0;
-    margin-top: -50px;
+    margin-top: -200px;
   }
   
   .imageWrapper {
@@ -364,7 +364,7 @@
   
   .controls {
     position: absolute;
-    bottom: 390px;
+    bottom: 540px;
     left: 0;
     right: 0;
   }
@@ -399,7 +399,7 @@
   
   .carouselContainer {
     width: 100%;
-    margin-top: -50px;
+    margin-top: -200px;
   }
   
   .imageWrapper {
@@ -407,7 +407,7 @@
   }
   
   .controls {
-    bottom: 390px;
+    bottom: 540px;
   }
   
   .earthImageMobile {
@@ -450,7 +450,7 @@
   
   .carouselContainer {
     width: 100%;
-    margin-top: -50px;
+    margin-top: -200px;
   }
   
   .imageWrapper {
@@ -458,7 +458,7 @@
   }
   
   .controls {
-    bottom: 390px;
+    bottom: 540px;
   }
   
   .newsTitle {
@@ -501,6 +501,10 @@
     font-size: 20px;
   }
   
+  .carouselContainer {
+    margin-top: -200px;
+  }
+  
   .imageWrapper {
     height: 200px;
   }
@@ -510,7 +514,7 @@
   }
   
   .controls {
-    bottom: 390px;
+    bottom: 540px;
   }
   
   .playPauseButton {
