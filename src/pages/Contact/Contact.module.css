@@ -140,7 +140,7 @@
   }
 }
 
-@media (width: 1024px) and (height: 1366px) {
+@media (min-width: 1020px) and (max-width: 1030px) and (min-height: 1360px) and (max-height: 1370px) {
   .contact {
     transform: translateY(50px) !important;
   }
