@@ -280,19 +280,21 @@ nav ul li:hover .submenu1 ul li:hover a {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Ensure second-level submenu opens on click (submenu2Open) for all resolutions */
-.hoversub .submenu2.submenu2Open {
-  display: block !important;
-  position: absolute !important;
-  top: 0 !important;
-  right: 100% !important;
-  margin: 0 !important;
-  background-color: rgba(89, 44, 187, 0.95) !important;
-  width: fit-content !important;
-  min-width: 190px !important;
-  z-index: 100006 !important;
-  border-radius: 8px !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+/* Ensure second-level submenu opens on click (submenu2Open) for resolutions > 430px */
+@media (min-width: 431px) {
+  .hoversub .submenu2.submenu2Open {
+    display: block !important;
+    position: absolute !important;
+    top: 0 !important;
+    right: 100% !important;
+    margin: 0 !important;
+    background-color: rgba(89, 44, 187, 0.95) !important;
+    width: fit-content !important;
+    min-width: 190px !important;
+    z-index: 100006 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  }
 }
 
 /* Extra safety: class-only selector to work with CSS Modules */
