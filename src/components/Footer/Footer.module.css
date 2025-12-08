@@ -744,17 +744,17 @@
   
   .bar {
     height: auto !important;
-    min-height: 180px !important;
-    padding: 15px 10px !important;
+    min-height: 162px !important;
+    padding: 12px 10px !important;
     margin-bottom: 0 !important;
   }
   
   .bar nav {
-    transform: translateY(-100px) !important;
+    transform: translateY(-90px) !important;
   }
   
   .copyright {
     transform: none !important;
-    margin-top: 10px !important;
+    margin-top: 8px !important;
   }
 }
