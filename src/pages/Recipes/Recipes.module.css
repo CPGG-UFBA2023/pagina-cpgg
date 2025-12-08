@@ -171,12 +171,17 @@
 /* Resoluções ≤430px - título à direita, botões centralizados, scroll vertical */
 @media (max-width: 430px) {
   .Container {
+    height: auto !important;
+    min-height: 100vh !important;
     overflow-y: auto !important;
+    overflow-x: hidden !important;
   }
   
   .recipes {
-    overflow-y: auto !important;
+    overflow-y: visible !important;
     max-height: none !important;
+    height: auto !important;
+    padding-bottom: 20px !important;
   }
   
   .title {
