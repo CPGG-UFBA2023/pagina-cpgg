@@ -235,6 +235,8 @@
     left: 50% !important;
     transform: translateX(-50%) !important;
     margin-bottom: 30px !important;
+    min-height: 440px !important;
+    max-height: 440px !important;
   }
   
   .buttonContainer {
