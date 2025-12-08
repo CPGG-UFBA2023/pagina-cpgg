@@ -34,3 +34,9 @@
     padding: 8px 12px !important;
   }
 }
+
+@media screen and (max-width: 430px) {
+  .backButton {
+    top: 170px !important;
+  }
+}
