@@ -1,6 +1,6 @@
 .counter {
   position: absolute;
-  bottom: 15px;
+  bottom: 8px;
   left: 10px;
   z-index: 10;
   background: transparent;
@@ -19,7 +19,7 @@
 /* Responsivo */
 @media (max-width: 768px) {
   .counter {
-    bottom: 8px;
+    bottom: 6px;
     left: 8px;
     font-size: 9px;
     padding: 3px 6px;
@@ -28,21 +28,21 @@
 
 @media (max-width: 480px) {
   .counter {
-    bottom: 6px;
+    bottom: 5px;
     left: 6px;
     font-size: 8px;
     padding: 2px 5px;
   }
 }
 
-/* Resoluções ≤430px - contador sempre no rodapé */
+/* Resoluções ≤430px - contador fixo na barra do rodapé */
 @media (max-width: 430px) {
   .counter {
     position: absolute !important;
-    bottom: 4px !important;
+    bottom: 5px !important;
     left: 5px !important;
     font-size: 7px !important;
     padding: 2px 4px !important;
-    z-index: 10 !important;
+    z-index: 100 !important;
   }
 }
