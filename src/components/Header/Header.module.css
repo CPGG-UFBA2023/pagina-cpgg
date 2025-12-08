@@ -1541,4 +1541,9 @@ nav ul li:hover .submenu2 ul li a {
     display: flex !important;
     align-items: center !important;
   }
+  
+  /* Mover itens do submenu Solicitações 200px para a direita */
+  .requestsSubmenu {
+    transform: translateX(200px) !important;
+  }
 }

@@ -203,7 +203,7 @@ export function Header() {
             <div
               className={`${styles.submenu1} ${openMenu === 'requests' ? styles.submenu1Open : ''}`}
             >
-              <ul>
+              <ul className={styles.requestsSubmenu}>
                 <li>
                   <NavLink to='/spaces' className={styles.navLink} onClick={closeAllMenus}>
                     {t('nav.spacesReservations')}
