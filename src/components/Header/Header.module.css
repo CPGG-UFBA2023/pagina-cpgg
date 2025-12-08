@@ -1179,7 +1179,7 @@ nav ul li:hover .submenu2 ul li a {
     text-align: center !important;
     width: 100% !important;
     transform: none !important;
-    font-size: 24px !important;
+    font-size: 12px !important;
   }
   
   .block1 h1:first-child {
@@ -1189,13 +1189,13 @@ nav ul li:hover .submenu2 ul li a {
   .block1 h2 {
     text-align: center !important;
     width: 100% !important;
-    font-size: 16px !important;
+    font-size: 8px !important;
   }
   
   .subTitle {
     text-align: center !important;
     width: 100% !important;
-    font-size: 16px !important;
+    font-size: 8px !important;
   }
   
   .centerContent {
