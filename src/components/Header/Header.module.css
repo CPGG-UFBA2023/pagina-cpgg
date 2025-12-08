@@ -1542,18 +1542,20 @@ nav ul li:hover .submenu2 ul li a {
     align-items: center !important;
   }
   
-  /* Mover itens do submenu Solicitações 200px para a direita */
-  .requestsSubmenu,
-  .submenu1 .requestsSubmenu,
-  .submenu1.submenu1Open .requestsSubmenu,
-  ul.requestsSubmenu {
-    position: relative !important;
-    left: 200px !important;
+  /* Mover submenu Solicitações 200px para a direita */
+  .requestsSubmenuContainer,
+  .requestsSubmenuContainer.submenu1Open {
+    left: calc(50% + 200px) !important;
+    transform: translateX(-50%) !important;
   }
 }
 
-/* Definição base para CSS Module reconhecer a classe */
+/* Definição base para CSS Module reconhecer as classes */
 .requestsSubmenu {
   display: flex;
   flex-direction: column;
+}
+
+.requestsSubmenuContainer {
+  /* Base class for CSS modules */
 }
