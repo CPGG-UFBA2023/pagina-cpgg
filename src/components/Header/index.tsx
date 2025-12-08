@@ -13,9 +13,6 @@ export function Header() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
 
-  // Check if mobile resolution
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 430;
-
   const toggleMenu = (menu: string) => {
     console.log('toggleMenu', { menu, openMenuBefore: openMenu });
     setOpenMenu((prev) => {
@@ -30,9 +27,6 @@ export function Header() {
   };
 
   const toggleSubmenu = (submenu: string) => {
-    // On mobile, don't toggle submenus - they're always visible
-    if (isMobile) return;
-    
     console.log('toggleSubmenu', { submenu, openSubmenuBefore: openSubmenu });
     setOpenSubmenu((prev) => {
       const next = prev === submenu ? null : submenu;

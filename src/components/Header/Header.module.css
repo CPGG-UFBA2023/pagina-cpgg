@@ -1332,15 +1332,21 @@ nav ul li:hover .submenu2 ul li a {
   /* ============================================= */
   
   /* Esconder submenu2 por padrão */
-  /* Submenu2 - sempre visível quando submenu1 está aberto em mobile */
-  .submenu1Open .submenu2,
-  .submenu1Open .submenu2.submenu2Institution,
-  .submenu1Open .submenu2.submenu2Personnel,
+  .submenu2,
+  .submenu2.submenu2Institution,
+  .submenu2.submenu2Personnel,
+  .hoversub .submenu2,
+  .hoversub:hover .submenu2 {
+    display: none !important;
+  }
+  
+  /* Submenu2 aberto - inline sem box */
   .submenu2.submenu2Open,
   .submenu2.submenu2Institution.submenu2Open,
   .submenu2.submenu2Personnel.submenu2Open,
-  .hoversub .submenu2,
-  .hoversub:hover .submenu2 {
+  .hoversub .submenu2.submenu2Open,
+  .hoversub .submenu2.submenu2Institution.submenu2Open,
+  .hoversub .submenu2.submenu2Personnel.submenu2Open {
     display: block !important;
     visibility: visible !important;
     position: relative !important;
