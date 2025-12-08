@@ -754,7 +754,7 @@
   }
   
   .copyright {
-    transform: translateY(50px) !important;
+    transform: translateY(100px) !important;
     margin-top: 6px !important;
     font-size: 8px !important;
   }
