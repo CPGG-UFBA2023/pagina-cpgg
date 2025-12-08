@@ -1418,19 +1418,32 @@ nav ul li:hover .submenu2 ul li a {
     color: #d4c4f0 !important;
   }
   
-  /* Submenu Solicitações */
+  /* Submenu Solicitações - COM BOX ROXA */
   .requestsSubmenu {
     display: flex !important;
     flex-direction: column !important;
-    width: 100% !important;
-    gap: 2px !important;
+    width: auto !important;
+    min-width: 200px !important;
+    gap: 8px !important;
     position: relative !important;
     left: -30px !important;
     transform: none !important;
+    background-color: rgba(89, 44, 187, 0.95) !important;
+    border-radius: 12px !important;
+    padding: 15px 20px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
   }
   
   .requestsSubmenu li {
     margin-left: 0 !important;
+    padding: 8px 0 !important;
+  }
+  
+  .requestsSubmenu li a {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: white !important;
+    line-height: 1.4 !important;
   }
 }
 
