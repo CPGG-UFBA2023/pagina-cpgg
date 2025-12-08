@@ -291,16 +291,24 @@ nav ul li:hover .submenu1 ul li:hover a {
     display: block !important;
     position: absolute !important;
     top: 0 !important;
-    right: 100% !important;
+    right: calc(100% + 10px) !important;
     left: auto !important;
     margin: 0 !important;
     background-color: rgba(89, 44, 187, 0.95) !important;
     width: fit-content !important;
-    min-width: 190px !important;
+    min-width: 220px !important;
     z-index: 100006 !important;
-    border-radius: 8px !important;
+    border-radius: 12px !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
     transform: none !important;
+    padding: 15px 0 !important;
+  }
+  
+  .submenu2.submenu2Open ul li a,
+  .submenu2.submenu2Institution.submenu2Open ul li a,
+  .submenu2.submenu2Personnel.submenu2Open ul li a {
+    font-size: 14px !important;
+    padding: 12px 20px !important;
   }
 }
 
@@ -1335,25 +1343,25 @@ nav ul li:hover .submenu2 ul li a {
     display: none !important;
   }
   
-  /* Submenu Instituição abre ao lado do menu (não centralizado) para resoluções ≤430px */
+  /* Submenu Instituição abre à esquerda como caixa separada */
   .submenu2.submenu2Institution.submenu2Open,
   .hoversub .submenu2.submenu2Institution.submenu2Open,
   .hoversub:hover .submenu2.submenu2Institution.submenu2Open {
     display: block !important;
     position: absolute !important;
     top: 0 !important;
-    right: 100% !important;
+    right: calc(100% + 10px) !important;
     left: auto !important;
     bottom: auto !important;
     transform: none !important;
     margin: 0 !important;
-    min-width: 150px !important;
+    min-width: 220px !important;
     width: fit-content !important;
     background-color: rgba(89, 44, 187, 0.95) !important;
-    border-radius: 8px !important;
+    border-radius: 12px !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
     z-index: 100010 !important;
-    padding: 0 !important;
+    padding: 15px 0 !important;
   }
   
   .submenu2.submenu2Institution.submenu2Open ul,
@@ -1378,8 +1386,8 @@ nav ul li:hover .submenu2 ul li a {
   .hoversub .submenu2.submenu2Institution.submenu2Open ul li a {
     display: block !important;
     width: 100% !important;
-    font-size: 11px !important;
-    padding: 11px 15px !important;
+    font-size: 14px !important;
+    padding: 12px 20px !important;
     color: white !important;
     background-color: transparent !important;
   }
@@ -1390,24 +1398,24 @@ nav ul li:hover .submenu2 ul li a {
     color: #592cbb !important;
   }
   
-  /* Submenu Personnel abre à esquerda igual às outras resoluções */
+  /* Submenu Personnel abre à esquerda como caixa separada */
   .submenu2.submenu2Personnel.submenu2Open,
   .hoversub .submenu2.submenu2Personnel.submenu2Open {
     display: block !important;
     position: absolute !important;
     top: 0 !important;
-    right: 100% !important;
+    right: calc(100% + 10px) !important;
     left: auto !important;
     bottom: auto !important;
     transform: none !important;
     margin: 0 !important;
-    min-width: 150px !important;
+    min-width: 220px !important;
     width: fit-content !important;
     background-color: rgba(89, 44, 187, 0.95) !important;
-    border-radius: 8px !important;
+    border-radius: 12px !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
     z-index: 100006 !important;
-    padding-left: 0 !important;
+    padding: 15px 0 !important;
   }
   
   .submenu2.submenu2Personnel.submenu2Open ul,
@@ -1432,8 +1440,8 @@ nav ul li:hover .submenu2 ul li a {
   .hoversub .submenu2.submenu2Personnel.submenu2Open ul li a {
     display: block !important;
     width: 100% !important;
-    font-size: 11px !important;
-    padding: 11px 15px !important;
+    font-size: 14px !important;
+    padding: 12px 20px !important;
     color: white !important;
     background-color: transparent !important;
   }
