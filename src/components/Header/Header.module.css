@@ -1351,7 +1351,7 @@ nav ul li:hover .submenu2 ul li a {
     visibility: visible !important;
     position: absolute !important;
     top: 0 !important;
-    left: -130px !important;
+    left: 70px !important;
     right: auto !important;
     bottom: auto !important;
     transform: none !important;
