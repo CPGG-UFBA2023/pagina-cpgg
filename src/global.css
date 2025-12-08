@@ -295,3 +295,14 @@ button[data-radix-select-trigger] * {
 .formCard [data-radix-select-trigger] * {
   color: #000 !important;
 }
+
+/* Pesquisadores individuais - descer boxes em 50px para resoluções ≤430px */
+@media (max-width: 430px) {
+  [class*="Professor"] [class*="box1"] {
+    top: calc(20% + 50px) !important;
+  }
+  
+  [class*="Professor"] [class*="box2"] {
+    top: calc(3% + 50px) !important;
+  }
+}
