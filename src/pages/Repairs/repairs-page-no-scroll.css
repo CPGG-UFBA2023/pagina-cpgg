@@ -1,59 +1,47 @@
 /* Repairs page - disable vertical scroll and static footer */
-html:has(.repairs-page),
-body:has(.repairs-page) {
-  overflow: hidden !important;
-  height: 100vh !important;
-  max-height: 100vh !important;
-}
 
-body:has(.repairs-page) > div,
-body:has(.repairs-page) #root {
-  height: 100vh !important;
-  max-height: 100vh !important;
-  overflow: hidden !important;
-}
-
-.repairs-page {
-  height: 100vh !important;
-  max-height: 100vh !important;
-  overflow: hidden !important;
-  display: flex !important;
-  flex-direction: column !important;
-}
-
-.repairs-page main.repairs {
-  flex: 1 !important;
-  overflow: hidden !important;
-  overflow-y: hidden !important;
-  padding-bottom: 0 !important;
-  max-height: calc(100vh - 150px) !important;
-}
-
-/* Footer static positioning */
-.repairs-page footer {
-  position: relative !important;
-  margin-top: auto !important;
-  flex-shrink: 0 !important;
-}
-
-/* Permitir scroll vertical em resoluções ≤430px */
-@media (max-width: 430px) {
+/* Desktop styles */
+@media (min-width: 431px) {
   html:has(.repairs-page),
   body:has(.repairs-page) {
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    height: auto !important;
-    max-height: none !important;
+    overflow: hidden !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
   }
 
   body:has(.repairs-page) > div,
   body:has(.repairs-page) #root {
-    height: auto !important;
-    max-height: none !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    overflow: hidden !important;
   }
 
+  .repairs-page {
+    height: 100vh !important;
+    max-height: 100vh !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .repairs-page main.repairs {
+    flex: 1 !important;
+    overflow: hidden !important;
+    overflow-y: hidden !important;
+    padding-bottom: 0 !important;
+    max-height: calc(100vh - 150px) !important;
+  }
+
+  /* Footer static positioning */
+  .repairs-page footer {
+    position: relative !important;
+    margin-top: auto !important;
+    flex-shrink: 0 !important;
+  }
+}
+
+/* Mobile styles - permitir scroll vertical em resoluções ≤430px */
+@media (max-width: 430px) {
   .repairs-page {
     height: auto !important;
     min-height: 100vh !important;
@@ -75,7 +63,7 @@ body:has(.repairs-page) #root {
   .repairs-page footer {
     position: relative !important;
     flex-shrink: 0 !important;
-    margin-top: auto !important;
+    margin-top: 0 !important;
     width: 100% !important;
   }
 }
