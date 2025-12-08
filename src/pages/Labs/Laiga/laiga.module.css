@@ -685,6 +685,89 @@ nav a:hover {
     height: 26px !important;
     padding: 0 10px !important;
   }
+}
+
+/* Mobile ≤430px - Centralização da box e conteúdo */
+@media (max-width: 430px) {
+  .laiga {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 120px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+  }
+
+  .Title {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .box {
+    position: relative !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 95% !important;
+    max-width: 95% !important;
+    margin: 0 auto !important;
+    padding: 15px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    height: auto !important;
+    max-height: 60vh !important;
+    overflow-y: auto !important;
+    min-height: 400px !important;
+  }
+
+  .Title ul {
+    text-align: center !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  .Title a {
+    text-align: center !important;
+    margin-left: 0 !important;
+    margin-top: 10px !important;
+  }
+
+  .box p {
+    text-align: justify !important;
+    margin-bottom: 10px !important;
+  }
+
+  .box span,
+  .box b,
+  .box nav a {
+    margin-left: 0 !important;
+    text-align: center !important;
+  }
+
+  .requerimentoButton {
+    margin-left: 0 !important;
+    text-align: center !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .buttonLink,
+  .Title .buttonLink {
+    margin: 0 auto !important;
+  }
+
+  /* Fotos centralizadas */
+  .box1,
+  .box2,
+  .box3,
+  .box4 {
+    position: relative !important;
+    left: 0 !important;
+    top: 0 !important;
+    margin: 10px auto !important;
+  }
 
   /* Fotos em grid 2x2 ao fim da box (mobile pequeno) */
   .box1,
