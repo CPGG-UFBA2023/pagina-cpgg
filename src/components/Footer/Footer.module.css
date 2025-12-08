@@ -770,4 +770,8 @@
   .image {
     height: 108px !important;
   }
+  
+  .copyright {
+    margin-top: -10px !important;
+  }
 }
