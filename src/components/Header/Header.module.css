@@ -1282,7 +1282,7 @@ nav ul li:hover .submenu2 ul li a {
     flex-direction: column !important;
     position: absolute !important;
     top: 100% !important;
-    left: 50% !important;
+    left: calc(50% + 200px) !important;
     transform: translateX(-50%) !important;
     margin-top: 5px !important;
     min-width: 220px !important;
