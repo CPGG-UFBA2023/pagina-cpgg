@@ -11,7 +11,7 @@ export function CPGG() {
   const { t } = useLanguage()
   
   return (
-    <div className={styles.pageContainer}>
+    <div className={`${styles.pageContainer} cpgg-page-container`}>
       <Header />
       <main className={`${styles.cpgg} cpgg`}>
         <div className={styles.Title} >

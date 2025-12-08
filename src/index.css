@@ -172,6 +172,17 @@ All colors MUST be HSL.
     overflow: hidden !important;
   }
 
+  /* CPGG page scroll exception for mobile */
+  @media (max-width: 430px) {
+    .cpgg-page-container {
+      height: auto !important;
+      min-height: 100vh !important;
+      max-height: none !important;
+      overflow-y: scroll !important;
+      overflow-x: hidden !important;
+    }
+  }
+
   /* Sign page exception - contained overflow */
   .sign {
     height: 100vh !important;
