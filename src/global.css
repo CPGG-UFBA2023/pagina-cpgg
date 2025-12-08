@@ -107,13 +107,10 @@ body:has(.sign) #root {
   height: 100vh !important;
 }
 
-/* Force no scroll on CPGG, History, Regulations, Photos, Coordination, Researchers, Technicians, Labs, Spaces, Production, Recipes, Map pages */
-body:has(main.cpgg),
+/* Force no scroll on History, Regulations, Photos, Technicians, Labs, Spaces, Production, Recipes, Map pages */
 body:has(main.history),
 body:has(main.regulations),
 body:has(main.photos),
-body:has(.coordination),
-body:has(.researchers),
 body:has(.technicians),
 body:has(.labs),
 body:has(main.spaces),
@@ -124,12 +121,9 @@ body:has(main.map) {
   height: 100vh !important;
 }
 
-body:has(main.cpgg) #root,
 body:has(main.history) #root,
 body:has(main.regulations) #root,
 body:has(main.photos) #root,
-body:has(.coordination) #root,
-body:has(.researchers) #root,
 body:has(.technicians) #root,
 body:has(.labs) #root,
 body:has(main.spaces) #root,
@@ -137,6 +131,35 @@ body:has(.production) #root,
 body:has(main.map) #root {
   overflow: hidden !important;
   height: 100vh !important;
+}
+
+/* Permitir scroll na página CPGG */
+body:has(main.cpgg),
+body:has(main.cpgg) #root {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  height: auto !important;
+  min-height: 100vh !important;
+}
+
+/* Permitir scroll na página Coordination */
+body:has(.coordination),
+body:has(.coordination) #root,
+body:has(.heads),
+body:has(.heads) #root {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  height: auto !important;
+  min-height: 100vh !important;
+}
+
+/* Permitir scroll na página Researchers */
+body:has(.researchers),
+body:has(.researchers) #root {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  height: auto !important;
+  min-height: 100vh !important;
 }
 
 /* EXCEÇÃO: permitir scroll na página Recipes em telas pequenas */
@@ -160,19 +183,6 @@ body:has(main.map) #root {
     height: auto !important;
     min-height: 100vh !important;
   }
-}
-
-
-
-/* Force no scroll on Coordination page */
-body:has(.heads) {
-  overflow: hidden !important;
-  height: 100vh !important;
-}
-
-body:has(.heads) #root {
-  overflow: hidden !important;
-  height: 100vh !important;
 }
 
 body {
