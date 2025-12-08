@@ -1266,34 +1266,41 @@ nav ul li:hover .submenu2 ul li a {
     font-size: 9px !important;
   }
   
-  /* === DESIGN CRIATIVO MOBILE: Accordion expandível === */
+  /* === MOBILE ≤430px: Menus dropdown simples === */
   
-  /* Menu principal (Sobre nós / Solicitações) abre como caixa centralizada na tela */
+  /* Menu principal (Sobre nós / Solicitações) - dropdown abaixo do item */
+  .header nav ul li {
+    position: relative !important;
+  }
+  
+  .submenu1 {
+    display: none !important;
+  }
+  
   .submenu1.submenu1Open {
     display: flex !important;
     flex-direction: column !important;
-    position: fixed !important;
-    top: 50% !important;
+    position: absolute !important;
+    top: 100% !important;
     left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    bottom: auto !important;
-    margin: 0 !important;
-    min-width: 280px !important;
-    max-width: 90vw !important;
-    max-height: 80vh !important;
-    overflow-y: auto !important;
+    transform: translateX(-50%) !important;
+    margin-top: 5px !important;
+    min-width: 220px !important;
+    max-width: 260px !important;
     z-index: 100020 !important;
     background-color: rgba(89, 44, 187, 0.98) !important;
-    border-radius: 16px !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
-    padding: 20px 15px !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+    padding: 10px !important;
   }
   
   .submenu1.submenu1Open ul {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
-    gap: 5px !important;
+    gap: 4px !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
   
   .submenu1.submenu1Open ul li {
@@ -1302,21 +1309,18 @@ nav ul li:hover .submenu2 ul li a {
     text-align: left !important;
     margin: 0 !important;
     margin-left: 0 !important;
-    border-radius: 8px !important;
-    overflow: hidden !important;
+    padding: 0 !important;
   }
   
   .submenu1.submenu1Open ul li a {
     white-space: normal !important;
-    word-wrap: break-word !important;
-    line-height: 1.4 !important;
-    padding: 12px 15px !important;
-    font-size: 14px !important;
+    line-height: 1.3 !important;
+    padding: 10px 12px !important;
+    font-size: 13px !important;
     display: block !important;
     color: white !important;
     background-color: rgba(255, 255, 255, 0.1) !important;
-    border-radius: 8px !important;
-    transition: all 0.2s ease !important;
+    border-radius: 6px !important;
   }
   
   .submenu1.submenu1Open ul li a:hover {
@@ -1324,51 +1328,36 @@ nav ul li:hover .submenu2 ul li a {
     color: #592cbb !important;
   }
   
-  /* Itens com submenu (hoversub) - estilo de accordion */
+  /* Itens com submenu (Instituição/Pessoal) */
   .submenu1.submenu1Open ul li.hoversub {
-    background-color: transparent !important;
-    border-radius: 8px !important;
+    position: relative !important;
   }
   
   .submenu1.submenu1Open ul li.hoversub > a {
     background-color: rgba(255, 255, 255, 0.15) !important;
-    border-radius: 8px 8px 8px 8px !important;
     position: relative !important;
+    padding-right: 30px !important;
   }
   
   .submenu1.submenu1Open ul li.hoversub > a::after {
-    content: '▼' !important;
+    content: '▶' !important;
     position: absolute !important;
-    right: 15px !important;
+    right: 12px !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
-    font-size: 10px !important;
-    transition: transform 0.2s ease !important;
+    font-size: 8px !important;
   }
   
-  /* Submenu2 (Instituição/Pessoal) - Expande inline como accordion */
-  .hoversub .submenu2,
-  .submenu2 {
+  /* Submenu2 (Instituição/Pessoal) - expande inline */
+  .submenu2,
+  .hoversub .submenu2 {
     display: none !important;
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    transform: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    background-color: transparent !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    min-width: auto !important;
-    width: 100% !important;
   }
   
-  .hoversub .submenu2.submenu2Open,
   .submenu2.submenu2Open,
   .submenu2.submenu2Institution.submenu2Open,
   .submenu2.submenu2Personnel.submenu2Open,
+  .hoversub .submenu2.submenu2Open,
   .hoversub .submenu2.submenu2Institution.submenu2Open,
   .hoversub .submenu2.submenu2Personnel.submenu2Open,
   .hoversub:hover .submenu2.submenu2Institution.submenu2Open,
@@ -1378,12 +1367,11 @@ nav ul li:hover .submenu2 ul li a {
     top: auto !important;
     left: auto !important;
     right: auto !important;
-    bottom: auto !important;
     transform: none !important;
-    margin: 8px 0 0 0 !important;
+    margin: 4px 0 0 0 !important;
     padding: 0 !important;
-    background-color: rgba(255, 255, 255, 0.08) !important;
-    border-radius: 8px !important;
+    background-color: rgba(60, 20, 140, 0.95) !important;
+    border-radius: 6px !important;
     box-shadow: none !important;
     min-width: auto !important;
     width: 100% !important;
@@ -1393,21 +1381,19 @@ nav ul li:hover .submenu2 ul li a {
   .submenu2.submenu2Open ul,
   .submenu2.submenu2Institution.submenu2Open ul,
   .submenu2.submenu2Personnel.submenu2Open ul,
-  .hoversub .submenu2.submenu2Open ul,
   .hoversub .submenu2.submenu2Institution.submenu2Open ul,
   .hoversub .submenu2.submenu2Personnel.submenu2Open ul {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
-    padding: 8px !important;
+    padding: 6px !important;
     margin: 0 !important;
-    gap: 4px !important;
+    gap: 3px !important;
   }
   
   .submenu2.submenu2Open ul li,
   .submenu2.submenu2Institution.submenu2Open ul li,
   .submenu2.submenu2Personnel.submenu2Open ul li,
-  .hoversub .submenu2.submenu2Open ul li,
   .hoversub .submenu2.submenu2Institution.submenu2Open ul li,
   .hoversub .submenu2.submenu2Personnel.submenu2Open ul li {
     width: 100% !important;
@@ -1420,25 +1406,20 @@ nav ul li:hover .submenu2 ul li a {
   .submenu2.submenu2Open ul li a,
   .submenu2.submenu2Institution.submenu2Open ul li a,
   .submenu2.submenu2Personnel.submenu2Open ul li a,
-  .hoversub .submenu2.submenu2Open ul li a,
   .hoversub .submenu2.submenu2Institution.submenu2Open ul li a,
   .hoversub .submenu2.submenu2Personnel.submenu2Open ul li a {
     display: block !important;
     width: 100% !important;
-    font-size: 13px !important;
-    padding: 10px 15px !important;
+    font-size: 12px !important;
+    padding: 8px 12px !important;
     color: white !important;
-    background-color: rgba(255, 255, 255, 0.05) !important;
-    border-radius: 6px !important;
-    transition: all 0.2s ease !important;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    border-radius: 4px !important;
   }
   
   .submenu2.submenu2Open ul li a:hover,
   .submenu2.submenu2Institution.submenu2Open ul li a:hover,
   .submenu2.submenu2Personnel.submenu2Open ul li a:hover,
-  .hoversub .submenu2.submenu2Open ul li a:hover,
-  .hoversub .submenu2.submenu2Institution.submenu2Open ul li a:hover,
-  .hoversub .submenu2.submenu2Personnel.submenu2Open ul li a:hover,
   .submenu2.submenu2Open ul li:hover a,
   .submenu2.submenu2Institution.submenu2Open ul li:hover a,
   .submenu2.submenu2Personnel.submenu2Open ul li:hover a {
@@ -1446,21 +1427,9 @@ nav ul li:hover .submenu2 ul li a {
     color: #592cbb !important;
   }
   
-  /* Desabilitar hover para abrir submenu2 em mobile - usar apenas clique */
+  /* Desabilitar hover para abrir submenu em mobile */
   .hoversub:hover .submenu2:not(.submenu2Open) {
     display: none !important;
-  }
-  
-  /* Overlay escuro quando menu está aberto */
-  .submenu1.submenu1Open::before {
-    content: '' !important;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    background-color: rgba(0, 0, 0, 0.5) !important;
-    z-index: -1 !important;
   }
 }
 
