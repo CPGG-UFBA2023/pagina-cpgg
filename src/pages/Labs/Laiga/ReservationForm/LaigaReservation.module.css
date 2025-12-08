@@ -185,18 +185,18 @@
   }
   
   .submitButton {
-    background: transparent;
-    border: 2px solid white;
-    box-shadow: none;
+    background: linear-gradient(145deg, #592cbb 0%, #6a3bc5 100%);
+    border: none;
+    box-shadow: 0 4px 15px rgba(89, 44, 187, 0.3);
   }
   
   .submitButton:hover {
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: none;
+    background: linear-gradient(145deg, #4a237a 0%, #592cbb 100%);
+    box-shadow: 0 6px 20px rgba(89, 44, 187, 0.4);
   }
   
   .submitButton:disabled {
-    background: transparent;
+    background: #ccc;
     border-color: #ccc;
   }
 }
@@ -204,6 +204,6 @@
 /* Ajuste para telas pequenas 430px de largura e menores */
 @media (max-width: 430px) {
   .formContainer {
-    margin-top: 150px !important;
+    margin-top: 200px !important;
   }
 }
