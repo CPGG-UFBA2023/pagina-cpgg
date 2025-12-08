@@ -736,13 +736,9 @@
   }
 }
 
-/* Resoluções ≤430px - Mover copyright e nav para baixo */
+/* Resoluções ≤430px - Mover copyright para baixo */
 @media (max-width: 430px) {
   .copyright {
     transform: translateY(120px) !important;
-  }
-  
-  .bar nav {
-    transform: translateY(100px) !important;
   }
 }
