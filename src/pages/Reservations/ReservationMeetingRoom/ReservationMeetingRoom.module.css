@@ -153,15 +153,25 @@
   }
 }
 
-/* Mobile ≤430px - Centralização da box e conteúdo */
+/* Mobile ≤430px - Centralização da box e conteúdo com scroll */
 @media (max-width: 430px) {
+  .pageContainer {
+    position: relative !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+  }
+
   .MR {
     padding-left: 0 !important;
     padding-right: 0 !important;
     padding-top: 170px !important;
+    padding-bottom: 100px !important;
     display: flex !important;
     justify-content: center !important;
     align-items: flex-start !important;
+    overflow: visible !important;
   }
 
   .box {
@@ -172,6 +182,9 @@
     max-width: 95% !important;
     margin: 0 auto !important;
     padding: 15px !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
   }
 
   .box ul {
