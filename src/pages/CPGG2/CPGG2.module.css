@@ -287,6 +287,12 @@
   }
 }
 
+@media (max-width: 430px) {
+  .Title ul {
+    transform: translateY(-80px) translateX(50px) !important;
+  }
+}
+
 @media (max-width: 390px) {
   .Title ul {
     position: relative !important;
