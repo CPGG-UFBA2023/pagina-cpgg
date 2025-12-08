@@ -100,6 +100,7 @@ export function Header() {
                     href='#'
                     onClick={(e) => {
                       e.preventDefault();
+                      e.stopPropagation();
                       toggleSubmenu('institution');
                     }}
                   >
@@ -138,6 +139,7 @@ export function Header() {
                     href='#'
                     onClick={(e) => {
                       e.preventDefault();
+                      e.stopPropagation();
                       toggleSubmenu('personnel');
                     }}
                   >
