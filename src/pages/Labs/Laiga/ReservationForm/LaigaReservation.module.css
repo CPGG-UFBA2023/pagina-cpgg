@@ -205,5 +205,15 @@
 @media (max-width: 430px) {
   .formContainer {
     margin-top: 200px !important;
+    max-height: calc(100vh - 280px) !important;
+    overflow-y: auto !important;
+  }
+  
+  .container {
+    overflow-y: auto !important;
+  }
+  
+  .content {
+    overflow-y: auto !important;
   }
 }
