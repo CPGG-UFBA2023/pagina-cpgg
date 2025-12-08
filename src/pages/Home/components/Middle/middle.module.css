@@ -223,7 +223,7 @@
 }
 
 .earthImageMobile {
-  height: 180px;
+  height: 450px;
   width: auto;
   object-fit: contain;
   border-radius: 50%;
@@ -346,7 +346,7 @@
   }
   
   .earthImageMobile {
-    height: 180px;
+    height: 450px;
   }
   
   /* News carousel - full width with 30px margins */
@@ -402,7 +402,7 @@
   }
   
   .earthImageMobile {
-    height: 150px;
+    height: 375px;
   }
 }
 
@@ -461,7 +461,7 @@
   }
   
   .earthImageMobile {
-    height: 120px;
+    height: 300px;
   }
 }
 
@@ -515,6 +515,6 @@
   }
   
   .earthImageMobile {
-    height: 100px;
+    height: 250px;
   }
 }
