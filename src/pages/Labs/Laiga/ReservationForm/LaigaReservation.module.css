@@ -200,3 +200,10 @@
     border-color: #ccc;
   }
 }
+
+/* Ajuste para telas pequenas 430px de largura e menores */
+@media (max-width: 430px) {
+  .formContainer {
+    margin-top: -100px !important;
+  }
+}
