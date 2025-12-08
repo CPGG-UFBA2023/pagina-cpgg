@@ -274,7 +274,7 @@
 
 @media (max-width: 430px) {
   .title {
-    transform: translateY(50px);
+    transform: translateY(20px);
   }
   
   .container {
