@@ -1543,7 +1543,21 @@ nav ul li:hover .submenu2 ul li a {
   }
   
   /* Mover itens do submenu Solicitações 200px para a direita */
-  .requestsSubmenu {
-    transform: translateX(200px) !important;
+  .requestsSubmenu,
+  .submenu1 .requestsSubmenu,
+  .submenu1.submenu1Open .requestsSubmenu {
+    margin-left: 200px !important;
+    transform: translateX(0) !important;
   }
+  
+  .requestsSubmenu li,
+  .submenu1 .requestsSubmenu li {
+    margin-left: 0 !important;
+  }
+}
+
+/* Definição base para CSS Module reconhecer a classe */
+.requestsSubmenu {
+  display: flex;
+  flex-direction: column;
 }
