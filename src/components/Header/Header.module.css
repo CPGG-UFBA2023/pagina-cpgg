@@ -1293,17 +1293,20 @@ nav ul li:hover .submenu2 ul li a {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
-    padding: 0 !important;
+    padding: 15px 20px !important;
     margin: 0 !important;
-    gap: 2px !important;
+    gap: 8px !important;
+    background-color: rgba(89, 44, 187, 0.95) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
   }
   
   .submenu1.submenu1Open ul li {
     display: block !important;
     width: 100% !important;
-    text-align: center !important;
+    text-align: left !important;
     margin: 0 !important;
-    padding: 0 !important;
+    padding: 8px 0 !important;
     background-color: transparent !important;
     border-radius: 0 !important;
   }
@@ -1314,12 +1317,13 @@ nav ul li:hover .submenu2 ul li a {
   .submenu1.submenu1Open ul li a {
     display: block !important;
     width: 100% !important;
-    padding: 8px 12px !important;
-    font-size: 11px !important;
+    padding: 0 !important;
+    font-size: 14px !important;
     font-weight: 500 !important;
     color: white !important;
     text-decoration: none !important;
     white-space: nowrap !important;
+    line-height: 1.4 !important;
   }
   
   /* Hoversub - item que tem submenu2 */
