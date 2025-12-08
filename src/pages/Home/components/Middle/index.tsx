@@ -109,16 +109,23 @@ export function Middle() {
   return (
     <div className={styles.middleWrapper}>
       {/* Desktop: News on left, static text center, earth right */}
-      {/* Mobile: Phrase section, then news section */}
+      {/* Mobile: Phrase+Earth section, then news section */}
       
-      {/* Static phrase section */}
-      <div className={styles.static}>
-        <strong>Earth</strong>
-        <h1>is our Goal</h1>
-        <div className={styles.enjoy}>
-          <h1>Enjoy our best solutions for </h1>
-          <strong>scientific</strong>
-          <h1>and trade proposals</h1>
+      {/* Static phrase section with Earth on mobile */}
+      <div className={styles.phraseSection}>
+        <div className={styles.static}>
+          <strong>Earth</strong>
+          <h1>is our Goal</h1>
+          <div className={styles.enjoy}>
+            <h1>Enjoy our best solutions for </h1>
+            <strong>scientific</strong>
+            <h1>and trade proposals</h1>
+          </div>
+        </div>
+        
+        {/* Earth image - visible beside phrase on mobile, separate on desktop */}
+        <div className={styles.earthMobile}>
+          <img src={earth} alt="Earth" className={styles.earthImageMobile} />
         </div>
       </div>
 
