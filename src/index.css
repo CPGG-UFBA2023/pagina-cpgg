@@ -482,3 +482,10 @@ All colors MUST be HSL.
     }
   }
 }
+
+/* Researcher description text positioning for mobile */
+@media (max-width: 430px) {
+  .researcher-description {
+    margin-top: 80px !important;
+  }
+}
