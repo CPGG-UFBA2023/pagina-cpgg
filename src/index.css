@@ -444,4 +444,23 @@ All colors MUST be HSL.
     border: 1px solid hsl(var(--border)) !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
   }
+
+  /* Reduzir tamanho dos botões de edição em 30% para resoluções ≤430px */
+  @media (max-width: 430px) {
+    #floating-edit-button,
+    #floating-edit-button-coordination,
+    #floating-edit-button-calendars,
+    #floating-edit-button-production,
+    #floating-edit-button-projects,
+    [id^="floating-edit-button"] {
+      transform: scale(0.7) !important;
+      transform-origin: bottom right !important;
+    }
+    
+    .fixed.bottom-4.right-4 button,
+    .fixed.bottom-4.right-4 > div > button {
+      transform: scale(0.7) !important;
+      transform-origin: bottom right !important;
+    }
+  }
 }
