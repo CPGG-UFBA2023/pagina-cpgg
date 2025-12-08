@@ -37,21 +37,21 @@ export function GlobalEarth() {
     return null
   }
   
+  // Hide on screens <= 1024px
+  const shouldHideOnSmallScreen = window.innerWidth <= 1024
+
+  if (shouldHideOnSmallScreen) {
+    return null
+  }
+
   // Calculate size based on screen width
   const getSize = () => {
     const width = window.innerWidth
-    if (width <= 834) return '0px' // Hide on small screens
-    if (width <= 1024) return '250px' // Half size
     if (width <= 1440) return '450px' // -50px from original
     return '500px' // Default size for screens larger than 1440px
   }
 
   const size = getSize()
-  const shouldHideOnSmallScreen = window.innerWidth <= 834
-
-  if (shouldHideOnSmallScreen) {
-    return null
-  }
 
   return (
     <div 
