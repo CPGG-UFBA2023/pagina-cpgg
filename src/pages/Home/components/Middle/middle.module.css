@@ -537,3 +537,10 @@
     height: 250px;
   }
 }
+
+/* Resoluções ≤430px - Mover controles do carrossel para baixo */
+@media (max-width: 430px) {
+  .controls {
+    bottom: 240px !important;
+  }
+}
