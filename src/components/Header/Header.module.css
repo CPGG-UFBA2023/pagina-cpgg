@@ -1323,44 +1323,58 @@ nav ul li:hover .submenu2 ul li a {
     padding: 8px 10px !important;
   }
   
-  /* Submenu Instituição abre à esquerda para evitar sobreposição */
-  .submenu2.submenu2Institution.submenu2Open {
+  /* Submenu Instituição abre à esquerda igual às outras resoluções */
+  .submenu2.submenu2Institution.submenu2Open,
+  .hoversub .submenu2.submenu2Institution.submenu2Open {
     display: block !important;
     position: absolute !important;
-    left: auto !important;
-    right: 100% !important;
     top: 0 !important;
+    right: 100% !important;
+    left: auto !important;
     bottom: auto !important;
     transform: none !important;
     margin: 0 !important;
-    margin-right: 10px !important;
     min-width: 150px !important;
-    width: auto !important;
+    width: fit-content !important;
     background-color: rgba(89, 44, 187, 0.95) !important;
     border-radius: 8px !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-    z-index: 100015 !important;
+    z-index: 100006 !important;
     padding-left: 0 !important;
   }
   
-  .submenu2.submenu2Institution.submenu2Open ul {
+  .submenu2.submenu2Institution.submenu2Open ul,
+  .hoversub .submenu2.submenu2Institution.submenu2Open ul {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
-    padding: 5px 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
   
-  .submenu2.submenu2Institution.submenu2Open ul li {
+  .submenu2.submenu2Institution.submenu2Open ul li,
+  .hoversub .submenu2.submenu2Institution.submenu2Open ul li {
     width: 100% !important;
     text-align: left !important;
-    padding-left: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
     margin-left: 0 !important;
   }
   
-  .submenu2.submenu2Institution.submenu2Open ul li a {
+  .submenu2.submenu2Institution.submenu2Open ul li a,
+  .hoversub .submenu2.submenu2Institution.submenu2Open ul li a {
+    display: block !important;
+    width: 100% !important;
     font-size: 11px !important;
-    padding: 10px 15px !important;
+    padding: 11px 15px !important;
     color: white !important;
+    background-color: transparent !important;
+  }
+  
+  .submenu2.submenu2Institution.submenu2Open ul li:hover,
+  .submenu2.submenu2Institution.submenu2Open ul li:hover a {
+    background-color: white !important;
+    color: #592cbb !important;
   }
 }
 
