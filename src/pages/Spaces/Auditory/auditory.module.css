@@ -226,6 +226,7 @@
     overflow: visible !important;
     padding-bottom: 0 !important;
     min-height: auto !important;
+    margin-bottom: 0 !important;
   }
   
   .box {
@@ -238,6 +239,6 @@
   
   .buttonContainer {
     transform: translateY(50px);
-    margin-bottom: 30px !important;
+    margin-bottom: 0 !important;
   }
 }
