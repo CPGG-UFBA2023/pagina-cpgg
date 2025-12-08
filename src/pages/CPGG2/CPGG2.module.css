@@ -289,7 +289,21 @@
 
 @media (max-width: 430px) {
   .Title ul {
-    transform: translateY(-80px) translateX(50px) !important;
+    transform: translateY(-80px) translateX(100px) !important;
+  }
+  
+  .pageContainer {
+    position: relative !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    min-height: 100vh !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+  
+  .cpgg {
+    overflow: visible !important;
+    padding-bottom: 20px !important;
   }
 }
 
