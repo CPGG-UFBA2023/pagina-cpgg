@@ -687,15 +687,25 @@ nav a:hover {
   }
 }
 
-/* Mobile ≤430px - Centralização da box e conteúdo */
+/* Mobile ≤430px - Centralização da box e conteúdo com scroll */
 @media (max-width: 430px) {
+  .pageContainer {
+    position: relative !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+  }
+
   .laiga {
     padding-left: 0 !important;
     padding-right: 0 !important;
     padding-top: 170px !important;
+    padding-bottom: 100px !important;
     display: flex !important;
     justify-content: center !important;
     align-items: flex-start !important;
+    overflow: visible !important;
   }
 
   .Title {
@@ -715,9 +725,9 @@ nav a:hover {
     padding-left: 15px !important;
     padding-right: 15px !important;
     height: auto !important;
-    max-height: 60vh !important;
-    overflow-y: auto !important;
-    min-height: 400px !important;
+    max-height: none !important;
+    overflow: visible !important;
+    min-height: auto !important;
   }
 
   .Title ul {
