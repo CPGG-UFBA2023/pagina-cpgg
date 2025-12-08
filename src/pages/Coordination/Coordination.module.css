@@ -10,7 +10,7 @@ body:has(.heads) {
   min-height: auto;
   width: 100%;
   max-width: 1400px;
-  margin: 155px auto 2rem auto;
+  margin: 185px auto 2rem auto;
   position: relative;
   z-index: 1;
   overflow: visible;
