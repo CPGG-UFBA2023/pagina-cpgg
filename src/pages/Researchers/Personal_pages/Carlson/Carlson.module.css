@@ -196,11 +196,11 @@ nav a:hover {
   }
   
   .box1 nav {
-    margin-top: 70px !important;
+    margin-top: 10px !important;
     margin-bottom: 5px !important;
   }
   
   .box1 ul {
-    margin-bottom: -5px !important;
+    display: none !important;
   }
 }
