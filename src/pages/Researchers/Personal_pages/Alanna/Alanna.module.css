@@ -170,48 +170,11 @@ nav a:hover {
 }
 
 @media (max-width: 430px) {
-  .Professor {
-    flex-direction: column !important;
-    align-items: center !important;
-    padding-top: 180px !important;
-    padding-left: 10px !important;
-    padding-right: 10px !important;
-  }
-
-  .Professor > p {
-    position: relative !important;
-    left: auto !important;
-    transform: none !important;
-    text-align: center !important;
-    font-size: 20px !important;
-    margin: 0 0 20px 0 !important;
-    order: 1 !important;
-  }
-
-  .box2.box2 {
-    position: relative !important;
-    left: auto !important;
-    top: auto !important;
-    width: 150px !important;
-    height: 150px !important;
-    border-radius: 50% !important;
-    margin: 200px auto 20px auto !important;
-    order: 2 !important;
-    border: 3px solid rgba(255, 255, 255, 0.4) !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
-  }
-
   .box1.box1 {
-    position: relative !important;
-    left: auto !important;
-    top: auto !important;
-    width: 95% !important;
-    height: auto !important;
-    max-height: 50vh !important;
-    padding: 20px !important;
-    padding-left: 20px !important;
-    margin: 0 auto !important;
-    overflow-y: auto !important;
-    order: 3 !important;
+    top: calc(15% + 100px) !important;
+  }
+  
+  .box2.box2 {
+    top: calc(5% + 100px) !important;
   }
 }
