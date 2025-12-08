@@ -1297,6 +1297,7 @@ nav ul li:hover .submenu2 ul li a {
   .submenu1.submenu1Open ul {
     display: flex !important;
     flex-direction: column !important;
+    align-items: stretch !important;
     width: 100% !important;
     gap: 4px !important;
     padding: 0 !important;
@@ -1310,6 +1311,8 @@ nav ul li:hover .submenu2 ul li a {
     margin: 0 !important;
     margin-left: 0 !important;
     padding: 0 !important;
+    display: block !important;
+    box-sizing: border-box !important;
   }
   
   .submenu1.submenu1Open ul li a {
@@ -1318,9 +1321,12 @@ nav ul li:hover .submenu2 ul li a {
     padding: 10px 12px !important;
     font-size: 13px !important;
     display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
     color: white !important;
     background-color: rgba(255, 255, 255, 0.1) !important;
     border-radius: 6px !important;
+    text-align: left !important;
   }
   
   .submenu1.submenu1Open ul li a:hover {
