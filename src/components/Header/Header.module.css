@@ -1207,6 +1207,35 @@ nav ul li:hover .submenu2 ul li a {
   .logoufba {
     transform: translateY(-50%) translateX(138px) !important;
   }
+  
+  /* Menu horizontal distribuído */
+  .header nav {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+  
+  .header nav ul {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 2px !important;
+    width: 100% !important;
+  }
+  
+  .header nav ul li {
+    font-size: 9px !important;
+    padding: 5px 4px !important;
+    margin: 0 1px !important;
+    white-space: nowrap !important;
+  }
+  
+  .header nav ul li a {
+    padding: 5px 6px !important;
+    font-size: 9px !important;
+  }
 }
 
 /* iPhone 12 mini e dispositivos similares (375px width) */
