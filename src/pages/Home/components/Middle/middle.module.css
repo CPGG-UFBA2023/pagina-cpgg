@@ -364,7 +364,7 @@
   
   .controls {
     position: absolute;
-    bottom: 240px;
+    bottom: 340px;
     left: 0;
     right: 0;
   }
@@ -408,7 +408,7 @@
   }
   
   .controls {
-    bottom: 240px;
+    bottom: 340px;
   }
   
   .earthImageMobile {
@@ -459,7 +459,7 @@
   }
   
   .controls {
-    bottom: 240px;
+    bottom: 340px;
   }
   
   .newsTitle {
@@ -515,7 +515,7 @@
   }
   
   .controls {
-    bottom: 240px;
+    bottom: 340px;
   }
   
   .playPauseButton {
