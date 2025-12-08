@@ -229,7 +229,7 @@
   border-radius: 50%;
 }
 
-/* Earth image - desktop only */
+/* Earth image - desktop only (hidden on ≤1024px) */
 .earthContainer {
   order: 3;
   flex-shrink: 0;
@@ -369,9 +369,10 @@
     right: 0;
   }
   
-  /* Hide desktop earth container */
+  /* Hide desktop earth container completely */
   .earthContainer {
-    display: none;
+    display: none !important;
+    visibility: hidden !important;
   }
 }
 
