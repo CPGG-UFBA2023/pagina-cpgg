@@ -60,12 +60,22 @@ body:has(.repairs-page) #root {
     max-height: none !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
   .repairs-page main.repairs {
+    flex: 1 !important;
     overflow: visible !important;
     overflow-y: visible !important;
     max-height: none !important;
-    padding-bottom: 80px !important;
+    padding-bottom: 20px !important;
+  }
+
+  .repairs-page footer {
+    position: relative !important;
+    flex-shrink: 0 !important;
+    margin-top: auto !important;
+    width: 100% !important;
   }
 }
