@@ -299,11 +299,19 @@
     min-height: 100vh !important;
     height: auto !important;
     max-height: none !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
   
   .cpgg {
+    flex: 1 !important;
     overflow: visible !important;
-    padding-bottom: 20px !important;
+    padding-bottom: 80px !important;
+    min-height: auto !important;
+  }
+  
+  .cardContainer {
+    margin-top: -250px !important;
   }
 }
 
