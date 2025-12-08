@@ -750,7 +750,7 @@
   }
   
   .bar nav {
-    transform: none !important;
+    transform: translateY(-100px) !important;
   }
   
   .copyright {
