@@ -1282,24 +1282,24 @@ nav ul li:hover .submenu2 ul li a {
     padding: 8px 10px !important;
   }
   
-  /* Submenu2 aparece à ESQUERDA da box principal */
+  /* Submenu2 aparece DENTRO da box principal, não flutuando separadamente */
   .hoversub .submenu2.submenu2Open,
   .submenu2.submenu2Open {
     display: block !important;
-    position: absolute !important;
-    top: 0 !important;
+    position: relative !important;
+    top: auto !important;
     bottom: auto !important;
     left: auto !important;
-    right: 100% !important;
+    right: auto !important;
     transform: none !important;
     margin: 0 !important;
-    padding: 0 !important;
-    min-width: 150px !important;
-    width: fit-content !important;
-    background-color: rgba(89, 44, 187, 0.95) !important;
-    border-radius: 8px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-    z-index: 100010 !important;
+    padding-left: 15px !important;
+    min-width: auto !important;
+    width: 100% !important;
+    background-color: rgba(70, 30, 160, 0.95) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    z-index: auto !important;
   }
   
   .hoversub .submenu2.submenu2Open ul,
@@ -1314,14 +1314,13 @@ nav ul li:hover .submenu2 ul li a {
   .submenu2.submenu2Open ul li {
     width: 100% !important;
     text-align: left !important;
-    padding-left: 0 !important;
+    padding-left: 10px !important;
   }
   
   .hoversub .submenu2.submenu2Open ul li a,
   .submenu2.submenu2Open ul li a {
     font-size: 11px !important;
-    padding: 10px 15px !important;
-    white-space: nowrap !important;
+    padding: 8px 10px !important;
   }
 }
 
