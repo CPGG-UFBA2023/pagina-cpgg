@@ -309,6 +309,6 @@
 /* Resoluções ≤430px - mover conteúdo para baixo */
 @media (max-width: 430px) {
   .main {
-    padding-top: 305px !important;
+    padding-top: 285px !important;
   }
 }
