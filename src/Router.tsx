@@ -99,6 +99,7 @@ import { EquipamentosLaiga } from './pages/Adm/Coordenacao/EquipamentosLaiga'
 import { RepairStats } from './pages/Adm/RepairStats'
 import { ResearchProjects } from './pages/ResearchProjects'
 import { RepairsServices } from './pages/Repairs'
+import { Panorama360 } from './pages/Panorama360'
 
 export function Router() {
   return (
@@ -178,7 +179,8 @@ export function Router() {
          <Route path='/reservations/success' element={<Success />} />
          <Route path='/reservations/receipt' element={<Receipt />} />
          <Route path='/repairs-services' element={<RepairsServices />} />
-         <Route path='/Regulations' element={<Regulations />} />  
+         <Route path='/panorama-360' element={<Panorama360 />} />
+         <Route path='/Regulations' element={<Regulations />} />
          <Route path='/research-projects' element={<ResearchProjects />} />
          <Route path='/Photos' element={<Photos />} />
         <Route path='/Photos/HistoricalPhotos' element={<HP />} />  

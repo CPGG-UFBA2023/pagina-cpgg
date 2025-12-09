@@ -222,6 +222,11 @@ export function Header() {
               </ul>
             </div>
           </li>
+          <li>
+            <NavLink to='/panorama-360' className={styles.navLink}>
+              3D
+            </NavLink>
+          </li>
         </ul>
       </nav>
       <GlobalEarth />
