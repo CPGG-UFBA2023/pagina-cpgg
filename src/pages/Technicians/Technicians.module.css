@@ -280,6 +280,10 @@
     width: 120px;
     height: 120px;
   }
+
+  .hideFooterMobile {
+    display: none !important;
+  }
 }
 
 @media (max-width: 400px) {
