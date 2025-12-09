@@ -44,7 +44,9 @@ export function Technicians() {
           </div>
         </div>
       </div>
-      <Footer />
+      <div className={styles.hideFooterMobile}>
+        <Footer />
+      </div>
     </div>
   )
 }
