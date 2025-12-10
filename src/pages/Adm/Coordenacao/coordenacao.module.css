@@ -18,9 +18,9 @@
 }
 
 .logo img {
-  width: 80px;
-  height: 52px;
-  margin-bottom: 10px;
+  width: 60px;
+  height: 39px;
+  margin-bottom: 5px;
 }
 
 .box {
@@ -31,8 +31,8 @@
   border: 2px solid rgba(255,255,255,.2);
   background-color: rgba(255,255,255, 0.15);
   backdrop-filter: blur(10px);
-  width: 420px;
-  padding: 25px 35px;
+  width: 380px;
+  padding: 15px 25px;
   border-radius: 20px;
   position: relative;
 }
@@ -40,12 +40,14 @@
 .recaptchaContainer {
   display: flex;
   justify-content: center;
-  margin: 15px 0;
+  margin: 8px 0;
+  transform: scale(0.9);
+  transform-origin: center;
 }
 
 .box input {
-  padding: 12px 15px;
-  font-size: 14px;
+  padding: 10px 12px;
+  font-size: 13px;
   border: 1px solid #ccc;
   border-radius: 10px;
   transition: all linear 160ms;
@@ -53,7 +55,7 @@
   width: 100%;
   color: #000;
   caret-color: #000;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .box input::placeholder {
@@ -61,17 +63,17 @@
 }
 
 .box label {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   text-align: left;
   color: #333;
   width: 100%;
-  margin-bottom: 5px;
+  margin-bottom: 3px;
 }
 
 .button {
-  padding: 12px;
-  font-size: 16px;
+  padding: 10px;
+  font-size: 14px;
   border-radius: 25px;
   width: 100%;
   background-color: #BEB6B6;
@@ -79,7 +81,7 @@
   transition: 500ms linear;
   color: white;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .button:hover {
@@ -97,8 +99,8 @@
   color: #936aeb;
   text-decoration: underline;
   cursor: pointer;
-  font-size: 14px;
-  margin-top: 10px;
+  font-size: 13px;
+  margin-top: 8px;
   transition: color 0.3s ease;
 }
 
@@ -107,22 +109,22 @@
 }
 
 .upper p {
-  font-size: 18px;
+  font-size: 16px;
   color: rgb(0, 0, 0);
   font-weight: 600;
-  margin-bottom: 15px;
+  margin-bottom: 8px;
 }
 
 .back {
   position: absolute;
-  top: 15px;
-  left: 15px;
+  top: 12px;
+  left: 12px;
 }
 
 .back a {
   color: #333;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
 }
 
@@ -170,11 +172,16 @@
 @media(max-width:500px) {
   .box {
     width: 320px;
-    padding: 20px;
+    padding: 15px;
   }
   
   .recaptchaContainer {
-    transform: scale(0.85);
+    transform: scale(0.8);
     transform-origin: center;
+  }
+  
+  .logo img {
+    width: 50px;
+    height: 32px;
   }
 }
