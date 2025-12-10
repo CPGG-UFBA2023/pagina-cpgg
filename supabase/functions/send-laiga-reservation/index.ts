@@ -4,6 +4,7 @@ import React from 'npm:react@18.3.1'
 import { renderAsync } from 'npm:@react-email/components@0.0.22'
 import { ReservationEmail } from './_templates/reservation-email.tsx'
 import { sendEmail } from "../_shared/smtp-client.ts"
+import { PDFDocument, rgb, StandardFonts } from 'https://esm.sh/pdf-lib@1.17.1'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -107,13 +108,15 @@ const handler = async (req: Request): Promise<Response> => {
     )
 
     // Gerar PDF do comprovante
-    const pdfContent = generatePDFContent(
+    console.log('📄 Gerando PDF do comprovante...')
+    const pdfContent = await generatePDFContent(
       reservationData,
       reservation.id,
       equipmentsList,
       formattedWithdrawalDate,
       formattedReturnDate
     )
+    console.log('✅ PDF gerado com sucesso')
 
     // Enviar email via SMTP
     console.log(`📧 Enviando email EXCLUSIVAMENTE para o chefe do LAIGA: ${chiefEmail}`)
@@ -172,106 +175,306 @@ const handler = async (req: Request): Promise<Response> => {
   }
 }
 
-// Função auxiliar para gerar o PDF em base64
-function generatePDFContent(
+// Função auxiliar para gerar o PDF real
+async function generatePDFContent(
   reservationData: LaigaReservationRequest,
   reservationId: string,
   equipmentsList: string,
   withdrawalDate: string,
   returnDate: string
-): string {
-  // Conteúdo do PDF em HTML simples (será convertido pelo Resend)
-  const pdfHtml = `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <style>
-    body { font-family: Arial, sans-serif; padding: 40px; }
-    .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #592cbb; padding-bottom: 20px; }
-    .header h1 { color: #592cbb; margin: 10px 0; font-size: 24px; }
-    .header h2 { color: #666; margin: 5px 0; font-size: 16px; font-weight: normal; }
-    .section { margin: 25px 0; }
-    .section h3 { color: #592cbb; border-bottom: 1px solid #ddd; padding-bottom: 5px; margin-bottom: 15px; }
-    .section p { margin: 8px 0; line-height: 1.6; }
-    .signatures { display: flex; justify-content: space-between; margin-top: 60px; }
-    .signature-box { width: 45%; text-align: center; }
-    .signature-line { border-top: 1px solid #333; margin: 80px 0 10px; }
-    .report-area { border: 1px solid #ddd; min-height: 100px; padding: 10px; margin-top: 10px; background: #fafafa; }
-    .report-lines { margin-top: 10px; }
-    .report-lines div { border-bottom: 1px solid #ccc; height: 20px; margin-bottom: 8px; }
-    .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; text-align: center; }
-  </style>
-</head>
-<body>
-  <div class="header">
-    <h1>COMPROVANTE DE SOLICITAÇÃO</h1>
-    <h2>Laboratório Integrado de Geofísica Aplicada - LAIGA</h2>
-    <h2>Centro de Pesquisa em Geofísica e Geologia - CPGG/UFBA</h2>
-  </div>
-
-  <div class="section">
-    <h3>Dados do Solicitante</h3>
-    <p><strong>Nome:</strong> ${reservationData.applicantName}</p>
-    <p><strong>Email:</strong> ${reservationData.applicantEmail}</p>
-  </div>
-
-  <div class="section">
-    <h3>Dados da Reserva</h3>
-    <p><strong>Equipamentos da lista:</strong> ${equipmentsList}</p>
-    ${reservationData.otherEquipment ? `<p><strong>Outros equipamentos:</strong> ${reservationData.otherEquipment}</p>` : ''}
-    ${reservationData.peripherals ? `<p><strong>Periféricos:</strong> ${reservationData.peripherals}</p>` : ''}
-    <p><strong>Data de Retirada:</strong> ${withdrawalDate}</p>
-    <p><strong>Data de Devolução:</strong> ${returnDate}</p>
-    <p><strong>Finalidade:</strong> ${reservationData.purpose}</p>
-    <p><strong>Status:</strong> Aguardando aprovação</p>
-  </div>
-
-  <div class="section">
-    <h3>Informações Adicionais</h3>
-    <p><strong>Protocolo:</strong> ${reservationId}</p>
-    <p><strong>Data da Solicitação:</strong> ${new Date().toLocaleDateString('pt-BR')}</p>
-  </div>
-
-  <div class="section">
-    <h3>Relatório de Uso do Equipamento</h3>
-    <p><strong>O equipamento apresentou algum problema durante o uso?</strong></p>
-    <div class="report-area">
-      <div class="report-lines">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="signatures">
-    <div class="signature-box">
-      <div class="signature-line"></div>
-      <p><strong>Assinatura do solicitante</strong></p>
-      <p>${reservationData.applicantName}</p>
-    </div>
-    <div class="signature-box">
-      <div class="signature-line"></div>
-      <p><strong>Assinatura do técnico ou responsável pela retirada</strong></p>
-    </div>
-  </div>
-
-  <div class="footer">
-    <p><strong>Importante:</strong> Esta solicitação foi enviada para análise do coordenador do LAIGA.</p>
-    <p>Você receberá um retorno por e-mail sobre a aprovação da sua reserva.</p>
-    <p><strong>Coordenador do LAIGA:</strong> Prof. Marcos Alberto Rodrigues Vasconcelos</p>
-    <p><em>Laboratório Integrado de Geofísica Aplicada - LAIGA/CPGG/UFBA<br/>
-    Campus Universitário de Ondina - Salvador/BA</em></p>
-  </div>
-</body>
-</html>
-  `
+): Promise<string> {
+  const pdfDoc = await PDFDocument.create()
+  const page = pdfDoc.addPage([595, 842]) // A4
+  const { height } = page.getSize()
   
-  // Converter HTML para base64 para anexar ao email
-  return btoa(unescape(encodeURIComponent(pdfHtml)))
+  const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold)
+  const helvetica = await pdfDoc.embedFont(StandardFonts.Helvetica)
+  
+  const purple = rgb(0.35, 0.17, 0.73) // #592cbb
+  const black = rgb(0, 0, 0)
+  const gray = rgb(0.4, 0.4, 0.4)
+  
+  let y = height - 50
+  const leftMargin = 50
+  const lineHeight = 18
+  
+  // Header
+  page.drawText('COMPROVANTE DE SOLICITAÇÃO', {
+    x: 150,
+    y,
+    size: 16,
+    font: helveticaBold,
+    color: purple,
+  })
+  y -= 25
+  
+  page.drawText('Laboratório Integrado de Geofísica Aplicada - LAIGA', {
+    x: 130,
+    y,
+    size: 11,
+    font: helvetica,
+    color: gray,
+  })
+  y -= 18
+  
+  page.drawText('Centro de Pesquisa em Geofísica e Geologia - CPGG/UFBA', {
+    x: 120,
+    y,
+    size: 11,
+    font: helvetica,
+    color: gray,
+  })
+  y -= 30
+  
+  // Line separator
+  page.drawLine({
+    start: { x: leftMargin, y },
+    end: { x: 545, y },
+    thickness: 2,
+    color: purple,
+  })
+  y -= 30
+  
+  // Section: Dados do Solicitante
+  page.drawText('Dados do Solicitante', {
+    x: leftMargin,
+    y,
+    size: 12,
+    font: helveticaBold,
+    color: purple,
+  })
+  y -= lineHeight
+  
+  page.drawText(`Nome: ${reservationData.applicantName}`, {
+    x: leftMargin,
+    y,
+    size: 10,
+    font: helvetica,
+    color: black,
+  })
+  y -= lineHeight
+  
+  page.drawText(`Email: ${reservationData.applicantEmail}`, {
+    x: leftMargin,
+    y,
+    size: 10,
+    font: helvetica,
+    color: black,
+  })
+  y -= 25
+  
+  // Section: Dados da Reserva
+  page.drawText('Dados da Reserva', {
+    x: leftMargin,
+    y,
+    size: 12,
+    font: helveticaBold,
+    color: purple,
+  })
+  y -= lineHeight
+  
+  page.drawText(`Equipamentos da lista: ${equipmentsList}`, {
+    x: leftMargin,
+    y,
+    size: 10,
+    font: helvetica,
+    color: black,
+  })
+  y -= lineHeight
+  
+  if (reservationData.otherEquipment) {
+    page.drawText(`Outros equipamentos: ${reservationData.otherEquipment}`, {
+      x: leftMargin,
+      y,
+      size: 10,
+      font: helvetica,
+      color: black,
+    })
+    y -= lineHeight
+  }
+  
+  if (reservationData.peripherals) {
+    page.drawText(`Periféricos: ${reservationData.peripherals}`, {
+      x: leftMargin,
+      y,
+      size: 10,
+      font: helvetica,
+      color: black,
+    })
+    y -= lineHeight
+  }
+  
+  page.drawText(`Data de Retirada: ${withdrawalDate}`, {
+    x: leftMargin,
+    y,
+    size: 10,
+    font: helvetica,
+    color: black,
+  })
+  y -= lineHeight
+  
+  page.drawText(`Data de Devolução: ${returnDate}`, {
+    x: leftMargin,
+    y,
+    size: 10,
+    font: helvetica,
+    color: black,
+  })
+  y -= lineHeight
+  
+  page.drawText(`Finalidade: ${reservationData.purpose}`, {
+    x: leftMargin,
+    y,
+    size: 10,
+    font: helvetica,
+    color: black,
+  })
+  y -= lineHeight
+  
+  page.drawText('Status: Aguardando aprovação', {
+    x: leftMargin,
+    y,
+    size: 10,
+    font: helvetica,
+    color: black,
+  })
+  y -= 25
+  
+  // Section: Informações Adicionais
+  page.drawText('Informações Adicionais', {
+    x: leftMargin,
+    y,
+    size: 12,
+    font: helveticaBold,
+    color: purple,
+  })
+  y -= lineHeight
+  
+  page.drawText(`Protocolo: ${reservationId}`, {
+    x: leftMargin,
+    y,
+    size: 10,
+    font: helvetica,
+    color: black,
+  })
+  y -= lineHeight
+  
+  page.drawText(`Data da Solicitação: ${new Date().toLocaleDateString('pt-BR')}`, {
+    x: leftMargin,
+    y,
+    size: 10,
+    font: helvetica,
+    color: black,
+  })
+  y -= 30
+  
+  // Section: Relatório de Uso
+  page.drawText('Relatório de Uso do Equipamento', {
+    x: leftMargin,
+    y,
+    size: 12,
+    font: helveticaBold,
+    color: purple,
+  })
+  y -= lineHeight
+  
+  page.drawText('O equipamento apresentou algum problema durante o uso?', {
+    x: leftMargin,
+    y,
+    size: 10,
+    font: helveticaBold,
+    color: black,
+  })
+  y -= 15
+  
+  // Lines for response
+  for (let i = 0; i < 5; i++) {
+    page.drawLine({
+      start: { x: leftMargin, y },
+      end: { x: 545, y },
+      thickness: 0.5,
+      color: gray,
+    })
+    y -= 20
+  }
+  y -= 30
+  
+  // Signatures section
+  const signatureY = y - 50
+  
+  // Left signature
+  page.drawLine({
+    start: { x: leftMargin, y: signatureY },
+    end: { x: 250, y: signatureY },
+    thickness: 1,
+    color: black,
+  })
+  page.drawText('Assinatura do solicitante', {
+    x: leftMargin + 40,
+    y: signatureY - 15,
+    size: 10,
+    font: helveticaBold,
+    color: black,
+  })
+  page.drawText(reservationData.applicantName, {
+    x: leftMargin + 50,
+    y: signatureY - 28,
+    size: 9,
+    font: helvetica,
+    color: gray,
+  })
+  
+  // Right signature
+  page.drawLine({
+    start: { x: 320, y: signatureY },
+    end: { x: 545, y: signatureY },
+    thickness: 1,
+    color: black,
+  })
+  page.drawText('Assinatura do técnico ou responsável', {
+    x: 340,
+    y: signatureY - 15,
+    size: 10,
+    font: helveticaBold,
+    color: black,
+  })
+  page.drawText('pela retirada', {
+    x: 385,
+    y: signatureY - 28,
+    size: 10,
+    font: helveticaBold,
+    color: black,
+  })
+  
+  // Footer
+  const footerY = 60
+  page.drawLine({
+    start: { x: leftMargin, y: footerY + 20 },
+    end: { x: 545, y: footerY + 20 },
+    thickness: 0.5,
+    color: gray,
+  })
+  
+  page.drawText('Laboratório Integrado de Geofísica Aplicada - LAIGA/CPGG/UFBA', {
+    x: 140,
+    y: footerY,
+    size: 9,
+    font: helvetica,
+    color: gray,
+  })
+  page.drawText('Campus Universitário de Ondina - Salvador/BA', {
+    x: 175,
+    y: footerY - 12,
+    size: 9,
+    font: helvetica,
+    color: gray,
+  })
+  
+  const pdfBytes = await pdfDoc.save()
+  
+  // Convert to base64
+  const base64 = btoa(String.fromCharCode(...pdfBytes))
+  return base64
 }
 
 serve(handler)
