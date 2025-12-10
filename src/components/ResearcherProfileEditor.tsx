@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { supabase } from '@/integrations/supabase/client'
 import { useToast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
@@ -6,6 +6,9 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Edit, Save, X } from 'lucide-react'
+import ReCAPTCHA from 'react-google-recaptcha'
+
+const RECAPTCHA_SITE_KEY = "6Lc_tCcsAAAAANaPjNTNCehs44DT3dPVbUJao07b"
 
 interface ResearcherProfileEditorProps {
   researcherName: string
@@ -25,6 +28,8 @@ export function ResearcherProfileEditor({
   const [isEditing, setIsEditing] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
   
   const { toast } = useToast()
 
@@ -63,9 +68,28 @@ export function ResearcherProfileEditor({
   const handleSave = async () => {
     if (!user || !isAuthorized) return
     
+    // Verifica reCAPTCHA
+    if (!captchaToken) {
+      toast({
+        title: 'Verificação necessária',
+        description: 'Por favor, complete o reCAPTCHA.',
+        variant: 'destructive'
+      })
+      return
+    }
+    
     setIsLoading(true)
     
     try {
+      // Verifica o token do reCAPTCHA no servidor
+      const { data: captchaResult, error: captchaError } = await supabase.functions.invoke('verify-recaptcha', {
+        body: { token: captchaToken }
+      })
+      
+      if (captchaError || !captchaResult?.success) {
+        throw new Error('Falha na verificação do reCAPTCHA. Tente novamente.')
+      }
+      
       let photoUrl = null
       
       // Upload da foto se fornecida
@@ -110,6 +134,8 @@ export function ResearcherProfileEditor({
       setIsEditing(false)
       setIsDialogOpen(false)
       setPhotoFile(null)
+      setCaptchaToken(null)
+      recaptchaRef.current?.reset()
       
       if (onUpdate) {
         onUpdate()
@@ -195,6 +221,15 @@ export function ResearcherProfileEditor({
             />
           </div>
           
+          <div className="flex justify-center">
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey={RECAPTCHA_SITE_KEY}
+              onChange={(token) => setCaptchaToken(token)}
+              onExpired={() => setCaptchaToken(null)}
+            />
+          </div>
+          
           <div className="flex gap-2">
             <Button
               onClick={handleSave}
@@ -217,6 +252,8 @@ export function ResearcherProfileEditor({
                 setIsDialogOpen(false)
                 setDescription(currentDescription)
                 setPhotoFile(null)
+                setCaptchaToken(null)
+                recaptchaRef.current?.reset()
               }}
               disabled={isLoading}
             >
