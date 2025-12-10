@@ -332,7 +332,7 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave }:
 
       {/* Dialog de Login */}
       <Dialog open={isLoginOpen} onOpenChange={setIsLoginOpen}>
-        <DialogContent className="max-h-[calc(50vh-100px)] overflow-y-auto">
+        <DialogContent className="max-h-[85vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{isForgotPassword ? 'Recuperar Senha' : 'Login do Pesquisador'}</DialogTitle>
           </DialogHeader>
