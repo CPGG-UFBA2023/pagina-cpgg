@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { supabase } from '@/integrations/supabase/client'
 import { useToast } from '@/hooks/use-toast'
+import ReCAPTCHA from 'react-google-recaptcha'
+
+const RECAPTCHA_SITE_KEY = "6Lc_tCcsAAAAANaPjNTNCehs44DT3dPVbUJao07b"
 
 interface AdminLoginLabsProps {
   isOpen: boolean
@@ -15,13 +18,41 @@ export function AdminLoginLabs({ isOpen, onClose, onLogin }: AdminLoginLabsProps
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
   const { toast } = useToast()
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    if (!captchaToken) {
+      toast({
+        title: "Verificação necessária",
+        description: "Por favor, complete o reCAPTCHA.",
+        variant: "destructive"
+      })
+      return
+    }
+
     setIsLoading(true)
 
     try {
+      // Verify reCAPTCHA
+      const { data: captchaData, error: captchaError } = await supabase.functions.invoke('verify-recaptcha', {
+        body: { token: captchaToken }
+      })
+
+      if (captchaError || !captchaData?.success) {
+        toast({
+          title: "Erro de verificação",
+          description: "Falha na verificação do reCAPTCHA. Tente novamente.",
+          variant: "destructive"
+        })
+        recaptchaRef.current?.reset()
+        setCaptchaToken(null)
+        return
+      }
+
       // Autenticar com Supabase Auth
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email,
@@ -34,6 +65,8 @@ export function AdminLoginLabs({ isOpen, onClose, onLogin }: AdminLoginLabsProps
           description: "Email ou senha incorretos.",
           variant: "destructive",
         })
+        recaptchaRef.current?.reset()
+        setCaptchaToken(null)
         return
       }
 
@@ -62,6 +95,8 @@ export function AdminLoginLabs({ isOpen, onClose, onLogin }: AdminLoginLabsProps
       
       setEmail('')
       setPassword('')
+      setCaptchaToken(null)
+      recaptchaRef.current?.reset()
       onLogin(email, password)
     } catch (error) {
       console.error('Erro no login:', error)
@@ -75,15 +110,23 @@ export function AdminLoginLabs({ isOpen, onClose, onLogin }: AdminLoginLabsProps
     }
   }
 
+  const handleClose = () => {
+    setEmail('')
+    setPassword('')
+    setCaptchaToken(null)
+    recaptchaRef.current?.reset()
+    onClose()
+  }
+
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md" aria-describedby="admin-login-desc">
+    <Dialog open={isOpen} onOpenChange={handleClose}>
+      <DialogContent className="sm:max-w-md max-h-[85vh]" aria-describedby="admin-login-desc">
         <DialogHeader>
           <DialogTitle>Login Administrativo</DialogTitle>
         </DialogHeader>
         <p id="admin-login-desc" className="sr-only">Entre com suas credenciais para habilitar o modo de edição de laboratórios.</p>
-        <form onSubmit={handleLogin} className="space-y-4">
-          <div>
+        <form onSubmit={handleLogin} className="space-y-3">
+          <div className="space-y-1">
             <label htmlFor="email" className="text-sm font-medium">
               Email
             </label>
@@ -96,7 +139,7 @@ export function AdminLoginLabs({ isOpen, onClose, onLogin }: AdminLoginLabsProps
               disabled={isLoading}
             />
           </div>
-          <div>
+          <div className="space-y-1">
             <label htmlFor="password" className="text-sm font-medium">
               Senha
             </label>
@@ -109,18 +152,26 @@ export function AdminLoginLabs({ isOpen, onClose, onLogin }: AdminLoginLabsProps
               disabled={isLoading}
             />
           </div>
+          <div style={{ transform: 'scale(0.85)', transformOrigin: 'left', marginTop: '8px', marginBottom: '-8px' }}>
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey={RECAPTCHA_SITE_KEY}
+              onChange={(token) => setCaptchaToken(token)}
+              onExpired={() => setCaptchaToken(null)}
+            />
+          </div>
           <div className="flex justify-end space-x-2">
             <Button
               type="button"
               variant="outline"
-              onClick={onClose}
+              onClick={handleClose}
               disabled={isLoading}
             >
               Cancelar
             </Button>
             <Button
               type="submit"
-              disabled={isLoading}
+              disabled={isLoading || !captchaToken}
             >
               {isLoading ? 'Entrando...' : 'Entrar'}
             </Button>

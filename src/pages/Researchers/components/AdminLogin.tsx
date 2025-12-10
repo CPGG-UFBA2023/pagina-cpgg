@@ -1,10 +1,13 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { supabase } from '@/integrations/supabase/client'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { useToast } from '@/hooks/use-toast'
 import { X } from 'lucide-react'
+import ReCAPTCHA from 'react-google-recaptcha'
+
+const RECAPTCHA_SITE_KEY = "6Lc_tCcsAAAAANaPjNTNCehs44DT3dPVbUJao07b"
 
 interface AdminLoginProps {
   isOpen: boolean
@@ -18,15 +21,43 @@ export function AdminLogin({ isOpen, onClose, onLogin }: AdminLoginProps) {
   const [loading, setLoading] = useState(false)
   const [isForgotPassword, setIsForgotPassword] = useState(false)
   const [resetEmail, setResetEmail] = useState('')
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
   const { toast } = useToast()
 
   if (!isOpen) return null
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    if (!captchaToken) {
+      toast({
+        title: "Verificação necessária",
+        description: "Por favor, complete o reCAPTCHA.",
+        variant: "destructive"
+      })
+      return
+    }
+
     setLoading(true)
 
     try {
+      // Verify reCAPTCHA
+      const { data: captchaData, error: captchaError } = await supabase.functions.invoke('verify-recaptcha', {
+        body: { token: captchaToken }
+      })
+
+      if (captchaError || !captchaData?.success) {
+        toast({
+          title: "Erro de verificação",
+          description: "Falha na verificação do reCAPTCHA. Tente novamente.",
+          variant: "destructive"
+        })
+        recaptchaRef.current?.reset()
+        setCaptchaToken(null)
+        return
+      }
+
       // Autenticar com Supabase Auth
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email,
@@ -39,6 +70,8 @@ export function AdminLogin({ isOpen, onClose, onLogin }: AdminLoginProps) {
           description: "Email ou senha incorretos.",
           variant: "destructive",
         })
+        recaptchaRef.current?.reset()
+        setCaptchaToken(null)
         return
       }
 
@@ -67,6 +100,8 @@ export function AdminLogin({ isOpen, onClose, onLogin }: AdminLoginProps) {
       
       setEmail('')
       setPassword('')
+      setCaptchaToken(null)
+      recaptchaRef.current?.reset()
       onLogin(email, password)
     } catch (error) {
       console.error('Erro no login:', error)
@@ -110,6 +145,14 @@ export function AdminLogin({ isOpen, onClose, onLogin }: AdminLoginProps) {
     }
   }
 
+  const handleClose = () => {
+    setEmail('')
+    setPassword('')
+    setCaptchaToken(null)
+    recaptchaRef.current?.reset()
+    onClose()
+  }
+
   return (
     <div 
       style={{
@@ -125,22 +168,24 @@ export function AdminLogin({ isOpen, onClose, onLogin }: AdminLoginProps) {
         zIndex: 9999,
         padding: '1rem'
       }}
-      onClick={onClose}
+      onClick={handleClose}
     >
       <div 
         style={{
           backgroundColor: 'white',
           borderRadius: '8px',
-          padding: '2rem',
+          padding: '1.5rem',
           maxWidth: '28rem',
           width: '100%',
           position: 'relative',
-          boxShadow: '0 10px 40px rgba(0, 0, 0, 0.2)'
+          boxShadow: '0 10px 40px rgba(0, 0, 0, 0.2)',
+          maxHeight: '85vh',
+          overflowY: 'auto'
         }}
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          onClick={onClose}
+          onClick={handleClose}
           style={{
             position: 'absolute',
             right: '1rem',
@@ -163,17 +208,17 @@ export function AdminLogin({ isOpen, onClose, onLogin }: AdminLoginProps) {
         </button>
 
         <h2 style={{ 
-          fontSize: '1.5rem', 
+          fontSize: '1.25rem', 
           fontWeight: 'bold', 
-          marginBottom: '1.5rem',
+          marginBottom: '1rem',
           color: '#000'
         }}>
           {isForgotPassword ? 'Recuperar Senha' : 'Login Administrativo'}
         </h2>
         
         {!isForgotPassword ? (
-          <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
               <Label htmlFor="email" style={{ color: '#000' }}>Email</Label>
               <Input
                 id="email"
@@ -185,7 +230,7 @@ export function AdminLogin({ isOpen, onClose, onLogin }: AdminLoginProps) {
               />
             </div>
             
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
               <Label htmlFor="password" style={{ color: '#000' }}>Senha</Label>
               <Input
                 id="password"
@@ -194,6 +239,15 @@ export function AdminLogin({ isOpen, onClose, onLogin }: AdminLoginProps) {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 style={{ color: '#000' }}
+              />
+            </div>
+            
+            <div style={{ transform: 'scale(0.85)', transformOrigin: 'left', marginTop: '4px', marginBottom: '-8px' }}>
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={RECAPTCHA_SITE_KEY}
+                onChange={(token) => setCaptchaToken(token)}
+                onExpired={() => setCaptchaToken(null)}
               />
             </div>
             
@@ -206,18 +260,18 @@ export function AdminLogin({ isOpen, onClose, onLogin }: AdminLoginProps) {
               Esqueci minha senha
             </Button>
             
-            <div style={{ display: 'flex', gap: '0.5rem', paddingTop: '0.5rem' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', paddingTop: '0.25rem' }}>
               <Button 
                 type="button" 
                 variant="outline" 
-                onClick={onClose} 
+                onClick={handleClose} 
                 style={{ flex: 1 }}
               >
                 Cancelar
               </Button>
               <Button 
                 type="submit" 
-                disabled={loading} 
+                disabled={loading || !captchaToken} 
                 style={{ flex: 1 }}
               >
                 {loading ? 'Entrando...' : 'Entrar'}
@@ -225,12 +279,12 @@ export function AdminLogin({ isOpen, onClose, onLogin }: AdminLoginProps) {
             </div>
           </form>
         ) : (
-          <form onSubmit={handleForgotPassword} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <p style={{ color: '#666', fontSize: '0.875rem', marginBottom: '0.5rem' }}>
+          <form onSubmit={handleForgotPassword} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <p style={{ color: '#666', fontSize: '0.875rem', marginBottom: '0.25rem' }}>
               Digite seu email para receber um link de recuperação de senha.
             </p>
             
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
               <Label htmlFor="reset-email" style={{ color: '#000' }}>Email</Label>
               <Input
                 id="reset-email"
@@ -251,11 +305,11 @@ export function AdminLogin({ isOpen, onClose, onLogin }: AdminLoginProps) {
               Voltar para o login
             </Button>
             
-            <div style={{ display: 'flex', gap: '0.5rem', paddingTop: '0.5rem' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', paddingTop: '0.25rem' }}>
               <Button 
                 type="button" 
                 variant="outline" 
-                onClick={onClose} 
+                onClick={handleClose} 
                 style={{ flex: 1 }}
               >
                 Cancelar
