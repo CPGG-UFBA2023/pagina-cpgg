@@ -11,90 +11,84 @@
   margin: 0;
   padding: 0;
   display: flex;
-  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   width: 100vw;
-  overflow: hidden !important;
-  position: fixed;
-  top: 0;
-  left: 0;
 }
 
 .logo img {
-  width: 100px;
-  height: 65px;
-  margin-top: 2rem;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
+  width: 80px;
+  height: 52px;
+  margin-bottom: 10px;
 }
 
 .box {
   text-align: center;
   display: flex;
   flex-direction: column;
+  align-items: center;
   border: 2px solid rgba(255,255,255,.2);
-  background-color: rgba(255,255,255, 0.1);
-  position: absolute;
-  width: 600px;
-  height: 700px;
-  top: 8%; 
-  left:30%;
-  padding: 10px;
+  background-color: rgba(255,255,255, 0.15);
+  backdrop-filter: blur(10px);
+  width: 420px;
+  padding: 25px 35px;
   border-radius: 20px;
-  gap: 5px;
+  position: relative;
 }
 
 .recaptchaContainer {
   display: flex;
   justify-content: center;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
+  margin: 15px 0;
 }
 
 .box input {
-  padding: 15px;
+  padding: 12px 15px;
   font-size: 14px;
   border: 1px solid #ccc;
-  margin-bottom: 20px;
-  margin-top: 5px;
-  margin-left:2.5rem;
-  border-radius: 15px;
+  border-radius: 10px;
   transition: all linear 160ms;
   outline: none;
-  width: 500px;
+  width: 100%;
   color: #000;
   caret-color: #000;
+  margin-bottom: 10px;
 }
 
 .box input::placeholder {
-  color: #333;
+  color: #666;
 }
 
 .box label {
   font-size: 14px;
   font-weight: 600;
-  margin-left: 2.5rem;
   text-align: left;
   color: #333;
+  width: 100%;
+  margin-bottom: 5px;
 }
 
 .button {
-  appearance: button;
-  padding: 15px;
+  padding: 12px;
   font-size: 16px;
   border-radius: 25px;
-  width: 300px;
-  margin-left:9rem;
+  width: 100%;
   background-color: #BEB6B6;
   border: none;
   transition: 500ms linear;
   color: white;
   cursor: pointer;
-  margin-top: 2rem;
+  margin-top: 10px;
 }
 
 .button:hover {
   background-color: #936aeb;
+}
+
+.button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .forgotPassword {
@@ -104,8 +98,7 @@
   text-decoration: underline;
   cursor: pointer;
   font-size: 14px;
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
+  margin-top: 10px;
   transition: color 0.3s ease;
 }
 
@@ -114,19 +107,16 @@
 }
 
 .upper p {
-  position: absolute;
   font-size: 18px;
   color: rgb(0, 0, 0);
-  top:8rem;
-  left:50%;
-  transform: translate(-50%, -50%);
   font-weight: 600;
+  margin-bottom: 15px;
 }
 
 .back {
   position: absolute;
-  top: 2rem;
-  left: 2rem;
+  top: 15px;
+  left: 15px;
 }
 
 .back a {
@@ -143,8 +133,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 8rem;
+  width: 100%;
 }
 
 .dialogContent {
@@ -178,42 +167,10 @@
   background-color: #7c3aed;
 }
 
-@media(max-width:1200px) {
-  .box {
-    left: 20%;
-  }
-}
-
-@media(max-width:900px) {
-  .box {
-    left: 10%;
-    width: 400px;
-  }
-  
-  .box input {
-    width: 300px;
-  }
-  
-  .button {
-    width: 200px;
-    margin-left: 6rem;
-  }
-}
-
 @media(max-width:500px) {
   .box {
-    left: 6%;
-    width: 330px;
-    height: 680px;
-  }
-
-  .box input {
-    width: 250px;
-  }
-  
-  .button {
-    width: 180px;
-    margin-left: 4.5rem;
+    width: 320px;
+    padding: 20px;
   }
   
   .recaptchaContainer {
