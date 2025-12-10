@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
@@ -7,8 +7,11 @@ import { Label } from '@/components/ui/label'
 import { useToast } from '@/hooks/use-toast'
 import { supabase } from '@/integrations/supabase/client'
 import { HomeButton } from '../../../components/HomeButton'
+import ReCAPTCHA from 'react-google-recaptcha'
 import styles from './coordenacao.module.css'
 const logocpgg = 'https://i.imgur.com/6HRTVzo.png';
+
+const RECAPTCHA_SITE_KEY = '6LdLmJYqAAAAAMKPR30bpPPxUP2JLOi-hBnAPk-K';
 
 export function Coordenacao() {
   const [email, setEmail] = useState('')
@@ -16,14 +19,42 @@ export function Coordenacao() {
   const [resetEmail, setResetEmail] = useState('')
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
   const { toast } = useToast()
   const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    if (!captchaToken) {
+      toast({
+        title: "Verificação necessária",
+        description: "Por favor, complete o reCAPTCHA.",
+        variant: "destructive"
+      })
+      return
+    }
+
     setIsLoading(true)
     
     try {
+      // Verify reCAPTCHA
+      const { data: captchaData, error: captchaError } = await supabase.functions.invoke('verify-recaptcha', {
+        body: { token: captchaToken }
+      })
+
+      if (captchaError || !captchaData?.success) {
+        toast({
+          title: "Erro de verificação",
+          description: "Falha na verificação do reCAPTCHA. Tente novamente.",
+          variant: "destructive"
+        })
+        recaptchaRef.current?.reset()
+        setCaptchaToken(null)
+        return
+      }
+
       // Autenticar com Supabase Auth
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email,
@@ -36,6 +67,8 @@ export function Coordenacao() {
           description: "Email ou senha incorretos.",
           variant: "destructive"
         })
+        recaptchaRef.current?.reset()
+        setCaptchaToken(null)
         return
       }
 
@@ -150,7 +183,16 @@ export function Coordenacao() {
           />
         </div>
         
-        <button type="submit" className={styles.button} disabled={isLoading}>
+        <div style={{ transform: 'scale(0.85)', transformOrigin: 'center', marginTop: '-10px', marginBottom: '-10px' }}>
+          <ReCAPTCHA
+            ref={recaptchaRef}
+            sitekey={RECAPTCHA_SITE_KEY}
+            onChange={(token) => setCaptchaToken(token)}
+            onExpired={() => setCaptchaToken(null)}
+          />
+        </div>
+        
+        <button type="submit" className={styles.button} disabled={isLoading || !captchaToken}>
           {isLoading ? 'Entrando...' : 'Entrar'}
         </button>
 
