@@ -1,26 +1,26 @@
-import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { supabase } from '../../integrations/supabase/client';
-import { User, Session } from '@supabase/supabase-js';
-import { useToast } from '../../hooks/use-toast';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { HomeButton } from '../../components/HomeButton';
-import ReCAPTCHA from 'react-google-recaptcha';
-import styles from './login.module.css';
-const logocpgg = 'https://imgur.com/6HRTVzo.png';
+import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "../../integrations/supabase/client";
+import { User, Session } from "@supabase/supabase-js";
+import { useToast } from "../../hooks/use-toast";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { HomeButton } from "../../components/HomeButton";
+import ReCAPTCHA from "react-google-recaptcha";
+import styles from "./login.module.css";
+const logocpgg = "https://imgur.com/6HRTVzo.png";
 
 // Site key do reCAPTCHA - esta é uma chave pública
-const RECAPTCHA_SITE_KEY = '6Le6DFYrAAAAAOBKZlf3UZLGKD1Tgm4sSQ7g2WSX';
+const RECAPTCHA_SITE_KEY = "6Lc_tCcsAAAAANaPjNTNCehs44DT3dPVbUJao07b";
 
 export function Login() {
-  const [loginEmail, setLoginEmail] = useState('');
-  const [loginPassword, setLoginPassword] = useState('');
-  const [signupEmail, setSignupEmail] = useState('');
-  const [signupPassword, setSignupPassword] = useState('');
-  const [resetEmail, setResetEmail] = useState('');
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [signupEmail, setSignupEmail] = useState("");
+  const [signupPassword, setSignupPassword] = useState("");
+  const [resetEmail, setResetEmail] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
   const [signupLoading, setSignupLoading] = useState(false);
@@ -28,50 +28,50 @@ export function Login() {
   const [session, setSession] = useState<Session | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
-  
+
   const navigate = useNavigate();
   const { toast } = useToast();
 
   const verifyCaptcha = async (token: string): Promise<boolean> => {
     try {
-      const { data, error } = await supabase.functions.invoke('verify-recaptcha', {
-        body: { token }
+      const { data, error } = await supabase.functions.invoke("verify-recaptcha", {
+        body: { token },
       });
-      
+
       if (error) {
-        console.error('Error verifying captcha:', error);
+        console.error("Error verifying captcha:", error);
         return false;
       }
-      
+
       return data?.success === true;
     } catch (err) {
-      console.error('Error calling verify-recaptcha:', err);
+      console.error("Error calling verify-recaptcha:", err);
       return false;
     }
   };
 
   useEffect(() => {
     // Set up auth state listener FIRST
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-        
-        // Redirect to home if user is logged in
-        if (session?.user) {
-          navigate('/');
-        }
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+
+      // Redirect to home if user is logged in
+      if (session?.user) {
+        navigate("/");
       }
-    );
+    });
 
     // THEN check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
-      
+
       // Redirect to home if already logged in
       if (session?.user) {
-        navigate('/');
+        navigate("/");
       }
     });
 
@@ -87,7 +87,7 @@ export function Login() {
       if (!captchaToken) {
         toast({
           title: "Verificação necessária",
-          description: "Por favor, complete a verificação \"Não sou um robô\".",
+          description: 'Por favor, complete a verificação "Não sou um robô".',
           variant: "destructive",
         });
         setLoginLoading(false);
@@ -114,7 +114,7 @@ export function Login() {
       });
 
       if (error) {
-        if (error.message.includes('Invalid login credentials')) {
+        if (error.message.includes("Invalid login credentials")) {
           toast({
             title: "Erro ao fazer login",
             description: "Email ou senha incorretos.",
@@ -132,36 +132,36 @@ export function Login() {
       } else if (data.user) {
         // Busca o perfil do usuário para obter a rota do pesquisador
         const { data: profile, error: profileError } = await supabase
-          .from('user_profiles')
-          .select('researcher_route')
-          .eq('user_id', data.user.id)
-          .single()
+          .from("user_profiles")
+          .select("researcher_route")
+          .eq("user_id", data.user.id)
+          .single();
 
         if (profileError) {
-          console.error('Erro ao buscar perfil:', profileError)
+          console.error("Erro ao buscar perfil:", profileError);
           toast({
             title: "Login realizado",
             description: "Bem-vindo de volta!",
           });
           setTimeout(() => {
-            window.location.href = '/'
-          }, 1000)
+            window.location.href = "/";
+          }, 1000);
         } else if (profile.researcher_route) {
           toast({
             title: "Login realizado",
             description: "Redirecionando para sua página...",
           });
           setTimeout(() => {
-            window.location.href = profile.researcher_route
-          }, 1000)
+            window.location.href = profile.researcher_route;
+          }, 1000);
         } else {
           toast({
             title: "Login realizado",
             description: "Bem-vindo de volta!",
           });
           setTimeout(() => {
-            window.location.href = '/'
-          }, 1000)
+            window.location.href = "/";
+          }, 1000);
         }
       }
     } catch (error) {
@@ -183,23 +183,23 @@ export function Login() {
 
     try {
       const redirectUrl = `${window.location.origin}/`;
-      
+
       const { error } = await supabase.auth.signUp({
         email: signupEmail,
         password: signupPassword,
         options: {
-          emailRedirectTo: redirectUrl
-        }
+          emailRedirectTo: redirectUrl,
+        },
       });
 
       if (error) {
-        if (error.message.includes('User already registered')) {
+        if (error.message.includes("User already registered")) {
           toast({
             title: "Usuário já existe",
             description: "Este email já está cadastrado. Tente fazer login.",
             variant: "destructive",
           });
-        } else if (error.message.includes('Password should be at least 6 characters')) {
+        } else if (error.message.includes("Password should be at least 6 characters")) {
           toast({
             title: "Senha muito curta",
             description: "A senha deve ter pelo menos 6 caracteres.",
@@ -231,7 +231,7 @@ export function Login() {
 
   const handlePasswordReset = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
         redirectTo: `${window.location.origin}/reset-password`,
@@ -241,23 +241,24 @@ export function Login() {
         toast({
           title: "Erro",
           description: "Erro ao enviar email de recuperação. Verifique o email digitado.",
-          variant: "destructive"
+          variant: "destructive",
         });
         return;
       }
 
       toast({
         title: "Link enviado com sucesso!",
-        description: "Um link para redefinir sua senha foi enviado para o email cadastrado. Verifique sua caixa de entrada.",
+        description:
+          "Um link para redefinir sua senha foi enviado para o email cadastrado. Verifique sua caixa de entrada.",
       });
-      
-      setResetEmail('');
+
+      setResetEmail("");
       setIsDialogOpen(false);
     } catch (error) {
       toast({
         title: "Erro",
         description: "Erro ao enviar email. Tente novamente.",
-        variant: "destructive"
+        variant: "destructive",
       });
     }
   };
@@ -269,7 +270,7 @@ export function Login() {
         <div className={styles.logo}>
           <img src={logocpgg} alt="CPGG" />
         </div>
-        
+
         <div className={styles.formsContainer}>
           {/* Formulário de Login */}
           <div className={styles.formBox}>
@@ -278,24 +279,24 @@ export function Login() {
             </div>
 
             <form onSubmit={handleLogin} className={styles.form}>
-              <input 
-                type="email" 
-                placeholder="Email" 
+              <input
+                type="email"
+                placeholder="Email"
                 value={loginEmail}
                 onChange={(e) => setLoginEmail(e.target.value)}
                 required
                 disabled={loginLoading}
               />
-              <input 
-                type="password" 
-                placeholder="Senha" 
+              <input
+                type="password"
+                placeholder="Senha"
                 value={loginPassword}
                 onChange={(e) => setLoginPassword(e.target.value)}
                 required
                 disabled={loginLoading}
                 minLength={6}
               />
-              <div style={{ display: 'flex', justifyContent: 'center', margin: '15px 0' }}>
+              <div style={{ display: "flex", justifyContent: "center", margin: "15px 0" }}>
                 <ReCAPTCHA
                   ref={recaptchaRef}
                   sitekey={RECAPTCHA_SITE_KEY}
@@ -304,7 +305,7 @@ export function Login() {
                 />
               </div>
               <button type="submit" disabled={loginLoading || !captchaToken}>
-                {loginLoading ? 'Carregando...' : 'Entrar'}
+                {loginLoading ? "Carregando..." : "Entrar"}
               </button>
             </form>
 
@@ -345,17 +346,17 @@ export function Login() {
             </div>
 
             <form onSubmit={handleSignUp} className={styles.form}>
-              <input 
-                type="email" 
-                placeholder="Email" 
+              <input
+                type="email"
+                placeholder="Email"
                 value={signupEmail}
                 onChange={(e) => setSignupEmail(e.target.value)}
                 required
                 disabled={signupLoading}
               />
-              <input 
-                type="password" 
-                placeholder="Senha (mín. 6 caracteres)" 
+              <input
+                type="password"
+                placeholder="Senha (mín. 6 caracteres)"
                 value={signupPassword}
                 onChange={(e) => setSignupPassword(e.target.value)}
                 required
@@ -363,7 +364,7 @@ export function Login() {
                 minLength={6}
               />
               <button type="submit" disabled={signupLoading}>
-                {signupLoading ? 'Carregando...' : 'Criar Conta'}
+                {signupLoading ? "Carregando..." : "Criar Conta"}
               </button>
             </form>
           </div>
