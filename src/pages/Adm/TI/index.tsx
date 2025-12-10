@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
@@ -7,8 +7,6 @@ import { Label } from '@/components/ui/label'
 import { useToast } from '@/hooks/use-toast'
 import { supabase } from '@/integrations/supabase/client'
 import { HomeButton } from '../../../components/HomeButton'
-import { useRecaptcha, RECAPTCHA_SITE_KEY } from '@/hooks/useRecaptcha'
-import ReCAPTCHA from 'react-google-recaptcha'
 import styles from './ti.module.css'
 const logocpgg = 'https://i.imgur.com/6HRTVzo.png';
 
@@ -20,38 +18,12 @@ export function TI() {
   const [isLoading, setIsLoading] = useState(false)
   const { toast } = useToast()
   const navigate = useNavigate()
-  const { verifyRecaptcha, isVerifying } = useRecaptcha()
-  const recaptchaRef = useRef<ReCAPTCHA>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
-    // Verificar reCAPTCHA
-    const recaptchaToken = recaptchaRef.current?.getValue()
-    if (!recaptchaToken) {
-      toast({
-        title: "Verificação necessária",
-        description: "Por favor, complete a verificação reCAPTCHA.",
-        variant: "destructive"
-      })
-      return
-    }
-
     setIsLoading(true)
     
     try {
-      // Verificar reCAPTCHA no backend
-      const isRecaptchaValid = await verifyRecaptcha(recaptchaToken)
-      if (!isRecaptchaValid) {
-        toast({
-          title: "Erro de verificação",
-          description: "Falha na verificação reCAPTCHA. Tente novamente.",
-          variant: "destructive"
-        })
-        recaptchaRef.current?.reset()
-        return
-      }
-
       // Autenticar com Supabase Auth
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email,
@@ -64,7 +36,6 @@ export function TI() {
           description: "Email ou senha incorretos.",
           variant: "destructive"
         })
-        recaptchaRef.current?.reset()
         return
       }
 
@@ -83,7 +54,6 @@ export function TI() {
           description: "Você não tem permissão de T.I.",
           variant: "destructive"
         })
-        recaptchaRef.current?.reset()
         return
       }
 
@@ -104,7 +74,6 @@ export function TI() {
         description: "Erro ao realizar login. Tente novamente.",
         variant: "destructive"
       })
-      recaptchaRef.current?.reset()
     } finally {
       setIsLoading(false)
     }
@@ -166,7 +135,7 @@ export function TI() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required 
-            disabled={isLoading || isVerifying}
+            disabled={isLoading}
           />
           
           <label htmlFor="password">Senha:</label>
@@ -177,20 +146,12 @@ export function TI() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required 
-            disabled={isLoading || isVerifying}
+            disabled={isLoading}
           />
         </div>
         
-        <div className={styles.recaptchaContainer}>
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey={RECAPTCHA_SITE_KEY}
-            theme="light"
-          />
-        </div>
-        
-        <button type="submit" className={styles.button} disabled={isLoading || isVerifying}>
-          {isLoading || isVerifying ? 'Entrando...' : 'Entrar'}
+        <button type="submit" className={styles.button} disabled={isLoading}>
+          {isLoading ? 'Entrando...' : 'Entrar'}
         </button>
 
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

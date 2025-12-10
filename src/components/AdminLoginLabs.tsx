@@ -1,11 +1,9 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { supabase } from '@/integrations/supabase/client'
 import { useToast } from '@/hooks/use-toast'
-import { useRecaptcha, RECAPTCHA_SITE_KEY } from '@/hooks/useRecaptcha'
-import ReCAPTCHA from 'react-google-recaptcha'
 
 interface AdminLoginLabsProps {
   isOpen: boolean
@@ -18,38 +16,12 @@ export function AdminLoginLabs({ isOpen, onClose, onLogin }: AdminLoginLabsProps
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const { toast } = useToast()
-  const { verifyRecaptcha, isVerifying } = useRecaptcha()
-  const recaptchaRef = useRef<ReCAPTCHA>(null)
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
-    
-    // Verificar reCAPTCHA
-    const recaptchaToken = recaptchaRef.current?.getValue()
-    if (!recaptchaToken) {
-      toast({
-        title: "Verificação necessária",
-        description: "Por favor, complete a verificação reCAPTCHA.",
-        variant: "destructive",
-      })
-      return
-    }
-
     setIsLoading(true)
 
     try {
-      // Verificar reCAPTCHA no backend
-      const isRecaptchaValid = await verifyRecaptcha(recaptchaToken)
-      if (!isRecaptchaValid) {
-        toast({
-          title: "Erro de verificação",
-          description: "Falha na verificação reCAPTCHA. Tente novamente.",
-          variant: "destructive",
-        })
-        recaptchaRef.current?.reset()
-        return
-      }
-
       // Autenticar com Supabase Auth
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email,
@@ -62,7 +34,6 @@ export function AdminLoginLabs({ isOpen, onClose, onLogin }: AdminLoginLabsProps
           description: "Email ou senha incorretos.",
           variant: "destructive",
         })
-        recaptchaRef.current?.reset()
         return
       }
 
@@ -81,7 +52,6 @@ export function AdminLoginLabs({ isOpen, onClose, onLogin }: AdminLoginLabsProps
           description: "Usuário sem permissão.",
           variant: "destructive",
         })
-        recaptchaRef.current?.reset()
         return
       }
 
@@ -100,20 +70,14 @@ export function AdminLoginLabs({ isOpen, onClose, onLogin }: AdminLoginLabsProps
         description: "Ocorreu um erro ao fazer login.",
         variant: "destructive",
       })
-      recaptchaRef.current?.reset()
     } finally {
       setIsLoading(false)
     }
   }
 
-  const handleClose = () => {
-    recaptchaRef.current?.reset()
-    onClose()
-  }
-
   return (
-    <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-md max-h-[85vh] overflow-y-auto" aria-describedby="admin-login-desc">
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-md" aria-describedby="admin-login-desc">
         <DialogHeader>
           <DialogTitle>Login Administrativo</DialogTitle>
         </DialogHeader>
@@ -129,7 +93,7 @@ export function AdminLoginLabs({ isOpen, onClose, onLogin }: AdminLoginLabsProps
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Digite seu email"
-              disabled={isLoading || isVerifying}
+              disabled={isLoading}
             />
           </div>
           <div>
@@ -142,30 +106,23 @@ export function AdminLoginLabs({ isOpen, onClose, onLogin }: AdminLoginLabsProps
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Digite sua senha"
-              disabled={isLoading || isVerifying}
-            />
-          </div>
-          <div className="flex justify-center">
-            <ReCAPTCHA
-              ref={recaptchaRef}
-              sitekey={RECAPTCHA_SITE_KEY}
-              theme="light"
+              disabled={isLoading}
             />
           </div>
           <div className="flex justify-end space-x-2">
             <Button
               type="button"
               variant="outline"
-              onClick={handleClose}
-              disabled={isLoading || isVerifying}
+              onClick={onClose}
+              disabled={isLoading}
             >
               Cancelar
             </Button>
             <Button
               type="submit"
-              disabled={isLoading || isVerifying}
+              disabled={isLoading}
             >
-              {isLoading || isVerifying ? 'Entrando...' : 'Entrar'}
+              {isLoading ? 'Entrando...' : 'Entrar'}
             </Button>
           </div>
         </form>
