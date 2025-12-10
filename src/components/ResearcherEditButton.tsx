@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Edit3 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog'
@@ -8,6 +8,9 @@ import { Textarea } from '@/components/ui/textarea'
 import { supabase } from '@/integrations/supabase/client'
 import { useToast } from '@/hooks/use-toast'
 import { useResearcherProfile } from '@/components/ResearcherProfileContext'
+import ReCAPTCHA from 'react-google-recaptcha'
+
+const RECAPTCHA_SITE_KEY = "6Lc_tCcsAAAAANaPjNTNCehs44DT3dPVbUJao07b"
 
 interface ResearcherEditButtonProps {
   researcherName: string
@@ -28,6 +31,10 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave }:
   const [userProfile, setUserProfile] = useState<any>(null)
   const [isForgotPassword, setIsForgotPassword] = useState(false)
   const [resetEmail, setResetEmail] = useState('')
+  const [loginCaptchaToken, setLoginCaptchaToken] = useState<string | null>(null)
+  const [editCaptchaToken, setEditCaptchaToken] = useState<string | null>(null)
+  const loginRecaptchaRef = useRef<ReCAPTCHA>(null)
+  const editRecaptchaRef = useRef<ReCAPTCHA>(null)
   const { toast } = useToast()
   const { staticDescription } = useResearcherProfile()
 
@@ -74,9 +81,36 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave }:
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Verifica reCAPTCHA
+    if (!loginCaptchaToken) {
+      toast({
+        title: 'Verificação necessária',
+        description: 'Por favor, complete o reCAPTCHA.',
+        variant: 'destructive'
+      })
+      return
+    }
+    
     setLoading(true)
 
     try {
+      // Verifica o token do reCAPTCHA no servidor
+      const { data: captchaResult, error: captchaError } = await supabase.functions.invoke('verify-recaptcha', {
+        body: { token: loginCaptchaToken }
+      })
+      
+      if (captchaError || !captchaResult?.success) {
+        toast({
+          title: 'Erro',
+          description: 'Falha na verificação do reCAPTCHA. Tente novamente.',
+          variant: 'destructive'
+        })
+        loginRecaptchaRef.current?.reset()
+        setLoginCaptchaToken(null)
+        setLoading(false)
+        return
+      }
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -153,9 +187,36 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave }:
   const handleSave = async () => {
     if (!userProfile) return
     
+    // Verifica reCAPTCHA
+    if (!editCaptchaToken) {
+      toast({
+        title: 'Verificação necessária',
+        description: 'Por favor, complete o reCAPTCHA.',
+        variant: 'destructive'
+      })
+      return
+    }
+    
     setLoading(true)
     
     try {
+      // Verifica o token do reCAPTCHA no servidor
+      const { data: captchaResult, error: captchaError } = await supabase.functions.invoke('verify-recaptcha', {
+        body: { token: editCaptchaToken }
+      })
+      
+      if (captchaError || !captchaResult?.success) {
+        toast({
+          title: 'Erro',
+          description: 'Falha na verificação do reCAPTCHA. Tente novamente.',
+          variant: 'destructive'
+        })
+        editRecaptchaRef.current?.reset()
+        setEditCaptchaToken(null)
+        setLoading(false)
+        return
+      }
+      
       let photoUrl = currentPhotoUrl
 
       // Upload da foto se houver uma nova
@@ -220,6 +281,10 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave }:
     setCurrentPhotoUrl(null)
     setPhoto(null)
     setIsEditOpen(false)
+    setLoginCaptchaToken(null)
+    setEditCaptchaToken(null)
+    loginRecaptchaRef.current?.reset()
+    editRecaptchaRef.current?.reset()
   }
 
   const handleForgotPassword = async (e: React.FormEvent) => {
@@ -308,6 +373,14 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave }:
               >
                 Esqueci minha senha
               </Button>
+              <div className="flex justify-center my-4">
+                <ReCAPTCHA
+                  ref={loginRecaptchaRef}
+                  sitekey={RECAPTCHA_SITE_KEY}
+                  onChange={(token) => setLoginCaptchaToken(token)}
+                  onExpired={() => setLoginCaptchaToken(null)}
+                />
+              </div>
               <div className="flex gap-2">
                 <Button type="submit" disabled={loading}>
                   {loading ? 'Entrando...' : 'Entrar'}
@@ -394,6 +467,14 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave }:
                 type="file"
                 accept="image/*"
                 onChange={(e) => setPhoto(e.target.files?.[0] || null)}
+              />
+            </div>
+            <div className="flex justify-center my-4">
+              <ReCAPTCHA
+                ref={editRecaptchaRef}
+                sitekey={RECAPTCHA_SITE_KEY}
+                onChange={(token) => setEditCaptchaToken(token)}
+                onExpired={() => setEditCaptchaToken(null)}
               />
             </div>
             <div className="flex gap-2">
