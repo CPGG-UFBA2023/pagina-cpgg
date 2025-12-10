@@ -1,12 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../integrations/supabase/client';
 import { User, Session } from '@supabase/supabase-js';
 import { useToast } from '../../hooks/use-toast';
 import { HomeButton } from '../../components/HomeButton';
 import { z } from 'zod';
+import ReCAPTCHA from 'react-google-recaptcha';
 import styles from './sign.module.css';
 const logocpgg = 'https://i.imgur.com/6HRTVzo.png';
+
+// Site key do reCAPTCHA - esta é uma chave pública
+const RECAPTCHA_SITE_KEY = '6Le6DFYrAAAAAOBKZlf3UZLGKD1Tgm4sSQ7g2WSX';
 
 // Schema de validação
 const registrationSchema = z.object({
@@ -38,9 +42,30 @@ export function Sign() {
   const [showPasswordResetForm, setShowPasswordResetForm] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
   const [resetProfileId, setResetProfileId] = useState<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const recaptchaResetRef = useRef<ReCAPTCHA>(null);
   
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  const verifyCaptcha = async (token: string): Promise<boolean> => {
+    try {
+      const { data, error } = await supabase.functions.invoke('verify-recaptcha', {
+        body: { token }
+      });
+      
+      if (error) {
+        console.error('Error verifying captcha:', error);
+        return false;
+      }
+      
+      return data?.success === true;
+    } catch (err) {
+      console.error('Error calling verify-recaptcha:', err);
+      return false;
+    }
+  };
 
   // Force remove scroll on mount
   useEffect(() => {
@@ -110,6 +135,31 @@ export function Sign() {
     setIsLoading(true);
 
     try {
+      // Verificar reCAPTCHA
+      if (!captchaToken) {
+        toast({
+          title: 'Verificação necessária',
+          description: 'Por favor, complete a verificação "Não sou um robô".',
+          variant: 'destructive'
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      // Verificar token no servidor
+      const isValidCaptcha = await verifyCaptcha(captchaToken);
+      if (!isValidCaptcha) {
+        toast({
+          title: 'Verificação falhou',
+          description: 'A verificação de segurança falhou. Tente novamente.',
+          variant: 'destructive'
+        });
+        recaptchaRef.current?.reset();
+        setCaptchaToken(null);
+        setIsLoading(false);
+        return;
+      }
+
       // Validar dados do formulário
       const validationResult = registrationSchema.safeParse(formData);
       
@@ -384,6 +434,31 @@ export function Sign() {
     setIsLoading(true);
 
     try {
+      // Verificar reCAPTCHA
+      if (!captchaToken) {
+        toast({
+          title: 'Verificação necessária',
+          description: 'Por favor, complete a verificação "Não sou um robô".',
+          variant: 'destructive'
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      // Verificar token no servidor
+      const isValidCaptcha = await verifyCaptcha(captchaToken);
+      if (!isValidCaptcha) {
+        toast({
+          title: 'Verificação falhou',
+          description: 'A verificação de segurança falhou. Tente novamente.',
+          variant: 'destructive'
+        });
+        recaptchaResetRef.current?.reset();
+        setCaptchaToken(null);
+        setIsLoading(false);
+        return;
+      }
+
       // Validar dados do formulário
       const validationResult = registrationSchema.safeParse(formData);
       
@@ -610,7 +685,15 @@ export function Sign() {
                 required
                 disabled={isLoading}
               />
-              <button type="submit" disabled={isLoading}>
+              <div style={{ display: 'flex', justifyContent: 'center', margin: '15px 0' }}>
+                <ReCAPTCHA
+                  ref={recaptchaResetRef}
+                  sitekey={RECAPTCHA_SITE_KEY}
+                  onChange={(token) => setCaptchaToken(token)}
+                  onExpired={() => setCaptchaToken(null)}
+                />
+              </div>
+              <button type="submit" disabled={isLoading || !captchaToken}>
                 {isLoading ? 'Redefinindo...' : 'Redefinir Senha e Criar Nova Conta'}
               </button>
               <button 
@@ -786,7 +869,15 @@ export function Sign() {
               required
               disabled={isLoading}
             />
-            <button type="submit" disabled={isLoading}>
+            <div style={{ display: 'flex', justifyContent: 'center', margin: '15px 0' }}>
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={RECAPTCHA_SITE_KEY}
+                onChange={(token) => setCaptchaToken(token)}
+                onExpired={() => setCaptchaToken(null)}
+              />
+            </div>
+            <button type="submit" disabled={isLoading || !captchaToken}>
               {isLoading ? 'Registrando...' : 'Criar Conta'}
             </button>
             <button 
