@@ -22,7 +22,7 @@
 .logo img {
   width: 100px;
   height: 65px;
-  margin-top: 2rem;
+  margin-top: 0.5rem;
   margin-left: auto;
   margin-right: auto;
   display: block;
@@ -45,11 +45,11 @@
 }
 
 .box input {
-  padding: 15px;
+  padding: 12px;
   font-size: 14px;
   border: 1px solid #ccc;
-  margin-bottom: 20px;
-  margin-top: 5px;
+  margin-bottom: 10px;
+  margin-top: 3px;
   margin-left:2.5rem;
   border-radius: 15px;
   transition: all linear 160ms;
@@ -73,7 +73,7 @@
 
 .button {
   appearance: button;
-  padding: 15px;
+  padding: 12px;
   font-size: 16px;
   border-radius: 25px;
   width: 300px;
@@ -83,7 +83,7 @@
   transition: 500ms linear;
   color: white;
   cursor: pointer;
-  margin-top: 2rem;
+  margin-top: 0.5rem;
 }
 
 .button:hover {
@@ -110,7 +110,7 @@
   position: absolute;
   font-size: 18px;
   color: rgb(0, 0, 0);
-  top:8rem;
+  top:6rem;
   left:50%;
   transform: translate(-50%, -50%);
   font-weight: 600;
@@ -136,8 +136,8 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 8rem;
+  gap: 5px;
+  margin-top: 5rem;
 }
 
 .dialogContent {
