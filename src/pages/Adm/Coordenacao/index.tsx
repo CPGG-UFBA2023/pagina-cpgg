@@ -11,7 +11,7 @@ import ReCAPTCHA from 'react-google-recaptcha'
 import styles from './coordenacao.module.css'
 const logocpgg = 'https://i.imgur.com/6HRTVzo.png';
 
-const RECAPTCHA_SITE_KEY = '6LdLmJYqAAAAAMKPR30bpPPxUP2JLOi-hBnAPk-K';
+const RECAPTCHA_SITE_KEY = "6Lc_tCcsAAAAANaPjNTNCehs44DT3dPVbUJao07b";
 
 export function Coordenacao() {
   const [email, setEmail] = useState('')
