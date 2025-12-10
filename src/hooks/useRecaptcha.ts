@@ -32,5 +32,5 @@ export function useRecaptcha() {
   return { verifyRecaptcha, isVerifying }
 }
 
-// Site key for reCAPTCHA v2
-export const RECAPTCHA_SITE_KEY = '6LcQjpQqAAAAAOpbiLbxl6_V2MkdP5H6WkYL8tHR'
+// Site key for reCAPTCHA v2 - esta é uma chave pública
+export const RECAPTCHA_SITE_KEY = '6Lc_tCcsAAAAANaPjNTNCehs44DT3dPVbUJao07b'
