@@ -53,12 +53,21 @@ export async function sendEmail(options: EmailOptions): Promise<EmailResult> {
       },
     });
 
+    // Preparar anexos se existirem
+    const attachments = options.attachments?.map(att => ({
+      filename: att.filename,
+      content: att.content,
+      encoding: "base64" as const,
+      contentType: att.contentType || "application/pdf",
+    }));
+
     await client.send({
       from: `CPGG UFBA <${smtpUser}>`,
       to: toAddresses,
       subject: options.subject,
       html: options.html,
       replyTo: options.replyTo,
+      attachments: attachments,
     });
 
     await client.close();
