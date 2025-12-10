@@ -234,10 +234,11 @@ function generatePDFContent(
   </div>
 
   <div class="section">
-    <h3>Reporte de Problemas ou Avarias</h3>
-    <p><strong>Reporte problemas ou avarias que o equipamento reservado sofreu na devolução:</strong></p>
+    <h3>Relatório de Uso do Equipamento</h3>
+    <p><strong>O equipamento apresentou algum problema durante o uso?</strong></p>
     <div class="report-area">
       <div class="report-lines">
+        <div></div>
         <div></div>
         <div></div>
         <div></div>
@@ -249,13 +250,12 @@ function generatePDFContent(
   <div class="signatures">
     <div class="signature-box">
       <div class="signature-line"></div>
-      <p>Assinatura do Solicitante</p>
+      <p><strong>Assinatura do solicitante</strong></p>
       <p>${reservationData.applicantName}</p>
     </div>
     <div class="signature-box">
       <div class="signature-line"></div>
-      <p>Assinatura do Técnico do LAIGA</p>
-      <p>Michel Nascimento</p>
+      <p><strong>Assinatura do técnico ou responsável pela retirada</strong></p>
     </div>
   </div>
 
