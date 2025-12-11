@@ -172,6 +172,15 @@ nav ul {
   overflow: visible;
   justify-content: center;
   align-items: center;
+  border: none;
+  outline: none;
+}
+
+nav ul *,
+nav ul *:focus,
+nav ul *:active {
+  border: none !important;
+  outline: none !important;
 }
 
 nav ul li {
@@ -182,6 +191,8 @@ nav ul li {
   position: relative;
   cursor: pointer;
   white-space: nowrap;
+  border: none;
+  outline: none;
 }
 
 nav ul li a {
@@ -189,6 +200,17 @@ nav ul li a {
   color: #fff;
   display: inline-block;
   padding: 9px 15px;
+  border: none;
+  outline: none;
+}
+
+nav ul li:focus,
+nav ul li a:focus,
+nav ul li:active,
+nav ul li a:active {
+  border: none;
+  outline: none;
+  box-shadow: none;
 }
 
 .submenu1 {
