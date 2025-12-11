@@ -1313,8 +1313,9 @@ nav ul li:hover .submenu2 ul li a {
   /* ============================================= */
   
   /* Submenu1 - aparece diretamente abaixo do menu pai, SEM box */
+  .submenu1,
   .submenu1.submenu1Open {
-    display: block !important;
+    display: none !important;
     position: absolute !important;
     top: 100% !important;
     left: calc(50% + 200px) !important;
@@ -1328,8 +1329,14 @@ nav ul li:hover .submenu2 ul li a {
     border-radius: 0 !important;
     box-shadow: none !important;
     z-index: 100100 !important;
+    transition: none !important;
   }
   
+  .submenu1.submenu1Open {
+    display: block !important;
+  }
+  
+  .submenu1 ul,
   .submenu1.submenu1Open ul {
     display: flex !important;
     flex-direction: column !important;
@@ -1340,6 +1347,7 @@ nav ul li:hover .submenu2 ul li a {
     background-color: rgba(89, 44, 187, 0.95) !important;
     border-radius: 12px !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    transition: none !important;
   }
   
   .submenu1.submenu1Open ul li {
@@ -1477,11 +1485,13 @@ nav ul li:hover .submenu2 ul li a {
     border-radius: 12px !important;
     padding: 15px 38px 15px 5px !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    transition: none !important;
   }
   
   .requestsSubmenu li {
     margin-left: 0 !important;
     padding: 8px 0 !important;
+    transition: none !important;
   }
   
   .requestsSubmenu li a {
@@ -1489,6 +1499,7 @@ nav ul li:hover .submenu2 ul li a {
     font-weight: 500 !important;
     color: white !important;
     line-height: 1.4 !important;
+    transition: none !important;
   }
 }
 
