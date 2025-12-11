@@ -1506,128 +1506,271 @@ nav ul li:hover .submenu2 ul li a {
 /* Resoluções ≤375px - Ajustes para iPhone X e similares */
 @media screen and (max-width: 375px) {
   .header {
-    height: 130px !important;
+    height: 120px !important;
+    padding: 5px 10px !important;
   }
   
   .block1 {
-    transform: translateX(-60px) translateY(10px) !important;
+    width: 100% !important;
+    text-align: center !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transform: translateX(-50px) translateY(8px) !important;
+    margin: 0 auto !important;
   }
   
   .block1 h1 {
-    font-size: 10px !important;
+    text-align: center !important;
+    width: 100% !important;
+    transform: none !important;
+    font-size: 9px !important;
   }
   
-  .block1 h2,
-  .subTitle {
-    font-size: 7px !important;
+  .block1 h1:first-child {
+    transform: none !important;
+  }
+  
+  .block1 h2 {
+    text-align: center !important;
+    width: 100% !important;
+    font-size: 6px !important;
   }
   
   .subTitle {
-    transform: translateX(35px) !important;
+    text-align: center !important;
+    width: 100% !important;
+    font-size: 6px !important;
+    transform: translateX(30px) !important;
   }
   
   .block1 h2.subTitle:last-child {
-    transform: translateX(48px) !important;
+    transform: translateX(40px) !important;
+  }
+  
+  .centerContent {
+    justify-content: center !important;
+    padding: 3px 5px !important;
+    width: 100% !important;
   }
   
   .logoufba {
-    transform: translateY(-50%) translateX(115px) !important;
+    transform: translateY(-50%) translateX(110px) !important;
   }
   
   .header .logoufba img {
-    height: 35px !important;
+    height: 30px !important;
   }
   
   .figure {
-    left: 8px !important;
+    left: 5px !important;
   }
   
   .header .figure img {
-    height: 40px !important;
+    height: 35px !important;
   }
   
   .languageContainer {
-    top: 8px !important;
-    right: 8px !important;
+    top: 5px !important;
+    right: 5px !important;
   }
   
   .admLink {
-    font-size: 8px !important;
+    font-size: 7px !important;
   }
   
-  /* Menu horizontal ajustado */
+  /* Menu horizontal ajustado para 375px */
   .header nav {
-    transform: translateX(150px) translateY(-85px) !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    transform: translateX(145px) translateY(-80px) !important;
   }
   
   .header nav ul {
-    gap: 1px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 0px !important;
+    width: 100% !important;
   }
   
   .header nav ul li {
     font-size: 7px !important;
-    padding: 4px 2px !important;
+    padding: 3px 2px !important;
     margin: 0 !important;
+    white-space: nowrap !important;
   }
   
   .header nav ul li a {
-    padding: 4px 4px !important;
+    padding: 3px 3px !important;
     font-size: 7px !important;
   }
   
   /* Submenu1 ajustado para 375px */
   .submenu1,
   .submenu1.submenu1Open {
-    left: calc(50% + 165px) !important;
-    min-width: 150px !important;
+    display: none !important;
+    position: absolute !important;
+    top: 100% !important;
+    left: calc(50% + 160px) !important;
+    transform: translateX(-50%) !important;
+    margin-top: 2px !important;
+    margin-left: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    min-width: 140px !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    z-index: 100100 !important;
+    transition: none !important;
+  }
+  
+  .submenu1.submenu1Open {
+    display: block !important;
   }
   
   .submenu1 ul,
   .submenu1.submenu1Open ul {
-    padding: 12px 60px 12px 50px !important;
-    gap: 6px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    padding: 10px 50px 10px 40px !important;
+    margin: 0 !important;
+    gap: 5px !important;
+    background-color: rgba(89, 44, 187, 0.95) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    transition: none !important;
   }
   
   .submenu1.submenu1Open ul li {
-    padding: 6px 0 !important;
+    display: block !important;
+    width: 100% !important;
+    text-align: left !important;
+    margin: 0 !important;
+    padding: 5px 0 !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
   }
   
   .submenu1.submenu1Open ul li a {
-    font-size: 12px !important;
+    display: block !important;
+    width: 100% !important;
+    padding: 0 !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    color: white !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    line-height: 1.3 !important;
   }
   
-  /* Submenu2 ajustado */
+  /* Submenu2 ajustado para 375px */
+  .submenu2,
+  .submenu2.submenu2Institution,
+  .submenu2.submenu2Personnel,
+  .hoversub .submenu2,
+  .hoversub:hover .submenu2 {
+    display: none !important;
+  }
+  
   .submenu2.submenu2Open,
   .submenu2.submenu2Institution.submenu2Open,
   .submenu2.submenu2Personnel.submenu2Open,
   .hoversub .submenu2.submenu2Open,
   .hoversub .submenu2.submenu2Institution.submenu2Open,
   .hoversub .submenu2.submenu2Personnel.submenu2Open {
-    left: 55px !important;
-    min-width: 100px !important;
+    display: block !important;
+    visibility: visible !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 50px !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    min-width: 90px !important;
+    height: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+    overflow: visible !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    z-index: 100200 !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+  
+  .submenu2.submenu2Open ul,
+  .submenu2.submenu2Institution.submenu2Open ul,
+  .submenu2.submenu2Personnel.submenu2Open ul {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 2px !important;
+  }
+  
+  .submenu2.submenu2Open ul li,
+  .submenu2.submenu2Institution.submenu2Open ul li,
+  .submenu2.submenu2Personnel.submenu2Open ul li {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
   }
   
   .submenu2.submenu2Open ul li a,
   .submenu2.submenu2Institution.submenu2Open ul li a,
   .submenu2.submenu2Personnel.submenu2Open ul li a {
-    font-size: 9px !important;
-    padding: 6px 8px !important;
+    display: block !important;
+    width: 100% !important;
+    font-size: 8px !important;
+    padding: 5px 6px !important;
+    color: white !important;
+    background-color: transparent !important;
+    font-weight: 400 !important;
   }
   
-  /* Submenu Solicitações ajustado */
+  /* Submenu Solicitações ajustado para 375px */
   .requestsSubmenu {
-    min-width: 115px !important;
-    left: -35px !important;
-    padding: 12px 30px 12px 5px !important;
-    gap: 6px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: auto !important;
+    min-width: 110px !important;
+    gap: 5px !important;
+    position: relative !important;
+    left: -30px !important;
+    transform: none !important;
+    background-color: rgba(89, 44, 187, 0.95) !important;
+    border-radius: 10px !important;
+    padding: 10px 25px 10px 5px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    transition: none !important;
   }
   
   .requestsSubmenu li {
-    padding: 6px 0 !important;
+    margin-left: 0 !important;
+    padding: 5px 0 !important;
+    transition: none !important;
   }
   
   .requestsSubmenu li a {
-    font-size: 12px !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    color: white !important;
+    line-height: 1.3 !important;
+    transition: none !important;
   }
 }
 
