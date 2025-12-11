@@ -545,6 +545,13 @@
   }
 }
 
+/* Samsung Galaxy A33/S21 Ultra (412x915) */
+@media (min-width: 391px) and (max-width: 430px) {
+  .carouselContainer {
+    transform: translateY(30px) !important;
+  }
+}
+
 /* Resoluções ≤375px - Ajustes para iPhone X */
 @media (max-width: 375px) {
   .middleWrapper {
