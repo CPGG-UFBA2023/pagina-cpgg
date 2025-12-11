@@ -281,3 +281,9 @@
     transform: translateY(50px);
   }
 }
+
+@media (max-width: 375px) {
+  .title {
+    transform: translateY(20px) translateX(-50px);
+  }
+}
