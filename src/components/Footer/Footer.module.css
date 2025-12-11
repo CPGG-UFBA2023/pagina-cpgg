@@ -787,9 +787,14 @@
     height: 90px !important;
   }
   
+  .bar nav {
+    transform: translateY(-131px) !important;
+  }
+  
   .copyright {
     font-size: 8px !important;
     margin-top: -8px !important;
+    transform: translateY(50px) !important;
   }
   
   .links a {
