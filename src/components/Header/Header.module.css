@@ -1876,7 +1876,7 @@ nav ul li:hover .submenu2 ul li a {
     gap: 8px !important;
     overflow: visible !important;
     width: 100% !important;
-    transform: translateY(-20px) !important;
+    transform: translate(-50px, -20px) !important;
   }
   
   .header nav ul li {
