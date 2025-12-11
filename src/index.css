@@ -489,3 +489,21 @@ All colors MUST be HSL.
     margin-top: 175px !important;
   }
 }
+
+/* Resoluções ≤375px - Ajustes globais para iPhone X e similares */
+@media (max-width: 375px) {
+  html, body {
+    overflow-x: hidden !important;
+  }
+  
+  .researcher-description {
+    margin-top: 150px !important;
+  }
+  
+  /* Permitir scroll vertical onde necessário */
+  body:has(.cpgg-page-container),
+  body:has(.researchers-page-container),
+  body:has(.coordination-page-container) {
+    overflow-y: auto !important;
+  }
+}

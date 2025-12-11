@@ -544,3 +544,18 @@
     bottom: 140px !important;
   }
 }
+
+/* Resoluções ≤375px - Ajustes para iPhone X */
+@media (max-width: 375px) {
+  .middleWrapper {
+    padding: 0.8rem 20px !important;
+  }
+  
+  .controls {
+    bottom: 120px !important;
+  }
+  
+  .newsTitle {
+    font-size: 1.2rem !important;
+  }
+}
