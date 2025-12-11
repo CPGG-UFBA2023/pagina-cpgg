@@ -1506,63 +1506,74 @@ nav ul li:hover .submenu2 ul li a {
 /* Resoluções ≤375px - Ajustes para iPhone X e similares - OVERRIDE das queries 390px e 430px */
 @media screen and (max-width: 375px) {
   .header {
-    height: 120px !important;
+    height: 115px !important;
     padding: 5px 10px !important;
   }
   
   /* Centralizar seletor de idiomas */
   .languageContainer {
-    left: 50% !important;
-    right: auto !important;
-    transform: translateX(-50%) !important;
-    top: 5px !important;
+    position: absolute !important;
+    left: auto !important;
+    right: 5px !important;
+    top: 3px !important;
+    transform: none !important;
   }
   
   .admLink {
     font-size: 7px !important;
   }
   
+  .centerContent {
+    justify-content: center !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+  
   .block1 {
-    transform: translate(-5px, -15px) !important;
+    transform: translateY(-5px) !important;
+    width: 100% !important;
+    text-align: center !important;
   }
   
   .block1 h1 {
-    font-size: 9px !important;
+    font-size: 10px !important;
+    transform: none !important;
+    text-align: center !important;
   }
   
   .block1 h1:first-child {
-    transform: translateX(-15px) !important;
+    transform: none !important;
   }
   
   .block1 h2,
   .subTitle {
-    font-size: 6px !important;
+    font-size: 7px !important;
+    transform: none !important;
+    text-align: center !important;
+  }
+  
+  .block1 h2.subTitle:last-child {
+    transform: none !important;
   }
 
   .logoufba {
-    display: flex !important;
-    transform: translate(-15px, -15px) !important;
-    position: relative !important;
-    z-index: 100001 !important;
-  }
-
-  .logoufba img,
-  .header .logoufba img {
-    height: 40px !important;
+    display: none !important;
   }
   
   .figure {
     left: 3px !important;
+    top: 5px !important;
+    transform: none !important;
   }
   
   .header .figure img {
-    height: 35px !important;
+    height: 45px !important;
   }
   
-  /* Nav - usar posicionamento absoluto como 390px */
+  /* Nav - centralizado */
   .header nav {
     position: absolute !important;
-    top: 90px !important;
+    top: 75px !important;
     left: 0 !important;
     right: 0 !important;
     width: 100% !important;
@@ -1571,27 +1582,30 @@ nav ul li:hover .submenu2 ul li a {
     overflow: visible !important;
     pointer-events: auto !important;
     transform: none !important;
+    display: flex !important;
+    justify-content: center !important;
   }
   
   .header nav ul {
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
-    justify-content: flex-start !important;
+    justify-content: center !important;
     align-items: center !important;
-    gap: 4px !important;
+    gap: 2px !important;
     overflow: visible !important;
-    width: 100% !important;
-    transform: translate(-5px, -25px) !important;
+    width: auto !important;
+    transform: none !important;
     pointer-events: auto !important;
+    padding: 0 5px !important;
   }
 
   .header nav ul li {
-    font-size: 7px !important;
+    font-size: 8px !important;
     width: auto !important;
     text-align: center !important;
-    padding: 4px 2px !important;
-    margin: 0 1px !important;
+    padding: 4px 3px !important;
+    margin: 0 !important;
     white-space: nowrap !important;
     position: relative !important;
     display: inline-block !important;
@@ -1607,8 +1621,8 @@ nav ul li:hover .submenu2 ul li a {
     cursor: pointer !important;
     display: block !important;
     width: 100% !important;
-    padding: 5px 6px !important;
-    font-size: 7px !important;
+    padding: 4px 5px !important;
+    font-size: 8px !important;
   }
   
   .header nav ul li:first-child,
