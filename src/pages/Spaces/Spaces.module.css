@@ -232,9 +232,11 @@
   
   .title {
     margin-top: 165px !important;
-    font-size: 20px;
-    margin-left: -130px !important;
-    text-align: left !important;
+    font-size: 18px !important;
+    margin-left: 0 !important;
+    text-align: center !important;
+    width: 100% !important;
+    padding: 0 1rem !important;
   }
   
   .container {
