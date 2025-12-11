@@ -1503,6 +1503,134 @@ nav ul li:hover .submenu2 ul li a {
   }
 }
 
+/* Resoluções ≤375px - Ajustes para iPhone X e similares */
+@media screen and (max-width: 375px) {
+  .header {
+    height: 130px !important;
+  }
+  
+  .block1 {
+    transform: translateX(-60px) translateY(10px) !important;
+  }
+  
+  .block1 h1 {
+    font-size: 10px !important;
+  }
+  
+  .block1 h2,
+  .subTitle {
+    font-size: 7px !important;
+  }
+  
+  .subTitle {
+    transform: translateX(35px) !important;
+  }
+  
+  .block1 h2.subTitle:last-child {
+    transform: translateX(48px) !important;
+  }
+  
+  .logoufba {
+    transform: translateY(-50%) translateX(115px) !important;
+  }
+  
+  .header .logoufba img {
+    height: 35px !important;
+  }
+  
+  .figure {
+    left: 8px !important;
+  }
+  
+  .header .figure img {
+    height: 40px !important;
+  }
+  
+  .languageContainer {
+    top: 8px !important;
+    right: 8px !important;
+  }
+  
+  .admLink {
+    font-size: 8px !important;
+  }
+  
+  /* Menu horizontal ajustado */
+  .header nav {
+    transform: translateX(150px) translateY(-85px) !important;
+  }
+  
+  .header nav ul {
+    gap: 1px !important;
+  }
+  
+  .header nav ul li {
+    font-size: 7px !important;
+    padding: 4px 2px !important;
+    margin: 0 !important;
+  }
+  
+  .header nav ul li a {
+    padding: 4px 4px !important;
+    font-size: 7px !important;
+  }
+  
+  /* Submenu1 ajustado para 375px */
+  .submenu1,
+  .submenu1.submenu1Open {
+    left: calc(50% + 165px) !important;
+    min-width: 150px !important;
+  }
+  
+  .submenu1 ul,
+  .submenu1.submenu1Open ul {
+    padding: 12px 60px 12px 50px !important;
+    gap: 6px !important;
+  }
+  
+  .submenu1.submenu1Open ul li {
+    padding: 6px 0 !important;
+  }
+  
+  .submenu1.submenu1Open ul li a {
+    font-size: 12px !important;
+  }
+  
+  /* Submenu2 ajustado */
+  .submenu2.submenu2Open,
+  .submenu2.submenu2Institution.submenu2Open,
+  .submenu2.submenu2Personnel.submenu2Open,
+  .hoversub .submenu2.submenu2Open,
+  .hoversub .submenu2.submenu2Institution.submenu2Open,
+  .hoversub .submenu2.submenu2Personnel.submenu2Open {
+    left: 55px !important;
+    min-width: 100px !important;
+  }
+  
+  .submenu2.submenu2Open ul li a,
+  .submenu2.submenu2Institution.submenu2Open ul li a,
+  .submenu2.submenu2Personnel.submenu2Open ul li a {
+    font-size: 9px !important;
+    padding: 6px 8px !important;
+  }
+  
+  /* Submenu Solicitações ajustado */
+  .requestsSubmenu {
+    min-width: 115px !important;
+    left: -35px !important;
+    padding: 12px 30px 12px 5px !important;
+    gap: 6px !important;
+  }
+  
+  .requestsSubmenu li {
+    padding: 6px 0 !important;
+  }
+  
+  .requestsSubmenu li a {
+    font-size: 12px !important;
+  }
+}
+
 /* Definição base para CSS Module reconhecer a classe */
 .requestsSubmenu {
   display: flex;
