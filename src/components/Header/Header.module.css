@@ -217,6 +217,20 @@ nav ul li a:active {
   display: none;
 }
 
+/* Force vertical layout on all submenu ul elements */
+.submenu1 ul,
+.submenu2 ul {
+  display: flex !important;
+  flex-direction: column !important;
+  flex-wrap: nowrap !important;
+}
+
+.submenu1 ul li,
+.submenu2 ul li {
+  display: block !important;
+  width: 100% !important;
+}
+
 nav ul li:hover .submenu1 {
   display: block;
   position: absolute;
@@ -258,7 +272,8 @@ nav ul li:hover .submenu1 {
 }
 
 nav ul li:hover .submenu1 ul {
-  display: block;
+  display: flex !important;
+  flex-direction: column !important;
   padding: 0;
   margin: 0;
 }
@@ -268,6 +283,7 @@ nav ul li:hover .submenu1 ul li {
   width: 100%;
   padding: 0;
   margin: 0;
+  display: block !important;
 }
 
 nav ul li:hover .submenu1 ul li a {
@@ -346,6 +362,8 @@ nav ul li:hover .submenu1 ul li:hover a {
 .submenu2 ul {
   padding: 0;
   margin: 0;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 nav ul li:hover .submenu2 ul li {
@@ -353,6 +371,7 @@ nav ul li:hover .submenu2 ul li {
   width: 100%;
   padding: 0;
   margin: 0;
+  display: block !important;
 }
 /* Ensure default background of submenu2 items is transparent */
 .submenu2 ul li {
