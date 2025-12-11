@@ -548,7 +548,7 @@
 /* Samsung Galaxy A33/S21 Ultra (412x915) */
 @media (min-width: 391px) and (max-width: 430px) {
   .carouselContainer {
-    transform: translateY(30px) !important;
+    transform: translateY(45px) !important;
   }
 }
 
