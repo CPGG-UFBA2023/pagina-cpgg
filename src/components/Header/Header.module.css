@@ -1859,7 +1859,7 @@ nav ul li:hover .submenu2 ul li a {
   
   .block1 h2:last-of-type {
     font-size: 8px !important;
-    transform: translateX(-3px) !important;
+    transform: translateX(-6px) !important;
   }
   
   .header nav {
