@@ -775,3 +775,24 @@
     margin-top: -5px !important;
   }
 }
+
+/* 375px and below - further reduce footer for iPhone X */
+@media (max-width: 375px) {
+  .bar {
+    height: 100px !important;
+    min-height: 100px !important;
+  }
+  
+  .image {
+    height: 90px !important;
+  }
+  
+  .copyright {
+    font-size: 8px !important;
+    margin-top: -8px !important;
+  }
+  
+  .links a {
+    font-size: 8px !important;
+  }
+}

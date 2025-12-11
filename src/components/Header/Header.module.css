@@ -1503,133 +1503,148 @@ nav ul li:hover .submenu2 ul li a {
   }
 }
 
-/* Resoluções ≤375px - Ajustes para iPhone X e similares */
+/* Resoluções ≤375px - Ajustes para iPhone X e similares - OVERRIDE das queries 390px e 430px */
 @media screen and (max-width: 375px) {
   .header {
     height: 120px !important;
     padding: 5px 10px !important;
   }
   
-  .block1 {
-    width: 100% !important;
-    text-align: center !important;
-    align-items: center !important;
-    justify-content: center !important;
-    transform: translateX(-50px) translateY(8px) !important;
-    margin: 0 auto !important;
-  }
-  
-  .block1 h1 {
-    text-align: center !important;
-    width: 100% !important;
-    transform: none !important;
-    font-size: 9px !important;
-  }
-  
-  .block1 h1:first-child {
-    transform: none !important;
-  }
-  
-  .block1 h2 {
-    text-align: center !important;
-    width: 100% !important;
-    font-size: 6px !important;
-  }
-  
-  .subTitle {
-    text-align: center !important;
-    width: 100% !important;
-    font-size: 6px !important;
-    transform: translateX(30px) !important;
-  }
-  
-  .block1 h2.subTitle:last-child {
-    transform: translateX(40px) !important;
-  }
-  
-  .centerContent {
-    justify-content: center !important;
-    padding: 3px 5px !important;
-    width: 100% !important;
-  }
-  
-  .logoufba {
-    transform: translateY(-50%) translateX(110px) !important;
-  }
-  
-  .header .logoufba img {
-    height: 30px !important;
-  }
-  
-  .figure {
-    left: 5px !important;
-  }
-  
-  .header .figure img {
-    height: 35px !important;
-  }
-  
+  /* Centralizar seletor de idiomas */
   .languageContainer {
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
     top: 5px !important;
-    right: 5px !important;
   }
   
   .admLink {
     font-size: 7px !important;
   }
   
-  /* Menu horizontal ajustado para 375px */
-  .header nav {
-    width: 100% !important;
+  .block1 {
+    transform: translate(-5px, -15px) !important;
+  }
+  
+  .block1 h1 {
+    font-size: 9px !important;
+  }
+  
+  .block1 h1:first-child {
+    transform: translateX(-15px) !important;
+  }
+  
+  .block1 h2,
+  .subTitle {
+    font-size: 6px !important;
+  }
+
+  .logoufba {
     display: flex !important;
-    justify-content: center !important;
-    transform: translateX(145px) translateY(-80px) !important;
+    transform: translate(-15px, -15px) !important;
+    position: relative !important;
+    z-index: 100001 !important;
+  }
+
+  .logoufba img,
+  .header .logoufba img {
+    height: 40px !important;
+  }
+  
+  .figure {
+    left: 3px !important;
+  }
+  
+  .header .figure img {
+    height: 35px !important;
+  }
+  
+  /* Nav - usar posicionamento absoluto como 390px */
+  .header nav {
+    position: absolute !important;
+    top: 90px !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    pointer-events: auto !important;
+    transform: none !important;
   }
   
   .header nav ul {
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
     align-items: center !important;
-    gap: 0px !important;
+    gap: 4px !important;
+    overflow: visible !important;
     width: 100% !important;
+    transform: translate(-5px, -25px) !important;
+    pointer-events: auto !important;
   }
-  
+
   .header nav ul li {
     font-size: 7px !important;
-    padding: 3px 2px !important;
-    margin: 0 !important;
+    width: auto !important;
+    text-align: center !important;
+    padding: 4px 2px !important;
+    margin: 0 1px !important;
     white-space: nowrap !important;
+    position: relative !important;
+    display: inline-block !important;
+    flex-shrink: 0 !important;
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+    cursor: pointer !important;
   }
   
   .header nav ul li a {
-    padding: 3px 3px !important;
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+    cursor: pointer !important;
+    display: block !important;
+    width: 100% !important;
+    padding: 5px 6px !important;
     font-size: 7px !important;
   }
   
-  /* Submenu1 ajustado para 375px */
+  .header nav ul li:first-child,
+  .header nav ul li:nth-child(2),
+  .header nav ul li:nth-child(3),
+  .header nav ul li:nth-child(4),
+  .header nav ul li:nth-child(5) {
+    transform: none !important;
+  }
+  
+  /* Submenus - posicionamento absoluto */
+  .header nav ul > li {
+    position: relative !important;
+  }
+  
   .submenu1,
   .submenu1.submenu1Open {
-    display: none !important;
     position: absolute !important;
     top: 100% !important;
-    left: calc(50% + 160px) !important;
-    transform: translateX(-50%) !important;
-    margin-top: 2px !important;
-    margin-left: 0 !important;
+    left: 50% !important;
+    transform: translate(calc(-50% + 10px), 0px) !important;
+    margin-top: 0 !important;
+    min-width: 120px !important;
+    max-width: 120px !important;
+    display: none !important;
+    flex-direction: column !important;
+    background-color: rgba(89, 44, 187, 0.95) !important;
     padding: 0 !important;
-    width: auto !important;
-    min-width: 140px !important;
-    background-color: transparent !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    z-index: 100100 !important;
-    transition: none !important;
+    pointer-events: auto !important;
+    border-radius: 6px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    z-index: 100010 !important;
   }
   
   .submenu1.submenu1Open {
-    display: block !important;
+    display: flex !important;
   }
   
   .submenu1 ul,
@@ -1637,38 +1652,41 @@ nav ul li:hover .submenu2 ul li a {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
-    padding: 10px 50px 10px 40px !important;
+    padding: 20px 0 0 0 !important;
     margin: 0 !important;
-    gap: 5px !important;
-    background-color: rgba(89, 44, 187, 0.95) !important;
-    border-radius: 10px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-    transition: none !important;
-  }
-  
-  .submenu1.submenu1Open ul li {
-    display: block !important;
-    width: 100% !important;
-    text-align: left !important;
-    margin: 0 !important;
-    padding: 5px 0 !important;
     background-color: transparent !important;
-    border-radius: 0 !important;
+    gap: 0 !important;
   }
   
-  .submenu1.submenu1Open ul li a {
-    display: block !important;
+  .header nav ul li .submenu1 ul li,
+  .header nav ul li .submenu1.submenu1Open ul li {
+    transform: none !important;
     width: 100% !important;
+    max-width: 100% !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
     padding: 0 !important;
-    font-size: 11px !important;
-    font-weight: 500 !important;
-    color: white !important;
-    text-decoration: none !important;
-    white-space: nowrap !important;
-    line-height: 1.3 !important;
   }
   
-  /* Submenu2 ajustado para 375px */
+  .header nav ul li .submenu1 ul li a,
+  .header nav ul li .submenu1.submenu1Open ul li a {
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 8px 10px !important;
+    line-height: 1.2 !important;
+    background-color: transparent !important;
+    color: white !important;
+    display: block !important;
+    text-align: left !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    font-size: 10px !important;
+  }
+  
+  /* Submenu2 */
   .submenu2,
   .submenu2.submenu2Institution,
   .submenu2.submenu2Personnel,
@@ -1677,100 +1695,61 @@ nav ul li:hover .submenu2 ul li a {
     display: none !important;
   }
   
+  .header nav ul li .submenu1 .hoversub .submenu2.submenu2Open,
   .submenu2.submenu2Open,
   .submenu2.submenu2Institution.submenu2Open,
-  .submenu2.submenu2Personnel.submenu2Open,
-  .hoversub .submenu2.submenu2Open,
-  .hoversub .submenu2.submenu2Institution.submenu2Open,
-  .hoversub .submenu2.submenu2Personnel.submenu2Open {
-    display: block !important;
-    visibility: visible !important;
+  .submenu2.submenu2Personnel.submenu2Open {
     position: absolute !important;
     top: 0 !important;
-    left: 50px !important;
-    right: auto !important;
-    bottom: auto !important;
+    right: calc(100% + 5px) !important;
+    left: auto !important;
     transform: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    width: auto !important;
-    min-width: 90px !important;
-    height: auto !important;
+    min-width: 150px !important;
     max-width: none !important;
-    max-height: none !important;
-    overflow: visible !important;
-    background-color: transparent !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    z-index: 100200 !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-  }
-  
-  .submenu2.submenu2Open ul,
-  .submenu2.submenu2Institution.submenu2Open ul,
-  .submenu2.submenu2Personnel.submenu2Open ul {
     display: flex !important;
     flex-direction: column !important;
-    width: 100% !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    gap: 2px !important;
-  }
-  
-  .submenu2.submenu2Open ul li,
-  .submenu2.submenu2Institution.submenu2Open ul li,
-  .submenu2.submenu2Personnel.submenu2Open ul li {
-    display: block !important;
-    width: 100% !important;
-    text-align: center !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    background-color: transparent !important;
-    border-radius: 0 !important;
+    background-color: rgba(89, 44, 187, 0.95) !important;
+    padding: 10px 0 !important;
+    z-index: 100015 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
   }
   
   .submenu2.submenu2Open ul li a,
   .submenu2.submenu2Institution.submenu2Open ul li a,
   .submenu2.submenu2Personnel.submenu2Open ul li a {
-    display: block !important;
-    width: 100% !important;
-    font-size: 8px !important;
-    padding: 5px 6px !important;
-    color: white !important;
-    background-color: transparent !important;
-    font-weight: 400 !important;
+    font-size: 9px !important;
+    padding: 8px 12px !important;
   }
   
-  /* Submenu Solicitações ajustado para 375px */
+  /* Submenu Solicitações */
   .requestsSubmenu {
     display: flex !important;
     flex-direction: column !important;
     width: auto !important;
-    min-width: 110px !important;
-    gap: 5px !important;
+    min-width: 100px !important;
+    max-width: 100px !important;
+    gap: 0 !important;
     position: relative !important;
-    left: -30px !important;
+    left: 0 !important;
     transform: none !important;
-    background-color: rgba(89, 44, 187, 0.95) !important;
-    border-radius: 10px !important;
-    padding: 10px 25px 10px 5px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-    transition: none !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    padding: 20px 0 0 0 !important;
+    box-shadow: none !important;
   }
   
   .requestsSubmenu li {
     margin-left: 0 !important;
-    padding: 5px 0 !important;
-    transition: none !important;
+    padding: 0 !important;
   }
   
   .requestsSubmenu li a {
-    font-size: 11px !important;
+    font-size: 10px !important;
     font-weight: 500 !important;
     color: white !important;
-    line-height: 1.3 !important;
-    transition: none !important;
+    line-height: 1.2 !important;
+    padding: 8px 10px !important;
   }
 }
 
