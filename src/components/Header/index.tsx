@@ -211,7 +211,7 @@ export function Header() {
                 </li>
                 <li>
                   <NavLink to='/cpgg2' className={styles.navLink} onClick={closeAllMenus}>
-                    {t('nav.labsReservations')}
+                    Laboratórios e<br />reservas
                   </NavLink>
                 </li>
                 <li>
