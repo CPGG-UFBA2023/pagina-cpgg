@@ -551,8 +551,13 @@
     padding: 0.8rem 20px !important;
   }
   
+  .carouselContainer {
+    margin-top: -120px !important;
+    transform: translateY(80px) !important;
+  }
+  
   .controls {
-    bottom: 120px !important;
+    bottom: 40px !important;
   }
   
   .newsTitle {
