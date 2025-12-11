@@ -284,6 +284,6 @@
 
 @media (max-width: 375px) {
   .title {
-    transform: translateY(20px) translateX(-50px);
+    transform: translateY(20px) translateX(-130px);
   }
 }
