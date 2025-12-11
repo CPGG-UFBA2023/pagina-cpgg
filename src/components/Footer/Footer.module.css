@@ -820,7 +820,7 @@
 /* Samsung Galaxy A33/S21 Ultra (412x915) */
 @media (min-width: 391px) and (max-width: 430px) {
   .bar nav {
-    transform: translateY(-135px) !important;
+    transform: translateY(-125px) !important;
   }
   
   .copyright {
