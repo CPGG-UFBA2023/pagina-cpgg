@@ -1838,7 +1838,7 @@ nav ul li:hover .submenu2 ul li a {
   
   .languageContainer {
     position: absolute !important;
-    left: calc(50% + 120px) !important;
+    left: calc(50% + 190px) !important;
     right: auto !important;
     top: 15px !important;
     transform: translateX(-50%) !important;
@@ -1847,7 +1847,7 @@ nav ul li:hover .submenu2 ul li a {
   .admLink {
     font-size: 9px !important;
     position: relative !important;
-    left: -80px !important;
+    left: -180px !important;
   }
   
   .block1 {
