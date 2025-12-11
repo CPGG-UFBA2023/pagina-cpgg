@@ -1525,35 +1525,45 @@ nav ul li:hover .submenu2 ul li a {
   
   .centerContent {
     justify-content: center !important;
-    padding: 0 !important;
+    padding: 5px 10px !important;
     width: 100% !important;
   }
   
   .block1 {
-    transform: translateY(-5px) !important;
     width: 100% !important;
     text-align: center !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transform: translateX(-60px) translateY(10px) !important;
+    margin: 0 auto !important;
   }
   
   .block1 h1 {
-    font-size: 10px !important;
-    transform: none !important;
     text-align: center !important;
+    width: 100% !important;
+    transform: none !important;
+    font-size: 10px !important;
   }
   
   .block1 h1:first-child {
     transform: none !important;
   }
   
-  .block1 h2,
-  .subTitle {
-    font-size: 7px !important;
-    transform: none !important;
+  .block1 h2 {
     text-align: center !important;
+    width: 100% !important;
+    font-size: 7px !important;
+  }
+  
+  .subTitle {
+    text-align: center !important;
+    width: 100% !important;
+    font-size: 7px !important;
+    transform: translateX(35px) !important;
   }
   
   .block1 h2.subTitle:last-child {
-    transform: none !important;
+    transform: translateX(45px) !important;
   }
 
   .logoufba {
