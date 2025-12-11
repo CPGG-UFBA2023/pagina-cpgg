@@ -1569,7 +1569,7 @@ nav ul li:hover .submenu2 ul li a {
   .logoufba {
     display: flex !important;
     position: absolute !important;
-    right: 5px !important;
+    right: 20px !important;
     left: auto !important;
     top: 10px !important;
     transform: none !important;
