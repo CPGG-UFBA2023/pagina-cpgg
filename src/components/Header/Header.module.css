@@ -1800,3 +1800,124 @@ nav ul li:hover .submenu2 ul li a {
   display: flex;
   flex-direction: column;
 }
+
+/* Samsung Galaxy A33/S21 Ultra (412x915) and similar devices */
+@media (min-width: 391px) and (max-width: 430px) {
+  .header {
+    height: 160px !important;
+    padding: 10px 15px !important;
+  }
+  
+  .logocpgg {
+    display: flex !important;
+    position: absolute !important;
+    left: 10px !important;
+    top: 10px !important;
+    z-index: 100001 !important;
+  }
+  
+  .logocpgg img {
+    height: 45px !important;
+    width: auto !important;
+  }
+  
+  .logoufba {
+    display: flex !important;
+    position: absolute !important;
+    right: 10px !important;
+    top: 10px !important;
+    left: auto !important;
+    transform: none !important;
+    z-index: 100001 !important;
+  }
+  
+  .logoufba img {
+    height: 45px !important;
+    width: auto !important;
+  }
+  
+  .languageContainer {
+    position: absolute !important;
+    left: 50% !important;
+    right: auto !important;
+    top: 15px !important;
+    transform: translateX(-50%) !important;
+  }
+  
+  .block1 {
+    transform: translateY(15px) !important;
+  }
+  
+  .block1 h1 {
+    font-size: 9px !important;
+  }
+  
+  .block1 h2 {
+    font-size: 8px !important;
+  }
+  
+  .header nav {
+    position: absolute !important;
+    top: 110px !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+  
+  .header nav ul {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    overflow: visible !important;
+    width: 100% !important;
+    transform: translateY(-20px) !important;
+  }
+  
+  .header nav ul li {
+    font-size: 11px !important;
+    width: auto !important;
+    text-align: center !important;
+    padding: 6px 5px !important;
+    margin: 0 3px !important;
+    white-space: nowrap !important;
+    position: relative !important;
+    display: inline-block !important;
+  }
+  
+  .header nav ul li a {
+    display: block !important;
+    width: 100% !important;
+    padding: 7px 10px !important;
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+    cursor: pointer !important;
+  }
+  
+  .submenu1 {
+    position: absolute !important;
+    top: 100% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    min-width: 150px !important;
+    background-color: rgba(89, 44, 187, 0.95) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    z-index: 100010 !important;
+  }
+  
+  .submenu2 {
+    position: absolute !important;
+    left: 100% !important;
+    top: 0 !important;
+    min-width: 130px !important;
+    background-color: rgba(89, 44, 187, 0.95) !important;
+    border-radius: 8px !important;
+    z-index: 100015 !important;
+  }
+}
