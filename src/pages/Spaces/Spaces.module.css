@@ -233,6 +233,7 @@
   .title {
     margin-top: 165px !important;
     font-size: 20px;
+    transform: translateY(20px) translateX(-130px) !important;
   }
   
   .container {
