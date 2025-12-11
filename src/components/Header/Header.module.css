@@ -236,7 +236,7 @@ nav ul li:hover .submenu1 {
   position: absolute;
   background-color: rgba(89, 44, 187, 0.95);
   margin-top: 10px;
-  margin-left: -20px;
+  margin-left: -40px;
   font-size: 12px;
   z-index: 100000;
   width: fit-content;
@@ -254,7 +254,7 @@ nav ul li:hover .submenu1 {
   position: absolute !important;
   background-color: rgba(89, 44, 187, 0.95) !important;
   margin-top: 10px !important;
-  margin-left: -20px !important;
+  margin-left: -40px !important;
   font-size: 12px !important;
   z-index: 100005 !important;
   width: fit-content !important;
