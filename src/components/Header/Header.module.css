@@ -1838,10 +1838,14 @@ nav ul li:hover .submenu2 ul li a {
   
   .languageContainer {
     position: absolute !important;
-    left: 50% !important;
+    left: calc(50% + 50px) !important;
     right: auto !important;
     top: 15px !important;
     transform: translateX(-50%) !important;
+  }
+  
+  .admLink {
+    font-size: 9px !important;
   }
   
   .block1 {
