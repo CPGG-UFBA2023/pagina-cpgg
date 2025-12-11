@@ -1583,7 +1583,7 @@ nav ul li:hover .submenu2 ul li a {
   /* Nav - centralizado */
   .header nav {
     position: absolute !important;
-    top: 95px !important;
+    top: 90px !important;
     left: 0 !important;
     right: 0 !important;
     width: 100% !important;
