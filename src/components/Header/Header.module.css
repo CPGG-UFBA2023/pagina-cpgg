@@ -1801,8 +1801,8 @@ nav ul li:hover .submenu2 ul li a {
   flex-direction: column;
 }
 
-/* Samsung Galaxy A33/S21 Ultra (412x915) and similar devices */
-@media (min-width: 391px) and (max-width: 430px) {
+/* Mobile unificado: 360px - 430px (Samsung A33, iPhone, Pixel, etc.) */
+@media (min-width: 360px) and (max-width: 430px) {
   .header {
     height: 160px !important;
     padding: 10px 15px !important;

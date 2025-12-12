@@ -760,50 +760,23 @@
   }
 }
 
-/* 430px and below - reduce footer height by 30% total */
-@media (max-width: 430px) {
+/* Mobile unificado: 360px - 430px (Samsung A33, iPhone, Pixel, etc.) */
+@media (min-width: 360px) and (max-width: 430px) {
   .bar {
-    height: 123px !important;
-    min-height: 123px !important;
+    height: auto !important;
+    min-height: 140px !important;
+    padding: 10px 8px !important;
   }
   
   .image {
-    height: 108px !important;
-  }
-  
-  .copyright {
-    margin-top: -5px !important;
-  }
-}
-
-/* 375px and below - further reduce footer for iPhone X */
-@media (max-width: 375px) {
-  .bar {
-    height: 150px !important;
-    min-height: 150px !important;
-    padding: 12px 8px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: flex-start !important;
-    align-items: center !important;
-  }
-  
-  .image {
-    height: 90px !important;
+    height: 105px !important;
   }
   
   .bar nav {
-    transform: translateY(-100px) !important;
+    transform: translateY(-120px) !important;
+    gap: 6px !important;
     flex-wrap: wrap !important;
     justify-content: center !important;
-    gap: 6px !important;
-    width: 100% !important;
-  }
-  
-  .copyright {
-    font-size: 8px !important;
-    transform: translateY(105px) !important;
-    margin-top: 8px !important;
   }
   
   .footer nav a:first-child,
@@ -812,18 +785,51 @@
   .footer nav a:nth-child(4),
   .footer nav a:nth-child(5),
   .footer nav a:nth-child(6) {
-    font-size: 10px !important;
-    padding: 2px 4px !important;
+    font-size: 9px !important;
+    padding: 4px 6px !important;
+  }
+  
+  .copyright {
+    transform: translateY(100px) !important;
+    font-size: 8px !important;
+    margin-top: 5px !important;
+  }
+  
+  .footer {
+    flex-shrink: 0 !important;
   }
 }
 
-/* Samsung Galaxy A33/S21 Ultra (412x915) */
-@media (min-width: 391px) and (max-width: 430px) {
+/* Dispositivos muito pequenos: < 360px */
+@media (max-width: 359px) {
+  .bar {
+    height: auto !important;
+    min-height: 150px !important;
+    padding: 10px 5px !important;
+  }
+  
+  .image {
+    height: 95px !important;
+  }
+  
   .bar nav {
-    transform: translateY(-125px) !important;
+    transform: translateY(-100px) !important;
+    gap: 4px !important;
+    flex-wrap: wrap !important;
+  }
+  
+  .footer nav a:first-child,
+  .footer nav a:nth-child(2),
+  .footer nav a:nth-child(3),
+  .footer nav a:nth-child(4),
+  .footer nav a:nth-child(5),
+  .footer nav a:nth-child(6) {
+    font-size: 7px !important;
+    padding: 3px 4px !important;
   }
   
   .copyright {
     transform: translateY(105px) !important;
+    font-size: 7px !important;
   }
 }
