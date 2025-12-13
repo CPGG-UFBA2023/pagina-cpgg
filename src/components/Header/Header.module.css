@@ -2000,18 +2000,17 @@ nav ul li:hover .submenu2 ul li a {
   }
 }
 
-/* Overrides específicos para Samsung A33 (412x915) */
-@media screen and (min-width: 411px) and (max-width: 413px) {
+/* Overrides específicos para mobile pequeno (ex: Samsung A33, 360px–430px) */
+@media screen and (min-width: 360px) and (max-width: 430px) {
   /* Remover boxes lilás dos submenus Instituição e Pessoal */
   .submenu1,
-  .submenu1.submenu1Open {
-    background-color: transparent !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-  }
-
+  .submenu1.submenu1Open,
   .submenu1 ul,
-  .submenu1.submenu1Open ul {
+  .submenu1.submenu1Open ul,
+  .header nav ul li .submenu1 ul li,
+  .header nav ul li .submenu1.submenu1Open ul li,
+  .header nav ul li .submenu1 ul li a,
+  .header nav ul li .submenu1.submenu1Open ul li a {
     background-color: transparent !important;
     box-shadow: none !important;
     border-radius: 0 !important;
@@ -2023,7 +2022,14 @@ nav ul li:hover .submenu2 ul li a {
   .submenu2.submenu2Institution,
   .submenu2.submenu2Institution.submenu2Open,
   .submenu2.submenu2Personnel,
-  .submenu2.submenu2Personnel.submenu2Open {
+  .submenu2.submenu2Personnel.submenu2Open,
+  .submenu2 ul,
+  .submenu2.submenu2Open ul,
+  .submenu2.submenu2Institution ul,
+  .submenu2.submenu2Personnel ul,
+  .submenu2.submenu2Open ul li a,
+  .submenu2.submenu2Institution.submenu2Open ul li a,
+  .submenu2.submenu2Personnel.submenu2Open ul li a {
     background-color: transparent !important;
     box-shadow: none !important;
     border-radius: 0 !important;
@@ -2032,11 +2038,10 @@ nav ul li:hover .submenu2 ul li a {
 
   /* Ajuste fino: Contato 10px à direita, 3D 10px à esquerda */
   .header nav ul li:first-child {
-    margin-left: 10px !important;
+    transform: translateX(10px) !important;
   }
 
   .header nav ul li:last-child {
-    margin-right: 10px !important;
-    transform: none !important;
+    transform: translateX(-15px) !important;
   }
 }
