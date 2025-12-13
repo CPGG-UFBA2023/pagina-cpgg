@@ -1255,15 +1255,15 @@ nav ul li:hover .submenu2 ul li a {
     transform: translateX(10px) !important;
   }
   
-  /* 3D - 30px para esquerda (forçado) */
+  /* 3D - 15px para esquerda (forçado) */
   .header nav ul li:last-child {
     margin-right: 10px !important;
-    transform: translateX(-30px) !important;
+    transform: translateX(-15px) !important;
   }
   
-  /* "Universidade Federal da Bahia" 50px para a esquerda (forçado) */
+  /* "Universidade Federal da Bahia" 25px para a direita em relação ao anterior */
   .block1 h2.subTitle:last-child {
-    transform: translateX(-50px) !important;
+    transform: translateX(-25px) !important;
   }
   
   /* ============================================= */
