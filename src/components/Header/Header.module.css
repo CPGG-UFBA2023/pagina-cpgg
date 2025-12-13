@@ -1232,7 +1232,7 @@ nav ul li:hover .submenu2 ul li a {
   }
 }
 
-/* Samsung A33 (412x915) - Menu position adjustment */
+/* Samsung A33 (412x915) - Menu position + submenu ajustes específicos */
 @media screen and (min-width: 411px) and (max-width: 413px) {
   .header nav {
     position: absolute !important;
@@ -1252,47 +1252,52 @@ nav ul li:hover .submenu2 ul li a {
   /* Contato - 10px para direita */
   .header nav ul li:first-child {
     margin-left: 10px !important;
+    transform: translateX(10px) !important; /* força override do mobile geral */
   }
   
-  /* 3D - 10px para esquerda */
+  /* 3D - 30px para esquerda (forçado) */
   .header nav ul li:last-child {
     margin-right: 10px !important;
+    transform: translateX(-30px) !important; /* força 3D mais à esquerda */
   }
   
-  .submenu[data-menu="solicitacoes"] {
-    background: transparent !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
-    box-shadow: none !important;
+  /* "Universidade Federal da Bahia" 50px para a esquerda (forçado) */
+  .block1 h2.subTitle:last-child {
+    transform: translateX(-50px) !important;
   }
   
-  .submenu[data-menu="sobre-nos"] {
-    background: transparent !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
-    box-shadow: none !important;
-  }
-  
-  /* Submenus Instituição e Pessoal - remover box lilás e alinhar ao lado do menu principal */
+  /* Remover QUALQUER box lilás dos submenus Instituição / Pessoal */
+  .submenu[data-menu="sobre-nos"],
+  .submenu1,
+  .submenu1.submenu1Open,
   .header nav ul li .submenu1 .hoversub .submenu2,
-  .header nav ul li .submenu1 .hoversub .submenu2.submenu2Open {
+  .header nav ul li .submenu1 .hoversub .submenu2.submenu2Open,
+  .nestedSubmenu {
+    background: transparent !important;
     background-color: transparent !important;
     border-radius: 0 !important;
-    box-shadow: none !important;
     padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
   }
   
-  .nestedSubmenu {
-    left: 100% !important;
+  /* Garantir que os submenus fiquem DENTRO da tela no A33 */
+  .submenu1,
+  .submenu1.submenu1Open {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+  
+  .submenu2.submenu2Open,
+  .submenu2.submenu2Institution.submenu2Open,
+  .submenu2.submenu2Personnel.submenu2Open {
+    left: 0 !important;   /* encosta no lado esquerdo para garantir visibilidade */
+    right: auto !important;
     top: 0 !important;
-    margin-left: 5px !important;
     transform: none !important;
-    background: transparent !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
-    box-shadow: none !important;
   }
 }
+
 
 /* Resoluções ≤430px - Layout mobile */
 @media screen and (max-width: 430px) {
