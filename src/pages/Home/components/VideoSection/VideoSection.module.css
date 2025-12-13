@@ -33,7 +33,7 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  padding-bottom: 130px;
+  padding-bottom: 80px;
 }
 
 .title {
@@ -82,7 +82,7 @@
   }
   
   .overlay {
-    padding-bottom: 110px;
+    padding-bottom: 60px;
   }
 }
 

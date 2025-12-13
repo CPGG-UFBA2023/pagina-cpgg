@@ -1232,7 +1232,7 @@ nav ul li:hover .submenu2 ul li a {
   }
 }
 
-/* Samsung A33 (412x915) - Menu position + submenu ajustes específicos */
+/* Samsung A33 (412x915) - Menu position adjustment */
 @media screen and (min-width: 411px) and (max-width: 413px) {
   .header nav {
     position: absolute !important;
@@ -1252,98 +1252,47 @@ nav ul li:hover .submenu2 ul li a {
   /* Contato - 10px para direita */
   .header nav ul li:first-child {
     margin-left: 10px !important;
-    transform: translateX(10px) !important;
   }
   
-  /* 3D - 15px para esquerda (forçado) */
+  /* 3D - 10px para esquerda */
   .header nav ul li:last-child {
     margin-right: 10px !important;
-    transform: translateX(-15px) !important;
   }
   
-  /* "Universidade Federal da Bahia" 25px para a direita em relação ao anterior */
-  .block1 h2.subTitle:last-child {
-    transform: translateX(-25px) !important;
-  }
-  
-  /* ============================================= */
-  /* FORÇAR TODAS AS BOXES LILÁS TRANSPARENTES NO A33 */
-  /* ============================================= */
-  
-  /* Submenu principal (Sobre nós, Solicitações) */
-  .submenu,
-  .submenu[data-menu="sobre-nos"],
-  .submenu[data-menu="solicitacoes"],
-  .submenu1,
-  .submenu1.submenu1Open,
-  .submenu1 ul,
-  .submenu1.submenu1Open ul {
+  .submenu[data-menu="solicitacoes"] {
     background: transparent !important;
-    background-color: transparent !important;
     border-radius: 0 !important;
     padding: 0 !important;
     box-shadow: none !important;
-    border: none !important;
   }
   
-  /* Submenu2 (Instituição, Pessoal) */
-  .submenu2,
-  .submenu2.submenu2Open,
-  .submenu2.submenu2Institution,
-  .submenu2.submenu2Institution.submenu2Open,
-  .submenu2.submenu2Personnel,
-  .submenu2.submenu2Personnel.submenu2Open,
-  .submenu2 ul,
-  .submenu2.submenu2Open ul,
+  .submenu[data-menu="sobre-nos"] {
+    background: transparent !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+  
+  /* Submenus Instituição e Pessoal - remover box lilás e alinhar ao lado do menu principal */
   .header nav ul li .submenu1 .hoversub .submenu2,
-  .header nav ul li .submenu1 .hoversub .submenu2.submenu2Open,
-  .nestedSubmenu {
-    background: transparent !important;
+  .header nav ul li .submenu1 .hoversub .submenu2.submenu2Open {
     background-color: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+  
+  .nestedSubmenu {
+    left: 100% !important;
+    top: 0 !important;
+    margin-left: 5px !important;
+    transform: none !important;
+    background: transparent !important;
     border-radius: 0 !important;
     padding: 0 !important;
     box-shadow: none !important;
-    border: none !important;
-  }
-  
-  /* Submenu Solicitações - também transparente */
-  .requestsSubmenu,
-  .requestsSubmenu ul {
-    background: transparent !important;
-    background-color: transparent !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    border: none !important;
-  }
-  
-  /* Hover states - também transparentes */
-  .submenu1 ul li,
-  .submenu1.submenu1Open ul li,
-  .submenu2 ul li,
-  .submenu2.submenu2Open ul li,
-  .hoversub,
-  .hoversub:hover {
-    background: transparent !important;
-    background-color: transparent !important;
-  }
-  
-  /* Garantir que os submenus fiquem DENTRO da tela no A33 */
-  .submenu1,
-  .submenu1.submenu1Open {
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-  }
-  
-  .submenu2.submenu2Open,
-  .submenu2.submenu2Institution.submenu2Open,
-  .submenu2.submenu2Personnel.submenu2Open {
-    left: 0 !important;
-    right: auto !important;
-    top: 0 !important;
-    transform: none !important;
   }
 }
-
 
 /* Resoluções ≤430px - Layout mobile */
 @media screen and (max-width: 430px) {
@@ -1381,9 +1330,8 @@ nav ul li:hover .submenu2 ul li a {
     transform: translateX(45px) !important;
   }
   
-  /* Forçar "Universidade Federal da Bahia" bem mais à esquerda em telas ≤430px */
   .block1 h2.subTitle:last-child {
-    transform: translateX(-50px) !important;
+    transform: translateX(60px) !important;
   }
   
   .centerContent {
@@ -1414,15 +1362,6 @@ nav ul li:hover .submenu2 ul li a {
     width: 100% !important;
   }
   
-  /* Contato 10px à direita, 3D 30px à esquerda em TODOS os celulares até 430px */
-  .header nav ul li:first-child {
-    transform: translateX(10px) !important;
-  }
-  
-  .header nav ul li:last-child {
-    transform: translateX(-30px) !important;
-  }
-  
   .header nav ul li {
     font-size: 9px !important;
     padding: 5px 4px !important;
@@ -1439,19 +1378,19 @@ nav ul li:hover .submenu2 ul li a {
   /* MENUS MOBILE - SEM BOXES, APENAS OPÇÕES */
   /* ============================================= */
   
-  /* Submenu1 - aparece diretamente abaixo do menu pai, SEM box, centralizado na tela */
+  /* Submenu1 - aparece diretamente abaixo do menu pai, SEM box */
   .submenu1,
   .submenu1.submenu1Open {
     display: none !important;
     position: absolute !important;
     top: 100% !important;
-    left: 50% !important; /* força centralização, evitando sair da tela */
+    left: calc(50% + 170px) !important;
     transform: translateX(-50%) !important;
     margin-top: 7px !important;
     margin-left: 0 !important;
     padding: 0 !important;
     width: auto !important;
-    min-width: 160px !important;
+    min-width: 180px !important;
     background-color: transparent !important;
     border-radius: 0 !important;
     box-shadow: none !important;
@@ -1460,7 +1399,7 @@ nav ul li:hover .submenu2 ul li a {
   }
   
   .submenu1.submenu1Open {
-    display: block !important; /* garante que abra ao clicar */
+    display: block !important;
   }
   
   .submenu1 ul,
@@ -1468,12 +1407,12 @@ nav ul li:hover .submenu2 ul li a {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
-    padding: 10px 20px !important;
+    padding: 15px 89px 15px 64px !important;
     margin: 0 !important;
     gap: 8px !important;
-    background-color: transparent !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
+    background-color: rgba(89, 44, 187, 0.95) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
     transition: none !important;
   }
   
@@ -1508,7 +1447,7 @@ nav ul li:hover .submenu2 ul li a {
   }
   
   /* ============================================= */
-  /* SUBMENU2 - Aparece logo ao lado/abaixo, SEM box roxa */
+  /* SUBMENU2 - Aparece inline, sem box extra */
   /* ============================================= */
   
   /* Esconder submenu2 por padrão */
@@ -1520,7 +1459,7 @@ nav ul li:hover .submenu2 ul li a {
     display: none !important;
   }
   
-  /* Submenu2 aberto - reposicionado para dentro da tela */
+  /* Submenu2 aberto - lateral, sem deslocar itens abaixo */
   .submenu2.submenu2Open,
   .submenu2.submenu2Institution.submenu2Open,
   .submenu2.submenu2Personnel.submenu2Open,
@@ -1531,14 +1470,14 @@ nav ul li:hover .submenu2 ul li a {
     visibility: visible !important;
     position: absolute !important;
     top: 0 !important;
-    left: 0 !important; /* encostado na borda esquerda para garantir visibilidade em telas estreitas */
+    left: 70px !important;
     right: auto !important;
     bottom: auto !important;
     transform: none !important;
     margin: 0 !important;
     padding: 0 !important;
     width: auto !important;
-    min-width: 140px !important;
+    min-width: 120px !important;
     height: auto !important;
     max-width: none !important;
     max-height: none !important;
@@ -1988,7 +1927,7 @@ nav ul li:hover .submenu2 ul li a {
   
   .block1 h2:last-of-type {
     font-size: 8px !important;
-    transform: translateX(-59px) !important;
+    transform: translateX(-39px) !important;
   }
   
   .header nav {
@@ -2061,98 +2000,43 @@ nav ul li:hover .submenu2 ul li a {
   }
 }
 
-/* Overrides específicos para mobile pequeno (ex: Samsung A33, iPhone, Pixel, etc.) */
-@media screen and (min-width: 360px) and (max-width: 430px) {
-  /* Remover completamente qualquer box lilás/roxa dos submenus Instituição e Pessoal */
+/* Overrides específicos para Samsung A33 (412x915) */
+@media screen and (min-width: 411px) and (max-width: 413px) {
+  /* Remover boxes lilás dos submenus Instituição e Pessoal */
   .submenu1,
-  .submenu1.submenu1Open,
+  .submenu1.submenu1Open {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
   .submenu1 ul,
-  .submenu1.submenu1Open ul,
-  .header nav ul li .submenu1 ul li,
-  .header nav ul li .submenu1.submenu1Open ul li,
-  .header nav ul li .submenu1 ul li a,
-  .header nav ul li .submenu1.submenu1Open ul li a,
+  .submenu1.submenu1Open ul {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+  }
+
   .submenu2,
   .submenu2.submenu2Open,
   .submenu2.submenu2Institution,
   .submenu2.submenu2Institution.submenu2Open,
   .submenu2.submenu2Personnel,
-  .submenu2.submenu2Personnel.submenu2Open,
-  .submenu2 ul,
-  .submenu2.submenu2Open ul,
-  .submenu2.submenu2Institution ul,
-  .submenu2.submenu2Personnel ul,
-  .submenu2.submenu2Open ul li a,
-  .submenu2.submenu2Institution.submenu2Open ul li a,
-  .submenu2.submenu2Personnel.submenu2Open ul li a {
-    background-color: transparent !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-    border: none !important;
-  }
-
-  /* Remover também qualquer destaque em hover (sem caixas coloridas) */
-  .header nav ul li .submenu1 ul li:hover,
-  .header nav ul li .submenu1 ul li:hover a,
-  .header nav ul li .submenu1.submenu1Open ul li:hover,
-  .header nav ul li .submenu1.submenu1Open ul li:hover a,
-  .submenu2 ul li:hover,
-  .submenu2 ul li:hover a,
-  .submenu2.submenu2Open ul li:hover,
-  .submenu2.submenu2Open ul li:hover a,
-  .submenu2.submenu2Institution.submenu2Open ul li:hover,
-  .submenu2.submenu2Institution.submenu2Open ul li:hover a,
-  .submenu2.submenu2Personnel.submenu2Open ul li:hover,
-  .submenu2.submenu2Personnel.submenu2Open ul li:hover a {
-    background-color: transparent !important;
-    color: inherit !important;
-  }
-}
-
-/* Ajustes FINAIS específicos para Samsung A33 (412x915) */
-@media screen and (min-width: 411px) and (max-width: 413px) {
-  /* Garantir que os submenus Instituição e Pessoal apareçam ao abrir, SEM caixas lilás */
-  .header nav ul li .submenu1.submenu1Open {
-    display: block !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    background-color: transparent !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-    border: none !important;
-  }
-
-  .header nav ul li .submenu1 .hoversub .submenu2.submenu2Open,
-  .submenu2.submenu2Institution.submenu2Open,
   .submenu2.submenu2Personnel.submenu2Open {
-    display: flex !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 70px !important;
-    right: auto !important;
     background-color: transparent !important;
     box-shadow: none !important;
     border-radius: 0 !important;
-    border: none !important;
     padding: 0 !important;
-    z-index: 100300 !important;
   }
 
-  .submenu2.submenu2Open ul,
-  .submenu2.submenu2Institution.submenu2Open ul,
-  .submenu2.submenu2Personnel.submenu2Open ul {
-    display: flex !important;
-    flex-direction: column !important;
-  }
-
-  /* Contato 10px à direita, 3D 10px à esquerda */
+  /* Ajuste fino: Contato 10px à direita, 3D 10px à esquerda */
   .header nav ul li:first-child {
-    transform: translateX(10px) !important;
+    margin-left: 10px !important;
   }
 
   .header nav ul li:last-child {
-    transform: translateX(-10px) !important;
+    margin-right: 10px !important;
+    transform: none !important;
   }
 }
