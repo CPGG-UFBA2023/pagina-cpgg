@@ -1263,7 +1263,15 @@ nav ul li:hover .submenu2 ul li a {
     box-shadow: none !important;
   }
   
-  /* Submenus Instituição e Pessoal - posição ao lado do menu principal */
+  /* Submenus Instituição e Pessoal - remover box lilás e alinhar ao lado do menu principal */
+  .header nav ul li .submenu1 .hoversub .submenu2,
+  .header nav ul li .submenu1 .hoversub .submenu2.submenu2Open {
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+  
   .nestedSubmenu {
     left: 100% !important;
     top: 0 !important;
