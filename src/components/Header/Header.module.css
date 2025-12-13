@@ -1249,6 +1249,16 @@ nav ul li:hover .submenu2 ul li a {
     padding: 0 0.15rem !important;
   }
   
+  /* Contato - 10px para direita */
+  .header nav ul li:first-child {
+    margin-left: 10px !important;
+  }
+  
+  /* 3D - 10px para esquerda */
+  .header nav ul li:last-child {
+    margin-right: 10px !important;
+  }
+  
   .submenu[data-menu="solicitacoes"] {
     background: transparent !important;
     border-radius: 0 !important;
