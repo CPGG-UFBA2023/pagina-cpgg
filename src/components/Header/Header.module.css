@@ -1269,6 +1269,10 @@ nav ul li:hover .submenu2 ul li a {
     top: 0 !important;
     margin-left: 5px !important;
     transform: none !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
   }
 }
 
