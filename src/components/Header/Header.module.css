@@ -1362,6 +1362,15 @@ nav ul li:hover .submenu2 ul li a {
     width: 100% !important;
   }
   
+  /* Contato 10px à direita, 3D 10px à esquerda em TODOS os celulares até 430px */
+  .header nav ul li:first-child {
+    transform: translateX(10px) !important;
+  }
+  
+  .header nav ul li:last-child {
+    transform: translateX(-10px) !important;
+  }
+  
   .header nav ul li {
     font-size: 9px !important;
     padding: 5px 4px !important;
@@ -1410,9 +1419,9 @@ nav ul li:hover .submenu2 ul li a {
     padding: 15px 89px 15px 64px !important;
     margin: 0 !important;
     gap: 8px !important;
-    background-color: rgba(89, 44, 187, 0.95) !important;
-    border-radius: 12px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
     transition: none !important;
   }
   
