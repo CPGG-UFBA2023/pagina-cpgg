@@ -33,7 +33,7 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  padding-bottom: 80px;
+  padding-bottom: 130px;
 }
 
 .title {
@@ -55,7 +55,6 @@
   font-size: 0.9rem;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
   animation: bounce 2s infinite;
-  transform: translateY(-50px);
 }
 
 .scrollArrow {
@@ -83,7 +82,7 @@
   }
   
   .overlay {
-    padding-bottom: 60px;
+    padding-bottom: 110px;
   }
 }
 
