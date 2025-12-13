@@ -1335,8 +1335,9 @@ nav ul li:hover .submenu2 ul li a {
     transform: translateX(45px) !important;
   }
   
+  /* Forçar "Universidade Federal da Bahia" bem mais à esquerda em telas ≤430px */
   .block1 h2.subTitle:last-child {
-    transform: translateX(60px) !important;
+    transform: translateX(-50px) !important;
   }
   
   .centerContent {
@@ -1367,13 +1368,13 @@ nav ul li:hover .submenu2 ul li a {
     width: 100% !important;
   }
   
-  /* Contato 10px à direita, 3D 10px à esquerda em TODOS os celulares até 430px */
+  /* Contato 10px à direita, 3D 30px à esquerda em TODOS os celulares até 430px */
   .header nav ul li:first-child {
     transform: translateX(10px) !important;
   }
   
   .header nav ul li:last-child {
-    transform: translateX(-10px) !important;
+    transform: translateX(-30px) !important;
   }
   
   .header nav ul li {
@@ -1392,19 +1393,19 @@ nav ul li:hover .submenu2 ul li a {
   /* MENUS MOBILE - SEM BOXES, APENAS OPÇÕES */
   /* ============================================= */
   
-  /* Submenu1 - aparece diretamente abaixo do menu pai, SEM box */
+  /* Submenu1 - aparece diretamente abaixo do menu pai, SEM box, centralizado na tela */
   .submenu1,
   .submenu1.submenu1Open {
     display: none !important;
     position: absolute !important;
     top: 100% !important;
-    left: calc(50% + 170px) !important;
+    left: 50% !important; /* força centralização, evitando sair da tela */
     transform: translateX(-50%) !important;
     margin-top: 7px !important;
     margin-left: 0 !important;
     padding: 0 !important;
     width: auto !important;
-    min-width: 180px !important;
+    min-width: 160px !important;
     background-color: transparent !important;
     border-radius: 0 !important;
     box-shadow: none !important;
@@ -1413,7 +1414,7 @@ nav ul li:hover .submenu2 ul li a {
   }
   
   .submenu1.submenu1Open {
-    display: block !important;
+    display: block !important; /* garante que abra ao clicar */
   }
   
   .submenu1 ul,
@@ -1421,7 +1422,7 @@ nav ul li:hover .submenu2 ul li a {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
-    padding: 15px 89px 15px 64px !important;
+    padding: 10px 20px !important;
     margin: 0 !important;
     gap: 8px !important;
     background-color: transparent !important;
@@ -1461,7 +1462,7 @@ nav ul li:hover .submenu2 ul li a {
   }
   
   /* ============================================= */
-  /* SUBMENU2 - Aparece inline, sem box extra */
+  /* SUBMENU2 - Aparece logo ao lado/abaixo, SEM box roxa */
   /* ============================================= */
   
   /* Esconder submenu2 por padrão */
@@ -1473,7 +1474,7 @@ nav ul li:hover .submenu2 ul li a {
     display: none !important;
   }
   
-  /* Submenu2 aberto - lateral, sem deslocar itens abaixo */
+  /* Submenu2 aberto - reposicionado para dentro da tela */
   .submenu2.submenu2Open,
   .submenu2.submenu2Institution.submenu2Open,
   .submenu2.submenu2Personnel.submenu2Open,
@@ -1484,14 +1485,14 @@ nav ul li:hover .submenu2 ul li a {
     visibility: visible !important;
     position: absolute !important;
     top: 0 !important;
-    left: 70px !important;
+    left: 0 !important; /* encostado na borda esquerda para garantir visibilidade em telas estreitas */
     right: auto !important;
     bottom: auto !important;
     transform: none !important;
     margin: 0 !important;
     padding: 0 !important;
     width: auto !important;
-    min-width: 120px !important;
+    min-width: 140px !important;
     height: auto !important;
     max-width: none !important;
     max-height: none !important;
