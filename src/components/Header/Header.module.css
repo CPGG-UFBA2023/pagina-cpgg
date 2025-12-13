@@ -1927,7 +1927,7 @@ nav ul li:hover .submenu2 ul li a {
   
   .block1 h2:last-of-type {
     font-size: 8px !important;
-    transform: translateX(-39px) !important;
+    transform: translateX(-59px) !important;
   }
   
   .header nav {
@@ -2000,9 +2000,9 @@ nav ul li:hover .submenu2 ul li a {
   }
 }
 
-/* Overrides específicos para mobile pequeno (ex: Samsung A33, 360px–430px) */
+/* Overrides específicos para mobile pequeno (ex: Samsung A33, iPhone, Pixel, etc.) */
 @media screen and (min-width: 360px) and (max-width: 430px) {
-  /* Remover boxes lilás dos submenus Instituição e Pessoal */
+  /* Remover completamente qualquer box lilás/roxa dos submenus Instituição e Pessoal */
   .submenu1,
   .submenu1.submenu1Open,
   .submenu1 ul,
@@ -2010,12 +2010,7 @@ nav ul li:hover .submenu2 ul li a {
   .header nav ul li .submenu1 ul li,
   .header nav ul li .submenu1.submenu1Open ul li,
   .header nav ul li .submenu1 ul li a,
-  .header nav ul li .submenu1.submenu1Open ul li a {
-    background-color: transparent !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-  }
-
+  .header nav ul li .submenu1.submenu1Open ul li a,
   .submenu2,
   .submenu2.submenu2Open,
   .submenu2.submenu2Institution,
@@ -2032,16 +2027,38 @@ nav ul li:hover .submenu2 ul li a {
     background-color: transparent !important;
     box-shadow: none !important;
     border-radius: 0 !important;
+    border: none !important;
+  }
+
+  /* Remover também qualquer destaque em hover (sem caixas coloridas) */
+  .header nav ul li .submenu1 ul li:hover,
+  .header nav ul li .submenu1 ul li:hover a,
+  .header nav ul li .submenu1.submenu1Open ul li:hover,
+  .header nav ul li .submenu1.submenu1Open ul li:hover a,
+  .submenu2 ul li:hover,
+  .submenu2 ul li:hover a,
+  .submenu2.submenu2Open ul li:hover,
+  .submenu2.submenu2Open ul li:hover a,
+  .submenu2.submenu2Institution.submenu2Open ul li:hover,
+  .submenu2.submenu2Institution.submenu2Open ul li:hover a,
+  .submenu2.submenu2Personnel.submenu2Open ul li:hover,
+  .submenu2.submenu2Personnel.submenu2Open ul li:hover a {
+    background-color: transparent !important;
+    color: inherit !important;
   }
 }
 
 /* Ajustes FINAIS específicos para Samsung A33 (412x915) */
 @media screen and (min-width: 411px) and (max-width: 413px) {
-  /* Garantir que os submenus Instituição e Pessoal apareçam ao abrir */
+  /* Garantir que os submenus Instituição e Pessoal apareçam ao abrir, SEM caixas lilás */
   .header nav ul li .submenu1.submenu1Open {
     display: block !important;
     opacity: 1 !important;
     visibility: visible !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    border: none !important;
   }
 
   .header nav ul li .submenu1 .hoversub .submenu2.submenu2Open,
@@ -2057,6 +2074,7 @@ nav ul li:hover .submenu2 ul li a {
     background-color: transparent !important;
     box-shadow: none !important;
     border-radius: 0 !important;
+    border: none !important;
     padding: 0 !important;
     z-index: 100300 !important;
   }
