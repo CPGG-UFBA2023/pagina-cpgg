@@ -1232,6 +1232,17 @@ nav ul li:hover .submenu2 ul li a {
   }
 }
 
+/* Samsung A33 (412x915) - Menu position adjustment */
+@media screen and (min-width: 411px) and (max-width: 413px) {
+  .header nav {
+    position: absolute !important;
+    top: 140px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100% !important;
+  }
+}
+
 /* Resoluções ≤430px - Layout mobile */
 @media screen and (max-width: 430px) {
   
