@@ -1252,13 +1252,13 @@ nav ul li:hover .submenu2 ul li a {
   /* Contato - 10px para direita */
   .header nav ul li:first-child {
     margin-left: 10px !important;
-    transform: translateX(10px) !important; /* força override do mobile geral */
+    transform: translateX(10px) !important;
   }
   
   /* 3D - 30px para esquerda (forçado) */
   .header nav ul li:last-child {
     margin-right: 10px !important;
-    transform: translateX(-30px) !important; /* força 3D mais à esquerda */
+    transform: translateX(-30px) !important;
   }
   
   /* "Universidade Federal da Bahia" 50px para a esquerda (forçado) */
@@ -1266,10 +1266,35 @@ nav ul li:hover .submenu2 ul li a {
     transform: translateX(-50px) !important;
   }
   
-  /* Remover QUALQUER box lilás dos submenus Instituição / Pessoal */
+  /* ============================================= */
+  /* FORÇAR TODAS AS BOXES LILÁS TRANSPARENTES NO A33 */
+  /* ============================================= */
+  
+  /* Submenu principal (Sobre nós, Solicitações) */
+  .submenu,
   .submenu[data-menu="sobre-nos"],
+  .submenu[data-menu="solicitacoes"],
   .submenu1,
   .submenu1.submenu1Open,
+  .submenu1 ul,
+  .submenu1.submenu1Open ul {
+    background: transparent !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  
+  /* Submenu2 (Instituição, Pessoal) */
+  .submenu2,
+  .submenu2.submenu2Open,
+  .submenu2.submenu2Institution,
+  .submenu2.submenu2Institution.submenu2Open,
+  .submenu2.submenu2Personnel,
+  .submenu2.submenu2Personnel.submenu2Open,
+  .submenu2 ul,
+  .submenu2.submenu2Open ul,
   .header nav ul li .submenu1 .hoversub .submenu2,
   .header nav ul li .submenu1 .hoversub .submenu2.submenu2Open,
   .nestedSubmenu {
@@ -1279,6 +1304,27 @@ nav ul li:hover .submenu2 ul li a {
     padding: 0 !important;
     box-shadow: none !important;
     border: none !important;
+  }
+  
+  /* Submenu Solicitações - também transparente */
+  .requestsSubmenu,
+  .requestsSubmenu ul {
+    background: transparent !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  
+  /* Hover states - também transparentes */
+  .submenu1 ul li,
+  .submenu1.submenu1Open ul li,
+  .submenu2 ul li,
+  .submenu2.submenu2Open ul li,
+  .hoversub,
+  .hoversub:hover {
+    background: transparent !important;
+    background-color: transparent !important;
   }
   
   /* Garantir que os submenus fiquem DENTRO da tela no A33 */
@@ -1291,7 +1337,7 @@ nav ul li:hover .submenu2 ul li a {
   .submenu2.submenu2Open,
   .submenu2.submenu2Institution.submenu2Open,
   .submenu2.submenu2Personnel.submenu2Open {
-    left: 0 !important;   /* encosta no lado esquerdo para garantir visibilidade */
+    left: 0 !important;
     right: auto !important;
     top: 0 !important;
     transform: none !important;
