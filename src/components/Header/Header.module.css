@@ -1403,14 +1403,14 @@ nav ul li:hover .submenu2 ul li a {
     display: block !important;
     width: 100% !important;
     padding: 0 !important;
-    font-size: 14px !important;
+    font-size: 12px !important;
     font-weight: 500 !important;
     color: white !important;
     text-decoration: none !important;
     white-space: nowrap !important;
     line-height: 1.4 !important;
   }
-  
+
   /* Hoversub - item que tem submenu2 */
   .submenu1.submenu1Open ul li.hoversub {
     background-color: transparent !important;
@@ -1488,13 +1488,13 @@ nav ul li:hover .submenu2 ul li a {
   .submenu2.submenu2Personnel.submenu2Open ul li a {
     display: block !important;
     width: 100% !important;
-    font-size: 10px !important;
+    font-size: 8px !important;
     padding: 8px 10px !important;
     color: white !important;
     background-color: transparent !important;
     font-weight: 400 !important;
   }
-  
+
   .submenu2.submenu2Open ul li:hover,
   .submenu2.submenu2Institution.submenu2Open ul li:hover,
   .submenu2.submenu2Personnel.submenu2Open ul li:hover {
@@ -1531,7 +1531,7 @@ nav ul li:hover .submenu2 ul li a {
   }
   
   .requestsSubmenu li a {
-    font-size: 14px !important;
+    font-size: 12px !important;
     font-weight: 500 !important;
     color: white !important;
     line-height: 1.4 !important;
