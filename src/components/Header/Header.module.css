@@ -1369,8 +1369,8 @@ nav ul li:hover .submenu2 ul li a {
     display: block !important;
   }
   
-  .submenu1 ul,
-  .submenu1.submenu1Open ul {
+  .submenu1 ul:not(.requestsSubmenu),
+  .submenu1.submenu1Open ul:not(.requestsSubmenu) {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
@@ -1507,7 +1507,22 @@ nav ul li:hover .submenu2 ul li a {
     color: #d4c4f0 !important;
   }
   
-/* Submenu Solicitações - COM BOX ROXA */
+/* Submenu Solicitações - APENAS requestsSubmenu com box roxa arredondada */
+  /* Desativar COMPLETAMENTE estilos de submenu1 para Solicitações - sem box retas */
+  .submenu1:has(.requestsSubmenu),
+  .submenu1.submenu1Open:has(.requestsSubmenu) {
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    min-width: auto !important;
+  }
+  
+  .submenu1:has(.requestsSubmenu) > ul:not(.requestsSubmenu),
+  .submenu1.submenu1Open:has(.requestsSubmenu) > ul:not(.requestsSubmenu) {
+    display: none !important;
+  }
+  
   .requestsSubmenu {
     display: flex !important;
     flex-direction: column !important;
