@@ -1995,7 +1995,7 @@ nav ul li:hover .submenu2 ul li a {
     position: absolute !important;
     top: calc(100% + 15px) !important;
     left: 50% !important;
-    transform: translateX(calc(-50% + 60px)) !important;
+    transform: translateX(-50%) !important;
     min-width: 150px !important;
     background-color: rgba(89, 44, 187, 0.95) !important;
     border-radius: 8px !important;
@@ -2007,13 +2007,13 @@ nav ul li:hover .submenu2 ul li a {
     position: absolute !important;
     top: calc(100% + 15px) !important;
     left: 50% !important;
-    transform: translateX(calc(-50% + 60px)) !important;
+    transform: translateX(-50%) !important;
     min-width: 150px !important;
     background-color: rgba(89, 44, 187, 0.95) !important;
     border-radius: 8px !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
     z-index: 100010 !important;
   }
-  
+
   
 }
