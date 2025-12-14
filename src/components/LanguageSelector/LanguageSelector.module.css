@@ -71,7 +71,7 @@
   }
 }
 
-@media (min-width: 391px) and (max-width: 430px) {
+@media (max-width: 430px) {
   .languageSelector {
     transform: none;
     justify-content: center;
@@ -84,16 +84,5 @@
     flex-direction: row;
     align-items: center;
     gap: 4px;
-  }
-}
-
-/* iPhone 12 mini - centralizar bandeiras */
-@media (max-width: 390px) {
-  .languageSelector {
-    position: absolute !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    justify-content: center !important;
-    width: auto !important;
   }
 }

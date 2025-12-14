@@ -1550,17 +1550,8 @@ nav ul li:hover .submenu2 ul li a {
     overflow: hidden !important;
   }
 
-  /* Submenu de Solicitações - oculto por padrão, só abre ao clicar */
-  .header nav ul li:nth-child(5) .submenu1 {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-    height: 0 !important;
-    overflow: hidden !important;
-  }
-  
-  /* Submenu de Solicitações - APENAS quando aberto (com classe submenu1Open) */
+  /* Reexibir especificamente o submenu1 do item "Solicitações" (5º item do menu) */
+  .header nav ul li:nth-child(5) .submenu1,
   .header nav ul li:nth-child(5) .submenu1.submenu1Open {
     display: block !important;
     visibility: visible !important;
@@ -1933,11 +1924,6 @@ nav ul li:hover .submenu2 ul li a {
     transform: translateX(-50%) !important;
   }
   
-  .admLink {
-    position: relative !important;
-    top: 40px !important;
-  }
-  
   .block1 {
     transform: translateY(15px) !important;
   }
@@ -1998,7 +1984,7 @@ nav ul li:hover .submenu2 ul li a {
   
   .submenu1 {
     position: absolute !important;
-    top: calc(100% + 65px) !important;
+    top: 100% !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     min-width: 150px !important;
@@ -2007,17 +1993,14 @@ nav ul li:hover .submenu2 ul li a {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
     z-index: 100010 !important;
   }
-
-  .submenu1.submenu1Open {
+  
+  .submenu2 {
     position: absolute !important;
-    top: calc(100% + 65px) !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    min-width: 150px !important;
+    left: 100% !important;
+    top: 0 !important;
+    min-width: 130px !important;
     background-color: rgba(89, 44, 187, 0.95) !important;
     border-radius: 8px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-    z-index: 100010 !important;
+    z-index: 100015 !important;
   }
-
 }
