@@ -1858,13 +1858,16 @@ nav ul li:hover .submenu2 ul li a {
   
   .header nav {
     position: absolute !important;
-    top: 230px !important;
+    top: 125px !important;
     left: 0 !important;
     right: 0 !important;
     width: 100% !important;
     background-color: transparent !important;
     padding: 0 !important;
     overflow: visible !important;
+    display: flex !important;
+    justify-content: center !important;
+    transform: none !important;
   }
   
   .header nav ul {
@@ -1875,8 +1878,8 @@ nav ul li:hover .submenu2 ul li a {
     align-items: center !important;
     gap: 8px !important;
     overflow: visible !important;
-    width: 100% !important;
-    transform: translate(-145px, -20px) !important;
+    width: auto !important;
+    transform: none !important;
   }
   
   .header nav ul li {
