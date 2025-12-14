@@ -1279,15 +1279,33 @@ nav ul li:hover .submenu2 ul li a {
   }
   
   .logoufba {
-    transform: translateY(-50%) translateX(138px) !important;
+    display: flex !important;
+    position: absolute !important;
+    right: 10px !important;
+    left: auto !important;
+    top: 10px !important;
+    transform: none !important;
+    z-index: 100001 !important;
+  }
+  
+  .logoufba img {
+    height: 45px !important;
+    width: auto !important;
   }
   
   /* Menu horizontal distribuído */
   .header nav {
+    position: absolute !important;
+    top: 125px !important;
+    left: 0 !important;
+    right: 0 !important;
     width: 100% !important;
     display: flex !important;
     justify-content: center !important;
-    transform: translateX(180px) translateY(-100px) !important;
+    transform: none !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    overflow: visible !important;
   }
   
   .header nav ul {
