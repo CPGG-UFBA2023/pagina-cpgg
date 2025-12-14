@@ -1343,13 +1343,13 @@ nav ul li:hover .submenu2 ul li a {
   /* MENUS MOBILE - SEM BOXES, APENAS OPÇÕES */
   /* ============================================= */
   
-  /* Submenu1 - aparece diretamente abaixo do menu pai, SEM box */
+/* Submenu1 - aparece diretamente abaixo do menu pai, SEM box */
   .submenu1,
   .submenu1.submenu1Open {
     display: none !important;
     position: absolute !important;
     top: 100% !important;
-    left: calc(50% + 200px) !important;
+    left: calc(50% + 150px) !important;
     transform: translateX(-50%) !important;
     margin-top: 2px !important;
     margin-left: 0 !important;
@@ -1502,7 +1502,7 @@ nav ul li:hover .submenu2 ul li a {
     color: #d4c4f0 !important;
   }
   
-  /* Submenu Solicitações - COM BOX ROXA */
+/* Submenu Solicitações - COM BOX ROXA */
   .requestsSubmenu {
     display: flex !important;
     flex-direction: column !important;
@@ -1510,7 +1510,7 @@ nav ul li:hover .submenu2 ul li a {
     min-width: 138px !important;
     gap: 8px !important;
     position: relative !important;
-    left: -40px !important;
+    left: -90px !important;
     transform: none !important;
     background-color: rgba(89, 44, 187, 0.95) !important;
     border-radius: 12px !important;
