@@ -1272,10 +1272,19 @@ nav ul li:hover .submenu2 ul li a {
     transform: translateX(60px) !important;
   }
   
-  .centerContent {
+.centerContent {
     justify-content: center !important;
     padding: 5px 10px !important;
     width: 100% !important;
+  }
+  
+  /* Centralizar seletor de idiomas */
+  .languageContainer {
+    position: absolute !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    top: 5px !important;
   }
   
 .logoufba {
