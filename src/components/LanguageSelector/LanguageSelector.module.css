@@ -78,21 +78,22 @@
   }
 }
 
-/* iPhone 12 mini - centralizar bandeiras */
-@media (max-width: 390px) {
-  .languageSelector {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    justify-content: center;
-  }
-}
-
 /* Mantém as bandeiras lado a lado mesmo em telas pequenas */
 @media (max-width: 500px) {
   .languageSelector {
     flex-direction: row;
     align-items: center;
     gap: 4px;
+  }
+}
+
+/* iPhone 12 mini - centralizar bandeiras */
+@media (max-width: 390px) {
+  .languageSelector {
+    position: absolute !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    justify-content: center !important;
+    width: auto !important;
   }
 }
