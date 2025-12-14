@@ -1,0 +1,120 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a365d 0%, #2d3748 50%, #1a202c 100%);
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 120px 20px 20px;
+}
+
+.title {
+  font-size: 1.8rem;
+  color: white;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.card {
+  text-decoration: none;
+}
+
+.cpggButton,
+.historyButton,
+.regulationsButton,
+.photosButton {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 25px 15px;
+  text-align: center;
+  transition: all 0.3s ease;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cpggButton:hover,
+.historyButton:hover,
+.regulationsButton:hover,
+.photosButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.cpggButton h2,
+.historyButton h2,
+.regulationsButton h2,
+.photosButton h2 {
+  font-size: 0.95rem;
+  color: white;
+  margin: 0;
+  font-weight: 500;
+}
+
+.cpggButton {
+  background: linear-gradient(135deg, rgba(66, 153, 225, 0.3), rgba(49, 130, 206, 0.4));
+  border-color: rgba(66, 153, 225, 0.4);
+}
+
+.historyButton {
+  background: linear-gradient(135deg, rgba(72, 187, 120, 0.3), rgba(56, 161, 105, 0.4));
+  border-color: rgba(72, 187, 120, 0.4);
+}
+
+.regulationsButton {
+  background: linear-gradient(135deg, rgba(237, 137, 54, 0.3), rgba(221, 107, 32, 0.4));
+  border-color: rgba(237, 137, 54, 0.4);
+}
+
+.photosButton {
+  background: linear-gradient(135deg, rgba(159, 122, 234, 0.3), rgba(128, 90, 213, 0.4));
+  border-color: rgba(159, 122, 234, 0.4);
+}
+
+@media (max-width: 430px) {
+  .main {
+    padding-top: 140px;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+  }
+  
+  .container {
+    gap: 12px;
+    max-width: 350px;
+  }
+  
+  .cpggButton,
+  .historyButton,
+  .regulationsButton,
+  .photosButton {
+    padding: 20px 12px;
+    min-height: 70px;
+  }
+  
+  .cpggButton h2,
+  .historyButton h2,
+  .regulationsButton h2,
+  .photosButton h2 {
+    font-size: 0.85rem;
+  }
+}

@@ -102,6 +102,7 @@ import { RepairsServices } from './pages/Repairs'
 import { Panorama360 } from './pages/Panorama360'
 import { Solicitacoes } from './pages/Solicitacoes'
 import { SobreNos } from './pages/SobreNos'
+import { InstituicaoMobile } from './pages/Institution/InstituicaoMobile'
 
 export function Router() {
   return (
@@ -184,6 +185,7 @@ export function Router() {
          <Route path='/panorama-360' element={<Panorama360 />} />
          <Route path='/solicitacoes' element={<Solicitacoes />} />
          <Route path='/sobre-nos' element={<SobreNos />} />
+         <Route path='/instituicao-mobile' element={<InstituicaoMobile />} />
          <Route path='/Regulations' element={<Regulations />} />
          <Route path='/research-projects' element={<ResearchProjects />} />
          <Route path='/Photos' element={<Photos />} />

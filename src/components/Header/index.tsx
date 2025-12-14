@@ -122,7 +122,12 @@ export function Header() {
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
-                      toggleSubmenu('institution');
+                      if (isSamsungA33) {
+                        navigate('/instituicao-mobile');
+                        closeAllMenus();
+                      } else {
+                        toggleSubmenu('institution');
+                      }
                     }}
                   >
                     {t('nav.institution')}
