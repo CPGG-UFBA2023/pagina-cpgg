@@ -1950,39 +1950,18 @@ nav ul li:hover .submenu2 ul li a {
     cursor: pointer !important;
   }
   
-  /* Menu "Sobre nós" - moved 7px to the left */
-  .submenu1 {
-    position: absolute !important;
-    top: 100% !important;
-    left: 50% !important;
-    transform: translateX(calc(-50% - 14px)) !important;
-    min-width: 150px !important;
-    background-color: rgba(89, 44, 187, 0.95) !important;
-    border-radius: 8px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-    z-index: 100010 !important;
-  }
-  
-  /* Submenus "Instituição" e "Pessoal" - font reduced by 2pt more */
-  .submenu2.submenu2Open ul li a,
-  .submenu2.submenu2Institution.submenu2Open ul li a,
-  .submenu2.submenu2Personnel.submenu2Open ul li a {
-    font-size: 5px !important;
-  }
-  
-  .submenu2 {
-    position: absolute !important;
-    left: 100% !important;
-    top: 0 !important;
-    min-width: 130px !important;
-    background-color: rgba(89, 44, 187, 0.95) !important;
-    border-radius: 8px !important;
-    z-index: 100015 !important;
-  }
-  
-  /* Menu "Solicitações" - moved 15px to the right */
+  /* Hide all submenus for Samsung A33 */
+  .submenu1,
+  .submenu1.submenu1Open,
+  .submenu2,
+  .submenu2.submenu2Open,
+  .submenu2Institution,
+  .submenu2Personnel,
+  .requestsSubmenu,
   .requestsSubmenuOpen {
-    position: relative !important;
-    left: 15px !important;
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
   }
 }
