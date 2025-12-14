@@ -1,0 +1,134 @@
+.pageContainer {
+  height: 100vh !important;
+  max-height: 100vh !important;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden !important;
+  width: 100%;
+}
+
+.sobreNos {
+  flex: 1;
+  padding: 1rem;
+  padding-top: 0;
+  position: relative;
+  overflow: hidden !important;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.title {
+  text-align: center;
+  margin: 0 !important;
+  margin-top: 155px !important;
+  padding: 0 !important;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  flex-shrink: 0;
+  line-height: 1.2;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 20px !important;
+  padding: 0 1rem;
+  overflow-y: auto;
+  max-height: calc(100vh - 240px);
+}
+
+.card {
+  text-decoration: none;
+  display: block;
+  transition: transform 0.3s ease;
+  width: 100%;
+  max-width: 320px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.institutionButton,
+.personnelButton,
+.projectsButton,
+.productionButton,
+.recipesButton,
+.mapButton {
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  text-align: center;
+  width: 100%;
+  height: 60px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.institutionButton {
+  background: linear-gradient(90deg, rgba(2,0,36,0.85) 0%, rgba(63,9,121,0.85)),
+    url('/src/components/Figures/cpgg.png') center/cover;
+}
+
+.personnelButton {
+  background: linear-gradient(135deg, rgba(2,0,36,0.85), rgba(9,94,121,0.85)),
+    url('/src/components/Figures/senior.jpg') center/cover;
+}
+
+.projectsButton {
+  background: linear-gradient(135deg, rgba(36,2,2,0.85), rgba(121,60,9,0.85)),
+    url('/src/components/Figures/books.jpg') center/cover;
+}
+
+.productionButton {
+  background: linear-gradient(135deg, rgba(2,36,20,0.85), rgba(9,121,60,0.85)),
+    url('/src/components/Figures/laws.jpg') center/cover;
+}
+
+.recipesButton {
+  background: linear-gradient(135deg, rgba(36,20,2,0.85), rgba(121,94,9,0.85)),
+    url('/src/components/Figures/congrats-new.jpg') center/cover;
+}
+
+.mapButton {
+  background: linear-gradient(135deg, rgba(20,2,36,0.85), rgba(94,9,121,0.85)),
+    url('/src/components/Figures/earth-new.jpg') center/cover;
+}
+
+.institutionButton h2,
+.personnelButton h2,
+.projectsButton h2,
+.productionButton h2,
+.recipesButton h2,
+.mapButton h2 {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* This page is ONLY for Samsung A33 resolution (376px - 430px) */
+/* Hide on iPhone 12 mini and smaller */
+@media (max-width: 375px) {
+  .pageContainer {
+    display: none !important;
+  }
+}
+
+/* Hide on larger screens */
+@media (min-width: 431px) {
+  .pageContainer {
+    display: none !important;
+  }
+}
