@@ -2002,14 +2002,18 @@ nav ul li:hover .submenu2 ul li a {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
     z-index: 100010 !important;
   }
-  
-  .submenu2 {
+
+  .submenu1.submenu1Open {
     position: absolute !important;
-    left: 100% !important;
-    top: 0 !important;
-    min-width: 130px !important;
+    top: calc(100% + 15px) !important;
+    left: 50% !important;
+    transform: translateX(calc(-50% + 60px)) !important;
+    min-width: 150px !important;
     background-color: rgba(89, 44, 187, 0.95) !important;
     border-radius: 8px !important;
-    z-index: 100015 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    z-index: 100010 !important;
   }
+  
+  
 }
