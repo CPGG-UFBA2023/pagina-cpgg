@@ -20,7 +20,7 @@ export function SobreNos() {
             </div>
           </Link>
 
-          <Link className={styles.card} to="/researchers">
+          <Link className={styles.card} to="/pessoal-mobile">
             <div className={styles.personnelButton}>
               <h2>Pessoal</h2>
             </div>
