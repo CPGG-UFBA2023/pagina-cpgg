@@ -1538,7 +1538,7 @@ nav ul li:hover .submenu2 ul li a {
 /* SAMSUNG A33 (376px-430px) - OCULTAR TODOS OS SUBMENUS */
 /* Não afeta iPhone 12 mini (≤375px) */
 /* ============================================= */
-@media screen and (min-width: 376px) and (max-width: 430px) {
+@media screen and (min-width: 391px) and (max-width: 430px) {
   /* Ocultar submenu1 (Sobre nós) */
   .submenu1,
   .submenu1.submenu1Open {
@@ -2004,8 +2004,8 @@ nav ul li:hover .submenu2 ul li a {
   display: inline !important;
 }
 
-/* Samsung A33 (376px - 430px): mostrar link A33, esconder link dropdown */
-@media (min-width: 376px) and (max-width: 430px) {
+/* Samsung A33 (391px - 430px): mostrar link A33, esconder link dropdown */
+@media (min-width: 391px) and (max-width: 430px) {
   .solicitacoesLinkA33 {
     display: inline !important;
   }
