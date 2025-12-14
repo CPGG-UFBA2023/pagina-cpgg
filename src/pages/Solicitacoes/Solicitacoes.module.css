@@ -1,107 +1,113 @@
-/* Página Solicitações - APENAS para Samsung A33 (391px - 430px) */
-/* Escondida por padrão */
 .pageContainer {
-  display: none !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden !important;
+  width: 100%;
 }
 
-/* Visível APENAS na resolução Samsung A33 */
-@media (min-width: 391px) and (max-width: 430px) {
+.solicitacoes {
+  flex: 1;
+  padding: 1rem;
+  padding-top: 0;
+  position: relative;
+  overflow: hidden !important;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.title {
+  text-align: center;
+  margin: 0 !important;
+  margin-top: 165px !important;
+  padding: 0 !important;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  flex-shrink: 0;
+  line-height: 1.2;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 30px !important;
+  padding: 0 1rem;
+  overflow: hidden;
+  max-height: calc(100vh - 250px);
+}
+
+.card {
+  text-decoration: none;
+  display: block;
+  transition: transform 0.3s ease;
+  width: 100%;
+  max-width: 320px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.spacesButton,
+.labsButton,
+.repairsButton {
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  text-align: center;
+  width: 100%;
+  height: 80px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.spacesButton {
+  background: linear-gradient(90deg, rgba(2,0,36,0.85) 0%, rgba(63,9,121,0.85)),
+    url('/src/components/Figures/auditory.png') center/cover;
+}
+
+.labsButton {
+  background: linear-gradient(135deg, rgba(2,0,36,0.85), rgba(9,94,121,0.85)),
+    url('/src/components/Figures/earth3.png') center/cover;
+}
+
+.repairsButton {
+  background: linear-gradient(135deg, rgba(36,2,2,0.85), rgba(121,60,9,0.85)),
+    url('/src/components/Figures/meetingroom.png') center/cover;
+}
+
+.spacesButton h2,
+.labsButton h2,
+.repairsButton h2 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* This page is ONLY for Samsung A33 resolution (391px - 430px) */
+/* Hide on iPhone 12 mini and smaller */
+@media (max-width: 390px) {
   .pageContainer {
-    display: flex !important;
-    height: 100vh !important;
-    max-height: 100vh !important;
-    flex-direction: column;
-    overflow: hidden !important;
-    width: 100%;
+    display: none !important;
   }
+}
 
-  .solicitacoes {
-    flex: 1;
-    padding: 1rem;
-    padding-top: 0;
-    position: relative;
-    overflow: hidden !important;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-
-  .title {
-    text-align: center;
-    margin: 0 !important;
-    margin-top: 165px !important;
-    padding: 0 !important;
-    font-size: 22px;
-    font-weight: bold;
-    color: white;
-    flex-shrink: 0;
-    line-height: 1.2;
-  }
-
-  .container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    justify-content: flex-start;
-    align-items: center;
-    margin: 0 auto;
-    margin-top: 40px !important;
-    padding: 0 1rem;
-    overflow: hidden;
-    max-height: calc(100vh - 280px);
-  }
-
-  .card {
-    text-decoration: none;
-    display: block;
-    transition: transform 0.3s ease;
-    width: 100%;
-    max-width: 320px;
-  }
-
-  .card:hover {
-    transform: translateY(-3px);
-  }
-
-  .spacesButton,
-  .labsButton,
-  .repairsButton {
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    color: white;
-    text-align: center;
-    width: 100%;
-    height: 85px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .spacesButton {
-    background: linear-gradient(90deg, rgba(2,0,36,0.85) 0%, rgba(63,9,121,0.85)),
-      url('/src/components/Figures/auditory.png') center/cover;
-  }
-
-  .labsButton {
-    background: linear-gradient(135deg, rgba(2,0,36,0.85), rgba(9,94,121,0.85)),
-      url('/src/components/Figures/earth3.png') center/cover;
-  }
-
-  .repairsButton {
-    background: linear-gradient(135deg, rgba(36,2,2,0.85), rgba(121,60,9,0.85)),
-      url('/src/components/Figures/meetingroom.png') center/cover;
-  }
-
-  .spacesButton h2,
-  .labsButton h2,
-  .repairsButton h2 {
-    font-size: 1rem;
-    font-weight: bold;
-    margin: 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+/* Hide on larger screens */
+@media (min-width: 431px) {
+  .pageContainer {
+    display: none !important;
   }
 }
