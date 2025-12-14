@@ -1539,7 +1539,7 @@ nav ul li:hover .submenu2 ul li a {
 /* Não afeta iPhone 12 mini (≤375px) */
 /* ============================================= */
 @media screen and (min-width: 376px) and (max-width: 430px) {
-  /* Ocultar submenu1 (Sobre nós) - manter visível apenas o submenu de Solicitações */
+  /* Ocultar submenu1 (Sobre nós) */
   .submenu1,
   .submenu1.submenu1Open {
     display: none !important;
@@ -1548,17 +1548,6 @@ nav ul li:hover .submenu2 ul li a {
     pointer-events: none !important;
     height: 0 !important;
     overflow: hidden !important;
-  }
-
-  /* Reexibir especificamente o submenu1 do item "Solicitações" (5º item do menu) */
-  .header nav ul li:nth-child(5) .submenu1,
-  .header nav ul li:nth-child(5) .submenu1.submenu1Open {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    height: auto !important;
-    overflow: visible !important;
   }
   
   /* Ocultar submenu2 (submenus dentro de Sobre nós) */
@@ -1576,14 +1565,14 @@ nav ul li:hover .submenu2 ul li a {
     overflow: hidden !important;
   }
   
-  /* Submenu de Solicitações - aparece igual ao iPhone 12 mini */
+  /* Ocultar submenu de Solicitações */
   .requestsSubmenu {
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    height: auto !important;
-    overflow: visible !important;
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    overflow: hidden !important;
   }
 }
 
@@ -1982,12 +1971,7 @@ nav ul li:hover .submenu2 ul li a {
     cursor: pointer !important;
   }
   
-  /* Submenu Solicitações - escondido por padrão, só abre com clique */
   .submenu1 {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
     position: absolute !important;
     top: 100% !important;
     left: 50% !important;
@@ -1999,20 +1983,7 @@ nav ul li:hover .submenu2 ul li a {
     z-index: 100010 !important;
   }
   
-  /* Submenu Solicitações - abre apenas quando tem a classe submenu1Open */
-  .submenu1.submenu1Open {
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    flex-direction: column !important;
-  }
-  
   .submenu2 {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
     position: absolute !important;
     left: 100% !important;
     top: 0 !important;
