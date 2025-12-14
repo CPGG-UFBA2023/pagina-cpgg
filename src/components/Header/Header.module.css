@@ -1993,3 +1993,24 @@ nav ul li:hover .submenu2 ul li a {
     z-index: 100015 !important;
   }
 }
+
+/* Solicitações link visibility control */
+/* Por padrão: mostrar link dropdown, esconder link A33 */
+.solicitacoesLinkA33 {
+  display: none !important;
+}
+
+.solicitacoesLinkDefault {
+  display: inline !important;
+}
+
+/* Samsung A33 (376px - 430px): mostrar link A33, esconder link dropdown */
+@media (min-width: 376px) and (max-width: 430px) {
+  .solicitacoesLinkA33 {
+    display: inline !important;
+  }
+  
+  .solicitacoesLinkDefault {
+    display: none !important;
+  }
+}
