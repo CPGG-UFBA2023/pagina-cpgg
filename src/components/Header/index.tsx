@@ -1,5 +1,5 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
 import styles from "./Header.module.css";
 import { useLanguage } from '@/contexts/LanguageContext';
 import { LanguageSelector } from '@/components/LanguageSelector';
@@ -10,22 +10,8 @@ const logoufba = "https://imgur.com/x7mquv7.png";
 
 export function Header() {
   const { t } = useLanguage();
-  const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
-  const [isSamsungA33, setIsSamsungA33] = useState(false);
-
-  useEffect(() => {
-    const checkScreenSize = () => {
-      const width = window.innerWidth;
-      // Samsung A33: between 376px and 430px
-      setIsSamsungA33(width > 375 && width <= 430);
-    };
-    
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    return () => window.removeEventListener('resize', checkScreenSize);
-  }, []);
 
   const toggleMenu = (menu: string) => {
     console.log('toggleMenu', { menu, openMenuBefore: openMenu });
@@ -204,18 +190,22 @@ export function Header() {
               </ul>
             </div>
           </li>
-          <li
-          >
+          <li>
+            {/* Link direto para Samsung A33 */}
+            <NavLink 
+              to='/solicitacoes' 
+              className={`${styles.navLink} ${styles.solicitacoesLinkA33}`}
+            >
+              Solicitações
+            </NavLink>
+            
+            {/* Menu dropdown para outras resoluções */}
             <a 
               href='#' 
-              className={styles.navLink}
+              className={`${styles.navLink} ${styles.solicitacoesLinkDefault}`}
               onClick={(e) => { 
                 e.preventDefault(); 
-                if (isSamsungA33) {
-                  navigate('/solicitacoes');
-                } else {
-                  toggleMenu('requests'); 
-                }
+                toggleMenu('requests'); 
               }}
             >
               Solicitações
