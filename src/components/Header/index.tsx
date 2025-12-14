@@ -14,16 +14,31 @@ export function Header() {
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
 
   const toggleMenu = (menu: string) => {
-    console.log('toggleMenu', { menu, openMenuBefore: openMenu });
+    // First close any open submenu
+    setOpenSubmenu(null);
+    
+    // Then toggle the main menu - close first, then open if different
     setOpenMenu((prev) => {
-      const next = prev === menu ? null : menu;
-      console.log('toggleMenu next', next);
-      if (next) {
+      // If clicking the same menu, just close it
+      if (prev === menu) {
+        return null;
+      }
+      // If clicking a different menu, close the current one first
+      // by returning null briefly, then set the new menu
+      if (prev !== null && prev !== menu) {
+        // Close the previous menu first
+        setTimeout(() => {
+          setOpenMenu(menu);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 10);
+        return null;
+      }
+      // Opening a new menu when none is open
+      if (menu) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-      return next;
+      return menu;
     });
-    setOpenSubmenu(null);
   };
 
   const toggleSubmenu = (submenu: string) => {
