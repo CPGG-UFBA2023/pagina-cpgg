@@ -1539,7 +1539,7 @@ nav ul li:hover .submenu2 ul li a {
 /* Não afeta iPhone 12 mini (≤375px) */
 /* ============================================= */
 @media screen and (min-width: 376px) and (max-width: 430px) {
-  /* Ocultar submenu1 (Sobre nós) */
+  /* Ocultar submenu1 (Sobre nós) - manter visível apenas o submenu de Solicitações */
   .submenu1,
   .submenu1.submenu1Open {
     display: none !important;
@@ -1548,6 +1548,17 @@ nav ul li:hover .submenu2 ul li a {
     pointer-events: none !important;
     height: 0 !important;
     overflow: hidden !important;
+  }
+
+  /* Reexibir especificamente o submenu1 do item "Solicitações" (5º item do menu) */
+  .header nav ul li:nth-child(5) .submenu1,
+  .header nav ul li:nth-child(5) .submenu1.submenu1Open {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    height: auto !important;
+    overflow: visible !important;
   }
   
   /* Ocultar submenu2 (submenus dentro de Sobre nós) */
