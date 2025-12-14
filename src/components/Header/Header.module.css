@@ -1534,6 +1534,48 @@ nav ul li:hover .submenu2 ul li a {
   }
 }
 
+/* ============================================= */
+/* SAMSUNG A33 (376px-430px) - OCULTAR TODOS OS SUBMENUS */
+/* Não afeta iPhone 12 mini (≤375px) */
+/* ============================================= */
+@media screen and (min-width: 376px) and (max-width: 430px) {
+  /* Ocultar submenu1 (Sobre nós) */
+  .submenu1,
+  .submenu1.submenu1Open {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
+  
+  /* Ocultar submenu2 (submenus dentro de Sobre nós) */
+  .submenu2,
+  .submenu2.submenu2Open,
+  .submenu2.submenu2Institution,
+  .submenu2.submenu2Institution.submenu2Open,
+  .submenu2.submenu2Personnel,
+  .submenu2.submenu2Personnel.submenu2Open {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
+  
+  /* Ocultar submenu de Solicitações */
+  .requestsSubmenu {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
+}
+
 /* Resoluções ≤375px - Ajustes para iPhone X e similares - OVERRIDE das queries 390px e 430px */
 @media screen and (max-width: 375px) {
   .header {
