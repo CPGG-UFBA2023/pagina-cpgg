@@ -1550,8 +1550,17 @@ nav ul li:hover .submenu2 ul li a {
     overflow: hidden !important;
   }
 
-  /* Reexibir especificamente o submenu1 do item "Solicitações" (5º item do menu) */
-  .header nav ul li:nth-child(5) .submenu1,
+  /* Submenu de Solicitações - oculto por padrão, só abre ao clicar */
+  .header nav ul li:nth-child(5) .submenu1 {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
+  
+  /* Submenu de Solicitações - APENAS quando aberto (com classe submenu1Open) */
   .header nav ul li:nth-child(5) .submenu1.submenu1Open {
     display: block !important;
     visibility: visible !important;
