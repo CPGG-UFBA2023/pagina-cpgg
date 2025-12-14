@@ -209,8 +209,13 @@
   .title {
     font-size: 24px;
     margin-top: 155px;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    text-align: center !important;
+    width: 100% !important;
   }
 }
+
 
 @media (max-width: 390px) {
   .pageContainer {
