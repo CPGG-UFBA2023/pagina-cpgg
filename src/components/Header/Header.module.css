@@ -1355,35 +1355,30 @@ nav ul li:hover .submenu2 ul li a {
     margin-left: 0 !important;
     padding: 0 !important;
     width: auto !important;
-    min-width: 230px !important;
+    min-width: 180px !important;
     background-color: transparent !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     z-index: 100100 !important;
     transition: none !important;
-    /* Evitar capturar cliques fora da caixa roxa, para não bloquear outros menus (ex.: "Solicitações") */
-    pointer-events: none !important;
   }
   
   .submenu1.submenu1Open {
     display: block !important;
   }
   
-  .submenu1 ul:not(.requestsSubmenu),
-  .submenu1.submenu1Open ul:not(.requestsSubmenu) {
+  .submenu1 ul,
+  .submenu1.submenu1Open ul {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
-    padding: 14px 20px !important;
+    padding: 15px 89px 15px 64px !important;
     margin: 0 !important;
-    gap: 10px !important;
-    position: relative !important;
-    top: 15px !important;
+    gap: 8px !important;
     background-color: rgba(89, 44, 187, 0.95) !important;
     border-radius: 12px !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
     transition: none !important;
-    pointer-events: auto !important;
   }
   
   .submenu1.submenu1Open ul li {
@@ -1403,14 +1398,14 @@ nav ul li:hover .submenu2 ul li a {
     display: block !important;
     width: 100% !important;
     padding: 0 !important;
-    font-size: 12px !important;
+    font-size: 14px !important;
     font-weight: 500 !important;
     color: white !important;
     text-decoration: none !important;
-    white-space: normal !important;
+    white-space: nowrap !important;
     line-height: 1.4 !important;
   }
-
+  
   /* Hoversub - item que tem submenu2 */
   .submenu1.submenu1Open ul li.hoversub {
     background-color: transparent !important;
@@ -1488,13 +1483,13 @@ nav ul li:hover .submenu2 ul li a {
   .submenu2.submenu2Personnel.submenu2Open ul li a {
     display: block !important;
     width: 100% !important;
-    font-size: 8px !important;
+    font-size: 10px !important;
     padding: 8px 10px !important;
     color: white !important;
     background-color: transparent !important;
     font-weight: 400 !important;
   }
-
+  
   .submenu2.submenu2Open ul li:hover,
   .submenu2.submenu2Institution.submenu2Open ul li:hover,
   .submenu2.submenu2Personnel.submenu2Open ul li:hover {
@@ -1507,22 +1502,7 @@ nav ul li:hover .submenu2 ul li a {
     color: #d4c4f0 !important;
   }
   
-/* Submenu Solicitações - APENAS requestsSubmenu com box roxa arredondada */
-  /* Desativar COMPLETAMENTE estilos de submenu1 para Solicitações - sem box retas */
-  .submenu1:has(.requestsSubmenu),
-  .submenu1.submenu1Open:has(.requestsSubmenu) {
-    background-color: transparent !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    min-width: auto !important;
-  }
-  
-  .submenu1:has(.requestsSubmenu) > ul:not(.requestsSubmenu),
-  .submenu1.submenu1Open:has(.requestsSubmenu) > ul:not(.requestsSubmenu) {
-    display: none !important;
-  }
-  
+/* Submenu Solicitações - COM BOX ROXA */
   .requestsSubmenu {
     display: flex !important;
     flex-direction: column !important;
@@ -1530,11 +1510,10 @@ nav ul li:hover .submenu2 ul li a {
     min-width: 138px !important;
     gap: 8px !important;
     position: relative !important;
-    left: -60px !important;
-    top: 15px !important;
+    left: -90px !important;
     transform: none !important;
     background-color: rgba(89, 44, 187, 0.95) !important;
-    border-radius: 9px !important;
+    border-radius: 12px !important;
     padding: 15px 38px 15px 5px !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
     transition: none !important;
@@ -1547,7 +1526,7 @@ nav ul li:hover .submenu2 ul li a {
   }
   
   .requestsSubmenu li a {
-    font-size: 12px !important;
+    font-size: 14px !important;
     font-weight: 500 !important;
     color: white !important;
     line-height: 1.4 !important;
@@ -1950,18 +1929,25 @@ nav ul li:hover .submenu2 ul li a {
     cursor: pointer !important;
   }
   
-  /* Hide all submenus for Samsung A33 */
-  .submenu1,
-  .submenu1.submenu1Open,
-  .submenu2,
-  .submenu2.submenu2Open,
-  .submenu2Institution,
-  .submenu2Personnel,
-  .requestsSubmenu,
-  .requestsSubmenuOpen {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
+  .submenu1 {
+    position: absolute !important;
+    top: 100% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    min-width: 150px !important;
+    background-color: rgba(89, 44, 187, 0.95) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    z-index: 100010 !important;
+  }
+  
+  .submenu2 {
+    position: absolute !important;
+    left: 100% !important;
+    top: 0 !important;
+    min-width: 130px !important;
+    background-color: rgba(89, 44, 187, 0.95) !important;
+    border-radius: 8px !important;
+    z-index: 100015 !important;
   }
 }
