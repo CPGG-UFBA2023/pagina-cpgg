@@ -14,7 +14,7 @@ export function SobreNos() {
         <h1 className={styles.title}>Sobre Nós</h1>
 
         <div className={styles.container}>
-          <Link className={styles.card} to="/institution">
+          <Link className={styles.card} to="/instituicao-mobile">
             <div className={styles.institutionButton}>
               <h2>Instituição</h2>
             </div>
