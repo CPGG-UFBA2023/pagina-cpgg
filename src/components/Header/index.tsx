@@ -14,29 +14,21 @@ export function Header() {
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
 
   const toggleMenu = (menu: string) => {
-    // First close any open submenu
+    // Close any open submenu whenever a main menu is interacted with
     setOpenSubmenu(null);
-    
-    // Then toggle the main menu - close first, then open if different
+
+    // Toggle the requested main menu, always ensuring only one is open
     setOpenMenu((prev) => {
       // If clicking the same menu, just close it
       if (prev === menu) {
         return null;
       }
-      // If clicking a different menu, close the current one first
-      // by returning null briefly, then set the new menu
-      if (prev !== null && prev !== menu) {
-        // Close the previous menu first
-        setTimeout(() => {
-          setOpenMenu(menu);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 10);
-        return null;
-      }
-      // Opening a new menu when none is open
+
+      // Open the new menu and scroll to top for better visibility
       if (menu) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
+
       return menu;
     });
   };
@@ -211,18 +203,8 @@ export function Header() {
               className={styles.navLink}
               onClick={(e: MouseEvent<HTMLAnchorElement>) => {
                 e.preventDefault();
-                // On small screens (e.g., Samsung A33), always close "Sobre nós" quickly
-                // before opening "Solicitações" to avoid overlapping menus.
-                if (window.innerWidth <= 430) {
-                  setOpenSubmenu(null);
-                  setOpenMenu(null);
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                  setTimeout(() => {
-                    setOpenMenu('requests');
-                  }, 10);
-                } else {
-                  toggleMenu('requests');
-                }
+                // Always ensure other menus are closed before opening "Solicitações"
+                toggleMenu('requests');
               }}
             >
               Solicitações
