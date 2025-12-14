@@ -295,13 +295,13 @@
 
 @media (max-width: 375px) {
   .title {
-    transform: translateY(20px);
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+    margin-top: 165px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
     text-align: center !important;
     width: 100% !important;
-    left: 0 !important;
-    right: 0 !important;
+    transform: none !important;
     padding: 0 1rem !important;
+    display: block !important;
   }
 }
