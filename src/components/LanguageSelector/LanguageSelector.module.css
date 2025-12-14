@@ -73,7 +73,8 @@
 
 @media (max-width: 430px) {
   .languageSelector {
-    transform: translateX(-160px);
+    transform: none;
+    justify-content: center;
   }
 }
 
