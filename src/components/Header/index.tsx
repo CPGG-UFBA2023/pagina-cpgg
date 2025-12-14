@@ -100,7 +100,14 @@ export function Header() {
             <a 
               href='#' 
               className={styles.navLink}
-              onClick={(e) => { e.preventDefault(); toggleMenu('about'); }}
+              onClick={(e) => { 
+                e.preventDefault(); 
+                if (isSamsungA33) {
+                  navigate('/sobre-nos');
+                } else {
+                  toggleMenu('about'); 
+                }
+              }}
             >
               {t('nav.about')}
             </a>
