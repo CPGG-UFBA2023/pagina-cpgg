@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState, MouseEvent } from "react";
 import styles from "./Header.module.css";
 import { useLanguage } from '@/contexts/LanguageContext';
 import { LanguageSelector } from '@/components/LanguageSelector';
@@ -54,6 +54,7 @@ export function Header() {
     setOpenMenu(null);
     setOpenSubmenu(null);
   };
+
   return (
     <header className={styles.header}>
       <div className={styles.figure}>
@@ -72,12 +73,12 @@ export function Header() {
         <img src={logoufba} alt='UFBA' />
       </div>
 
-        <div className={styles.languageContainer}>
-          <LanguageSelector />
-          <a href="/adm" className={styles.admLink}>
-            {t('nav.admin')}
-          </a>
-        </div>
+      <div className={styles.languageContainer}>
+        <LanguageSelector />
+        <a href="/adm" className={styles.admLink}>
+          {t('nav.admin')}
+        </a>
+      </div>
       
       <nav>
         <ul className={styles.signup}>
@@ -96,8 +97,7 @@ export function Header() {
               {t('nav.signin')}
             </NavLink>
           </li>
-          <li
-          >
+          <li>
             <a 
               href='#' 
               className={styles.navLink}
@@ -205,12 +205,25 @@ export function Header() {
               </ul>
             </div>
           </li>
-          <li
-          >
+          <li>
             <a 
               href='#' 
               className={styles.navLink}
-              onClick={(e) => { e.preventDefault(); toggleMenu('requests'); }}
+              onClick={(e: MouseEvent<HTMLAnchorElement>) => {
+                e.preventDefault();
+                // On small screens (e.g., Samsung A33), always close "Sobre nós" quickly
+                // before opening "Solicitações" to avoid overlapping menus.
+                if (window.innerWidth <= 430) {
+                  setOpenSubmenu(null);
+                  setOpenMenu(null);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  setTimeout(() => {
+                    setOpenMenu('requests');
+                  }, 10);
+                } else {
+                  toggleMenu('requests');
+                }
+              }}
             >
               Solicitações
             </a>
