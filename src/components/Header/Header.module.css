@@ -1933,6 +1933,11 @@ nav ul li:hover .submenu2 ul li a {
     transform: translateX(-50%) !important;
   }
   
+  .admLink {
+    position: relative !important;
+    top: 20px !important;
+  }
+  
   .block1 {
     transform: translateY(15px) !important;
   }
@@ -2015,8 +2020,4 @@ nav ul li:hover .submenu2 ul li a {
     z-index: 100010 !important;
   }
 
-  .admLink {
-    position: relative !important;
-    top: 20px !important;
-  }
 }
