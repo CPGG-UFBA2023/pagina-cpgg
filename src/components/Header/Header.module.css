@@ -1565,14 +1565,14 @@ nav ul li:hover .submenu2 ul li a {
     overflow: hidden !important;
   }
   
-  /* Ocultar submenu de Solicitações */
+  /* Submenu de Solicitações - aparece igual ao iPhone 12 mini */
   .requestsSubmenu {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-    height: 0 !important;
-    overflow: hidden !important;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    height: auto !important;
+    overflow: visible !important;
   }
 }
 
