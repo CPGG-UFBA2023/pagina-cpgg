@@ -1966,6 +1966,7 @@ nav ul li:hover .submenu2 ul li a {
   
   /* Menu "Solicitações" - moved 15px to the right */
   .requestsSubmenuOpen {
-    transform: translateX(15px) !important;
+    position: relative !important;
+    left: 15px !important;
   }
 }
