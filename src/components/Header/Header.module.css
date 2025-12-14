@@ -1947,11 +1947,11 @@ nav ul li:hover .submenu2 ul li a {
     z-index: 100010 !important;
   }
   
-  /* Submenus "Instituição" e "Pessoal" - font reduced by 2pt */
+  /* Submenus "Instituição" e "Pessoal" - font reduced by 2pt more */
   .submenu2.submenu2Open ul li a,
   .submenu2.submenu2Institution.submenu2Open ul li a,
   .submenu2.submenu2Personnel.submenu2Open ul li a {
-    font-size: 7px !important;
+    font-size: 5px !important;
   }
   
   .submenu2 {
