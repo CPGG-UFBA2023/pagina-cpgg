@@ -21,7 +21,7 @@
 .title {
   text-align: center;
   margin: 0 !important;
-  margin-top: 165px !important;
+  margin-top: 115px !important;
   padding: 0 !important;
   font-size: 24px;
   font-weight: bold;
@@ -40,7 +40,7 @@
   margin-top: 30px !important;
   padding: 0 1rem;
   overflow: hidden;
-  max-height: calc(100vh - 250px);
+  max-height: calc(100vh - 200px);
 }
 
 .card {
