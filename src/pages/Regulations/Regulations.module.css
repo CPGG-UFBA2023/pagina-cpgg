@@ -238,7 +238,35 @@
   }
 }
 
-@media (max-width: 430px) {
+@media (min-width: 376px) and (max-width: 430px) {
+  .title {
+    margin-top: 195px !important;
+    text-align: center;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  
+  .container {
+    margin-top: -170px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .regulation,
+  .accreditation,
+  .senior,
+  .dynamicRegulation {
+    width: 90% !important;
+    max-width: 320px !important;
+    min-width: unset !important;
+  }
+}
+
+@media (max-width: 375px) {
   .title {
     margin-top: 195px !important;
   }
