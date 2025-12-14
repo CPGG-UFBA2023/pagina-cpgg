@@ -1939,7 +1939,7 @@ nav ul li:hover .submenu2 ul li a {
     position: absolute !important;
     top: 100% !important;
     left: 50% !important;
-    transform: translateX(calc(-50% - 7px)) !important;
+    transform: translateX(calc(-50% - 14px)) !important;
     min-width: 150px !important;
     background-color: rgba(89, 44, 187, 0.95) !important;
     border-radius: 8px !important;
