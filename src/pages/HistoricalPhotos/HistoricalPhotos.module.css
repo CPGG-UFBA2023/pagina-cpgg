@@ -186,13 +186,23 @@
   }
 }
 
-/* Samsung A33 Header - Hide completely */
+/* Samsung A33 Header - Hide completely and enable scroll */
 @media (min-width: 376px) and (max-width: 430px) {
+  .pageContainer {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+  
   .pageContainer :global(.header) {
     display: none !important;
   }
   
   .hp {
     padding-top: 100px !important;
+    overflow: visible !important;
+    flex: none !important;
+    padding-bottom: 100px !important;
   }
 }
