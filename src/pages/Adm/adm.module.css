@@ -140,3 +140,62 @@
     font-size: 24px;
   }
 }
+
+/* Screens ≤430px - Stack buttons vertically and center */
+@media (max-width: 430px) {
+  .container {
+    width: 90%;
+    max-width: 350px;
+    padding: 15px;
+    max-height: none;
+  }
+
+  .optionsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .topRow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .bottomRow {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .optionCard {
+    width: 100%;
+    max-width: 280px;
+    height: 120px;
+    margin: 0 auto;
+  }
+
+  .cardContent h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .cardContent p {
+    font-size: 12px;
+  }
+
+  .title h1 {
+    font-size: 20px;
+  }
+
+  .title p {
+    font-size: 14px;
+  }
+
+  .logo img {
+    width: 80px;
+    height: 52px;
+  }
+}
