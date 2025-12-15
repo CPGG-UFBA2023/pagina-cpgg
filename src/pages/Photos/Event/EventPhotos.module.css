@@ -99,8 +99,8 @@
     max-width: 380px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    top: 310px !important;
-    height: calc(100vh - 410px) !important;
+    top: 360px !important;
+    height: calc(100vh - 460px) !important;
     overflow-y: auto !important;
     padding: 15px !important;
   }
