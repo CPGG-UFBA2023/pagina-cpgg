@@ -18,8 +18,8 @@ export function Header() {
   useEffect(() => {
     const checkScreenSize = () => {
       const width = window.innerWidth;
-      // Samsung A33: between 376px and 430px
-      setIsSamsungA33(width > 375 && width <= 430);
+      // Mobile range: 360px to 430px (includes Samsung S21 Ultra, iPhone 10, Samsung A33)
+      setIsSamsungA33(width >= 360 && width <= 430);
     };
     
     checkScreenSize();
@@ -102,6 +102,7 @@ export function Header() {
               className={styles.navLink}
               onClick={(e) => { 
                 e.preventDefault(); 
+                closeAllMenus();
                 if (isSamsungA33) {
                   navigate('/sobre-nos');
                 } else {
@@ -223,6 +224,7 @@ export function Header() {
               className={styles.navLink}
               onClick={(e) => { 
                 e.preventDefault(); 
+                closeAllMenus();
                 if (isSamsungA33) {
                   navigate('/solicitacoes');
                 } else {
