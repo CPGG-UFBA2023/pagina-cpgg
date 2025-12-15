@@ -23,51 +23,18 @@
   color: white;
 }
 
-/* Samsung A33 specific (376px - 430px) */
-@media (min-width: 376px) and (max-width: 430px) {
-  .hp {
-    padding-top: 200px;
-    padding-left: 0;
-    align-items: center;
-  }
-  
-  .title {
-    width: 100%;
-    text-align: center;
-    padding: 0 20px;
-  }
-  
-  .container {
-    grid-template-columns: 1fr !important;
-    grid-template-rows: auto !important;
-    gap: 1rem !important;
-  }
-  
-  .Latin,
-  .ICG,
-  .Yeda,
-  .BlockE,
-  .others {
-    width: 100%;
-    max-width: 280px;
-    margin: 0 auto;
-    height: 70px;
-    padding: 1rem;
-  }
-}
-
 /* iPhone 12 mini and smaller (≤375px) */
 @media (max-width: 375px) {
   .hp {
-    padding-top: 280px;
-    padding-left: 0;
-    align-items: center;
+    padding-top: 280px !important;
+    padding-left: 0 !important;
+    align-items: center !important;
   }
   
   .title {
-    width: 100%;
-    text-align: center;
-    padding: 0 20px;
+    width: 100% !important;
+    text-align: center !important;
+    padding: 0 20px !important;
   }
 }
 
@@ -182,5 +149,39 @@
     margin: 0 auto;
     height: 70px;
     padding: 1rem;
+  }
+}
+
+/* Samsung A33 specific (376px - 430px) - must come after 768px to override */
+@media (min-width: 376px) and (max-width: 430px) {
+  .hp {
+    padding-top: 200px !important;
+    padding-left: 0 !important;
+    align-items: center !important;
+  }
+  
+  .title {
+    width: 100% !important;
+    text-align: center !important;
+    padding: 0 20px !important;
+    font-size: 20px !important;
+  }
+  
+  .container {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto !important;
+    gap: 1rem !important;
+  }
+  
+  .Latin,
+  .ICG,
+  .Yeda,
+  .BlockE,
+  .others {
+    width: 100% !important;
+    max-width: 280px !important;
+    margin: 0 auto !important;
+    height: 70px !important;
+    padding: 1rem !important;
   }
 }
