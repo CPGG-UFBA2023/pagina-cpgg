@@ -103,6 +103,10 @@
   .title {
     margin-top: 165px !important;
   }
+  
+  .container {
+    margin-top: -40px !important;
+  }
 }
 
 /* Hide on iPhone 12 mini and smaller */
