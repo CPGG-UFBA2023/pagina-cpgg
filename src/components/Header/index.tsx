@@ -81,17 +81,17 @@ export function Header() {
       <nav>
         <ul className={styles.signup}>
           <li>
-            <NavLink to='/Contact' className={styles.navLink}>
+            <NavLink to='/Contact' className={styles.navLink} onClick={closeAllMenus}>
               {t('nav.contact')}
             </NavLink>
           </li>
           <li>
-            <NavLink to='/' className={styles.navLink}>
+            <NavLink to='/' className={styles.navLink} onClick={closeAllMenus}>
               {t('nav.home')}
             </NavLink>
           </li>
           <li>
-            <NavLink to='/sign' className={styles.navLink}>
+            <NavLink to='/sign' className={styles.navLink} onClick={closeAllMenus}>
               {t('nav.signin')}
             </NavLink>
           </li>
@@ -102,11 +102,13 @@ export function Header() {
               className={styles.navLink}
               onClick={(e) => { 
                 e.preventDefault(); 
-                closeAllMenus();
                 if (isSamsungA33) {
+                  closeAllMenus();
                   navigate('/sobre-nos');
                 } else {
-                  toggleMenu('about'); 
+                  // For desktop, toggle the menu (close others first)
+                  setOpenSubmenu(null);
+                  setOpenMenu(prev => prev === 'about' ? null : 'about');
                 }
               }}
             >
@@ -224,11 +226,13 @@ export function Header() {
               className={styles.navLink}
               onClick={(e) => { 
                 e.preventDefault(); 
-                closeAllMenus();
                 if (isSamsungA33) {
+                  closeAllMenus();
                   navigate('/solicitacoes');
                 } else {
-                  toggleMenu('requests'); 
+                  // For desktop, toggle the menu (close others first)
+                  setOpenSubmenu(null);
+                  setOpenMenu(prev => prev === 'requests' ? null : 'requests');
                 }
               }}
             >
@@ -258,7 +262,7 @@ export function Header() {
             </div>
           </li>
           <li>
-            <NavLink to='/panorama-360' className={styles.navLink}>
+            <NavLink to='/panorama-360' className={styles.navLink} onClick={closeAllMenus}>
               3D
             </NavLink>
           </li>
