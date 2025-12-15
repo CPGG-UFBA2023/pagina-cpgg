@@ -118,22 +118,43 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
-/* This page is ONLY for Samsung A33 resolution (376px - 430px) */
-/* Hide on iPhone 12 mini and smaller */
-@media (max-width: 375px) {
+/* This page is for mobile resolutions (360px - 430px) */
+/* Includes: Samsung S21 Ultra (~360-384px), iPhone 10 (375px), Samsung A33 (376-430px) */
+
+/* Hide on very small screens (smaller than 360px) */
+@media (max-width: 359px) {
   .pageContainer {
     display: none !important;
   }
 }
 
-/* iPhone 10 specific - hide title (375px width) */
-@media (width: 375px) {
+/* Show page for mobile range 360px - 430px */
+@media (min-width: 360px) and (max-width: 430px) {
   .pageContainer {
     display: flex !important;
   }
   
+  .card {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    z-index: 10;
+    position: relative;
+  }
+  
+  .container {
+    pointer-events: auto !important;
+    z-index: 5;
+  }
+}
+
+/* iPhone 10 specific - hide title (375px width) */
+@media (width: 375px) {
   .title {
     display: none !important;
+  }
+  
+  .container {
+    margin-top: 140px !important;
   }
 }
 
