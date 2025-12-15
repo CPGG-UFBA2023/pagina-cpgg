@@ -431,6 +431,23 @@
 
 
 
+/* Samsung A33 specific (376px - 430px) - Center album title */
+@media (min-width: 376px) and (max-width: 430px) {
+  .ICG ul {
+    text-align: center !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+    padding: 0 20px !important;
+  }
+  
+  .ICG {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    justify-content: center !important;
+  }
+}
+
 @media (max-width: 1200px) {
   .staticFigure {
     display: none;
