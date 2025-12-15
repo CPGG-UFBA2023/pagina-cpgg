@@ -26,7 +26,7 @@
 /* iPhone 12 mini and smaller (≤375px) */
 @media (max-width: 375px) {
   .hp {
-    padding-top: 280px !important;
+    padding-top: 230px !important;
     padding-left: 0 !important;
     align-items: center !important;
   }
