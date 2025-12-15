@@ -73,9 +73,9 @@ export function Header() {
 
         <div className={styles.languageContainer}>
           <LanguageSelector />
-          <a href="/adm" className={styles.admLink}>
+          <NavLink to="/adm" className={styles.admLink}>
             {t('nav.admin')}
-          </a>
+          </NavLink>
         </div>
       
       <nav>
