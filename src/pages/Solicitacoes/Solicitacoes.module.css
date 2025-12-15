@@ -98,6 +98,13 @@
 }
 
 /* This page is ONLY for Samsung A33 resolution (376px - 430px) */
+/* Samsung A33 specific adjustments */
+@media (min-width: 376px) and (max-width: 430px) {
+  .title {
+    margin-top: 165px !important;
+  }
+}
+
 /* Hide on iPhone 12 mini and smaller */
 @media (max-width: 375px) {
   .pageContainer {
