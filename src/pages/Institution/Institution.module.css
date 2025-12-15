@@ -86,10 +86,10 @@
 /* Samsung A33 specific (376px - 430px) - Move title and buttons down 50px */
 @media (min-width: 376px) and (max-width: 430px) {
   .container {
-    padding-top: 205px !important;
+    padding-top: 255px !important;
   }
   
   .mainTitle {
-    margin-top: 50px !important;
+    margin-top: 100px !important;
   }
 }
