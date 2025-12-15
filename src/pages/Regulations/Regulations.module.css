@@ -263,6 +263,8 @@
     width: 90% !important;
     max-width: 320px !important;
     min-width: unset !important;
+    height: 100px !important;
+    padding: 2rem !important;
   }
 }
 
