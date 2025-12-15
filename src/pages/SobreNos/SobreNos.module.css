@@ -126,6 +126,17 @@
   }
 }
 
+/* iPhone 10 specific - hide title (375px width) */
+@media (width: 375px) {
+  .pageContainer {
+    display: flex !important;
+  }
+  
+  .title {
+    display: none !important;
+  }
+}
+
 /* Hide on larger screens */
 @media (min-width: 431px) {
   .pageContainer {
