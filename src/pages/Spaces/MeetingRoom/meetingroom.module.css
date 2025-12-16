@@ -246,3 +246,11 @@
     margin-top: -220px !important;
   }
 }
+
+/* iPhone 10 específico (375px) */
+@media (min-width: 374px) and (max-width: 376px) {
+  .buttonContainer {
+    transform: translateY(-250px) !important;
+    margin-top: -250px !important;
+  }
+}
