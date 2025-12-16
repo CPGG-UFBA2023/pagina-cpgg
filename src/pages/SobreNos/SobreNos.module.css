@@ -149,6 +149,9 @@
   }
   
   .card {
+    display: block !important;
+    width: 280px !important;
+    height: 60px !important;
     pointer-events: auto !important;
     cursor: pointer !important;
     z-index: 100 !important;
@@ -157,20 +160,22 @@
     touch-action: manipulation;
   }
   
-  .container {
-    pointer-events: auto !important;
-    z-index: 50 !important;
-    position: relative;
-    margin-top: 190px !important;
-  }
-  
   .institutionButton,
   .personnelButton,
   .projectsButton,
   .productionButton,
   .recipesButton,
   .mapButton {
+    width: 100% !important;
+    height: 100% !important;
     pointer-events: none !important;
+  }
+  
+  .container {
+    pointer-events: auto !important;
+    z-index: 50 !important;
+    position: relative;
+    margin-top: 190px !important;
   }
 }
 
