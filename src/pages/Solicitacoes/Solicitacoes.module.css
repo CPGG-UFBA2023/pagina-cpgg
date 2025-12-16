@@ -110,6 +110,16 @@
 /* This page is for mobile resolutions (360px - 430px) */
 /* Show page for mobile range 360px - 430px */
 @media (min-width: 360px) and (max-width: 430px) {
+  .pageContainer {
+    height: 100vh !important;
+    overflow: visible !important;
+  }
+  
+  .solicitacoes {
+    flex: 1;
+    overflow: visible !important;
+  }
+  
   .title {
     display: none !important;
   }
@@ -128,34 +138,13 @@
     z-index: 50 !important;
     position: relative;
     margin-top: 130px !important;
+    max-height: none !important;
   }
   
   .spacesButton,
   .labsButton,
   .repairsButton {
     pointer-events: none !important;
-  }
-}
-
-/* iPhone 12 mini (375px) */
-@media (min-width: 360px) and (max-width: 375px) {
-  .title {
-    margin-top: 140px !important;
-  }
-  
-  .container {
-    margin-top: -20px !important;
-  }
-}
-
-/* Samsung A33 specific adjustments (376px - 430px) */
-@media (min-width: 376px) and (max-width: 430px) {
-  .title {
-    margin-top: 165px !important;
-  }
-  
-  .container {
-    margin-top: -40px !important;
   }
 }
 
