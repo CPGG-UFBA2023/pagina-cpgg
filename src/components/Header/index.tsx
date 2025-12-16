@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styles from "./Header.module.css";
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -11,9 +11,16 @@ const logoufba = "https://imgur.com/x7mquv7.png";
 export function Header() {
   const { t } = useLanguage();
   const navigate = useNavigate();
+  const location = useLocation();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const [isSamsungA33, setIsSamsungA33] = useState(false);
+
+  // Reset menu state when route changes
+  useEffect(() => {
+    setOpenMenu(null);
+    setOpenSubmenu(null);
+  }, [location.pathname]);
 
   useEffect(() => {
     const checkScreenSize = () => {
