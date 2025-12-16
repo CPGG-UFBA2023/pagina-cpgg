@@ -74,6 +74,30 @@
     width: 100%;
     padding: 0 1rem;
   }
+  
+  .container {
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+  
+  .buttonsGrid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+  }
+  
+  .pseudoResistivity,
+  .radargrama1,
+  .radargrama2,
+  .otherCodes1,
+  .otherCodes2,
+  .otherCodes3 {
+    width: 260px;
+  }
 }
 
 .pseudoResistivity,
