@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { supabase } from '@/integrations/supabase/client'
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
 import styles from './middle.module.css'
@@ -132,7 +133,7 @@ export function Middle() {
       {/* News carousel section */}
       <div className={styles.carouselContainer}>
         {currentArticle && (
-          <a href={getNewsRoute(currentArticle.news_position)} className={styles.newsLink}>
+          <Link to={getNewsRoute(currentArticle.news_position)} className={styles.newsLink}>
             <div className={styles.newsCard}>
               <div className={styles.imageWrapper}>
                 <img 
@@ -148,7 +149,7 @@ export function Middle() {
                 </p>
               </div>
             </div>
-          </a>
+          </Link>
         )}
 
         {displayArticles.length > 1 && (
