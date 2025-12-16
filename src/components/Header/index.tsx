@@ -108,17 +108,23 @@ export function Header() {
               href='#' 
               className={styles.navLink}
               onClick={(e) => { 
-                e.preventDefault(); 
-                // Check screen width directly at click time for mobile detection
-                const isMobileWidth = window.innerWidth >= 360 && window.innerWidth <= 430;
+                e.preventDefault();
+                e.stopPropagation();
+                // CRÍTICO: Verificar largura da tela no momento do clique para mobile
+                const currentWidth = window.innerWidth;
+                const isMobileWidth = currentWidth >= 360 && currentWidth <= 430;
+                
+                // Em mobile, SEMPRE navegar para a página, NUNCA abrir menu
                 if (isMobileWidth) {
-                  closeAllMenus();
-                  navigate('/sobre-nos');
-                } else {
-                  // For desktop, toggle the menu (close others first)
+                  setOpenMenu(null);
                   setOpenSubmenu(null);
-                  setOpenMenu(prev => prev === 'about' ? null : 'about');
+                  navigate('/sobre-nos');
+                  return;
                 }
+                
+                // Para desktop, toggle do menu
+                setOpenSubmenu(null);
+                setOpenMenu(prev => prev === 'about' ? null : 'about');
               }}
             >
               {t('nav.about')}
@@ -236,17 +242,23 @@ export function Header() {
               href='#' 
               className={styles.navLink}
               onClick={(e) => { 
-                e.preventDefault(); 
-                // Check screen width directly at click time for mobile detection
-                const isMobileWidth = window.innerWidth >= 360 && window.innerWidth <= 430;
+                e.preventDefault();
+                e.stopPropagation();
+                // CRÍTICO: Verificar largura da tela no momento do clique para mobile
+                const currentWidth = window.innerWidth;
+                const isMobileWidth = currentWidth >= 360 && currentWidth <= 430;
+                
+                // Em mobile, SEMPRE navegar para a página, NUNCA abrir menu
                 if (isMobileWidth) {
-                  closeAllMenus();
-                  navigate('/solicitacoes');
-                } else {
-                  // For desktop, toggle the menu (close others first)
+                  setOpenMenu(null);
                   setOpenSubmenu(null);
-                  setOpenMenu(prev => prev === 'requests' ? null : 'requests');
+                  navigate('/solicitacoes');
+                  return;
                 }
+                
+                // Para desktop, toggle do menu
+                setOpenSubmenu(null);
+                setOpenMenu(prev => prev === 'requests' ? null : 'requests');
               }}
             >
               Solicitações

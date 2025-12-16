@@ -1591,6 +1591,67 @@ nav ul li:hover .submenu2 ul li a {
   }
 }
 
+/* ============================================= */
+/* CRÍTICO: OCULTAR TODOS OS SUBMENUS EM MOBILE (≤430px) */
+/* Esta regra vem por ÚLTIMO para sobrescrever tudo */
+/* Aplica-se a iPhone 12 mini, Samsung A33, e todos os dispositivos móveis */
+/* ============================================= */
+@media screen and (max-width: 430px) {
+  /* Ocultar submenu1 SEMPRE em mobile - independente de hover ou estado */
+  .header .submenu1,
+  .header .submenu1.submenu1Open,
+  .header nav ul li .submenu1,
+  .header nav ul li .submenu1.submenu1Open,
+  nav ul li .submenu1,
+  nav ul li .submenu1.submenu1Open {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    max-height: 0 !important;
+    max-width: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
+  }
+  
+  /* Ocultar submenu2 SEMPRE em mobile */
+  .header .submenu2,
+  .header .submenu2.submenu2Open,
+  .header nav ul li .submenu2,
+  .header nav ul li .submenu2.submenu2Open,
+  nav ul li .submenu2,
+  nav ul li .submenu2.submenu2Open,
+  .submenu2Institution,
+  .submenu2Personnel {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    max-height: 0 !important;
+    max-width: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
+  }
+  
+  /* Ocultar requestsSubmenu SEMPRE em mobile */
+  .header .requestsSubmenu,
+  nav ul li .requestsSubmenu {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+  }
+}
+
 /* Resoluções ≤375px - Ajustes para iPhone X e similares - OVERRIDE das queries 390px e 430px */
 @media screen and (max-width: 375px) {
   .header {
