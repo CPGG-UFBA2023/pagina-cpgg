@@ -130,111 +130,107 @@ export function Header() {
               {t('nav.about')}
             </a>
             
-            <div
-              className={`${styles.submenu1} ${openMenu === 'about' ? styles.submenu1Open : ''}`}
-            >
-              <ul>
-                <li className={styles.hoversub}>
-                  <a
-                    href='#'
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      // Check screen width directly at click time for mobile detection
-                      const isMobileWidth = window.innerWidth >= 360 && window.innerWidth <= 430;
-                      if (isMobileWidth) {
-                        navigate('/instituicao-mobile');
-                        closeAllMenus();
-                      } else {
+            {/* Só renderizar submenu em desktop (largura > 430px) */}
+            {!isSamsungA33 && (
+              <div
+                className={`${styles.submenu1} ${openMenu === 'about' ? styles.submenu1Open : ''}`}
+              >
+                <ul>
+                  <li className={styles.hoversub}>
+                    <a
+                      href='#'
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
                         toggleSubmenu('institution');
-                      }
-                    }}
-                  >
-                    {t('nav.institution')}
-                  </a>
-                  <div
-                    className={`${styles.submenu2} ${styles.submenu2Institution} ${openSubmenu === 'institution' ? styles.submenu2Open : ''}`}
-                  >
-                    <ul>
-                      <li>
-                        <NavLink to='/cpgg' className={styles.navLink} onClick={closeAllMenus}>
-                          {t('nav.cpgg')}
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to='/history' className={styles.navLink} onClick={closeAllMenus}>
-                          {t('nav.history')}
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to='/Regulations' className={styles.navLink} onClick={closeAllMenus}>
-                          {t('nav.regulations')}
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to='/Photos' className={styles.navLink} onClick={closeAllMenus}>
-                          {t('nav.photos')}
-                        </NavLink>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
+                      }}
+                    >
+                      {t('nav.institution')}
+                    </a>
+                    <div
+                      className={`${styles.submenu2} ${styles.submenu2Institution} ${openSubmenu === 'institution' ? styles.submenu2Open : ''}`}
+                    >
+                      <ul>
+                        <li>
+                          <NavLink to='/cpgg' className={styles.navLink} onClick={closeAllMenus}>
+                            {t('nav.cpgg')}
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink to='/history' className={styles.navLink} onClick={closeAllMenus}>
+                            {t('nav.history')}
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink to='/Regulations' className={styles.navLink} onClick={closeAllMenus}>
+                            {t('nav.regulations')}
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink to='/Photos' className={styles.navLink} onClick={closeAllMenus}>
+                            {t('nav.photos')}
+                          </NavLink>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
 
-                <li className={styles.hoversub}>
-                  <a
-                    href='#'
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      toggleSubmenu('personnel');
-                    }}
-                  >
-                    {t('nav.personnel')}
-                  </a>
-                  <div
-                    className={`${styles.submenu2} ${styles.submenu2Personnel} ${openSubmenu === 'personnel' ? styles.submenu2Open : ''}`}
-                  >
-                    <ul>
-                      <li>
-                        <NavLink to='/Coordination' className={styles.navLink} onClick={closeAllMenus}>
-                          {t('nav.coordination')}
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to='/researchers' className={styles.navLink} onClick={closeAllMenus}>
-                          {t('nav.researchers')}
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to='/Technicians' className={styles.navLink} onClick={closeAllMenus}>
-                          {t('nav.technicians')}
-                        </NavLink>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li>
-                  <NavLink to='/research-projects' className={styles.navLink} onClick={closeAllMenus}>
-                    {t('nav.researchProjects')}
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to='/production' className={styles.navLink} onClick={closeAllMenus}>
-                    {t('nav.scientificProduction')}
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to='/Recipes' className={styles.navLink} onClick={closeAllMenus}>
-                    {t('nav.recipes')}
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to='/Map' className={styles.navLink} onClick={closeAllMenus}>
-                    Map
-                  </NavLink>
-                </li>
-              </ul>
-            </div>
+                  <li className={styles.hoversub}>
+                    <a
+                      href='#'
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        toggleSubmenu('personnel');
+                      }}
+                    >
+                      {t('nav.personnel')}
+                    </a>
+                    <div
+                      className={`${styles.submenu2} ${styles.submenu2Personnel} ${openSubmenu === 'personnel' ? styles.submenu2Open : ''}`}
+                    >
+                      <ul>
+                        <li>
+                          <NavLink to='/Coordination' className={styles.navLink} onClick={closeAllMenus}>
+                            {t('nav.coordination')}
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink to='/researchers' className={styles.navLink} onClick={closeAllMenus}>
+                            {t('nav.researchers')}
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink to='/Technicians' className={styles.navLink} onClick={closeAllMenus}>
+                            {t('nav.technicians')}
+                          </NavLink>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li>
+                    <NavLink to='/research-projects' className={styles.navLink} onClick={closeAllMenus}>
+                      {t('nav.researchProjects')}
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to='/production' className={styles.navLink} onClick={closeAllMenus}>
+                      {t('nav.scientificProduction')}
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to='/Recipes' className={styles.navLink} onClick={closeAllMenus}>
+                      {t('nav.recipes')}
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to='/Map' className={styles.navLink} onClick={closeAllMenus}>
+                      Map
+                    </NavLink>
+                  </li>
+                </ul>
+              </div>
+            )}
           </li>
           <li
           >
@@ -264,27 +260,30 @@ export function Header() {
               Solicitações
             </a>
             
-            <div
-              className={`${styles.submenu1} ${openMenu === 'requests' ? styles.submenu1Open : ''}`}
-            >
-              <ul className={styles.requestsSubmenu}>
-                <li>
-                  <NavLink to='/spaces' className={styles.navLink} onClick={closeAllMenus}>
-                    {t('nav.spacesReservations')}
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to='/cpgg2' className={styles.navLink} onClick={closeAllMenus}>
-                    Laboratórios e<br />reservas
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to='/repairs-services' className={styles.navLink} onClick={closeAllMenus}>
-                    Reparos e serviços<br />técnicos
-                  </NavLink>
-                </li>
-              </ul>
-            </div>
+            {/* Só renderizar submenu em desktop (largura > 430px) */}
+            {!isSamsungA33 && (
+              <div
+                className={`${styles.submenu1} ${openMenu === 'requests' ? styles.submenu1Open : ''}`}
+              >
+                <ul className={styles.requestsSubmenu}>
+                  <li>
+                    <NavLink to='/spaces' className={styles.navLink} onClick={closeAllMenus}>
+                      {t('nav.spacesReservations')}
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to='/cpgg2' className={styles.navLink} onClick={closeAllMenus}>
+                      Laboratórios e<br />reservas
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to='/repairs-services' className={styles.navLink} onClick={closeAllMenus}>
+                      Reparos e serviços<br />técnicos
+                    </NavLink>
+                  </li>
+                </ul>
+              </div>
+            )}
           </li>
           <li>
             <NavLink to='/panorama-360' className={styles.navLink} onClick={closeAllMenus}>
