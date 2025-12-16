@@ -109,7 +109,9 @@ export function Header() {
               className={styles.navLink}
               onClick={(e) => { 
                 e.preventDefault(); 
-                if (isSamsungA33) {
+                // Check screen width directly at click time for mobile detection
+                const isMobileWidth = window.innerWidth >= 360 && window.innerWidth <= 430;
+                if (isMobileWidth) {
                   closeAllMenus();
                   navigate('/sobre-nos');
                 } else {
@@ -132,7 +134,9 @@ export function Header() {
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
-                      if (isSamsungA33) {
+                      // Check screen width directly at click time for mobile detection
+                      const isMobileWidth = window.innerWidth >= 360 && window.innerWidth <= 430;
+                      if (isMobileWidth) {
                         navigate('/instituicao-mobile');
                         closeAllMenus();
                       } else {
@@ -233,7 +237,9 @@ export function Header() {
               className={styles.navLink}
               onClick={(e) => { 
                 e.preventDefault(); 
-                if (isSamsungA33) {
+                // Check screen width directly at click time for mobile detection
+                const isMobileWidth = window.innerWidth >= 360 && window.innerWidth <= 430;
+                if (isMobileWidth) {
                   closeAllMenus();
                   navigate('/solicitacoes');
                 } else {
