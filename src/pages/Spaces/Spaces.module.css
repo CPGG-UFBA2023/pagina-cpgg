@@ -295,6 +295,24 @@
   
   .container {
     transform: translateY(50px);
+    z-index: 15;
+    pointer-events: auto !important;
+  }
+  
+  .card {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    z-index: 100 !important;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    display: block;
+  }
+  
+  .auditory,
+  .meetingroom,
+  .laboratory {
+    pointer-events: none;
   }
 }
 
