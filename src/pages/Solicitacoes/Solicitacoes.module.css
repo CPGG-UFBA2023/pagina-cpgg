@@ -110,6 +110,10 @@
 /* This page is for mobile resolutions (360px - 430px) */
 /* Show page for mobile range 360px - 430px */
 @media (min-width: 360px) and (max-width: 430px) {
+  .title {
+    display: none !important;
+  }
+  
   .card {
     pointer-events: auto !important;
     cursor: pointer !important;
@@ -123,6 +127,7 @@
     pointer-events: auto !important;
     z-index: 50 !important;
     position: relative;
+    margin-top: 180px !important;
   }
   
   .spacesButton,
