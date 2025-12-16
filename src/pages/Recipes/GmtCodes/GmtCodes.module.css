@@ -42,6 +42,13 @@
   margin-left: 80px;
 }
 
+.card {
+  display: block;
+  text-decoration: none;
+  width: 260px;
+  height: 90px;
+}
+
 .buttonsGrid {
   display: grid;
   grid-template-columns: repeat(3, 260px);
@@ -91,13 +98,20 @@
     width: 100%;
   }
   
+  .card {
+    width: 260px;
+    height: 90px;
+    display: block;
+  }
+  
   .pseudoResistivity,
   .radargrama1,
   .radargrama2,
   .otherCodes1,
   .otherCodes2,
   .otherCodes3 {
-    width: 260px;
+    width: 100%;
+    height: 100%;
   }
 }
 
