@@ -41,6 +41,9 @@
   padding: 0 1rem;
   overflow: hidden;
   max-height: calc(100vh - 200px);
+  position: relative;
+  z-index: 15;
+  pointer-events: auto !important;
 }
 
 .card {
@@ -49,6 +52,12 @@
   transition: transform 0.3s ease;
   width: 100%;
   max-width: 320px;
+  position: relative;
+  z-index: 20;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .card:hover {
@@ -71,6 +80,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  pointer-events: none;
 }
 
 .spacesButton {
@@ -98,6 +108,30 @@
 }
 
 /* This page is for mobile resolutions (360px - 430px) */
+/* Show page for mobile range 360px - 430px */
+@media (min-width: 360px) and (max-width: 430px) {
+  .card {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    z-index: 100 !important;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  .container {
+    pointer-events: auto !important;
+    z-index: 50 !important;
+    position: relative;
+  }
+  
+  .spacesButton,
+  .labsButton,
+  .repairsButton {
+    pointer-events: none !important;
+  }
+}
+
 /* iPhone 12 mini (375px) */
 @media (min-width: 360px) and (max-width: 375px) {
   .title {
