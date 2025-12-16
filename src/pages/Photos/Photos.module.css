@@ -193,6 +193,13 @@
   }
 }
 
+/* iPhone 10 (375px) - esconde título */
+@media (min-width: 374px) and (max-width: 376px) {
+  .title {
+    display: none !important;
+  }
+}
+
 @media (min-width: 376px) and (max-width: 430px) {
   .title {
     margin-top: 10px !important;
