@@ -543,6 +543,28 @@
   .controls {
     bottom: 140px !important;
   }
+  
+  .newsLink {
+    display: block !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+    position: relative !important;
+    z-index: 10 !important;
+  }
+  
+  .newsCard {
+    pointer-events: none !important;
+  }
+  
+  .imageWrapper,
+  .newsContent,
+  .newsImage,
+  .newsTitle,
+  .newsDescription {
+    pointer-events: none !important;
+  }
 }
 
 /* Resoluções ≤375px - Ajustes para iPhone X */
