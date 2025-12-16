@@ -144,6 +144,10 @@
     display: flex !important;
   }
   
+  .title {
+    display: none !important;
+  }
+  
   .card {
     pointer-events: auto !important;
     cursor: pointer !important;
@@ -157,6 +161,7 @@
     pointer-events: auto !important;
     z-index: 50 !important;
     position: relative;
+    margin-top: 140px !important;
   }
   
   .institutionButton,
@@ -166,17 +171,6 @@
   .recipesButton,
   .mapButton {
     pointer-events: none !important;
-  }
-}
-
-/* iPhone 10 specific - hide title (375px width) */
-@media (width: 375px) {
-  .title {
-    display: none !important;
-  }
-  
-  .container {
-    margin-top: 140px !important;
   }
 }
 
