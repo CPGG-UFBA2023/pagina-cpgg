@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Footer } from '@/components/Footer';
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -84,8 +84,21 @@ export function Panorama360() {
   }, []);
 
   const { t } = useLanguage();
+  const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const [isMobileWidth, setIsMobileWidth] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      const width = window.innerWidth;
+      setIsMobileWidth(width >= 360 && width <= 430);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   const toggleMenu = (menu: string) => {
     setOpenMenu((prev) => prev === menu ? null : menu);
@@ -149,132 +162,162 @@ export function Panorama360() {
               <a 
                 href='#' 
                 className={headerStyles.navLink}
-                onClick={(e) => { e.preventDefault(); toggleMenu('about'); }}
+                onClick={(e) => { 
+                  e.preventDefault(); 
+                  e.stopPropagation();
+                  const currentWidth = window.innerWidth;
+                  const isMobile = currentWidth >= 360 && currentWidth <= 430;
+                  
+                  if (isMobile) {
+                    setOpenMenu(null);
+                    setOpenSubmenu(null);
+                    navigate('/sobre-nos');
+                    return;
+                  }
+                  toggleMenu('about'); 
+                }}
               >
                 {t('nav.about')}
               </a>
               
-              <div className={`${headerStyles.submenu1} ${openMenu === 'about' ? headerStyles.submenu1Open : ''}`}>
-                <ul>
-                  <li className={headerStyles.hoversub}>
-                    <a
-                      href='#'
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        toggleSubmenu('institution');
-                      }}
-                    >
-                      {t('nav.institution')}
-                    </a>
-                    <div className={`${headerStyles.submenu2} ${headerStyles.submenu2Institution} ${openSubmenu === 'institution' ? headerStyles.submenu2Open : ''}`}>
-                      <ul>
-                        <li>
-                          <NavLink to='/cpgg' className={headerStyles.navLink} onClick={closeAllMenus}>
-                            {t('nav.cpgg')}
-                          </NavLink>
-                        </li>
-                        <li>
-                          <NavLink to='/history' className={headerStyles.navLink} onClick={closeAllMenus}>
-                            {t('nav.history')}
-                          </NavLink>
-                        </li>
-                        <li>
-                          <NavLink to='/Regulations' className={headerStyles.navLink} onClick={closeAllMenus}>
-                            {t('nav.regulations')}
-                          </NavLink>
-                        </li>
-                        <li>
-                          <NavLink to='/Photos' className={headerStyles.navLink} onClick={closeAllMenus}>
-                            {t('nav.photos')}
-                          </NavLink>
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
+              {!isMobileWidth && (
+                <div className={`${headerStyles.submenu1} ${openMenu === 'about' ? headerStyles.submenu1Open : ''}`}>
+                  <ul>
+                    <li className={headerStyles.hoversub}>
+                      <a
+                        href='#'
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          toggleSubmenu('institution');
+                        }}
+                      >
+                        {t('nav.institution')}
+                      </a>
+                      <div className={`${headerStyles.submenu2} ${headerStyles.submenu2Institution} ${openSubmenu === 'institution' ? headerStyles.submenu2Open : ''}`}>
+                        <ul>
+                          <li>
+                            <NavLink to='/cpgg' className={headerStyles.navLink} onClick={closeAllMenus}>
+                              {t('nav.cpgg')}
+                            </NavLink>
+                          </li>
+                          <li>
+                            <NavLink to='/history' className={headerStyles.navLink} onClick={closeAllMenus}>
+                              {t('nav.history')}
+                            </NavLink>
+                          </li>
+                          <li>
+                            <NavLink to='/Regulations' className={headerStyles.navLink} onClick={closeAllMenus}>
+                              {t('nav.regulations')}
+                            </NavLink>
+                          </li>
+                          <li>
+                            <NavLink to='/Photos' className={headerStyles.navLink} onClick={closeAllMenus}>
+                              {t('nav.photos')}
+                            </NavLink>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
 
-                  <li className={headerStyles.hoversub}>
-                    <a
-                      href='#'
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        toggleSubmenu('personnel');
-                      }}
-                    >
-                      {t('nav.personnel')}
-                    </a>
-                    <div className={`${headerStyles.submenu2} ${headerStyles.submenu2Personnel} ${openSubmenu === 'personnel' ? headerStyles.submenu2Open : ''}`}>
-                      <ul>
-                        <li>
-                          <NavLink to='/Coordination' className={headerStyles.navLink} onClick={closeAllMenus}>
-                            {t('nav.coordination')}
-                          </NavLink>
-                        </li>
-                        <li>
-                          <NavLink to='/researchers' className={headerStyles.navLink} onClick={closeAllMenus}>
-                            {t('nav.researchers')}
-                          </NavLink>
-                        </li>
-                        <li>
-                          <NavLink to='/Technicians' className={headerStyles.navLink} onClick={closeAllMenus}>
-                            {t('nav.technicians')}
-                          </NavLink>
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
-                  <li>
-                    <NavLink to='/research-projects' className={headerStyles.navLink} onClick={closeAllMenus}>
-                      {t('nav.researchProjects')}
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to='/production' className={headerStyles.navLink} onClick={closeAllMenus}>
-                      {t('nav.scientificProduction')}
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to='/Recipes' className={headerStyles.navLink} onClick={closeAllMenus}>
-                      {t('nav.recipes')}
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to='/Map' className={headerStyles.navLink} onClick={closeAllMenus}>
-                      Map
-                    </NavLink>
-                  </li>
-                </ul>
-              </div>
+                    <li className={headerStyles.hoversub}>
+                      <a
+                        href='#'
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          toggleSubmenu('personnel');
+                        }}
+                      >
+                        {t('nav.personnel')}
+                      </a>
+                      <div className={`${headerStyles.submenu2} ${headerStyles.submenu2Personnel} ${openSubmenu === 'personnel' ? headerStyles.submenu2Open : ''}`}>
+                        <ul>
+                          <li>
+                            <NavLink to='/Coordination' className={headerStyles.navLink} onClick={closeAllMenus}>
+                              {t('nav.coordination')}
+                            </NavLink>
+                          </li>
+                          <li>
+                            <NavLink to='/researchers' className={headerStyles.navLink} onClick={closeAllMenus}>
+                              {t('nav.researchers')}
+                            </NavLink>
+                          </li>
+                          <li>
+                            <NavLink to='/Technicians' className={headerStyles.navLink} onClick={closeAllMenus}>
+                              {t('nav.technicians')}
+                            </NavLink>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li>
+                      <NavLink to='/research-projects' className={headerStyles.navLink} onClick={closeAllMenus}>
+                        {t('nav.researchProjects')}
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to='/production' className={headerStyles.navLink} onClick={closeAllMenus}>
+                        {t('nav.scientificProduction')}
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to='/Recipes' className={headerStyles.navLink} onClick={closeAllMenus}>
+                        {t('nav.recipes')}
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to='/Map' className={headerStyles.navLink} onClick={closeAllMenus}>
+                        Map
+                      </NavLink>
+                    </li>
+                  </ul>
+                </div>
+              )}
             </li>
             <li>
               <a 
                 href='#' 
                 className={headerStyles.navLink}
-                onClick={(e) => { e.preventDefault(); toggleMenu('requests'); }}
+                onClick={(e) => { 
+                  e.preventDefault(); 
+                  e.stopPropagation();
+                  const currentWidth = window.innerWidth;
+                  const isMobile = currentWidth >= 360 && currentWidth <= 430;
+                  
+                  if (isMobile) {
+                    setOpenMenu(null);
+                    setOpenSubmenu(null);
+                    navigate('/solicitacoes');
+                    return;
+                  }
+                  toggleMenu('requests'); 
+                }}
               >
                 Solicitações
               </a>
               
-              <div className={`${headerStyles.submenu1} ${openMenu === 'requests' ? headerStyles.submenu1Open : ''}`}>
-                <ul className={headerStyles.requestsSubmenu}>
-                  <li>
-                    <NavLink to='/spaces' className={headerStyles.navLink} onClick={closeAllMenus}>
-                      {t('nav.spacesReservations')}
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to='/cpgg2' className={headerStyles.navLink} onClick={closeAllMenus}>
-                      {t('nav.labsReservations')}
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to='/repairs-services' className={headerStyles.navLink} onClick={closeAllMenus}>
-                      Reparos e serviços<br />técnicos
-                    </NavLink>
-                  </li>
-                </ul>
-              </div>
+              {!isMobileWidth && (
+                <div className={`${headerStyles.submenu1} ${openMenu === 'requests' ? headerStyles.submenu1Open : ''}`}>
+                  <ul className={headerStyles.requestsSubmenu}>
+                    <li>
+                      <NavLink to='/spaces' className={headerStyles.navLink} onClick={closeAllMenus}>
+                        {t('nav.spacesReservations')}
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to='/cpgg2' className={headerStyles.navLink} onClick={closeAllMenus}>
+                        {t('nav.labsReservations')}
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to='/repairs-services' className={headerStyles.navLink} onClick={closeAllMenus}>
+                        Reparos e serviços<br />técnicos
+                      </NavLink>
+                    </li>
+                  </ul>
+                </div>
+              )}
             </li>
             <li>
               <NavLink to='/panorama-360' className={headerStyles.navLink}>
