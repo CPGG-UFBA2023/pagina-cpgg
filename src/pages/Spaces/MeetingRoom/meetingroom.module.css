@@ -241,7 +241,7 @@
   }
   
   .buttonContainer {
-    transform: translateY(-50px);
+    transform: translateY(-150px);
     margin-bottom: 0 !important;
   }
 }
