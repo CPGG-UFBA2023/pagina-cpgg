@@ -193,10 +193,36 @@
   }
 }
 
-/* iPhone 10 (375px) - esconde título */
+/* iPhone 10 (375px) - esconde título e centraliza botões */
 @media (min-width: 374px) and (max-width: 376px) {
   .title {
     display: none !important;
+  }
+  
+  .photos {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  
+  .mainContent {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+  }
+  
+  .buttonsGrid {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 90% !important;
+    max-width: 300px !important;
+    margin: 0 auto !important;
   }
 }
 
