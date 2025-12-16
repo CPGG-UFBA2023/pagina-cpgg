@@ -29,11 +29,21 @@
   gap: 15px;
   width: 90%;
   max-width: 350px;
+  position: relative;
+  z-index: 15;
+  pointer-events: auto !important;
 }
 
 .card {
   text-decoration: none;
   width: 100%;
+  position: relative;
+  z-index: 100 !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  display: block;
 }
 
 .button {
@@ -43,6 +53,7 @@
   border-radius: 12px;
   padding: 20px 25px;
   transition: all 0.3s ease;
+  pointer-events: none;
 }
 
 .button:hover {
