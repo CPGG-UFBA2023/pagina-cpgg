@@ -27,10 +27,20 @@
   gap: 15px;
   width: 100%;
   max-width: 400px;
+  position: relative;
+  z-index: 15;
+  pointer-events: auto !important;
 }
 
 .card {
   text-decoration: none;
+  position: relative;
+  z-index: 20;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  display: block;
 }
 
 .cpggButton,
@@ -48,6 +58,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  pointer-events: none;
 }
 
 .cpggButton:hover,
@@ -101,6 +112,15 @@
   .container {
     gap: 12px;
     max-width: 350px;
+    z-index: 50 !important;
+    pointer-events: auto !important;
+  }
+  
+  .card {
+    z-index: 100 !important;
+    pointer-events: auto !important;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
   
   .cpggButton,
@@ -109,6 +129,7 @@
   .photosButton {
     padding: 20px 12px;
     min-height: 70px;
+    pointer-events: none !important;
   }
   
   .cpggButton h2,
