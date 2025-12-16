@@ -193,39 +193,6 @@
   }
 }
 
-/* iPhone 10 (375px) - esconde título e centraliza botões */
-@media (min-width: 374px) and (max-width: 376px) {
-  .title {
-    display: none !important;
-  }
-  
-  .photos {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-  
-  .mainContent {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    width: 100% !important;
-  }
-  
-  .buttonsGrid {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    width: 90% !important;
-    max-width: 300px !important;
-    margin: 0 auto !important;
-  }
-}
-
 @media (min-width: 376px) and (max-width: 430px) {
   .title {
     margin-top: 10px !important;
@@ -284,5 +251,54 @@
 
   .staticFigure {
     display: none;
+  }
+}
+
+/* iPhone 10 (375px) - esconde título e centraliza botões - DEVE VIR DEPOIS */
+@media (min-width: 374px) and (max-width: 376px) {
+  .title {
+    display: none !important;
+  }
+  
+  .pageContainer {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  
+  .photos {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 150px 0 20px 0 !important;
+    width: 100% !important;
+  }
+  
+  .mainContent {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+  
+  .buttonsGrid {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 280px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
+  
+  .historical,
+  .fifthy,
+  .reopen,
+  .eventCard {
+    width: 280px !important;
+    margin: 0 auto !important;
   }
 }
