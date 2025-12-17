@@ -179,11 +179,11 @@
 /* Sony Vaio PCG-81211X - 1600x900 */
 @media (min-width: 1580px) and (max-width: 1620px) and (min-height: 880px) and (max-height: 920px) {
   .bar nav {
-    transform: translateY(-55px) !important;
+    transform: translateY(45px) !important;
   }
   
   .copyright {
-    transform: translateY(-55px) !important;
+    transform: translateY(45px) !important;
   }
 }
 
