@@ -12,7 +12,7 @@ export function Footer() {
       <div className={styles.bar}>
         <VisitorCounter />
         <nav>
-          <a href='http://www.cpgg.ufba.br' target="_blank" >{t('footer.oldPage')}</a>
+          <a href='http://www2.cpgg.ufba.br' target="_blank" >{t('footer.oldPage')}</a>
           <a href='https://www.linkedin.com/in/cpgg-centro-de-pesquisa-94768a304/' target="_blank" className={styles.socialLink} rel="noopener noreferrer">
             <Linkedin size={16} />
             {t('footer.linkedin')}
