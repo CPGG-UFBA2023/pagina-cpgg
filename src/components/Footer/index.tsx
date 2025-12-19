@@ -12,7 +12,24 @@ export function Footer() {
       <div className={styles.bar}>
         <VisitorCounter />
         <nav>
-          <a href='http://www2.cpgg.ufba.br' target="_blank" >{t('footer.oldPage')}</a>
+          <a
+            href='http://www2.cpgg.ufba.br'
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => {
+              e.preventDefault();
+              const url = 'http://www2.cpgg.ufba.br';
+              const w = window.open(url, '_blank');
+              if (!w) {
+                try {
+                  // @ts-ignore
+                  window.top.location.href = url;
+                } catch (_) {
+                  window.location.href = url;
+                }
+              }
+            }}
+          >{t('footer.oldPage')}</a>
           <a href='https://www.linkedin.com/in/cpgg-centro-de-pesquisa-94768a304/' target="_blank" className={styles.socialLink} rel="noopener noreferrer">
             <Linkedin size={16} />
             {t('footer.linkedin')}
