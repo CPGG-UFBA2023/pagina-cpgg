@@ -164,32 +164,18 @@ export function DynamicResearcher() {
             staticDescription={researcher.description}
             staticPhotoUrl={photoUrl}
           />
-          <div 
-            className={styles.box2}
-            style={{
-              background: photoUrl 
-                ? `linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)), url('${photoUrl}') center/cover`
-                : '#f5f5f5',
-              minHeight: '180px',
-              border: photoUrl ? '2px solid rgba(255,255,255,.2)' : '2px dashed #999',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center'
-            }}
-          >
-            {!photoUrl && (
-              <span style={{ 
-                color: '#666', 
-                fontSize: '12px', 
-                fontStyle: 'italic',
-                textAlign: 'center'
-              }}>
-                Sem foto
-              </span>
-            )}
-          </div>
+          {photoUrl && (
+            <div 
+              className={styles.box2}
+              style={{
+                background: `linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)), url('${photoUrl}') center/cover`,
+                minHeight: '180px',
+                border: '2px solid rgba(255,255,255,.2)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+            />
+          )}
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px', marginBottom: '20px' }}>
             <ResearcherEditButton 
               researcherName={researcher.name} 
