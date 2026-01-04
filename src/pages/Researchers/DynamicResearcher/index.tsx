@@ -170,11 +170,13 @@ export function DynamicResearcher() {
               }}
             />
           )}
-          <DynamicResearcherProfile 
-            key={refreshKey}
-            researcherName={researcher.name}
-            staticDescription={researcher.description}
-          />
+          <div className={styles.descriptionWrapper}>
+            <DynamicResearcherProfile 
+              key={refreshKey}
+              researcherName={researcher.name}
+              staticDescription={researcher.description}
+            />
+          </div>
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px', marginBottom: '20px' }}>
             <ResearcherEditButton 
               researcherName={researcher.name} 
