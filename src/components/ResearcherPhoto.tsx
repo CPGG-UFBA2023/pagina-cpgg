@@ -1,41 +1,24 @@
 import { useResearcherProfile } from './ResearcherProfileContext'
-import { useEffect, useState } from 'react'
 
 interface ResearcherPhotoProps {
   researcherName: string
 }
 
+// Função que verifica IMEDIATAMENTE se deve esconder
+// Executada ANTES do React renderizar qualquer coisa
+const shouldHidePhoto = (): boolean => {
+  if (typeof window === 'undefined') return true
+  return window.innerWidth <= 820
+}
+
 export function ResearcherPhoto({ researcherName }: ResearcherPhotoProps) {
-  const { photoUrl, belowPhoto } = useResearcherProfile()
-  
-  // Verificação direta e síncrona do tamanho da tela
-  const [shouldHide, setShouldHide] = useState(() => {
-    if (typeof window === 'undefined') return true
-    return window.innerWidth <= 820
-  })
-
-  useEffect(() => {
-    const checkSize = () => {
-      setShouldHide(window.innerWidth <= 820)
-    }
-    
-    // Verificar imediatamente
-    checkSize()
-    
-    // Listeners para mudanças
-    window.addEventListener('resize', checkSize)
-    window.addEventListener('orientationchange', checkSize)
-    
-    return () => {
-      window.removeEventListener('resize', checkSize)
-      window.removeEventListener('orientationchange', checkSize)
-    }
-  }, [])
-
-  // Não renderiza NADA em telas <= 820px - verificação dupla
-  if (shouldHide || (typeof window !== 'undefined' && window.innerWidth <= 820)) {
+  // Verificação SÍNCRONA e IMEDIATA - antes de qualquer hook
+  // Se tela <= 820px, retorna null IMEDIATAMENTE
+  if (shouldHidePhoto()) {
     return null
   }
+
+  const { photoUrl, belowPhoto } = useResearcherProfile()
 
   if (!photoUrl && !belowPhoto) {
     return null

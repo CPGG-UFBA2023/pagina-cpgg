@@ -9,10 +9,9 @@ import { BackButton } from '../../../components/BackButton'
 import { getResearcherPhoto } from '../../../data/researcher-photos'
 import styles from '../Personal_pages/Landim/Landim.module.css'
 
-// Função para verificar tamanho da tela de forma síncrona
-// Retorna TRUE para esconder (telas pequenas) e FALSE para mostrar (telas grandes)
-const checkIsSmallScreen = () => {
-  if (typeof window === 'undefined') return true // SSR: esconder por padrão
+// Função SÍNCRONA que verifica se é tela pequena ANTES de qualquer render
+const isSmallScreenNow = (): boolean => {
+  if (typeof window === 'undefined') return true
   return window.innerWidth <= 820
 }
 
@@ -33,19 +32,6 @@ export function DynamicResearcher() {
   const [userEmail, setUserEmail] = useState<string | null>(null)
   const [userPhotoUrl, setUserPhotoUrl] = useState<string | null>(null)
   const [refreshKey, setRefreshKey] = useState(0)
-  const [isSmallScreen, setIsSmallScreen] = useState(checkIsSmallScreen)
-
-  useEffect(() => {
-    // Atualizar isSmallScreen quando a tela mudar
-    const handleResize = () => setIsSmallScreen(checkIsSmallScreen())
-    handleResize() // Verificar imediatamente
-    window.addEventListener('resize', handleResize)
-    window.addEventListener('orientationchange', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-      window.removeEventListener('orientationchange', handleResize)
-    }
-  }, [])
 
   useEffect(() => {
     if (id) {
@@ -113,15 +99,12 @@ export function DynamicResearcher() {
         .ilike('first_name', firstName)
         .maybeSingle()
 
-      // Se o perfil tem user_id, tentar buscar email do usuário autenticado
       if (userProfile?.user_id) {
         const { data: { user } } = await supabase.auth.getUser()
         
-        // Se o usuário logado é o dono do perfil, usar seu email
         if (user?.id === userProfile.user_id && user?.email) {
           setUserEmail(user.email)
         } else {
-          // Caso contrário, usar o email do perfil
           setUserEmail(userProfile.email || 'Email não disponível')
         }
       } else if (userProfile?.email) {
@@ -139,7 +122,6 @@ export function DynamicResearcher() {
   const handleRefreshProfile = async () => {
     if (researcher) {
       await loadUserProfileData(researcher.name)
-      // Força o DynamicResearcherProfile a recarregar
       setRefreshKey(prev => prev + 1)
     }
   }
@@ -170,32 +152,19 @@ export function DynamicResearcher() {
 
   const photoUrl = userPhotoUrl || getResearcherPhoto(researcher.name)
 
-  // Verificação final do tamanho - dupla checagem
-  const shouldShowPhoto = photoUrl && !isSmallScreen && (typeof window !== 'undefined' && window.innerWidth > 820)
+  // Verificação SÍNCRONA no momento do render
+  const showPhoto = photoUrl && !isSmallScreenNow()
 
   return (
     <div className={styles.Container}>
-      {/* CSS inline crítico para esconder foto em mobile */}
-      <style>{`
-        @media screen and (max-width: 820px) {
-          .dynamic-researcher-photo {
-            display: none !important;
-            visibility: hidden !important;
-            width: 0 !important;
-            height: 0 !important;
-            opacity: 0 !important;
-          }
-        }
-      `}</style>
       <Header />
       <main className={styles.Professor}>
         <BackButton />
         <div className={styles.box1}>
           <h1 className={styles.researcherName}>{researcher.name}</h1>
-          {shouldShowPhoto && (
+          {showPhoto && (
             <div 
-              className={`${styles.box2} dynamic-researcher-photo`}
-              data-researcher-photo="true"
+              className={styles.box2}
               style={{
                 background: `linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)), url('${photoUrl}') center/cover`,
                 minHeight: '180px',
