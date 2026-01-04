@@ -144,29 +144,28 @@ nav a:hover {
     margin: 0 auto !important;
     font-size: 14px !important;
     z-index: 10 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
+    display: block !important;
     overflow-y: auto !important;
   }
   
-  .researcherName {
+  .researcherName.researcherName {
     font-size: 18px !important;
     padding: 10px 0 !important;
-    margin-bottom: 10px !important;
+    margin-bottom: 0 !important;
     position: relative !important;
     top: auto !important;
     left: auto !important;
     right: auto !important;
     width: 100% !important;
     text-align: center !important;
-    order: 1 !important;
+    display: block !important;
   }
   
   .box2.box2 {
     position: relative !important;
     top: auto !important;
     left: auto !important;
+    right: auto !important;
     transform: none !important;
     width: 160px !important;
     height: 160px !important;
@@ -174,45 +173,32 @@ nav a:hover {
     min-height: 160px !important;
     max-width: 160px !important;
     max-height: 160px !important;
-    aspect-ratio: 1/1 !important;
     border-radius: 12px !important;
-    margin: 0 auto 10px auto !important;
+    margin: 10px auto 0 auto !important;
     background-size: cover !important;
     background-position: center !important;
     z-index: 10 !important;
     flex-shrink: 0 !important;
-    order: 2 !important;
+    display: block !important;
+    float: none !important;
+    clear: both !important;
   }
   
-  .descriptionWrapper {
-    order: 3 !important;
+  .descriptionWrapper.descriptionWrapper {
     margin-top: 10px !important;
     width: 100% !important;
     position: relative !important;
+    display: block !important;
+    clear: both !important;
+    padding-top: 10px !important;
   }
   
-  .box1.box1 > .researcher-description,
-  .box1.box1 > p.researcher-description,
-  .box1.box1 > div:not(.box2):not(.descriptionWrapper) {
-    order: 3 !important;
+  .box1.box1 ul {
+    margin-top: 20px !important;
+  }
+  
+  .box1.box1 nav {
     margin-top: 10px !important;
-    width: 100% !important;
-  }
-  
-  .box1.box1 > ul {
-    order: 4 !important;
-  }
-  
-  .box1.box1 > nav {
-    order: 5 !important;
-  }
-  
-  .box1.box1 > b {
-    order: 6 !important;
-  }
-  
-  .box1.box1 > p:last-of-type {
-    order: 7 !important;
   }
   
   .staticFigure.staticFigure img {
