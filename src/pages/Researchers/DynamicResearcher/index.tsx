@@ -162,18 +162,19 @@ export function DynamicResearcher() {
             <div 
               className={styles.box2}
               style={{
-                backgroundImage: `linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)), url('${photoUrl}')`,
-                border: '2px solid rgba(255,255,255,.2)'
+                background: `linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)), url('${photoUrl}') center/cover`,
+                minHeight: '180px',
+                border: '2px solid rgba(255,255,255,.2)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
               }}
             />
           )}
-          <div className={styles.descriptionWrapper}>
-            <DynamicResearcherProfile 
-              key={refreshKey}
-              researcherName={researcher.name}
-              staticDescription={researcher.description}
-            />
-          </div>
+          <DynamicResearcherProfile 
+            key={refreshKey}
+            researcherName={researcher.name}
+            staticDescription={researcher.description}
+          />
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px', marginBottom: '20px' }}>
             <ResearcherEditButton 
               researcherName={researcher.name} 
