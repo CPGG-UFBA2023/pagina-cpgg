@@ -141,19 +141,21 @@ nav a:hover {
     z-index: 10 !important;
   }
   
-  .box1 .box2,
-  .box1.box1 .box2,
-  .box1 > .box2,
-  .box2,
-  .box2.box2,
-  div[class*="box2"] {
+  /* FORÇAR ESCONDER FOTO EM MOBILE - múltiplos seletores para garantir */
+  .box2 {
     display: none !important;
     visibility: hidden !important;
     width: 0 !important;
     height: 0 !important;
+    max-width: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
     opacity: 0 !important;
     position: absolute !important;
     left: -9999px !important;
+    pointer-events: none !important;
+    background: none !important;
+    background-image: none !important;
   }
   
   .researcherName {
