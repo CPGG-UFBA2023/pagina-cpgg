@@ -1,5 +1,5 @@
 import { useResearcherProfile } from './ResearcherProfileContext'
-import { useIsSmallScreen } from '@/hooks/use-mobile'
+import { useEffect, useState } from 'react'
 
 interface ResearcherPhotoProps {
   researcherName: string
@@ -7,14 +7,33 @@ interface ResearcherPhotoProps {
 
 export function ResearcherPhoto({ researcherName }: ResearcherPhotoProps) {
   const { photoUrl, belowPhoto } = useResearcherProfile()
-  const isSmallScreen = useIsSmallScreen(820)
+  
+  // Verificação direta e síncrona do tamanho da tela
+  const [shouldHide, setShouldHide] = useState(() => {
+    if (typeof window === 'undefined') return true
+    return window.innerWidth <= 820
+  })
 
-  // Debug log - será visível nos console logs
-  console.log('[ResearcherPhoto] isSmallScreen:', isSmallScreen, 'window.innerWidth:', typeof window !== 'undefined' ? window.innerWidth : 'N/A')
+  useEffect(() => {
+    const checkSize = () => {
+      setShouldHide(window.innerWidth <= 820)
+    }
+    
+    // Verificar imediatamente
+    checkSize()
+    
+    // Listeners para mudanças
+    window.addEventListener('resize', checkSize)
+    window.addEventListener('orientationchange', checkSize)
+    
+    return () => {
+      window.removeEventListener('resize', checkSize)
+      window.removeEventListener('orientationchange', checkSize)
+    }
+  }, [])
 
-  // Não renderiza foto em telas <= 820px
-  if (isSmallScreen) {
-    console.log('[ResearcherPhoto] Hiding photo because screen is small')
+  // Não renderiza NADA em telas <= 820px - verificação dupla
+  if (shouldHide || (typeof window !== 'undefined' && window.innerWidth <= 820)) {
     return null
   }
 
@@ -26,6 +45,8 @@ export function ResearcherPhoto({ researcherName }: ResearcherPhotoProps) {
     <>
       {photoUrl && (
         <div 
+          className="researcher-photo-container"
+          data-researcher-photo="true"
           style={{
             position: 'absolute',
             width: '180px',
