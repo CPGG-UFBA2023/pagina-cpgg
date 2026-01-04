@@ -84,24 +84,7 @@
   margin-bottom: 0;
 }
 
-.box2 {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  border: 2px solid rgba(255,255,255,.2);
-  background-color: rgba(255,255,255, 0.2);
-  position: absolute;
-  width: 180px;
-  height: 180px;
-  top: 3%; 
-  left:2%;
-  padding: 10px;
-  border-radius: 20px;
-  gap: 5px;
-  margin-bottom: -100px;
-  background: linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)),
-  url('https://i.imgur.com/nhshrAU.png') center/cover;
-}
+/* box2 removido - foto agora vem apenas do DynamicResearcherProfile */
 
 
 .box1 nav {
@@ -149,13 +132,7 @@ nav a:hover {
     z-index: 10 !important;
   }
   
-  .box2.box2 {
-    width: 100px !important;
-    height: 100px !important;
-    left: 5% !important;
-    top: 5% !important;
-    z-index: 10 !important;
-  }
+  /* box2 removido */
   
   .staticFigure.staticFigure img {
     width: 8rem !important;
@@ -177,24 +154,7 @@ nav a:hover {
     padding-top: 20px !important;
   }
   
-  .box2.box2 {
-    position: absolute !important;
-    top: calc(15% - 180px) !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    float: none !important;
-    width: 160px !important;
-    height: 160px !important;
-    min-width: 160px !important;
-    min-height: 160px !important;
-    max-width: 160px !important;
-    max-height: 160px !important;
-    aspect-ratio: 1/1 !important;
-    border-radius: 12px !important;
-    margin: 0 !important;
-    background-size: cover !important;
-    background-position: center !important;
-  }
+  /* box2 removido */
   
   .box1 nav {
     position: relative !important;
