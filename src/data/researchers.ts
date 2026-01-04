@@ -3,7 +3,7 @@ export const researcherData = {
   oil: [
     { name: 'Milton José Porsani', route: '/researchers/personal/Porsani', chief: true },
     { name: 'Alexsandro Guerra Cerqueira', route: '/researchers/personal/Alexsandro' },
-    { name: 'Marcos Vasconcelos2', route: '/researchers/personal/Marcos2' },
+    { name: 'Ana Virgínia Alves de Santana', route: '/researchers/personal/AnaV' },
     { name: 'Joelson da Conceição Batista', route: '/researchers/personal/Joelson' },
     { name: 'Luiz Cesar Correa Gomes', route: '/researchers/personal/LCesar' },
     { name: 'Amin Bassrei', route: '/researchers/personal/Amin' },

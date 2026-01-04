@@ -3,7 +3,7 @@ export const researcherPhotos: Record<string, string> = {
   // Programa Oil
   'Milton José Porsani': 'https://i.imgur.com/fS64E9O.png',
   'Alexsandro Guerra Cerqueira': 'https://i.imgur.com/s4PTXCJ.png',
-  'Marcos Vasconcelos2': 'https://i.imgur.com/ba3ItpJ.jpg',
+  'Ana Virgínia Alves de Santana': '/images/researchers/ana-virginia.png',
   'Joelson da Conceição Batista': 'https://i.imgur.com/YAKT7F1.png',
   'Luiz Cesar Correa Gomes': 'https://i.imgur.com/CLdcY1m.png',
   'Amin Bassrei': '/images/researchers/amin-bassrei.png',
