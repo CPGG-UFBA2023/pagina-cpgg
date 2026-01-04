@@ -9,8 +9,12 @@ export function ResearcherPhoto({ researcherName }: ResearcherPhotoProps) {
   const { photoUrl, belowPhoto } = useResearcherProfile()
   const isSmallScreen = useIsSmallScreen(820)
 
+  // Debug log - será visível nos console logs
+  console.log('[ResearcherPhoto] isSmallScreen:', isSmallScreen, 'window.innerWidth:', typeof window !== 'undefined' ? window.innerWidth : 'N/A')
+
   // Não renderiza foto em telas <= 820px
   if (isSmallScreen) {
+    console.log('[ResearcherPhoto] Hiding photo because screen is small')
     return null
   }
 
