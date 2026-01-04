@@ -8,7 +8,11 @@ import { ResearcherEditButton } from '../../../components/ResearcherEditButton'
 import { ResearcherPhoto } from '../../../components/ResearcherPhoto'
 import { BackButton } from '../../../components/BackButton'
 import { getResearcherPhoto } from '../../../data/researcher-photos'
-import styles from '../Personal_pages/Landim/Landim.module.css'
+import landimStyles from '../Personal_pages/Landim/Landim.module.css'
+import mobileStyles from './DynamicResearcher.module.css'
+
+// Merge styles, with mobile styles taking precedence
+const styles = { ...landimStyles, ...mobileStyles }
 
 interface Researcher {
   id: string
