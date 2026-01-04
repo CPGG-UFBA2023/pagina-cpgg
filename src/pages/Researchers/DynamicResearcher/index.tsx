@@ -158,12 +158,6 @@ export function DynamicResearcher() {
         <BackButton />
         <div className={styles.box1}>
           <h1 className={styles.researcherName}>{researcher.name}</h1>
-          <DynamicResearcherProfile 
-            key={refreshKey}
-            researcherName={researcher.name}
-            staticDescription={researcher.description}
-            staticPhotoUrl={photoUrl}
-          />
           {photoUrl && (
             <div 
               className={styles.box2}
@@ -176,6 +170,11 @@ export function DynamicResearcher() {
               }}
             />
           )}
+          <DynamicResearcherProfile 
+            key={refreshKey}
+            researcherName={researcher.name}
+            staticDescription={researcher.description}
+          />
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px', marginBottom: '20px' }}>
             <ResearcherEditButton 
               researcherName={researcher.name} 
