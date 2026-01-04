@@ -19,22 +19,24 @@ export function useIsMobile() {
 }
 
 export function useIsSmallScreen(breakpoint: number = 820) {
-  // Inicializa como true para mobile-first (esconder foto por padrão)
-  const [isSmall, setIsSmall] = React.useState<boolean>(true)
-  const [hasMounted, setHasMounted] = React.useState(false)
+  // Verifica o tamanho inicial diretamente
+  const getInitialSize = () => {
+    if (typeof window === 'undefined') return true
+    return window.innerWidth <= breakpoint
+  }
+
+  const [isSmall, setIsSmall] = React.useState<boolean>(getInitialSize)
 
   React.useEffect(() => {
-    // Verificar tamanho imediatamente no mount
     const checkSize = () => {
       const width = window.innerWidth
       setIsSmall(width <= breakpoint)
     }
     
+    // Verificar imediatamente
     checkSize()
-    setHasMounted(true)
     
     window.addEventListener("resize", checkSize)
-    // Também ouvir orientationchange para dispositivos móveis
     window.addEventListener("orientationchange", () => {
       setTimeout(checkSize, 100)
     })
@@ -44,11 +46,6 @@ export function useIsSmallScreen(breakpoint: number = 820) {
       window.removeEventListener("orientationchange", checkSize)
     }
   }, [breakpoint])
-
-  // Se ainda não montou, retorna true (mobile-first, esconde foto)
-  if (!hasMounted) {
-    return true
-  }
 
   return isSmall
 }
