@@ -1,0 +1,110 @@
+/* Mobile styles for Dynamic Researcher - screens <= 820px */
+@media screen and (max-width: 820px) {
+  .Container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .Professor {
+    padding: 20px !important;
+    padding-top: 100px !important;
+    flex-direction: column !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+  }
+  
+  .box1 {
+    position: relative !important;
+    width: 90vw !important;
+    max-width: 400px !important;
+    height: auto !important;
+    min-height: auto !important;
+    padding: 20px !important;
+    padding-left: 20px !important;
+    padding-top: 20px !important;
+    left: auto !important;
+    top: auto !important;
+    margin: 0 auto !important;
+    font-size: 14px !important;
+    z-index: 10 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    overflow-y: auto !important;
+    border: 2px solid rgba(255,255,255,.2) !important;
+    background-color: rgba(255,255,255, 0.2) !important;
+    border-radius: 20px !important;
+  }
+  
+  .researcherName {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    color: #fff !important;
+    padding: 10px 0 !important;
+    margin: 0 0 10px 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    text-align: center !important;
+    order: 1 !important;
+  }
+  
+  .box2 {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: 160px !important;
+    height: 160px !important;
+    min-width: 160px !important;
+    min-height: 160px !important;
+    max-width: 160px !important;
+    max-height: 160px !important;
+    aspect-ratio: 1/1 !important;
+    border-radius: 12px !important;
+    margin: 10px auto 0 auto !important;
+    background-size: cover !important;
+    background-position: center !important;
+    z-index: 10 !important;
+    flex-shrink: 0 !important;
+    order: 2 !important;
+    display: block !important;
+  }
+  
+  .descriptionWrapper {
+    order: 3 !important;
+    margin-top: 20px !important;
+    width: 100% !important;
+    position: relative !important;
+    padding-top: 10px !important;
+    clear: both !important;
+  }
+  
+  .box1 > ul {
+    order: 4 !important;
+    margin-top: 15px !important;
+  }
+  
+  .box1 > nav {
+    order: 5 !important;
+  }
+  
+  .box1 > b {
+    order: 6 !important;
+    margin-top: 10px !important;
+  }
+  
+  .box1 > p {
+    order: 7 !important;
+  }
+  
+  .staticFigure img {
+    display: none !important;
+  }
+}
