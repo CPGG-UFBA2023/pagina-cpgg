@@ -147,17 +147,34 @@ export function DynamicResearcher() {
 
   const photoUrl = userPhotoUrl || getResearcherPhoto(researcher.name)
 
+  // Detectar se é tela pequena no momento do render
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 820
+
   return (
     <div className={styles.Container}>
+      {/* CSS crítico inline para esconder foto em mobile */}
+      <style>{`
+        @media screen and (max-width: 820px) {
+          .researcher-photo-box {
+            display: none !important;
+            visibility: hidden !important;
+            width: 0 !important;
+            height: 0 !important;
+            opacity: 0 !important;
+            position: absolute !important;
+            left: -9999px !important;
+          }
+        }
+      `}</style>
       <Header />
       <main className={styles.Professor}>
         <BackButton />
         <div className={styles.box1}>
           <h1 className={styles.researcherName}>{researcher.name}</h1>
-          {/* Foto usando classe CSS que é escondida em mobile via media query */}
-          {photoUrl && (
+          {/* Foto - NÃO renderiza em mobile */}
+          {photoUrl && !isMobile && (
             <div 
-              className={styles.box2}
+              className={`${styles.box2} researcher-photo-box`}
             >
               <img 
                 src={photoUrl} 
