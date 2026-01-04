@@ -334,16 +334,19 @@
 
 /* ESCONDER FOTOS DE PESQUISADORES EM TELAS <= 820px */
 @media (max-width: 820px) {
-  /* Seletor global para box2 (fotos de pesquisadores) */
-  [class*="box2"],
-  div[class*="box2"],
-  .researcher-photo-container {
+  /* Classe global para esconder em mobile */
+  .hide-on-mobile,
+  .researcher-photo-container,
+  [class*="box2"]:not([class*="box2-keep"]),
+  div[class*="box2"]:not([class*="box2-keep"]) {
     display: none !important;
     visibility: hidden !important;
     width: 0 !important;
     height: 0 !important;
     opacity: 0 !important;
     pointer-events: none !important;
+    position: absolute !important;
+    left: -9999px !important;
   }
 }
 
