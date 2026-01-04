@@ -6,7 +6,7 @@ export const researcherPhotos: Record<string, string> = {
   'Ana Virgínia Alves de Santana': 'https://i.imgur.com/orkaX51.png',
   'Joelson da Conceição Batista': 'https://i.imgur.com/YAKT7F1.png',
   'Luiz Cesar Correa Gomes': 'https://i.imgur.com/CLdcY1m.png',
-  'Marcos Vasconcelos2': 'https://i.imgur.com/ba3ItpJ.jpg',
+  'Amin Bassrei': '/images/researchers/amin-bassrei.png',
   'Reynam da Cruz Pestana': 'https://i.imgur.com/LYfyOXp.png',
   'Wilson Mouzer Figueiró': 'https://i.imgur.com/LLrO2My.png',
 
