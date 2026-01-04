@@ -1,4 +1,5 @@
 import { useResearcherProfile } from './ResearcherProfileContext'
+import { useIsSmallScreen } from '@/hooks/use-mobile'
 
 interface ResearcherPhotoProps {
   researcherName: string
@@ -6,6 +7,12 @@ interface ResearcherPhotoProps {
 
 export function ResearcherPhoto({ researcherName }: ResearcherPhotoProps) {
   const { photoUrl, belowPhoto } = useResearcherProfile()
+  const isSmallScreen = useIsSmallScreen(820)
+
+  // Não renderiza foto em telas <= 820px
+  if (isSmallScreen) {
+    return null
+  }
 
   if (!photoUrl && !belowPhoto) {
     return null
