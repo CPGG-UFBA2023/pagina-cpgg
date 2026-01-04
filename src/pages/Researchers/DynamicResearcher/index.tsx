@@ -8,6 +8,7 @@ import { ResearcherEditButton } from '../../../components/ResearcherEditButton'
 import { ResearcherPhoto } from '../../../components/ResearcherPhoto'
 import { BackButton } from '../../../components/BackButton'
 import { getResearcherPhoto } from '../../../data/researcher-photos'
+import { useIsSmallScreen } from '@/hooks/use-mobile'
 import styles from '../Personal_pages/Landim/Landim.module.css'
 
 interface Researcher {
@@ -27,6 +28,7 @@ export function DynamicResearcher() {
   const [userEmail, setUserEmail] = useState<string | null>(null)
   const [userPhotoUrl, setUserPhotoUrl] = useState<string | null>(null)
   const [refreshKey, setRefreshKey] = useState(0)
+  const isSmallScreen = useIsSmallScreen(820)
 
   useEffect(() => {
     if (id) {
@@ -158,7 +160,7 @@ export function DynamicResearcher() {
         <BackButton />
         <div className={styles.box1}>
           <h1 className={styles.researcherName}>{researcher.name}</h1>
-          {photoUrl && (
+          {photoUrl && !isSmallScreen && (
             <div 
               className={styles.box2}
               style={{
