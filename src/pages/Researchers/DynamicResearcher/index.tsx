@@ -158,22 +158,21 @@ export function DynamicResearcher() {
       <Header />
       <main className={styles.Professor}>
         <BackButton />
-        {/* Foto FORA do box1 - será escondida em mobile pelo CSS */}
-        {photoUrl && (
-          <div 
-            className={styles.box2}
-            data-photo-container="true"
-            style={{
-              background: `linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)), url('${photoUrl}') center/cover`,
-              minHeight: '180px',
-              border: '2px solid rgba(255,255,255,.2)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center'
-            }}
-          />
-        )}
         <div className={styles.box1}>
           <h1 className={styles.researcherName}>{researcher.name}</h1>
+          {photoUrl && (
+            <div 
+              className={styles.box2}
+              data-photo-container="true"
+              style={{
+                background: `linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)), url('${photoUrl}') center/cover`,
+                minHeight: '180px',
+                border: '2px solid rgba(255,255,255,.2)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+            />
+          )}
           <DynamicResearcherProfile 
             key={refreshKey}
             researcherName={researcher.name}
