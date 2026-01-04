@@ -6,7 +6,7 @@ export const researcherData = {
     { name: 'Ana Virgínia Alves de Santana', route: '/researchers/personal/AnaV' },
     { name: 'Joelson da Conceição Batista', route: '/researchers/personal/Joelson' },
     { name: 'Luiz Cesar Correa Gomes', route: '/researchers/personal/LCesar' },
-    { name: 'Marcos Vasconcelos2', route: '/researchers/personal/Marcos2' },
+    { name: 'Amin Bassrei', route: '/researchers/personal/Amin' },
     { name: 'Reynam da Cruz Pestana', route: '/researchers/personal/Reynam' },
     { name: 'Wilson Mouzer Figueiró', route: '/researchers/personal/Wilson' },
   ],
