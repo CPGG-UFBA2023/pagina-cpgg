@@ -5,11 +5,16 @@ import { Footer } from '../../../components/Footer'
 import { supabase } from '@/integrations/supabase/client'
 import { DynamicResearcherProfile } from '../../../components/DynamicResearcherProfile'
 import { ResearcherEditButton } from '../../../components/ResearcherEditButton'
-import { ResearcherPhoto } from '../../../components/ResearcherPhoto'
 import { BackButton } from '../../../components/BackButton'
 import { getResearcherPhoto } from '../../../data/researcher-photos'
-import { useIsSmallScreen } from '@/hooks/use-mobile'
 import styles from '../Personal_pages/Landim/Landim.module.css'
+
+// Função para verificar tamanho da tela de forma síncrona
+// Retorna TRUE para esconder (telas pequenas) e FALSE para mostrar (telas grandes)
+const checkIsSmallScreen = () => {
+  if (typeof window === 'undefined') return true // SSR: esconder por padrão
+  return window.innerWidth <= 820
+}
 
 interface Researcher {
   id: string
@@ -28,7 +33,19 @@ export function DynamicResearcher() {
   const [userEmail, setUserEmail] = useState<string | null>(null)
   const [userPhotoUrl, setUserPhotoUrl] = useState<string | null>(null)
   const [refreshKey, setRefreshKey] = useState(0)
-  const isSmallScreen = useIsSmallScreen(820)
+  const [isSmallScreen, setIsSmallScreen] = useState(checkIsSmallScreen)
+
+  useEffect(() => {
+    // Atualizar isSmallScreen quando a tela mudar
+    const handleResize = () => setIsSmallScreen(checkIsSmallScreen())
+    handleResize() // Verificar imediatamente
+    window.addEventListener('resize', handleResize)
+    window.addEventListener('orientationchange', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      window.removeEventListener('orientationchange', handleResize)
+    }
+  }, [])
 
   useEffect(() => {
     if (id) {
@@ -153,16 +170,31 @@ export function DynamicResearcher() {
 
   const photoUrl = userPhotoUrl || getResearcherPhoto(researcher.name)
 
+  // Verificação final do tamanho - dupla checagem
+  const shouldShowPhoto = photoUrl && !isSmallScreen && (typeof window !== 'undefined' && window.innerWidth > 820)
+
   return (
     <div className={styles.Container}>
+      {/* CSS inline crítico para esconder foto em mobile */}
+      <style>{`
+        @media screen and (max-width: 820px) {
+          .dynamic-researcher-photo {
+            display: none !important;
+            visibility: hidden !important;
+            width: 0 !important;
+            height: 0 !important;
+            opacity: 0 !important;
+          }
+        }
+      `}</style>
       <Header />
       <main className={styles.Professor}>
         <BackButton />
         <div className={styles.box1}>
           <h1 className={styles.researcherName}>{researcher.name}</h1>
-          {photoUrl && !isSmallScreen && window.innerWidth > 820 && (
+          {shouldShowPhoto && (
             <div 
-              className={styles.box2}
+              className={`${styles.box2} dynamic-researcher-photo`}
               data-researcher-photo="true"
               style={{
                 background: `linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)), url('${photoUrl}') center/cover`,
