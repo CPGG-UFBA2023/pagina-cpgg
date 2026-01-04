@@ -16,7 +16,7 @@ import { DynamicResearcher } from './pages/Researchers/DynamicResearcher'
   import { Alexandre } from './pages/Researchers/Personal_pages/Alexandre'
   import { Alexsandro } from './pages/Researchers/Personal_pages/Alexsandro'
   import { Alice } from './pages/Researchers/Personal_pages/Alice'
-  import { Amin } from './pages/Researchers/Personal_pages/Amin'
+  import { Marcos2 } from './pages/Researchers/Personal_pages/Marcos2'
   import { Angela } from './pages/Researchers/Personal_pages/Angela'
   import { AnaV } from './pages/Researchers/Personal_pages/AnaV'
   import { Aroldo } from './pages/Researchers/Personal_pages/Aroldo'
@@ -121,7 +121,7 @@ export function Router() {
         <Route path='/researchers/personal/Alexandre' element={<Alexandre />} />
         <Route path='/researchers/personal/Alexsandro' element={<Alexsandro />} />
         <Route path='/researchers/personal/Alice' element={<Alice />} />
-        <Route path='/researchers/personal/Amin' element={<Amin />} />
+        <Route path='/researchers/personal/Marcos2' element={<Marcos2 />} />
         <Route path='/researchers/personal/Angela' element={<Angela />} />
         <Route path='/researchers/personal/AnaV' element={<AnaV />} />
         <Route path='/researchers/personal/Aroldo' element={<Aroldo />} />
