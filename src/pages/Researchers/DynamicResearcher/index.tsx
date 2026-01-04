@@ -9,11 +9,6 @@ import { BackButton } from '../../../components/BackButton'
 import { getResearcherPhoto } from '../../../data/researcher-photos'
 import styles from '../Personal_pages/Landim/Landim.module.css'
 
-// Função SÍNCRONA que verifica se é tela pequena ANTES de qualquer render
-const isSmallScreenNow = (): boolean => {
-  if (typeof window === 'undefined') return true
-  return window.innerWidth <= 820
-}
 
 interface Researcher {
   id: string
@@ -152,9 +147,6 @@ export function DynamicResearcher() {
 
   const photoUrl = userPhotoUrl || getResearcherPhoto(researcher.name)
 
-  // Verificação SÍNCRONA no momento do render
-  const showPhoto = photoUrl && !isSmallScreenNow()
-
   return (
     <div className={styles.Container}>
       <Header />
@@ -162,17 +154,22 @@ export function DynamicResearcher() {
         <BackButton />
         <div className={styles.box1}>
           <h1 className={styles.researcherName}>{researcher.name}</h1>
-          {showPhoto && (
+          {/* Foto usando classe CSS que é escondida em mobile via media query */}
+          {photoUrl && (
             <div 
               className={styles.box2}
-              style={{
-                background: `linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)), url('${photoUrl}') center/cover`,
-                minHeight: '180px',
-                border: '2px solid rgba(255,255,255,.2)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center'
-              }}
-            />
+            >
+              <img 
+                src={photoUrl} 
+                alt={`Foto de ${researcher.name}`}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  borderRadius: '10px'
+                }}
+              />
+            </div>
           )}
           <DynamicResearcherProfile 
             key={refreshKey}
