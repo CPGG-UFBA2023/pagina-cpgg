@@ -13,6 +13,8 @@ export function Amin() {
         <div className={styles.Professor} >
           <BackButton />
           <p> Amin Bassrei </p>
+          <div className={styles.box2}>
+          </div>
           <div className={styles.box1}>
             <DynamicResearcherProfile 
               researcherName="Amin Bassrei"
@@ -24,8 +26,6 @@ export function Amin() {
            </nav>
            <b> e-mail</b>
            <p>bassrei@ufba.br</p> 
-            <div className={styles.box2}>
-            </div>
           </div>
         </div>
       </div>
