@@ -160,15 +160,16 @@ export function DynamicResearcher() {
         <BackButton />
         <div className={styles.box1}>
           <h1 className={styles.researcherName}>{researcher.name}</h1>
-          {photoUrl && !isSmallScreen && (
+          {photoUrl && (
             <div 
-              className={styles.box2}
+              className={`${styles.box2} researcher-photo-container`}
               style={{
                 background: `linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)), url('${photoUrl}') center/cover`,
                 minHeight: '180px',
                 border: '2px solid rgba(255,255,255,.2)',
                 backgroundSize: 'cover',
-                backgroundPosition: 'center'
+                backgroundPosition: 'center',
+                display: isSmallScreen ? 'none' : 'flex'
               }}
             />
           )}

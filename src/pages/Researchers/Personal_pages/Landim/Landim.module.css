@@ -218,8 +218,14 @@ nav a:hover {
 }
 
 @media (max-width: 430px) {
+  /* Manter box2 escondida em telas pequenas */
+  .box2,
   .box2.box2 {
-    top: 60px !important;
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    opacity: 0 !important;
   }
   
   .box1 nav {
