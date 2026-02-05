@@ -2,6 +2,7 @@ import styles from './Footer.module.css'
 import { Linkedin, Instagram } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { VisitorCounter } from '../VisitorCounter'
+import { Link } from 'react-router-dom'
 
 export function Footer() {
   const { t } = useLanguage();
@@ -17,6 +18,10 @@ export function Footer() {
             target="cpgg_antiga"
             rel="noopener noreferrer"
           >{t('footer.oldPage')}</a>
+          <Link 
+            to="/tcc-geofisica" 
+            style={{ fontSize: '0.75em' }}
+          >TCC's graduação Geofísica</Link>
           <a href='https://www.linkedin.com/in/cpgg-centro-de-pesquisa-94768a304/' target="_blank" className={styles.socialLink} rel="noopener noreferrer">
             <Linkedin size={16} />
             {t('footer.linkedin')}
