@@ -534,6 +534,30 @@ export type Database = {
         }
         Relationships: []
       }
+      tcc_geofisica: {
+        Row: {
+          created_at: string
+          id: string
+          pdf_url: string
+          student_name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          pdf_url: string
+          student_name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          pdf_url?: string
+          student_name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_profiles: {
         Row: {
           created_at: string
