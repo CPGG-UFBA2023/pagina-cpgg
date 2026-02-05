@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 import { supabase } from '@/integrations/supabase/client'
 import { EditButtonTCC } from './components/EditButtonTCC'
@@ -125,7 +124,6 @@ export function TCCGeofisica() {
           </p>
         )}
       </main>
-      <Footer />
 
       <EditButtonTCC onEditModeChange={setIsEditing} />
 
