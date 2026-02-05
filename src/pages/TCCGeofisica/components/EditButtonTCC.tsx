@@ -25,56 +25,93 @@ export function EditButtonTCC({ onEditModeChange }: EditButtonTCCProps) {
   }, [])
 
   const checkAdminStatus = async () => {
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) {
+    try {
+      const { data: { user }, error: userError } = await supabase.auth.getUser()
+      
+      if (userError) {
+        console.error('Error getting user:', userError)
+        setIsAdmin(false)
+        setIsEditing(false)
+        onEditModeChange(false)
+        return
+      }
+      
+      if (!user) {
+        setIsAdmin(false)
+        setIsEditing(false)
+        onEditModeChange(false)
+        return
+      }
+
+      const { data: adminData, error: adminError } = await supabase
+        .from('admin_users')
+        .select('role')
+        .eq('user_id', user.id)
+        .single()
+
+      if (adminError && adminError.code !== 'PGRST116') {
+        console.error('Error checking admin status:', adminError)
+      }
+
+      const isAdminUser = adminData?.role === 'coordenacao'
+      setIsAdmin(isAdminUser)
+      if (!isAdminUser) {
+        setIsEditing(false)
+        onEditModeChange(false)
+      }
+    } catch (error) {
+      console.error('Unexpected error in checkAdminStatus:', error)
       setIsAdmin(false)
-      setIsEditing(false)
-      onEditModeChange(false)
-      return
-    }
-
-    const { data: adminData } = await supabase
-      .from('admin_users')
-      .select('role')
-      .eq('user_id', user.id)
-      .single()
-
-    const isAdminUser = adminData?.role === 'coordenacao'
-    setIsAdmin(isAdminUser)
-    if (!isAdminUser) {
       setIsEditing(false)
       onEditModeChange(false)
     }
   }
 
   const handleEditClick = () => {
-    if (!isAdmin) {
-      setShowLogin(true)
-      return
+    try {
+      if (!isAdmin) {
+        setShowLogin(true)
+        return
+      }
+      
+      const newEditState = !isEditing
+      setIsEditing(newEditState)
+      onEditModeChange(newEditState)
+    } catch (error) {
+      console.error('Error in handleEditClick:', error)
+      toast.error('Erro ao alternar modo de edição')
     }
-    
-    const newEditState = !isEditing
-    setIsEditing(newEditState)
-    onEditModeChange(newEditState)
   }
 
   const handleLogout = async () => {
-    await supabase.auth.signOut()
-    setIsAdmin(false)
-    setIsEditing(false)
-    onEditModeChange(false)
-    toast.success('Logout realizado')
+    try {
+      await supabase.auth.signOut()
+      setIsAdmin(false)
+      setIsEditing(false)
+      onEditModeChange(false)
+      toast.success('Logout realizado')
+    } catch (error) {
+      console.error('Error during logout:', error)
+      toast.error('Erro ao fazer logout')
+    }
   }
 
   const handleLoginSuccess = () => {
-    setIsAdmin(true)
-    setIsEditing(true)
-    onEditModeChange(true)
+    try {
+      setIsAdmin(true)
+      setIsEditing(true)
+      onEditModeChange(true)
+    } catch (error) {
+      console.error('Error in handleLoginSuccess:', error)
+    }
   }
 
   return (
     <>
-      <div className="fixed bottom-6 right-6 flex gap-2" style={{ zIndex: 99999 }}>
+      <div 
+        className="fixed bottom-6 right-6 flex gap-2" 
+        style={{ zIndex: 99999, pointerEvents: 'auto' }}
+      >
         {isAdmin && isEditing && (
           <Button
             variant="outline"
