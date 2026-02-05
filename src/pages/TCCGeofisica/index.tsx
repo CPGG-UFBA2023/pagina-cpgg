@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { supabase } from '@/integrations/supabase/client'
 import { EditButtonTCC } from './components/EditButtonTCC'
 import { TCCUploadModal } from './components/TCCUploadModal'
+import { AdminLoginTCC } from './components/AdminLoginTCC'
 import { Upload, FileText, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
 import styles from './TCCGeofisica.module.css'
@@ -14,30 +15,91 @@ interface TCC {
   pdf_url: string
 }
 
+const AUTH_KEY = 'tccGeofisicaAuth'
+
 export function TCCGeofisica() {
   const [tccs, setTccs] = useState<TCC[]>([])
   const [loading, setLoading] = useState(true)
-  const [isEditing, setIsEditing] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return localStorage.getItem(AUTH_KEY) === 'true'
+  })
+  const [showLoginModal, setShowLoginModal] = useState(false)
   const [showUploadModal, setShowUploadModal] = useState(false)
 
   const fetchTCCs = async () => {
-    setLoading(true)
-    const { data, error } = await supabase
-      .from('tcc_geofisica')
-      .select('*')
-      .order('student_name', { ascending: true })
+    try {
+      setLoading(true)
+      const { data, error } = await supabase
+        .from('tcc_geofisica')
+        .select('*')
+        .order('student_name', { ascending: true })
 
-    if (error) {
-      console.error('Error fetching TCCs:', error)
-    } else {
-      setTccs(data || [])
+      if (error) {
+        console.error('Error fetching TCCs:', error)
+      } else {
+        setTccs(data || [])
+      }
+    } catch (err) {
+      console.error('Unexpected error fetching TCCs:', err)
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   useEffect(() => {
     fetchTCCs()
   }, [])
+
+  // Verify auth on mount
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        if (isAuthenticated) {
+          const { data: { user } } = await supabase.auth.getUser()
+          if (!user) {
+            setIsAuthenticated(false)
+            localStorage.removeItem(AUTH_KEY)
+            return
+          }
+
+          const { data: adminData } = await supabase
+            .from('admin_users')
+            .select('role')
+            .eq('user_id', user.id)
+            .single()
+
+          if (adminData?.role !== 'coordenacao') {
+            setIsAuthenticated(false)
+            localStorage.removeItem(AUTH_KEY)
+          }
+        }
+      } catch (err) {
+        console.error('Error checking auth:', err)
+        setIsAuthenticated(false)
+        localStorage.removeItem(AUTH_KEY)
+      }
+    }
+    checkAuth()
+  }, [isAuthenticated])
+
+  const handleLoginSuccess = () => {
+    setIsAuthenticated(true)
+    localStorage.setItem(AUTH_KEY, 'true')
+    setShowLoginModal(false)
+    toast.success('Login realizado com sucesso!')
+  }
+
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut()
+      setIsAuthenticated(false)
+      localStorage.removeItem(AUTH_KEY)
+      toast.success('Logout realizado')
+    } catch (err) {
+      console.error('Error during logout:', err)
+      toast.error('Erro ao fazer logout')
+    }
+  }
 
   const handleDelete = async (tcc: TCC) => {
     if (!confirm(`Deseja excluir o TCC de ${tcc.student_name}?`)) return
@@ -75,7 +137,7 @@ export function TCCGeofisica() {
         </h1>
 
         {/* Admin toolbar */}
-        {isEditing && (
+        {isAuthenticated && (
           <div className={styles.toolbar}>
             <Button
               onClick={() => setShowUploadModal(true)}
@@ -105,7 +167,7 @@ export function TCCGeofisica() {
                   <FileText size={18} className={styles.pdfIcon} />
                   {tcc.student_name}
                 </a>
-                {isEditing && (
+                {isAuthenticated && (
                   <Button
                     variant="ghost"
                     size="sm"
@@ -125,7 +187,17 @@ export function TCCGeofisica() {
         )}
       </main>
 
-      <EditButtonTCC onEditModeChange={setIsEditing} />
+      <EditButtonTCC 
+        onClick={() => setShowLoginModal(true)}
+        isEditMode={isAuthenticated}
+        onLogout={handleLogout}
+      />
+
+      <AdminLoginTCC
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        onSuccess={handleLoginSuccess}
+      />
 
       <TCCUploadModal
         isOpen={showUploadModal}

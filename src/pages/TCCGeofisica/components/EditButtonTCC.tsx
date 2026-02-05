@@ -1,146 +1,73 @@
-import { useState, useEffect } from 'react'
-import { Button } from '@/components/ui/button'
-import { Pencil, X, LogOut } from 'lucide-react'
-import { supabase } from '@/integrations/supabase/client'
-import { AdminLoginTCC } from './AdminLoginTCC'
-import { toast } from 'sonner'
+import { useEffect } from 'react'
 
 interface EditButtonTCCProps {
-  onEditModeChange: (isEditing: boolean) => void
+  onClick: () => void
+  isEditMode: boolean
+  onLogout: () => void
 }
 
-export function EditButtonTCC({ onEditModeChange }: EditButtonTCCProps) {
-  const [isEditing, setIsEditing] = useState(false)
-  const [showLogin, setShowLogin] = useState(false)
-  const [isAdmin, setIsAdmin] = useState(false)
-
+export function EditButtonTCC({ onClick, isEditMode, onLogout }: EditButtonTCCProps) {
   useEffect(() => {
-    checkAdminStatus()
+    const oldButton = document.getElementById('floating-edit-button-tcc')
+    if (oldButton) oldButton.remove()
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
-      checkAdminStatus()
+    const button = document.createElement('button')
+    button.id = 'floating-edit-button-tcc'
+    button.innerHTML = isEditMode 
+      ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>Sair`
+      : `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path><path d="m15 5 4 4"></path></svg>`
+    
+    button.style.cssText = `
+      position: fixed !important;
+      bottom: 20px !important;
+      right: 20px !important;
+      z-index: 999999999 !important;
+      padding: ${isEditMode ? '10px 16px' : '12px'} !important;
+      border-radius: ${isEditMode ? '8px' : '50%'} !important;
+      background-color: ${isEditMode ? 'hsl(var(--destructive))' : 'hsl(var(--primary))'} !important;
+      color: ${isEditMode ? 'hsl(var(--destructive-foreground))' : 'hsl(var(--primary-foreground))'} !important;
+      border: none !important;
+      cursor: pointer !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      pointer-events: auto !important;
+      font-family: system-ui, -apple-system, sans-serif !important;
+      font-size: 14px !important;
+      font-weight: 500 !important;
+      transition: all 0.2s ease !important;
+      width: ${isEditMode ? 'auto' : '48px'} !important;
+      height: 48px !important;
+    `
+
+    button.addEventListener('click', (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+      if (isEditMode) {
+        onLogout()
+      } else {
+        onClick()
+      }
     })
 
-    return () => subscription.unsubscribe()
-  }, [])
+    button.addEventListener('mouseenter', () => {
+      button.style.transform = 'scale(1.05)'
+      button.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)'
+    })
 
-  const checkAdminStatus = async () => {
-    try {
-      const { data: { user }, error: userError } = await supabase.auth.getUser()
-      
-      if (userError) {
-        console.error('Error getting user:', userError)
-        setIsAdmin(false)
-        setIsEditing(false)
-        onEditModeChange(false)
-        return
-      }
-      
-      if (!user) {
-        setIsAdmin(false)
-        setIsEditing(false)
-        onEditModeChange(false)
-        return
-      }
+    button.addEventListener('mouseleave', () => {
+      button.style.transform = 'scale(1)'
+      button.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)'
+    })
 
-      const { data: adminData, error: adminError } = await supabase
-        .from('admin_users')
-        .select('role')
-        .eq('user_id', user.id)
-        .single()
+    document.body.appendChild(button)
 
-      if (adminError && adminError.code !== 'PGRST116') {
-        console.error('Error checking admin status:', adminError)
-      }
-
-      const isAdminUser = adminData?.role === 'coordenacao'
-      setIsAdmin(isAdminUser)
-      if (!isAdminUser) {
-        setIsEditing(false)
-        onEditModeChange(false)
-      }
-    } catch (error) {
-      console.error('Unexpected error in checkAdminStatus:', error)
-      setIsAdmin(false)
-      setIsEditing(false)
-      onEditModeChange(false)
+    return () => {
+      const btn = document.getElementById('floating-edit-button-tcc')
+      if (btn) btn.remove()
     }
-  }
+  }, [isEditMode, onClick, onLogout])
 
-  const handleEditClick = () => {
-    try {
-      if (!isAdmin) {
-        setShowLogin(true)
-        return
-      }
-      
-      const newEditState = !isEditing
-      setIsEditing(newEditState)
-      onEditModeChange(newEditState)
-    } catch (error) {
-      console.error('Error in handleEditClick:', error)
-      toast.error('Erro ao alternar modo de edição')
-    }
-  }
-
-  const handleLogout = async () => {
-    try {
-      await supabase.auth.signOut()
-      setIsAdmin(false)
-      setIsEditing(false)
-      onEditModeChange(false)
-      toast.success('Logout realizado')
-    } catch (error) {
-      console.error('Error during logout:', error)
-      toast.error('Erro ao fazer logout')
-    }
-  }
-
-  const handleLoginSuccess = () => {
-    try {
-      setIsAdmin(true)
-      setIsEditing(true)
-      onEditModeChange(true)
-    } catch (error) {
-      console.error('Error in handleLoginSuccess:', error)
-    }
-  }
-
-  return (
-    <>
-      <div 
-        className="fixed bottom-6 right-6 flex gap-2" 
-        style={{ zIndex: 99999, pointerEvents: 'auto' }}
-      >
-        {isAdmin && isEditing && (
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={handleLogout}
-            className="rounded-full w-12 h-12 shadow-lg bg-white hover:bg-gray-100"
-            title="Sair"
-          >
-            <LogOut size={20} />
-          </Button>
-        )}
-        <Button
-          variant="default"
-          size="icon"
-          onClick={handleEditClick}
-          className={`rounded-full w-12 h-12 shadow-lg ${
-            isEditing ? 'bg-red-600 hover:bg-red-700' : 'bg-blue-600 hover:bg-blue-700'
-          }`}
-          title={isEditing ? 'Fechar edição' : 'Editar'}
-        >
-          {isEditing ? <X size={20} /> : <Pencil size={20} />}
-        </Button>
-      </div>
-
-      <AdminLoginTCC
-        isOpen={showLogin}
-        onClose={() => setShowLogin(false)}
-        onSuccess={handleLoginSuccess}
-      />
-    </>
-  )
+  return null
 }
