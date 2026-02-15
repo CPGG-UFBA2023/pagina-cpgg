@@ -394,7 +394,7 @@
   position: relative;
   overflow: hidden;
   transition: transform 0.3s ease;
-  background: linear-gradient(135deg, rgba(10, 45, 30, 0.97), rgba(20, 80, 50, 0.90));
+  background: linear-gradient(135deg, rgba(5, 15, 10, 0.97), rgba(15, 40, 25, 0.95));
   display: flex;
   flex-direction: column;
   justify-content: center;
