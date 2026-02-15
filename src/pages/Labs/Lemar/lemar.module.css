@@ -132,6 +132,42 @@
   text-decoration: underline;
 }
 
+.photoBox1 {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.2);
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  top: 3%;
+  left: calc(2% + 60px);
+  padding: 10px;
+  border-radius: 20px;
+  gap: 5px;
+  background-size: cover;
+  background-position: center;
+}
+
+.photoBox2 {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.2);
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  top: calc(3% + 340px);
+  left: calc(2% + 60px);
+  padding: 10px;
+  border-radius: 20px;
+  gap: 5px;
+  background-size: cover;
+  background-position: center;
+}
+
 .staticFigure img {
   width: auto;
   height: 40rem;
@@ -256,6 +292,13 @@
     margin-top: -20px;
     text-align: center;
     margin-left: 0;
+  }
+
+
+  .photoBox1,
+  .photoBox2 {
+    width: 200px !important;
+    height: 200px !important;
   }
 }
 
@@ -423,6 +466,16 @@
   .box b {
     margin-left: 0 !important;
     text-align: center !important;
+  }
+
+  .photoBox1,
+  .photoBox2 {
+    position: relative !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 90% !important;
+    height: 250px !important;
+    margin: 10px auto !important;
   }
 }
 

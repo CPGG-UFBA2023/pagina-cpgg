@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import styles from './lemar.module.css'
 import { Header } from '../../../components/Header'
 import { Footer } from '../../../components/Footer'
+import lemarPhoto1 from '../../../assets/lemar-photo1.jpeg'
+import lemarPhoto2 from '../../../assets/lemar-photo2.jpeg'
 
 export function Lemar() {
   return (
@@ -40,6 +42,9 @@ export function Lemar() {
            <b className={styles.purpleText}>Vice-Chefe:</b>
            <span>Profa. Dra. Letícia Freitas Guimarães</span>
            <span style={{ fontSize: '64%' }}><a href="mailto:guimaraesleticia@ufba.br" className={styles.purpleLink}>guimaraesleticia@ufba.br</a></span>
+
+            <div className={styles.photoBox1} style={{ backgroundImage: `linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)), url(${lemarPhoto1})` }}></div>
+            <div className={styles.photoBox2} style={{ backgroundImage: `linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)), url(${lemarPhoto2})` }}></div>
 
           </div>
         </div>
