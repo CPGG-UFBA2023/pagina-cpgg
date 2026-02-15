@@ -311,8 +311,20 @@
     text-align: center;
     margin-left: 0;
   }
+}
 
+.legend {
+  font-size: 12px;
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 190px;
+  color: #fff;
+  text-align: center;
+}
 
+/* Tablet - fotos */
+@media (min-width: 769px) and (max-width: 1024px) {
   .photoBox1,
   .photoBox2,
   .photoBox3 {
