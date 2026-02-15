@@ -111,13 +111,15 @@
 }
 
 .priceList {
-  font-size: 16px;
+  font-size: 16px !important;
   color: #fff;
   text-align: justify;
-  list-style: disc;
-  padding-left: 20px;
-  margin: 0;
-  margin-bottom: 15px;
+  list-style: disc !important;
+  padding-left: 20px !important;
+  margin: 0 !important;
+  margin-bottom: 15px !important;
+  font-weight: normal !important;
+  white-space: normal !important;
 }
 
 .priceList li {
