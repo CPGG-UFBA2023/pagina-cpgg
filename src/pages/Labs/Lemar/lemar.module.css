@@ -59,7 +59,7 @@
   top: 25%;
   left: calc(2% + 75px);
   padding: 20px;
-  padding-left: 40px;
+  padding-left: 300px;
   border-radius: 20px;
   gap: 5px;
   margin-bottom: -500px;
@@ -139,10 +139,10 @@
   border: 2px solid rgba(255, 255, 255, 0.2);
   background-color: rgba(255, 255, 255, 0.2);
   position: absolute;
-  width: 300px;
-  height: 300px;
-  top: 3%;
-  left: calc(2% + 60px);
+  width: 250px;
+  height: 190px;
+  top: 10px;
+  left: 15px;
   padding: 10px;
   border-radius: 20px;
   gap: 5px;
@@ -157,10 +157,10 @@
   border: 2px solid rgba(255, 255, 255, 0.2);
   background-color: rgba(255, 255, 255, 0.2);
   position: absolute;
-  width: 300px;
-  height: 300px;
-  top: calc(3% + 340px);
-  left: calc(2% + 60px);
+  width: 250px;
+  height: 190px;
+  top: 215px;
+  left: 15px;
   padding: 10px;
   border-radius: 20px;
   gap: 5px;
@@ -190,7 +190,7 @@
   .box {
     width: 930px;
     height: 520px;
-    padding-left: 60px;
+    padding-left: 340px;
   }
 }
 
@@ -206,7 +206,7 @@
   .box {
     width: 760px;
     height: 430px;
-    padding-left: 40px;
+    padding-left: 300px;
   }
 }
 
