@@ -130,6 +130,10 @@
 .purpleLink {
   color: rgba(147, 106, 235);
   text-decoration: underline;
+  display: inline !important;
+  font-size: inherit !important;
+  white-space: normal !important;
+  padding: 0 !important;
 }
 
 .photoBox1 {
