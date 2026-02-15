@@ -29,13 +29,8 @@ export function Lemar() {
             </p>
             <br></br>
             <p>
-              Os valores para as análises variam de acordo com a categoria do usuário conforme indicado a seguir:
+              Os valores para as análises variam de acordo com a categoria do usuário conforme indicado a seguir: Comunidade acadêmica (usuários vinculados à UFBA ou à outras universidades públicas) - R$ 270,00 por amostra. Comunidade externa - Instituições Públicas - R$ 330,00 por amostra. Comunidade externa (usuários não vinculados à universidades ou instituições públicas) - R$ 540,00 por amostra.
             </p>
-            <ul className={styles.priceList}>
-              <li>Comunidade acadêmica (usuários vinculados à UFBA ou à outras universidades públicas) - R$ 270,00 por amostra</li>
-              <li>Comunidade externa - Instituições Públicas - R$ 330,00 por amostra</li>
-              <li>Comunidade externa (usuários não vinculados à universidades ou instituições públicas) - R$ 540,00 por amostra</li>
-            </ul>
             <br></br>
 
            <b className={styles.purpleText}>Chefe:</b>
