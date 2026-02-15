@@ -110,6 +110,21 @@
   margin-left: 0 !important;
 }
 
+.priceList {
+  font-size: 14px;
+  color: #fff;
+  text-align: left;
+  list-style: disc;
+  padding-left: 20px;
+  margin: 0;
+  margin-bottom: 15px;
+}
+
+.priceList li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
 .staticFigure img {
   width: auto;
   height: 40rem;
