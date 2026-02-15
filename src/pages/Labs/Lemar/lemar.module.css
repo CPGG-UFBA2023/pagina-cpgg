@@ -111,9 +111,9 @@
 }
 
 .priceList {
-  font-size: 14px;
+  font-size: 16px;
   color: #fff;
-  text-align: left;
+  text-align: justify;
   list-style: disc;
   padding-left: 20px;
   margin: 0;
@@ -122,7 +122,12 @@
 
 .priceList li {
   margin-bottom: 8px;
-  line-height: 1.5;
+  line-height: 1.6;
+}
+
+.purpleLink {
+  color: rgba(147, 106, 235);
+  text-decoration: underline;
 }
 
 .staticFigure img {
