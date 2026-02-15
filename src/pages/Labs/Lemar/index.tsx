@@ -25,8 +25,15 @@ export function Lemar() {
             </p>
             <br></br>
 
-           <b className={styles.purpleText}>Responsável:</b>
-           <span>A definir</span>
+           <b className={styles.purpleText}>Coordenador:</b>
+           <span>Prof. Dr. Eduardo Reis Viana Rocha Júnior</span>
+           <span>Coordenador do LEMAR/UFBA</span>
+           <span><a href="mailto:eduardo.junior@ufba.br" className={styles.purpleLink}>eduardo.junior@ufba.br</a></span>
+           <br />
+           <b className={styles.purpleText}>Vice-Coordenadora:</b>
+           <span>Profa. Dra. Letícia Freitas Guimarães</span>
+           <span>Vice-Coordenadora do LEMAR/UFBA</span>
+           <span><a href="mailto:guimaraesleticia@ufba.br" className={styles.purpleLink}>guimaraesleticia@ufba.br</a></span>
 
           </div>
         </div>
