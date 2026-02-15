@@ -22,6 +22,12 @@ export function CPGG2() {
                 <h2>Laboratório Integrado de Geofísica Aplicada</h2>
               </div>
             </Link>
+            <Link to="/labs/lemar" className={styles.labCard}>
+              <div className={styles.Lemar}>
+                <h2>LEMAR</h2>
+                <h2>Laboratório de Espectrometria de Massas de Alta Resolução</h2>
+              </div>
+            </Link>
           </div>
         </div>
       </main>
