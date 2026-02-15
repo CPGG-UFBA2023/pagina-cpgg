@@ -27,11 +27,11 @@ export function Lemar() {
 
            <b className={styles.purpleText}>Chefe:</b>
            <span>Prof. Dr. Eduardo Reis Viana Rocha Júnior</span>
-           <span><a href="mailto:eduardo.junior@ufba.br" className={styles.purpleLink}>eduardo.junior@ufba.br</a></span>
+           <span style={{ fontSize: '80%' }}><a href="mailto:eduardo.junior@ufba.br" className={styles.purpleLink}>eduardo.junior@ufba.br</a></span>
            <br />
            <b className={styles.purpleText}>Vice-Chefe:</b>
            <span>Profa. Dra. Letícia Freitas Guimarães</span>
-           <span><a href="mailto:guimaraesleticia@ufba.br" className={styles.purpleLink}>guimaraesleticia@ufba.br</a></span>
+           <span style={{ fontSize: '80%' }}><a href="mailto:guimaraesleticia@ufba.br" className={styles.purpleLink}>guimaraesleticia@ufba.br</a></span>
 
           </div>
         </div>
