@@ -12,7 +12,6 @@ export function LemarRF() {
     sampleDescription: "",
     applicantName: "",
     applicantEmail: "",
-    applicantPassword: "",
     applicantInstitution: "",
     purpose: "",
   });
@@ -56,7 +55,7 @@ export function LemarRF() {
       return;
     }
 
-    if (!formData.numberOfSamples || !formData.applicantName || !formData.applicantEmail || !formData.applicantPassword || !formData.purpose) {
+    if (!formData.numberOfSamples || !formData.applicantName || !formData.applicantEmail || !formData.purpose) {
       toast({
         title: "Erro",
         description: "Preencha todos os campos obrigatórios",
@@ -76,35 +75,6 @@ export function LemarRF() {
     }
 
     setIsSubmitting(true);
-
-    // Validar credenciais do usuário
-    try {
-      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-        email: formData.applicantEmail,
-        password: formData.applicantPassword,
-      });
-
-      if (authError || !authData.user) {
-        toast({
-          title: "Erro de Autenticação",
-          description: "Email ou senha incorretos. Somente pesquisadores cadastrados podem solicitar análises.",
-          variant: "destructive",
-        });
-        setIsSubmitting(false);
-        return;
-      }
-
-      await supabase.auth.signOut();
-    } catch (error) {
-      console.error("Erro na autenticação:", error);
-      toast({
-        title: "Erro",
-        description: "Erro ao verificar credenciais. Tente novamente.",
-        variant: "destructive",
-      });
-      setIsSubmitting(false);
-      return;
-    }
 
     try {
       const { data, error } = await supabase.functions.invoke("send-lemar-reservation", {
@@ -129,7 +99,6 @@ export function LemarRF() {
         sampleDescription: "",
         applicantName: "",
         applicantEmail: "",
-        applicantPassword: "",
         applicantInstitution: "",
         purpose: "",
       });
@@ -235,18 +204,6 @@ export function LemarRF() {
                 value={formData.applicantEmail}
                 onChange={(e) => handleInputChange("applicantEmail", e.target.value)}
                 placeholder="Digite seu email"
-                required
-              />
-            </div>
-
-            <div className={styles.form}>
-              <label htmlFor="applicantPassword">Senha *</label>
-              <input
-                type="password"
-                id="applicantPassword"
-                value={formData.applicantPassword}
-                onChange={(e) => handleInputChange("applicantPassword", e.target.value)}
-                placeholder="Digite sua senha"
                 required
               />
             </div>
