@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
+import NotFound from './pages/NotFound'
 import { Home } from './pages/Home'
 import { Contact } from './pages/Contact'
 import { News1 } from './pages/News/News1'
@@ -221,6 +222,7 @@ export function Router() {
          <Route path='/adm/repair-stats' element={<RepairStats />} />
          <Route path='/adm/secretaria' element={<Secretaria />} />
 
+        <Route path='*' element={<NotFound />} />
       </Route>
     </Routes>
   )
