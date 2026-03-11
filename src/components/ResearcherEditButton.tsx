@@ -37,7 +37,8 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave, s
   const loginRecaptchaRef = useRef<ReCAPTCHA>(null)
   const editRecaptchaRef = useRef<ReCAPTCHA>(null)
   const { toast } = useToast()
-  const { staticDescription } = useResearcherProfile()
+  const { staticDescription: contextStaticDescription } = useResearcherProfile()
+  const staticDescription = staticDescriptionProp || contextStaticDescription
 
   // Função para extrair primeiro nome do nome completo
   const getFirstName = (fullName: string) => {
