@@ -16,6 +16,7 @@ interface ResearcherEditButtonProps {
   researcherName: string
   inline?: boolean
   onSave?: () => void
+  staticDescription?: string
 }
 
 export function ResearcherEditButton({ researcherName, inline = false, onSave }: ResearcherEditButtonProps) {
