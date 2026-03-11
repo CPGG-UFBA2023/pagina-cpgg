@@ -19,7 +19,7 @@ interface ResearcherEditButtonProps {
   staticDescription?: string
 }
 
-export function ResearcherEditButton({ researcherName, inline = false, onSave }: ResearcherEditButtonProps) {
+export function ResearcherEditButton({ researcherName, inline = false, onSave, staticDescription: staticDescriptionProp }: ResearcherEditButtonProps) {
   const [isLoginOpen, setIsLoginOpen] = useState(false)
   const [isEditOpen, setIsEditOpen] = useState(false)
   const [email, setEmail] = useState('')
