@@ -63,6 +63,7 @@ export function DynamicResearcherProfile({
 
   return (
     <ResearcherProfileProvider value={{ staticDescription, photoUrl, belowPhoto }}>
+      {belowPhoto}
       {description ? (
         <p className="researcher-description" style={{ 
           fontSize: '12pt', 

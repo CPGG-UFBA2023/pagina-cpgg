@@ -16,9 +16,10 @@ interface ResearcherEditButtonProps {
   researcherName: string
   inline?: boolean
   onSave?: () => void
+  staticDescription?: string
 }
 
-export function ResearcherEditButton({ researcherName, inline = false, onSave }: ResearcherEditButtonProps) {
+export function ResearcherEditButton({ researcherName, inline = false, onSave, staticDescription: staticDescriptionProp }: ResearcherEditButtonProps) {
   const [isLoginOpen, setIsLoginOpen] = useState(false)
   const [isEditOpen, setIsEditOpen] = useState(false)
   const [email, setEmail] = useState('')
@@ -36,7 +37,8 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave }:
   const loginRecaptchaRef = useRef<ReCAPTCHA>(null)
   const editRecaptchaRef = useRef<ReCAPTCHA>(null)
   const { toast } = useToast()
-  const { staticDescription } = useResearcherProfile()
+  const { staticDescription: contextStaticDescription } = useResearcherProfile()
+  const staticDescription = staticDescriptionProp || contextStaticDescription
 
   // Função para extrair primeiro nome do nome completo
   const getFirstName = (fullName: string) => {
