@@ -18,10 +18,7 @@ export function Footer() {
             target="cpgg_antiga"
             rel="noopener noreferrer"
           >{t('footer.oldPage')}</a>
-          <Link 
-            to="/tcc-geofisica" 
-            style={{ fontSize: '0.75em' }}
-          >TCC's graduação Geofísica</Link>
+          
           <a href='https://www.linkedin.com/in/cpgg-centro-de-pesquisa-94768a304/' target="_blank" className={styles.socialLink} rel="noopener noreferrer">
             <Linkedin size={16} />
             {t('footer.linkedin')}
