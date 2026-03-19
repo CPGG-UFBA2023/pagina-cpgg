@@ -17,13 +17,14 @@
 }
 
 .header nav {
-  background: #6d28d9;
+  background: linear-gradient(90deg, #7c3aed 0%, #8b5cf6 50%, #7c3aed 100%);
   margin-left: -20px;
   margin-right: -20px;
   margin-bottom: -10px;
   padding: 0 20px;
   width: calc(100% + 40px);
-  clip-path: polygon(2% 0%, 98% 0%, 100% 100%, 0% 100%);
+  clip-path: none;
+  border-top: 1px solid rgba(167, 139, 250, 0.4);
 }
 
 .headerTopRow {
