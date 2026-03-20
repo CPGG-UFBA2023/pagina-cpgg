@@ -131,7 +131,7 @@
   flex-shrink: 0;
   position: absolute;
   right: 170px;
-  top: 50%;
+  top: calc(50% - 50px);
   transform: translateY(-50%);
 }
 
@@ -147,7 +147,7 @@
   flex-shrink: 0;
   position: absolute;
   left: 20px;
-  top: 50%;
+  top: calc(50% - 50px);
   transform: translateY(-50%);
 }
 
