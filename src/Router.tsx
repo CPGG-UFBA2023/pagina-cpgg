@@ -109,7 +109,6 @@ import { SobreNos } from './pages/SobreNos'
 import { InstituicaoMobile } from './pages/Institution/InstituicaoMobile'
 import { PessoalMobile } from './pages/Pessoal/PessoalMobile'
 import { TCCGeofisica } from './pages/TCCGeofisica'
-import { LegacyRedirect } from './pages/LegacyRedirect'
 
 export function Router() {
   return (
@@ -198,7 +197,6 @@ export function Router() {
          <Route path='/instituicao-mobile' element={<InstituicaoMobile />} />
          <Route path='/pessoal-mobile' element={<PessoalMobile />} />
          <Route path='/tcc-geofisica' element={<TCCGeofisica />} />
-         <Route path='/legacy-redirect' element={<LegacyRedirect />} />
          <Route path='/Regulations' element={<Regulations />} />
          <Route path='/research-projects' element={<ResearchProjects />} />
          <Route path='/Photos' element={<Photos />} />
