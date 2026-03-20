@@ -14,9 +14,12 @@ export function Footer() {
         <VisitorCounter />
         <nav>
           <a
-            href="https://web.archive.org/web/2024/http://www2.cpgg.ufba.br"
-            target="cpgg_antiga"
-            rel="noopener noreferrer"
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              const url = `http://www2.cpgg.ufba.br/?nocache=${Date.now()}`;
+              window.open(url, '_blank', 'noopener,noreferrer');
+            }}
           >{t('footer.oldPage')}</a>
           
           <a href='https://www.linkedin.com/in/cpgg-centro-de-pesquisa-94768a304/' target="_blank" className={styles.socialLink} rel="noopener noreferrer">
