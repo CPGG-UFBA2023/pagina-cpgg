@@ -152,7 +152,7 @@
 }
 
 .header .figure img {
-  height: 70px;
+  height: 63px;
   object-fit: contain;
   object-position: center;
   max-width: 100%;
@@ -441,7 +441,7 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .header .figure img {
-    height: 56px;
+    height: 50px;
   }
 }
 
@@ -509,7 +509,7 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .header .figure img {
-    height: 44px;
+    height: 40px;
   }
 }
 
@@ -563,7 +563,7 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .header .figure img {
-    height: 44px;
+    height: 40px;
   }
 }
 
@@ -602,7 +602,7 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .header .figure img {
-    height: 40px;
+    height: 36px;
   }
 
   nav ul li:hover .submenu1 {
@@ -686,7 +686,7 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .header .figure img {
-    height: 36px;
+    height: 32px;
   }
 
   .block1 {
@@ -806,7 +806,7 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .header .figure img {
-    height: 28px;
+    height: 25px;
   }
 
   .block1 {
@@ -1749,7 +1749,7 @@ nav ul li:hover .submenu2 ul li a {
   }
   
   .header .figure img {
-    height: 32px !important;
+    height: 29px !important;
   }
   
   /* Nav - centralizado */
