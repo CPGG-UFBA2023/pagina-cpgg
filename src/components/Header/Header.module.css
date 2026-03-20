@@ -136,7 +136,7 @@
 }
 
 .header .logoufba img {
-  height: 77px;
+  height: 62px;
   object-fit: contain;
   object-position: center;
   max-width: 100%;
@@ -152,7 +152,7 @@
 }
 
 .header .figure img {
-  height: 88px;
+  height: 70px;
   object-fit: contain;
   object-position: center;
   max-width: 100%;
@@ -437,11 +437,11 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .header .logoufba img {
-    height: 80px;
+    height: 64px;
   }
 
   .header .figure img {
-    height: 70px;
+    height: 56px;
   }
 }
 
@@ -505,11 +505,11 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .header .logoufba img {
-    height: 65px;
+    height: 52px;
   }
 
   .header .figure img {
-    height: 55px;
+    height: 44px;
   }
 }
 
@@ -559,11 +559,11 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .header .logoufba img {
-    height: 60px;
+    height: 48px;
   }
 
   .header .figure img {
-    height: 55px;
+    height: 44px;
   }
 }
 
@@ -598,11 +598,11 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .header .logoufba img {
-    height: 55px;
+    height: 44px;
   }
 
   .header .figure img {
-    height: 50px;
+    height: 40px;
   }
 
   nav ul li:hover .submenu1 {
@@ -682,11 +682,11 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .header .logoufba img {
-    height: 50px;
+    height: 40px;
   }
 
   .header .figure img {
-    height: 45px;
+    height: 36px;
   }
 
   .block1 {
@@ -802,11 +802,11 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .header .logoufba img {
-    height: 40px;
+    height: 32px;
   }
 
   .header .figure img {
-    height: 35px;
+    height: 28px;
   }
 
   .block1 {
@@ -911,7 +911,7 @@ nav ul li:hover .submenu2 ul li a {
   }
 
   .logoufba img {
-    height: 40px !important;
+    height: 32px !important;
     width: auto !important;
   }
   
@@ -1322,7 +1322,7 @@ nav ul li:hover .submenu2 ul li a {
   }
   
   .logoufba img {
-    height: 45px !important;
+    height: 36px !important;
     width: auto !important;
   }
   
@@ -1738,7 +1738,7 @@ nav ul li:hover .submenu2 ul li a {
   
   .logoufba img,
   .header .logoufba img {
-    height: 35px !important;
+    height: 28px !important;
     width: auto !important;
   }
   
@@ -1749,7 +1749,7 @@ nav ul li:hover .submenu2 ul li a {
   }
   
   .header .figure img {
-    height: 40px !important;
+    height: 32px !important;
   }
   
   /* Nav - centralizado */
@@ -1986,7 +1986,7 @@ nav ul li:hover .submenu2 ul li a {
   }
   
   .logoufba img {
-    height: 45px !important;
+    height: 36px !important;
     width: auto !important;
   }
   
