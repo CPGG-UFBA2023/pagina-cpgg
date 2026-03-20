@@ -14,7 +14,7 @@ export function Footer() {
         <VisitorCounter />
         <nav>
           <a
-            href="http://www2.cpgg.ufba.br"
+            href="https://web.archive.org/web/2024/http://www2.cpgg.ufba.br"
             target="cpgg_antiga"
             rel="noopener noreferrer"
           >{t('footer.oldPage')}</a>
