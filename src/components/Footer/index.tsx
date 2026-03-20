@@ -5,7 +5,7 @@ import { VisitorCounter } from '../VisitorCounter'
 
 export function Footer() {
   const { t } = useLanguage();
-  const legacyBaseUrl = 'http://www2.cpgg.ufba.br/';
+  const legacyRedirectUrl = '/legacy-redirect';
   
   return (
     <footer className={styles.footer}>
@@ -14,13 +14,10 @@ export function Footer() {
         <VisitorCounter />
         <nav>
           <a
-            href={legacyBaseUrl}
+            href={legacyRedirectUrl}
             target="_blank"
             rel="noopener noreferrer"
             referrerPolicy="no-referrer"
-            onClick={(e) => {
-              e.currentTarget.href = `${legacyBaseUrl}?nocache=${Date.now()}`;
-            }}
           >{t('footer.oldPage')}</a>
           
           <a href='https://www.linkedin.com/in/cpgg-centro-de-pesquisa-94768a304/' target="_blank" className={styles.socialLink} rel="noopener noreferrer">
