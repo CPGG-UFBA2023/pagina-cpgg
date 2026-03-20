@@ -5,26 +5,7 @@ import { VisitorCounter } from '../VisitorCounter'
 
 export function Footer() {
   const { t } = useLanguage();
-
-  const openLegacySite = () => {
-    const url = `http://www.cpgg.ufba.br/?nocache=${Date.now()}`;
-    const newWindow = window.open('', '_blank', 'noopener,noreferrer');
-
-    if (newWindow) {
-      newWindow.opener = null;
-      newWindow.location.replace(url);
-      return;
-    }
-
-    const link = document.createElement('a');
-    link.href = url;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    link.referrerPolicy = 'no-referrer';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  const legacyBaseUrl = 'http://www2.cpgg.ufba.br/';
   
   return (
     <footer className={styles.footer}>
@@ -33,10 +14,12 @@ export function Footer() {
         <VisitorCounter />
         <nav>
           <a
-            href="#"
+            href={legacyBaseUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            referrerPolicy="no-referrer"
             onClick={(e) => {
-              e.preventDefault();
-              openLegacySite();
+              e.currentTarget.href = `${legacyBaseUrl}?nocache=${Date.now()}`;
             }}
           >{t('footer.oldPage')}</a>
           
