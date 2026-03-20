@@ -132,7 +132,7 @@
   position: absolute;
   right: 170px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(calc(-50% - 10px));
 }
 
 .header .logoufba img {
