@@ -11,15 +11,20 @@ export function Footer() {
   const handleLegacyClick = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
 
-    const targetUrl = `${legacyBaseUrl}?nocache=${Date.now()}`;
+    const redirectUrl = `/legacy-redirect.html?target=${encodeURIComponent(legacyBaseUrl)}`;
+    const openedWindow = window.open(
+      redirectUrl,
+      'cpgg-legacy-window',
+      'popup=yes,noopener,noreferrer,width=1280,height=900,left=120,top=80'
+    );
 
-    try {
-      // @ts-ignore - pode ser cross-origin no preview
-      window.top.location.href = targetUrl;
+    if (openedWindow) {
+      openedWindow.opener = null;
+      openedWindow.focus();
       return;
-    } catch (_) {
-      window.location.href = targetUrl;
     }
+
+    window.location.href = redirectUrl;
   };
   
   return (
@@ -29,7 +34,7 @@ export function Footer() {
         <VisitorCounter />
         <nav>
           <a
-            href={legacyBaseUrl}
+            href='/legacy-redirect.html'
             rel="noopener noreferrer"
             referrerPolicy="no-referrer"
             onClick={handleLegacyClick}
