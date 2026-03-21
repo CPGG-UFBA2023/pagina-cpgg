@@ -11,20 +11,39 @@ export function Footer() {
   const handleLegacyClick = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
 
-    const redirectUrl = `/legacy-redirect.html?target=${encodeURIComponent(legacyBaseUrl)}`;
+    const targetUrl = `${legacyBaseUrl}?nocache=${Date.now()}`;
     const openedWindow = window.open(
-      redirectUrl,
+      '',
       'cpgg-legacy-window',
-      'popup=yes,noopener,noreferrer,width=1280,height=900,left=120,top=80'
+      'popup=yes,width=1280,height=900,left=120,top=80'
     );
 
     if (openedWindow) {
-      openedWindow.opener = null;
+      try {
+        openedWindow.opener = null;
+      } catch (_) {
+        // Ignora navegadores que bloqueiam essa atribuição
+      }
+
+      try {
+        openedWindow.location.replace(targetUrl);
+      } catch (_) {
+        openedWindow.location.href = targetUrl;
+      }
+
       openedWindow.focus();
       return;
     }
 
-    window.location.href = redirectUrl;
+    const fallbackLink = document.createElement('a');
+    fallbackLink.href = targetUrl;
+    fallbackLink.target = 'cpgg-legacy-window';
+    fallbackLink.rel = 'noopener noreferrer';
+    fallbackLink.referrerPolicy = 'no-referrer';
+    fallbackLink.style.display = 'none';
+    document.body.appendChild(fallbackLink);
+    fallbackLink.click();
+    fallbackLink.remove();
   };
   
   return (
@@ -34,7 +53,8 @@ export function Footer() {
         <VisitorCounter />
         <nav>
           <a
-            href='/legacy-redirect.html'
+            href={legacyBaseUrl}
+            target="cpgg-legacy-window"
             rel="noopener noreferrer"
             referrerPolicy="no-referrer"
             onClick={handleLegacyClick}
