@@ -8,118 +8,27 @@ export function Footer() {
   const { t } = useLanguage();
   const legacyBaseUrl = 'http://www2.cpgg.ufba.br/';
 
-  const openLegacyWindow = (targetUrl: string) => {
-    const popup = window.open(
-      '',
-      'cpgg-legacy-window',
-      'popup=yes,width=1280,height=900,left=120,top=80'
-    );
-
-    if (!popup) {
-      return false;
-    }
-
-    const safeTargetUrl = JSON.stringify(targetUrl);
-
-    popup.document.open();
-    popup.document.write(`<!doctype html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="referrer" content="no-referrer" />
-    <title>Abrindo página antiga do CPGG</title>
-    <style>
-      :root {
-        color-scheme: light;
-        font-family: Arial, sans-serif;
-      }
-
-      body {
-        margin: 0;
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        padding: 24px;
-        background: #f4f6f8;
-        color: #17212b;
-      }
-
-      main {
-        width: min(100%, 520px);
-        background: #ffffff;
-        border-radius: 16px;
-        padding: 32px 24px;
-        box-shadow: 0 20px 50px rgba(23, 33, 43, 0.14);
-        text-align: center;
-      }
-
-      h1 {
-        margin: 0 0 12px;
-        font-size: 1.5rem;
-      }
-
-      p {
-        margin: 0 0 20px;
-        line-height: 1.5;
-      }
-
-      a {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 44px;
-        padding: 0 18px;
-        border-radius: 999px;
-        background: #17212b;
-        color: #ffffff;
-        text-decoration: none;
-        font-weight: 700;
-      }
-    </style>
-  </head>
-  <body>
-    <main>
-      <h1>Abrindo a página antiga do CPGG</h1>
-      <p>Se o redirecionamento não acontecer automaticamente, use o botão abaixo.</p>
-      <a id="legacy-link" href=${safeTargetUrl}>Abrir página antiga</a>
-    </main>
-
-    <script>
-      const targetUrl = ${safeTargetUrl};
-
-      try {
-        window.opener = null;
-      } catch (_) {
-      }
-
-      window.location.replace(targetUrl);
-    </script>
-  </body>
-</html>`);
-    popup.document.close();
-    popup.focus();
-
-    return true;
-  };
-
   const handleLegacyClick = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
 
     const targetUrl = `${legacyBaseUrl}?nocache=${Date.now()}`;
-    if (openLegacyWindow(targetUrl)) {
+    const popup = window.open(
+      targetUrl,
+      'cpgg-legacy-window',
+      'noopener,noreferrer,popup=yes,width=1280,height=900,left=120,top=80'
+    );
+
+    if (popup) {
+      popup.focus();
       return;
     }
 
-    const fallbackLink = document.createElement('a');
-    fallbackLink.href = targetUrl;
-    fallbackLink.target = '_blank';
-    fallbackLink.rel = 'noopener noreferrer';
-    fallbackLink.referrerPolicy = 'no-referrer';
-    fallbackLink.style.display = 'none';
-    document.body.appendChild(fallbackLink);
-    fallbackLink.click();
-    fallbackLink.remove();
+    try {
+      // @ts-ignore - window.top pode ser cross-origin no preview
+      window.top.location.href = targetUrl;
+    } catch (_) {
+      window.location.href = targetUrl;
+    }
   };
   
   return (
