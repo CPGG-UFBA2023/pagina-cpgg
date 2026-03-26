@@ -1,19 +1,398 @@
-/* Lamod Lab Styles */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  padding-top: 8rem;
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  overflow: hidden !important;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
-.title {
-  font-size: 2.25rem;
+.lamod {
+  text-align: justify;
+  font-size: 18px;
+  line-height: 35px;
+  display: flex;
+  flex: 1;
+  color: #fff;
+  padding-top: 140px;
+  padding-bottom: 543px;
+  padding-left: 280px;
+  padding-right: 200px;
+}
+
+.Title ul {
+  font-size: 35px;
+  color: #363F5;
+  margin-top: -30px;
+  margin-left: calc(50% - 445px);
+  padding-left: 0;
+  padding-bottom: 20px;
+  white-space: nowrap;
   font-weight: bold;
-  margin-bottom: 1.5rem;
-  color: white;
 }
 
-.content {
-  font-size: 1.125rem;
-  color: white;
+.Title a {
+  font-size: 20px;
+  color: #363F5;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 20px;
+  white-space: normal;
+  display: block;
+  text-align: center;
+}
+
+.box {
+  text-align: justify-all;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.2);
+  position: absolute;
+  width: 650px;
+  height: 430px;
+  top: 25%;
+  left: calc(2% + 75px);
+  padding: 20px;
+  padding-left: 300px;
+  border-radius: 20px;
+  gap: 5px;
+  margin-bottom: -500px;
+  overflow-y: scroll;
+}
+
+.box p {
+  font-size: 16px;
+  color: #fff;
+  text-align: justify;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.box span {
+  font-size: 16px;
+  color: #fff;
+  margin-left: 0;
+  text-align: center;
+  display: block;
+}
+
+.box ul {
+  font-size: 28px;
+  color: #363F5;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 20px;
+  padding: 0;
+  padding-top: 10px;
+  white-space: normal;
+  font-weight: bold;
+  list-style: none;
+}
+
+.purpleLink {
+  color: rgba(147, 106, 235) !important;
+  font-size: 13px !important;
+  margin-left: 0 !important;
+}
+
+.purpleText {
+  color: rgba(147, 106, 235) !important;
+  font-size: 13px !important;
+  text-align: center !important;
+  display: block !important;
+  margin-left: 0 !important;
+}
+
+.photoBox1 {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.2);
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  top: 3%;
+  left: calc(2% + 60px);
+  padding: 10px;
+  border-radius: 20px;
+  gap: 5px;
+  background-size: cover;
+  background-position: center;
+}
+
+.legend1 {
+  font-size: 12px;
+  right: 10px;
+  left: 10px;
+  top: 300px;
+  position: absolute;
+}
+
+/* Grandes Telas/4K - ≥ 1601px */
+@media (min-width: 1601px) {
+  .lamod {
+    padding-left: 400px;
+    padding-right: 300px;
+    font-size: 20px;
+    line-height: 40px;
+  }
+
+  .box {
+    width: 930px;
+    height: 520px;
+    padding-left: 450px;
+  }
+}
+
+/* Desktop/HD - 1201px - 1600px */
+@media (min-width: 1201px) and (max-width: 1600px) {
+  .lamod {
+    padding-left: 280px;
+    padding-right: 200px;
+    font-size: 18px;
+    line-height: 35px;
+  }
+
+  .box {
+    width: 760px;
+    height: 430px;
+    padding-left: 350px;
+  }
+}
+
+/* Laptop - 1025px - 1200px */
+@media (min-width: 1025px) and (max-width: 1200px) {
+  .lamod {
+    padding-left: 200px;
+    padding-right: 150px;
+    font-size: 16px;
+    line-height: 32px;
+    padding-bottom: 600px;
+  }
+
+  .box {
+    width: 700px;
+    height: 600px;
+    left: calc(2% + 75px);
+    top: 25%;
+    padding: 20px;
+    padding-left: 280px;
+    border-radius: 20px;
+    gap: 5px;
+    margin-bottom: -500px;
+    font-size: 12px;
+  }
+
+  .Title ul {
+    padding-left: 150px;
+    font-size: 32px;
+  }
+
+  .Title a {
+    font-size: 22px;
+    margin-top: -30px;
+  }
+}
+
+/* Tablet - 769px - 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .lamod {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 13px;
+    line-height: 26px;
+    padding-bottom: 950px;
+  }
+
+  .box {
+    width: 700px;
+    height: 600px;
+    left: calc(2% + 75px);
+    top: 25%;
+    padding: 20px;
+    padding-left: 280px;
+    border-radius: 20px;
+    gap: 5px;
+    margin-bottom: -500px;
+    font-size: 12px;
+  }
+
+  .box p {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+
+  .box ul {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .Title ul {
+    margin-left: 0;
+    padding-left: 0;
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .Title a {
+    font-size: 18px;
+    margin-top: -20px;
+    text-align: center;
+    margin-left: 0;
+  }
+
+  .box span {
+    font-size: 13px;
+    margin-left: 0;
+  }
+
+  .photoBox1 {
+    width: 160px !important;
+    height: 160px !important;
+    position: absolute !important;
+    left: 20px !important;
+    top: 15% !important;
+  }
+
+  .legend1 {
+    font-size: 9px;
+    top: 160px;
+  }
+}
+
+/* Mobile (Médio) - 481px - 768px */
+@media (min-width: 481px) and (max-width: 768px) {
+  .lamod {
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 12px;
+    line-height: 24px;
+    padding-bottom: 1100px;
+  }
+
+  .box {
+    width: 550px !important;
+    height: 350px !important;
+    position: absolute !important;
+    left: 150px !important;
+    top: 20% !important;
+    padding: 15px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    font-size: 9px;
+  }
+
+  .box p {
+    font-size: 11px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+
+  .box ul {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .Title ul {
+    margin-left: 0;
+    padding-left: 50px;
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .Title a {
+    font-size: 16px;
+    margin-top: -15px;
+    text-align: center;
+    margin-left: 0;
+  }
+
+  .photoBox1 {
+    position: relative !important;
+    width: 100% !important;
+    height: 200px !important;
+    left: 0 !important;
+    top: 0 !important;
+    margin-top: 15px;
+  }
+
+  .legend1 {
+    position: relative;
+    top: auto;
+    margin-top: 5px;
+    font-size: 10px;
+  }
+}
+
+/* Mobile (Pequeno) - ≤ 480px */
+@media (max-width: 480px) {
+  .pageContainer {
+    position: relative !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    min-height: 100vh !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+
+  .lamod {
+    padding: 10px;
+    padding-top: 155px;
+    font-size: 14px;
+    line-height: 24px;
+    padding-bottom: 80px;
+  }
+
+  .box {
+    position: relative !important;
+    width: 95% !important;
+    height: auto !important;
+    left: auto !important;
+    top: auto !important;
+    margin: 0 auto !important;
+    padding: 15px !important;
+  }
+
+  .box p {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .box ul {
+    font-size: 22px;
+  }
+
+  .Title ul {
+    margin-left: 0 !important;
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .Title a {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .photoBox1 {
+    position: relative !important;
+    width: 100% !important;
+    height: 200px !important;
+    left: 0 !important;
+    top: 0 !important;
+    margin-top: 15px;
+  }
+
+  .legend1 {
+    position: relative;
+    top: auto;
+    margin-top: 5px;
+    font-size: 10px;
+  }
 }
