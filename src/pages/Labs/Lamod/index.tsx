@@ -25,6 +25,18 @@ export function Lamod() {
             <span>Prof. Dr. Luiz Cesar Correa Gomes</span>
             <span style={{ fontSize: '64%' }}><a href="mailto:lccgomes@ufba.br" className={styles.purpleLink}>lccgomes@ufba.br</a></span>
 
+            <p>
+              Acesse o site da Plataforma Nacional de Infraestrutura de Pesquisa-PNIPE:
+              <br />
+              <a
+                href="https://pnipe.mcti.gov.br/laboratory/19338"
+                target="_blank"
+                className={styles.purpleLink}
+              >
+                Site do PNIPE
+              </a>
+            </p>
+
             <div className={styles.photoBox1} style={{ backgroundImage: `linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)), url(${lamodPhoto1})` }}>
               <h4 className={styles.legend1}>Mesa de Deformação NSB 2018</h4>
             </div>
