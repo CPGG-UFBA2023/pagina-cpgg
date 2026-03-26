@@ -108,6 +108,47 @@
   margin-left: 0 !important;
 }
 
+.routinesTitle {
+  font-size: 16px;
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.routineSection {
+  margin-bottom: 15px;
+}
+
+.routineSection h3 {
+  font-size: 15px;
+  color: rgba(147, 106, 235);
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.routineList {
+  list-style: disc !important;
+  padding-left: 20px !important;
+  margin: 0 !important;
+}
+
+.routineList li {
+  font-size: 14px;
+  color: #fff;
+  line-height: 1.6;
+  margin-bottom: 4px;
+}
+
+.routineNote {
+  font-size: 14px;
+  color: #fff;
+  text-align: justify;
+  font-style: italic;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
 /* Grandes Telas/4K - ≥ 1601px */
 @media (min-width: 1601px) {
   .ltmrx {
