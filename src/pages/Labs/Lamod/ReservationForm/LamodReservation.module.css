@@ -1,0 +1,144 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  overflow: hidden !important;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.content {
+  flex: 1;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.title {
+  text-align: center;
+  color: #592cbb;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.subtitle {
+  text-align: center;
+  color: #555;
+  margin-bottom: 25px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.formContainer {
+  max-width: 800px;
+  margin: 110px auto 20px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 25px 25px 10px 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transform: translateX(-250px);
+}
+
+.form {
+  margin-bottom: 12px;
+}
+
+.form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form input,
+.form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.form input:focus,
+.form textarea:focus {
+  outline: none;
+  border-color: #592cbb;
+  box-shadow: 0 0 0 3px rgba(89, 44, 187, 0.1);
+}
+
+.form textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.submitButton {
+  background: linear-gradient(145deg, #592cbb 0%, #6a3bc5 100%);
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(89, 44, 187, 0.3);
+}
+
+.submitButton:hover {
+  background: linear-gradient(145deg, #4a237a 0%, #592cbb 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(89, 44, 187, 0.4);
+}
+
+.submitButton:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .formContainer {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .formContainer {
+    transform: translateX(0);
+    margin-top: -300px;
+  }
+}
+
+@media (max-width: 430px) {
+  .formContainer {
+    margin-top: 200px !important;
+    max-height: calc(100vh - 280px) !important;
+    overflow-y: auto !important;
+  }
+  
+  .container {
+    overflow-y: auto !important;
+  }
+  
+  .content {
+    overflow-y: auto !important;
+  }
+}
