@@ -1,80 +1,36 @@
 import styles from './lamod.module.css'
 import { Header } from '../../../components/Header'
 import { Footer } from '../../../components/Footer'
-import earth from '../../../assets/earth-imgur.png'
+import lamodPhoto1 from '../../../assets/lamod-photo1.png'
 
 export function Lamod() {
   return (
-    <>
+    <div className={styles.pageContainer}>
       <Header />
       <div className={styles.lamod}>
-        <div className={styles.Title} >
-          <ul> LAMOD </ul>
-          <a> Laboratório de Modelagem Física </a>
+        <div className={styles.Title}>
           <div className={styles.box}>
-          <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus
-    aliquam dolor, eu lacinia lorem placerat vulputate. Duis felis orci,
-    pulvinar id metus ut, rutrum luctus orci. Cras porttitor imperdiet nunc, at
-    ultricies tellus laoreet sit amet. Sed auctor cursus massa at porta. Integer
-    ligula ipsum, tristique sit amet orci vel, viverra egestas ligula. Curabitur
-    vehicula tellus neque, ac ornare ex malesuada et. In vitae convallis lacus.
-    Aliquam erat volutpat. Suspendisse ac imperdiet turpis. Aenean finibus
-    sollicitudin eros pharetra congue. Duis ornare egestas augue ut luctus.
-    Proin blandit quam nec lacus varius commodo et a urna. Ut id ornare felis,
-    eget fermentum sapien.
-  </p>
-<br></br>
-  <p>
-    Nam vulputate diam nec tempor bibendum. Donec luctus augue eget malesuada
-    ultrices. Phasellus turpis est, posuere sit amet dapibus ut, facilisis sed
-    est. Nam id risus quis ante semper consectetur eget aliquam lorem. Vivamus
-    tristique elit dolor, sed pretium metus suscipit vel. Mauris ultricies
-    lectus sed lobortis finibus. Vivamus eu urna eget velit cursus viverra quis
-    vestibulum sem. Aliquam tincidunt eget purus in interdum. Cum sociis natoque
-    penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-  </p>
-            <p> 
-              Para acessar as informações acerca das estatísticas de uso dos equipamentos, acesse o link abaixo
-             </p>
-             <nav>
-              <a href='https://pnipe.mcti.gov.br/search?term=Laiga' target="_blank">Estatísticas de uso</a>
-            </nav>
-            <br></br>
-             <p> 
-              Acesse o site da Plataforma Nacional de Infraestrutura de Pesquisa-PNIPE, e veja as fotos e mais detalhes sobre os equipamentos disponíveis. 
+            <ul>LAMOD</ul>
+            <a>Laboratório de Modelagem Física</a>
+            <p>
+              O LAMOD, localizado no prédio do Centro de Pesquisa em Geofísica e Geologia (CPGG) do Instituto de Geociências da UFBA, é um laboratório multiusuário dedicado à modelagem física de estruturas geológicas, ocupando uma área climatizada de 40 m². Inaugurado com recursos dos projetos Rift Bahia I e II em parceria com a Petrobras S/A entre 2015 e 2018, o espaço foi projetado para ser o mais moderno do gênero no Brasil. Sua infraestrutura inclui uma área administrativa situada em um mezanino e uma área de experimentos no andar térreo.
             </p>
-
-             <nav>
-              <a href='https://pnipe.mcti.gov.br/laboratory/19338' target="_blank">Site do PNIPE</a>
-            </nav>
-            <p> 
-              Para saber da disponibilidade dos equipamentos e solicitá-los para uso, acesse nossa plataforma de requerimento
+            <br />
+            <p>
+              O laboratório conta com A Mesa de Deformação NSB 2018, única no mundo em seu design e capacidade, permitindo a coleta de um volume significativo de dados experimentais. Para isso, o LAMOD dispõe de sete computadores de mesa e dois notebooks acoplados ao sistema. Sua concepção contou com visitas técnicas do coordenador, Prof. Dr. Luiz Cesar Correa Gomes, a renomados laboratórios do Brasil, como os da UFOP, UFRN e CENPES-RJ, além do Royal Holloway na Universidade de Londres.
             </p>
-            <nav>
-             <a href='https://pnipe.mcti.gov.br/search?term=Laiga' target="_blank">Requerimento de uso</a>
-           </nav>
-          <br></br>
-           <b> Chefe do LAIGA</b>
-           <span> prof. Luiz Cesar Correa Gomes</span>
+            <br />
 
-            <div className={styles.box1}>
-              <h4 className={styles.legend1}>Sala 1- Almoxarifado com equipamentos</h4>
-            </div>
-            <div className={styles.box2}>
-              <h4 className={styles.legend2}>Sala 1-Sala de Dados</h4>
-            </div>
-            <div className={styles.box3}>
-              <h4 className={styles.legend3}>Sala 3- Eletrônica</h4>
-            </div>
-            <div className={styles.box4}>
-              <h4 className={styles.legend4}>Sala de apoio do LAIGA</h4>
+            <b className={styles.purpleText}>Chefe:</b>
+            <span>Prof. Dr. Luiz Cesar Correa Gomes</span>
+
+            <div className={styles.photoBox1} style={{ backgroundImage: `linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)), url(${lamodPhoto1})` }}>
+              <h4 className={styles.legend1}>Mesa de Deformação NSB 2018</h4>
             </div>
           </div>
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   )
 }
-
