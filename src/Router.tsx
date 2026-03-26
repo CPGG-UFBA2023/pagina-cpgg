@@ -67,6 +67,7 @@ import { LaigaReceipt } from './pages/Labs/Laiga/Receipt'
 import { LaigaSuccess } from './pages/Labs/Laiga/Success'
 import { Lagep } from './pages/Labs/Lagep'
 import { Lamod } from './pages/Labs/Lamod'
+import { LamodRF } from './pages/Labs/Lamod/ReservationForm'
 import { Lemar } from './pages/Labs/Lemar'
 import { LemarRF } from './pages/Labs/Lemar/ReservationForm'
 import { LemarSuccess } from './pages/Labs/Lemar/Success'
@@ -180,6 +181,7 @@ export function Router() {
          <Route path='/labs/laiga/success' element={<LaigaSuccess />} />
          <Route path='/labs/lagep' element={<Lagep />} />
          <Route path='/labs/lamod' element={<Lamod />} />
+         <Route path='/labs/lamod/reservation-form' element={<LamodRF />} />
          <Route path='/labs/lemar' element={<Lemar />} />
          <Route path='/labs/lemar/reservation-form' element={<LemarRF />} />
          <Route path='/labs/lemar/success' element={<LemarSuccess />} />
