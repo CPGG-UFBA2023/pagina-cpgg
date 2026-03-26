@@ -37,6 +37,18 @@ export function Lamod() {
               </a>
             </p>
 
+            <p>
+              Acesse o site do LAMOD:
+              <br />
+              <a
+                href="https://lamodigeoufba.webnode.page/"
+                target="_blank"
+                className={styles.purpleLink}
+              >
+                Site do LAMOD
+              </a>
+            </p>
+
             <div className={styles.photoBox1} style={{ backgroundImage: `linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)), url(${lamodPhoto1})` }}>
               <h4 className={styles.legend1}>Mesa de Deformação NSB 2018</h4>
             </div>
