@@ -117,7 +117,7 @@
   position: absolute;
   width: 300px;
   height: 300px;
-  top: 3%;
+  top: calc(3% + 30px);
   left: calc(2% + 60px);
   padding: 10px;
   border-radius: 20px;
