@@ -34,6 +34,12 @@ export function CPGG2() {
                 <h2>Laboratório de Tecnologia Mineral</h2>
               </div>
             </Link>
+            <Link to="/labs/lamod" className={styles.labCard}>
+              <div className={styles.Lamod}>
+                <h2>LAMOD</h2>
+                <h2>Laboratório de Modelagem Física</h2>
+              </div>
+            </Link>
           </div>
         </div>
       </main>
