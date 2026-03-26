@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styles from './lamod.module.css'
 import { Header } from '../../../components/Header'
 import { Footer } from '../../../components/Footer'
@@ -48,6 +49,12 @@ export function Lamod() {
                 Site do LAMOD
               </a>
             </p>
+
+            <div className={styles.requerimentoButton}>
+              <Link to="/labs/lamod/reservation-form" className={styles.buttonLink}>
+                Requerimento
+              </Link>
+            </div>
 
             <div className={styles.photoBox1} style={{ backgroundImage: `linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)), url(${lamodPhoto1})` }}>
               <h4 className={styles.legend1}>Mesa de Deformação NSB 2018</h4>
