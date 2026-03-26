@@ -28,6 +28,12 @@ export function CPGG2() {
                 <h2>Laboratório de Espectrometria de Massas de Alta Resolução</h2>
               </div>
             </Link>
+            <Link to="/labs/ltm-rx" className={styles.labCard}>
+              <div className={styles.LtmRx}>
+                <h2>LTM-RX</h2>
+                <h2>Laboratório de Tecnologia Mineral</h2>
+              </div>
+            </Link>
           </div>
         </div>
       </main>
