@@ -48,6 +48,15 @@ export function LtmRx() {
                 https://pnipe.mcti.gov.br/laboratory/23058
               </a>
             </p>
+
+           <br />
+           <b className={styles.purpleText}>Coordenador:</b>
+           <span>Renato Carlos Vieira Santiago</span>
+           <span>
+             <a href="mailto:rcsantiago@ufba.br" className={styles.purpleLink}>
+               rcsantiago@ufba.br
+             </a>
+           </span>
           </div>
         </div>
       </div>
