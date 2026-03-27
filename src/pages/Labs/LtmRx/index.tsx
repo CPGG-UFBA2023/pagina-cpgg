@@ -4,6 +4,7 @@ import { Header } from '../../../components/Header'
 import { Footer } from '../../../components/Footer'
 import drxPhoto from '../../../assets/Photos/ltmrx-drx.png'
 import frxPhoto from '../../../assets/Photos/ltmrx-frx.png'
+import { LtmRxRequestForm } from './LtmRxRequestForm'
 
 export function LtmRx() {
   const [showRequest, setShowRequest] = useState(false)
@@ -72,53 +73,7 @@ export function LtmRx() {
                 </div>
               </>
             ) : (
-              <>
-                <p>
-                  É necessário o envio de uma cópia do projeto de pesquisa onde estão previstas as análises de DRX e/ou FRX. Após aprovação do pedido pelos responsáveis do laboratório, as amostras deverão ser entregues, juntamente com o Termo de Compromisso assinado pelo(a) professor(a) orientador(a)/responsável, no Laboratório de Tecnologia Mineral – Raios X, que fica no Complexo Laboratorial de Preparação e Análise de Amostras (LAPAG) Instituto de Geociências/UFBA, Bloco B, 1º andar, sala 202B.
-                </p>
-                <p>
-                  A realização das análises será por lote com no máximo 10 amostras. Todas as análises deverão ser preferencialmente acompanhadas pelo usuário, exceto em caso de prestação de serviço.
-                </p>
-                <p>
-                  Os custos das análises seguem tabela em vigor e disponível na pasta compartilhada. A contrapartida será calculada a partir da demanda de análise solicitada e poderá ser negociada somente com a coordenação do laboratório.
-                </p>
-                <p>
-                  Os trabalhos a serem publicados e que utilizarem análises realizadas no laboratório, deverão – OBRIGATORIAMENTE - fazer a menção ao Laboratório de Tecnologia Mineral - RAIOS X / LAPAG / IGEO.
-                </p>
-
-                <p className={styles.routinesTitle}>OBSERVAÇÕES IMPORTANTES:</p>
-                <ul className={styles.routineList}>
-                  <li>As amostras devem ser acondicionadas em embalagem adequada (potes com tampa ou eppendorfs) e identificadas com etiquetas. A IDENTIFICAÇÃO DEVE SER REALIZADA PELO USUÁRIO.</li>
-                  <li>Amostras de pós devem ser previamente preparadas, peneiradas em malha #200 mesh e homogêneas. O RAIOS X LAPAG não dispõe de infraestrutura (almofarizes/pistilos/peneiras) e incentiva os alunos na preparação de suas amostras.</li>
-                  <li>As amostras deverão ser entregues juntamente com o Termo de Compromisso (disponível na pasta compartilhada) preenchido e assinado pelo orientador, no Laboratório de Tecnologia Mineral – Raios X, Instituto de Geociências, Bloco B, 1º andar, Sala 202B.</li>
-                  <li>É necessário um mínimo de 5g por amostra.</li>
-                  <li>Amostras em desacordo com as observações supracitadas serão devolvidas ao solicitante.</li>
-                </ul>
-
-                <p>
-                  Contato: <a href="mailto:raiosx-lapag@ufba.br" className={styles.purpleLink}>raiosx-lapag@ufba.br</a>
-                  <br />
-                  Fone: (71) 3283-8634
-                </p>
-
-                <p>
-                  Acesse o formulário de solicitação:
-                  <br />
-                  <a
-                    href="https://docs.google.com/forms/d/e/1FAIpQLSeZPFkGX2DYb1vzf9nYEzWn9DMMu_zMcEPAZoYJDEZJRiZOiA/viewform"
-                    target="_blank"
-                    className={styles.purpleLink}
-                  >
-                    Formulário de Solicitação de Análises (DRX)
-                  </a>
-                </p>
-
-                <div className={styles.requerimentoButton}>
-                  <button onClick={() => setShowRequest(false)} className={styles.buttonLink}>
-                    Voltar
-                  </button>
-                </div>
-              </>
+              <LtmRxRequestForm onBack={() => setShowRequest(false)} />
             )}
 
             <div className={styles.box1} style={{ background: `linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)), url(${drxPhoto}) center/cover` }}>
