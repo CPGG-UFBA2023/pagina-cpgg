@@ -66,8 +66,9 @@
 }
 
 .boxFullWidth {
-  padding-left: 20px;
-  width: 950px;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  width: 950px !important;
 }
 
 .box p {
