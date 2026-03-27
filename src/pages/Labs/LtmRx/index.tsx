@@ -86,6 +86,33 @@ export function LtmRx() {
                   Os trabalhos a serem publicados e que utilizarem análises realizadas no laboratório, deverão – OBRIGATORIAMENTE - fazer a menção ao Laboratório de Tecnologia Mineral - RAIOS X / LAPAG / IGEO.
                 </p>
 
+                <p className={styles.routinesTitle}>OBSERVAÇÕES IMPORTANTES:</p>
+                <ul className={styles.routineList}>
+                  <li>As amostras devem ser acondicionadas em embalagem adequada (potes com tampa ou eppendorfs) e identificadas com etiquetas. A IDENTIFICAÇÃO DEVE SER REALIZADA PELO USUÁRIO.</li>
+                  <li>Amostras de pós devem ser previamente preparadas, peneiradas em malha #200 mesh e homogêneas. O RAIOS X LAPAG não dispõe de infraestrutura (almofarizes/pistilos/peneiras) e incentiva os alunos na preparação de suas amostras.</li>
+                  <li>As amostras deverão ser entregues juntamente com o Termo de Compromisso (disponível na pasta compartilhada) preenchido e assinado pelo orientador, no Laboratório de Tecnologia Mineral – Raios X, Instituto de Geociências, Bloco B, 1º andar, Sala 202B.</li>
+                  <li>É necessário um mínimo de 5g por amostra.</li>
+                  <li>Amostras em desacordo com as observações supracitadas serão devolvidas ao solicitante.</li>
+                </ul>
+
+                <p>
+                  Contato: <a href="mailto:raiosx-lapag@ufba.br" className={styles.purpleLink}>raiosx-lapag@ufba.br</a>
+                  <br />
+                  Fone: (71) 3283-8634
+                </p>
+
+                <p>
+                  Acesse o formulário de solicitação:
+                  <br />
+                  <a
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSeZPFkGX2DYb1vzf9nYEzWn9DMMu_zMcEPAZoYJDEZJRiZOiA/viewform"
+                    target="_blank"
+                    className={styles.purpleLink}
+                  >
+                    Formulário de Solicitação de Análises (DRX)
+                  </a>
+                </p>
+
                 <div className={styles.requerimentoButton}>
                   <button onClick={() => setShowRequest(false)} className={styles.buttonLink}>
                     Voltar
