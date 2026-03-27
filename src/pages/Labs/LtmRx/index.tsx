@@ -54,10 +54,6 @@ export function LtmRx() {
            <br />
            <b className={styles.purpleText}>Coordenador:</b>
            <span>Renato Carlos Vieira Santiago</span>
-           <span>
-             <a href="mailto:rcsantiago@ufba.br" className={styles.purpleLink}>
-               rcsantiago@ufba.br
-             </a>
             <span>
               <a href="mailto:rcsantiago@ufba.br" className={styles.purpleLink}>
                 rcsantiago@ufba.br
