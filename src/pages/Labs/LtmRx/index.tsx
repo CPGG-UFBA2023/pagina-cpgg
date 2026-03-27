@@ -58,18 +58,19 @@ export function LtmRx() {
              <a href="mailto:rcsantiago@ufba.br" className={styles.purpleLink}>
                rcsantiago@ufba.br
              </a>
-           </span>
-          </div>
+            <span>
+              <a href="mailto:rcsantiago@ufba.br" className={styles.purpleLink}>
+                rcsantiago@ufba.br
+              </a>
+            </span>
 
             <div className={styles.box1}>
-              <img src={drxPhoto} alt="Difratômetro DRX BRUKER D2 PHASER" className={styles.photoImg} />
               <h4 className={styles.legend1}>Difratômetro de Raios X (DRX) BRUKER AXS, modelo D2 PHASER, para análise de fases em estudos de materiais. Energia: 8 Kev/ 30 KV máxima/corrente: 10mA.</h4>
             </div>
-
             <div className={styles.box2}>
-              <img src={frxPhoto} alt="Espectrômetro WDX-FRX BRUKER S8 TIGER" className={styles.photoImg} />
               <h4 className={styles.legend2}>Espectrômetro de Fluorescência (WDX-FRX) por dispersão de comprimento de onda – BRUKER AXS, modelo S8 TIGER, para análise de elementos químicos. Energia: 20,2 Kev/60KV máxima/corrente: 170mA.</h4>
             </div>
+          </div>
         </div>
       </div>
       <Footer />
