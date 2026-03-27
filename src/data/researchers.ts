@@ -50,13 +50,13 @@ export const researcherData = {
 // Função para normalizar nomes
 export const normalize = (name: string) =>
   name
-    .replace(/\s*\(Chefe\).*/i, '')
+    .replace(/\s*\(Chefe|Coordenador\).*/i, '')
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLocaleLowerCase('pt-BR')
     .trim()
 
-// Função para ordenar programa colocando o chefe primeiro
+// Função para ordenar programa colocando o coordenador primeiro
 export const sortProgram = (
   items: { name: string; route: string; chief?: boolean }[]
 ) => {

@@ -110,7 +110,7 @@ export function DynamicLab() {
             <br />
             
             <b className={styles.purpleText}>
-              Chefe do {laboratory.name}
+              Coordenador do {laboratory.name}
             </b>
             <span>{laboratory.chief_name}</span>
 

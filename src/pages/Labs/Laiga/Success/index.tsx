@@ -8,7 +8,7 @@ export function LaigaSuccess() {
       <Header />
       <div className={styles.success}>
         <ul>Solicitação de Reserva Enviada com Sucesso!</ul>
-        <p>Em breve o chefe do laboratório entrará em contato por e-mail.</p>
+        <p>Em breve o coordenador do laboratório entrará em contato por e-mail.</p>
       </div>
       <Footer />
     </div>

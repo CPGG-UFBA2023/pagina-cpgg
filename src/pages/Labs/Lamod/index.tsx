@@ -22,7 +22,7 @@ export function Lamod() {
             </p>
             <br />
 
-            <b className={styles.purpleText}>Chefe:</b>
+            <b className={styles.purpleText}>Coordenador:</b>
             <span>Prof. Dr. Luiz Cesar Correa Gomes</span>
             <span style={{ fontSize: '64%' }}><a href="mailto:lccgomes@ufba.br" className={styles.purpleLink}>lccgomes@ufba.br</a></span>
 

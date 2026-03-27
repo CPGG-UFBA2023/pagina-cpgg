@@ -80,7 +80,7 @@ export function EditableResearcher({
         }}
       >
         {researcher.name}
-        {researcher.isChief && <span style={{ marginLeft: '0.5rem', fontSize: '0.875rem' }}>(Chefe)</span>}
+        {researcher.isChief && <span style={{ marginLeft: '0.5rem', fontSize: '0.875rem' }}>(Coordenador)</span>}
       </Link>
     )
   }

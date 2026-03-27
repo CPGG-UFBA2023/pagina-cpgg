@@ -208,7 +208,7 @@ export function LaboratoriosAdmin() {
             <tr>
               <th>Nome do Laboratório</th>
               <th>Sigla</th>
-              <th>Nome do Chefe</th>
+              <th>Nome do Coordenador</th>
               <th>E-mail</th>
               <th>Ações</th>
             </tr>
