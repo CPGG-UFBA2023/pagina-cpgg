@@ -65,6 +65,11 @@
   overflow-y: scroll;
 }
 
+.boxFullWidth {
+  padding-left: 20px;
+  width: 950px;
+}
+
 .box p {
   font-size: 16px;
   color: #fff;
