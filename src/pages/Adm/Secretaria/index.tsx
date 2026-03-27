@@ -68,6 +68,7 @@ export function Secretaria() {
         description: "Bem-vinda à área da secretaria.",
       })
       console.log('Login Secretaria bem-sucedido')
+      navigate('/adm/coordenacao/laboratorios')
     } catch (error) {
       toast({
         title: "Erro",

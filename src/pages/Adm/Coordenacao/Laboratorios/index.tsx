@@ -41,8 +41,13 @@ export function LaboratoriosAdmin() {
   useEffect(() => {
     const userData = sessionStorage.getItem('admin_user')
     if (userData) {
-      setAdminUser(JSON.parse(userData))
-      loadLaboratories()
+      const parsed = JSON.parse(userData)
+      if (parsed.role === 'coordenacao' || parsed.role === 'secretaria') {
+        setAdminUser(parsed)
+        loadLaboratories()
+      } else {
+        navigate('/adm/coordenacao')
+      }
     } else {
       navigate('/adm/coordenacao')
     }
