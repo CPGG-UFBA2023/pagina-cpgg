@@ -319,7 +319,7 @@ export function PesquisadoresAdmin() {
                                   <Star className={styles.chiefIcon} size={16} />
                                 )}
                                 <strong>{researcher.name}</strong>
-                                {researcher.is_chief && <span className={styles.chiefBadge}>(Chefe)</span>}
+                                {researcher.is_chief && <span className={styles.chiefBadge}>(Coordenador)</span>}
                               </div>
                             </div>
                             <div className={styles.researcherActions}>

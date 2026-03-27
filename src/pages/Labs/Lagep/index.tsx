@@ -56,7 +56,7 @@ export function Lagep() {
              <a href="https://pnipe.mcti.gov.br/search?term=Laiga" target="_blank">Requerimento de uso</a>
            </nav>
           <br></br>
-           <b> Chefe do LAGEP</b>
+           <b> Coordenador do LAGEP</b>
            <span> prof. Milton José Porsani</span>
 
             <div className={styles.box1}>

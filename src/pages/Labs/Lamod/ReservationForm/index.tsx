@@ -60,7 +60,7 @@ export function LamodRF() {
 
       toast({
         title: "Solicitação Enviada com Sucesso!",
-        description: "Em breve o chefe do laboratório entrará em contato por e-mail.",
+        description: "Em breve o coordenador do laboratório entrará em contato por e-mail.",
       });
 
       setFormData({

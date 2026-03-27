@@ -41,7 +41,7 @@ export function EditableLaboratory({ laboratory, isEditing, onUpdate, onDelete }
     if (!editData.name || !editData.acronym || !editData.chief_name) {
       toast({
         title: "Erro",
-        description: "Nome, sigla e chefe são obrigatórios",
+        description: "Nome, sigla e coordenador são obrigatórios",
         variant: "destructive",
       })
       return
@@ -131,7 +131,7 @@ export function EditableLaboratory({ laboratory, isEditing, onUpdate, onDelete }
           <div>
             <h3 className="font-bold text-lg">{laboratory.acronym}</h3>
             <p className="text-sm text-gray-600">{laboratory.name}</p>
-            <p className="text-xs text-gray-500">Chefe: {laboratory.chief_name}</p>
+            <p className="text-xs text-gray-500">Coordenador: {laboratory.chief_name}</p>
           </div>
           <div className="flex gap-2">
             <Button
@@ -171,11 +171,11 @@ export function EditableLaboratory({ laboratory, isEditing, onUpdate, onDelete }
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Chefe:</label>
+            <label className="block text-sm font-medium mb-1">Coordenador:</label>
             <Input
               value={editData.chief_name}
               onChange={(e) => setEditData(prev => ({ ...prev, chief_name: e.target.value }))}
-              placeholder="Nome do chefe"
+              placeholder="Nome do coordenador"
             />
           </div>
           <div>
