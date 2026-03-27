@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import styles from './ltmrx.module.css'
 import { Header } from '../../../components/Header'
 import { Footer } from '../../../components/Footer'
+import drxPhoto from '../../../assets/Photos/ltmrx-drx.png'
 
 export function LtmRx() {
   return (
@@ -58,6 +59,11 @@ export function LtmRx() {
              </a>
            </span>
           </div>
+
+            <div className={styles.box1}>
+              <img src={drxPhoto} alt="Difratômetro DRX BRUKER D2 PHASER" className={styles.photoImg} />
+              <h4 className={styles.legend1}>Difratômetro de Raios X (DRX) BRUKER AXS, modelo D2 PHASER, para análise de fases em estudos de materiais. Energia: 8 Kev/ 30 KV máxima/corrente: 10mA.</h4>
+            </div>
         </div>
       </div>
       <Footer />
