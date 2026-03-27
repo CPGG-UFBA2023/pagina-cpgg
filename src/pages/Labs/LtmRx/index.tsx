@@ -36,6 +36,18 @@ export function LtmRx() {
             <p className={styles.routineNote}>
               Novas rotinas analíticas de interesse do laboratório poderão ser desenvolvidas em regime de parceria a fim de se atender a projetos específicos de pesquisa acadêmica, a partir de aprovação dos responsáveis pelo laboratório.
             </p>
+
+            <p>
+              Visite o site do PNIPE:
+              <br />
+              <a
+                href="https://pnipe.mcti.gov.br/laboratory/23058"
+                target="_blank"
+                className={styles.purpleLink}
+              >
+                https://pnipe.mcti.gov.br/laboratory/23058
+              </a>
+            </p>
           </div>
         </div>
       </div>
