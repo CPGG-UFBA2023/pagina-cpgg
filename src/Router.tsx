@@ -175,6 +175,7 @@ export function Router() {
         <Route path='/history/Former' element={<Former />} />
         <Route path='/production' element={<Production />} />
          <Route path='/spaces' element={<Spaces />} />
+         <Route path='/labs' element={<Labs />} />
          <Route path='/labs/laiga' element={<Laiga />} />
          <Route path='/labs/:acronym' element={<DynamicLab />} />
          <Route path='/labs/laiga/reservation-form' element={<RF />} />
