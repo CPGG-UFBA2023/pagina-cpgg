@@ -60,10 +60,10 @@ export function LtmRx() {
               </a>
             </span>
 
-            <div className={styles.box1}>
+            <div className={styles.box1} style={{ background: `linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)), url(${drxPhoto}) center/cover` }}>
               <h4 className={styles.legend1}>Difratômetro de Raios X (DRX) BRUKER AXS, modelo D2 PHASER, para análise de fases em estudos de materiais. Energia: 8 Kev/ 30 KV máxima/corrente: 10mA.</h4>
             </div>
-            <div className={styles.box2}>
+            <div className={styles.box2} style={{ background: `linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)), url(${frxPhoto}) center/cover` }}>
               <h4 className={styles.legend2}>Espectrômetro de Fluorescência (WDX-FRX) por dispersão de comprimento de onda – BRUKER AXS, modelo S8 TIGER, para análise de elementos químicos. Energia: 20,2 Kev/60KV máxima/corrente: 170mA.</h4>
             </div>
           </div>
