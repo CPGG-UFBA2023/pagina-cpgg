@@ -2,9 +2,8 @@
 export const researcherData = {
   oil: [
     { name: 'Milton José Porsani', route: '/researchers/personal/Porsani', chief: true },
-    { name: 'Alexsandro Guerra Cerqueira', route: '/researchers/personal/Alexsandro' },
     { name: 'Ana Virgínia Alves de Santana', route: '/researchers/personal/AnaV' },
-    { name: 'Joelson da Conceição Batista', route: '/researchers/personal/Joelson' },
+    
     { name: 'Luiz Cesar Correa Gomes', route: '/researchers/personal/LCesar' },
     { name: 'Amin Bassrei', route: '/researchers/personal/Amin' },
     { name: 'Reynam da Cruz Pestana', route: '/researchers/personal/Reynam' },
@@ -18,7 +17,7 @@ export const researcherData = {
     { name: 'Luiz Rogério Bastos Leal', route: '/researchers/personal/LRogerio' },
     { name: 'Maria do Rosário Zucchi', route: '/researchers/personal/MZucchi' },
     { name: 'Susana Silva Cavalcanti', route: '/researchers/personal/Susana' },
-    { name: 'Suzan Souza de Vasconcelos', route: '/researchers/personal/Suzan' },
+    
   ],
 
   mineral: [
