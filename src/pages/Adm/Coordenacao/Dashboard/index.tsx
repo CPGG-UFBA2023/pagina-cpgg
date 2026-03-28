@@ -401,7 +401,7 @@ export function CoordenacaoDashboard() {
         if (error) throw error
       }
 
-      // Atualizar senha se fornecida
+      // Atualizar senha se fornecida (via edge function)
       if (secretariaUpdateNewPassword) {
         // Buscar o user_id do admin
         const { data: adminData, error: fetchError } = await supabase
@@ -413,13 +413,19 @@ export function CoordenacaoDashboard() {
 
         if (fetchError) throw fetchError
 
-        // Atualizar senha no auth.users
-        const { error: passwordError } = await supabase.auth.admin.updateUserById(
-          adminData.user_id,
-          { password: secretariaUpdateNewPassword }
+        // Atualizar senha via edge function segura
+        const { data: pwResult, error: pwError } = await supabase.functions.invoke(
+          'admin-update-password',
+          {
+            body: {
+              target_user_id: adminData.user_id,
+              new_password: secretariaUpdateNewPassword,
+            },
+          }
         )
 
-        if (passwordError) throw passwordError
+        if (pwError) throw pwError
+        if (pwResult?.error) throw new Error(pwResult.error)
       }
 
       toast({
