@@ -1,4 +1,3 @@
-import type { MouseEvent } from 'react'
 import styles from './Footer.module.css'
 import { Linkedin, Instagram } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -13,14 +12,7 @@ export function Footer() {
       <div className={styles.bar}>
         <VisitorCounter />
         <nav>
-          <a
-            href={legacyBaseUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            referrerPolicy="no-referrer"
-            onClick={handleLegacyClick}
-          >{t('footer.oldPage')}</a>
-          
+
           <a href='https://www.linkedin.com/in/cpgg-centro-de-pesquisa-94768a304/' target="_blank" className={styles.socialLink} rel="noopener noreferrer">
             <Linkedin size={16} />
             {t('footer.linkedin')}
