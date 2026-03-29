@@ -1,4 +1,3 @@
-import type { MouseEvent } from 'react'
 import styles from './Footer.module.css'
 import { Linkedin, Instagram } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -6,30 +5,6 @@ import { VisitorCounter } from '../VisitorCounter'
 
 export function Footer() {
   const { t } = useLanguage();
-  const legacyBaseUrl = 'http://www2.cpgg.ufba.br/';
-
-  const handleLegacyClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
-
-    const targetUrl = `${legacyBaseUrl}?nocache=${Date.now()}`;
-    const popup = window.open(
-      targetUrl,
-      'cpgg-legacy-window',
-      'noopener,noreferrer,popup=yes,width=1280,height=900,left=120,top=80'
-    );
-
-    if (popup) {
-      popup.focus();
-      return;
-    }
-
-    try {
-      // @ts-ignore - window.top pode ser cross-origin no preview
-      window.top.location.href = targetUrl;
-    } catch (_) {
-      window.location.href = targetUrl;
-    }
-  };
   
   return (
     <footer className={styles.footer}>
@@ -37,14 +12,7 @@ export function Footer() {
       <div className={styles.bar}>
         <VisitorCounter />
         <nav>
-          <a
-            href={legacyBaseUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            referrerPolicy="no-referrer"
-            onClick={handleLegacyClick}
-          >{t('footer.oldPage')}</a>
-          
+
           <a href='https://www.linkedin.com/in/cpgg-centro-de-pesquisa-94768a304/' target="_blank" className={styles.socialLink} rel="noopener noreferrer">
             <Linkedin size={16} />
             {t('footer.linkedin')}
