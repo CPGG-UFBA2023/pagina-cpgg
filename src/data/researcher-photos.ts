@@ -35,6 +35,7 @@ export const researcherPhotos: Record<string, string> = {
   // Programa Coast
   'José Maria Dominguez Landim': 'https://i.imgur.com/uvpyYg7.png',
   'Ruy Kenji Papa de Kikuchi': 'https://i.imgur.com/8tBcXOz.png',
+  'Juarez dos Santos Azevedo': '/images/researchers/juarez-azevedo.png',
 }
 
 // Função para obter a foto de um pesquisador pelo nome

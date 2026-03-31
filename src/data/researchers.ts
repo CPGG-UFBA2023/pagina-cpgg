@@ -6,6 +6,7 @@ export const researcherData = {
     
     { name: 'Luiz Cesar Correa Gomes', route: '/researchers/personal/LCesar' },
     { name: 'Amin Bassrei', route: '/researchers/personal/Amin' },
+    { name: 'Juarez dos Santos Azevedo', route: '/researchers/personal/Juarez' },
     { name: 'Reynam da Cruz Pestana', route: '/researchers/personal/Reynam' },
     { name: 'Wilson Mouzer Figueiró', route: '/researchers/personal/Wilson' },
   ],
