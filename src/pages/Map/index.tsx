@@ -48,29 +48,7 @@ export function Map() {
     loadLocations();
   }, []);
 
-  // Track visitor location on every page load
-  useEffect(() => {
-    const trackLocation = async () => {
-      try {
-        const { data, error } = await supabase.functions.invoke('track-visitor-location');
-        
-        if (error) {
-          console.error('Error tracking location:', error);
-          return;
-        }
-        
-        if (data?.locations) {
-          setLocations(data.locations);
-          setIsLoading(false);
-        }
-      } catch (error) {
-        console.error('Error calling track-visitor-location:', error);
-        setIsLoading(false);
-      }
-    };
-
-    trackLocation();
-  }, []);
+  // Tracking agora é feito globalmente pelo VisitorTracker
 
   // Initialize map
   useEffect(() => {
