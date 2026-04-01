@@ -1,0 +1,1 @@
+UPDATE visitor_locations SET visitor_count = visitor_count + 20 WHERE city = 'Salvador' AND country = 'Brazil';
