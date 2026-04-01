@@ -1,0 +1,2 @@
+INSERT INTO public.user_profiles (full_name, first_name, email, institution, phone, researcher_route)
+VALUES ('Juarez dos Santos Azevedo', 'Juarez', 'email.provisorio@aguardando.cadastro', 'UFBA', '(00) 00000-0000', 'pesquisador');
