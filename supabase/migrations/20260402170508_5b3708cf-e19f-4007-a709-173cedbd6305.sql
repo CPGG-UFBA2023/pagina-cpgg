@@ -1,0 +1,1 @@
+INSERT INTO public.atas (name, meeting_date, meeting_type, year_group, pdf_url) VALUES ('ATA nº 1101 - Lista Tríplice para Coordenador e Coordenador Adjunto do CPGG', '2024-03-13', 'Conselho Científico', '2024', '/atas/ATA_1101_Lista_Triplice_2024.pdf');
