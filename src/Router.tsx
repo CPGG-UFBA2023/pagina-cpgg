@@ -111,6 +111,7 @@ import { SobreNos } from './pages/SobreNos'
 import { InstituicaoMobile } from './pages/Institution/InstituicaoMobile'
 import { PessoalMobile } from './pages/Pessoal/PessoalMobile'
 import { TCCGeofisica } from './pages/TCCGeofisica'
+import { Atas } from './pages/Atas'
 
 export function Router() {
   return (
