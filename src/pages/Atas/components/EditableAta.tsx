@@ -53,7 +53,7 @@ export function EditableAta({ ata, isEditMode, onUpdate, onDelete }: EditableAta
 
   if (!isEditMode) {
     return (
-      <a href={ata.pdf_url} target="_blank" rel="noopener noreferrer" className={styles.card}>
+      <a href={ata.pdf_url} download className={styles.card}>
         <div className={styles.ataCard}>
           <h2 style={{ fontSize: '16px', margin: 0 }}>{ata.name}</h2>
           <p className={styles.ataSubtitle}>{ata.meeting_type} — {formattedDate}</p>
