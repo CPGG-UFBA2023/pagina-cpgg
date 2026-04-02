@@ -44,6 +44,39 @@ export type Database = {
         }
         Relationships: []
       }
+      atas: {
+        Row: {
+          created_at: string
+          id: string
+          meeting_date: string
+          meeting_type: string
+          name: string
+          pdf_url: string
+          updated_at: string
+          year_group: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          meeting_date: string
+          meeting_type: string
+          name: string
+          pdf_url: string
+          updated_at?: string
+          year_group: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          meeting_date?: string
+          meeting_type?: string
+          name?: string
+          pdf_url?: string
+          updated_at?: string
+          year_group?: string
+        }
+        Relationships: []
+      }
       calendars: {
         Row: {
           created_at: string
