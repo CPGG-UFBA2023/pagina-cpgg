@@ -143,7 +143,10 @@ export function Atas() {
       </main>
 
       <EditButton
-        onClick={() => setShowLogin(true)}
+        onClick={() => {
+          console.log('Edit button clicked, showLogin will be set to true');
+          setShowLogin(true);
+        }}
         isEditMode={isEditMode}
         onLogout={handleLogout}
       />
