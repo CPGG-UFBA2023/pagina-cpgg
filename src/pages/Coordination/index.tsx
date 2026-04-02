@@ -37,8 +37,8 @@ export function Coordination() {
     { name: 'Luiz Rogério Bastos Leal (rep. dos pesquisadores)', section: 'deliberative' },
     { name: 'Marcos Alberto Rodrigues Vasconcelos', section: 'deliberative' },
     { name: 'Simone Cerqueira Pereira Cruz', section: 'deliberative' },
-    { name: 'Onofre H. D. J. das Flores (rep. estudantil)', section: 'deliberative' },
-    { name: 'Leonardo Moreira Batista (suplente estudantil)', section: 'deliberative' },
+    { name: 'Fernanda Mara de Sá da Silveira (rep. estudantil)', section: 'deliberative' },
+    { name: 'Gabriela Soares Mesquita (suplente estudantil)', section: 'deliberative' },
   ])
   const [lastAction, setLastAction] = useState<{
     type: 'delete' | 'update'
