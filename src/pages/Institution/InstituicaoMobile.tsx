@@ -34,6 +34,12 @@ export function InstituicaoMobile() {
               <h2>Fotos</h2>
             </div>
           </Link>
+
+          <Link className={styles.card} to="/atas">
+            <div className={styles.regulationsButton}>
+              <h2>Atas</h2>
+            </div>
+          </Link>
         </div>
       </main>
       <Footer/>
