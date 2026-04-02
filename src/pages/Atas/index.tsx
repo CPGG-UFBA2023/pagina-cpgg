@@ -1,0 +1,167 @@
+import { useState, useEffect } from 'react';
+import styles from './Atas.module.css';
+import { Header } from '../../components/Header';
+import { Footer } from '../../components/Footer';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
+import { EditButton } from './components/EditButton';
+import { AdminLogin } from './components/AdminLogin';
+import { EditableAta } from './components/EditableAta';
+import { AddAtaDialog } from './components/AddAtaDialog';
+import { Plus } from 'lucide-react';
+
+interface Ata {
+  id: string;
+  name: string;
+  pdf_url: string;
+  meeting_date: string;
+  meeting_type: string;
+  year_group: string;
+}
+
+const YEAR_GROUPS = ['2010-2020', '2023', '2024', '2025'];
+
+export function Atas() {
+  const [atas, setAtas] = useState<Ata[]>([]);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showAddDialog, setShowAddDialog] = useState(false);
+  const [selectedYearGroup, setSelectedYearGroup] = useState('2025');
+  const { toast } = useToast();
+
+  useEffect(() => {
+    fetchAtas();
+  }, []);
+
+  const fetchAtas = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('atas')
+        .select('*')
+        .order('meeting_date', { ascending: false });
+
+      if (error) throw error;
+      setAtas(data || []);
+    } catch (error) {
+      console.error('Erro ao buscar atas:', error);
+    }
+  };
+
+  const handleAddAta = async (name: string, pdfUrl: string, meetingDate: string, meetingType: string, yearGroup: string) => {
+    try {
+      const { error } = await supabase
+        .from('atas')
+        .insert({ name, pdf_url: pdfUrl, meeting_date: meetingDate, meeting_type: meetingType, year_group: yearGroup });
+
+      if (error) throw error;
+
+      toast({ title: "Sucesso", description: "Ata adicionada com sucesso!" });
+      await fetchAtas();
+    } catch (error: any) {
+      toast({ title: "Erro", description: error.message || "Erro ao adicionar ata", variant: "destructive" });
+    }
+  };
+
+  const handleUpdateAta = async (id: string, name: string, pdfUrl: string) => {
+    try {
+      const { error } = await supabase
+        .from('atas')
+        .update({ name, pdf_url: pdfUrl })
+        .eq('id', id);
+
+      if (error) throw error;
+      toast({ title: "Sucesso", description: "Ata atualizada com sucesso!" });
+      await fetchAtas();
+    } catch (error: any) {
+      toast({ title: "Erro", description: error.message || "Erro ao atualizar ata", variant: "destructive" });
+    }
+  };
+
+  const handleDeleteAta = async (id: string) => {
+    try {
+      const { error } = await supabase
+        .from('atas')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
+      toast({ title: "Sucesso", description: "Ata excluída com sucesso!" });
+      await fetchAtas();
+    } catch (error: any) {
+      toast({ title: "Erro", description: error.message || "Erro ao excluir ata", variant: "destructive" });
+    }
+  };
+
+  const handleLoginSuccess = () => setIsEditMode(true);
+  const handleLogout = () => {
+    setIsEditMode(false);
+    toast({ title: "Logout", description: "Saindo do modo de edição" });
+  };
+
+  const filteredAtas = atas.filter(a => a.year_group === selectedYearGroup);
+
+  return (
+    <div className={styles.pageContainer}>
+      <Header />
+      <main className={styles.atas}>
+        <h1 className={styles.title}>Atas</h1>
+
+        <div className={styles.yearTabs}>
+          {YEAR_GROUPS.map(yg => (
+            <button
+              key={yg}
+              className={`${styles.yearTab} ${selectedYearGroup === yg ? styles.yearTabActive : ''}`}
+              onClick={() => setSelectedYearGroup(yg)}
+            >
+              {yg}
+            </button>
+          ))}
+        </div>
+
+        <div className={styles.container}>
+          {filteredAtas.map((ata) => (
+            <EditableAta
+              key={ata.id}
+              ata={ata}
+              isEditMode={isEditMode}
+              onUpdate={handleUpdateAta}
+              onDelete={handleDeleteAta}
+            />
+          ))}
+
+          {isEditMode && (
+            <div className={styles.addButton} onClick={() => setShowAddDialog(true)}>
+              <Plus size={32} />
+              <span style={{ marginLeft: 8, fontSize: 16, fontWeight: 600 }}>Adicionar Ata</span>
+            </div>
+          )}
+
+          {!isEditMode && filteredAtas.length === 0 && (
+            <p style={{ color: 'white', opacity: 0.7 }}>Nenhuma ata cadastrada para este período.</p>
+          )}
+        </div>
+      </main>
+
+      <EditButton
+        onClick={() => setShowLogin(true)}
+        isEditMode={isEditMode}
+        onLogout={handleLogout}
+      />
+
+      <AdminLogin
+        isOpen={showLogin}
+        onClose={() => setShowLogin(false)}
+        onSuccess={handleLoginSuccess}
+      />
+
+      <AddAtaDialog
+        isOpen={showAddDialog}
+        onClose={() => setShowAddDialog(false)}
+        onAdd={handleAddAta}
+        defaultYearGroup={selectedYearGroup}
+      />
+
+      <Footer />
+    </div>
+  );
+}

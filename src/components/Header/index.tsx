@@ -171,6 +171,11 @@ export function Header() {
                             {t('nav.photos')}
                           </NavLink>
                         </li>
+                        <li>
+                          <NavLink to='/atas' className={styles.navLink} onClick={closeAllMenus}>
+                            Atas
+                          </NavLink>
+                        </li>
                       </ul>
                     </div>
                   </li>
