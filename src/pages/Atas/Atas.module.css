@@ -1,0 +1,239 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.atas {
+  flex: 1;
+  padding: 2rem;
+  padding-top: 0;
+  margin-bottom: -30px;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+}
+
+.title {
+  text-align: left;
+  margin: 0 !important;
+  margin-top: 155px !important;
+  margin-left: calc(50% - 350px) !important;
+  margin-bottom: 10px !important;
+  padding: 0 !important;
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+  line-height: 1.2;
+}
+
+.yearTabs {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  margin-left: calc(50% - 350px) !important;
+  margin-bottom: 20px;
+}
+
+.yearTab {
+  padding: 8px 20px;
+  border-radius: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.yearTab:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.yearTabActive {
+  background: rgba(63, 9, 121, 0.85);
+  border-color: rgba(63, 9, 121, 0.85);
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 30px;
+  margin-left: calc(50% - 1180px) !important;
+  margin-top: 0 !important;
+  margin-bottom: 4rem;
+  padding-top: 0 !important;
+  position: relative;
+}
+
+.ataCard {
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  text-align: center;
+  width: 350px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  background: linear-gradient(90deg, rgba(2,0,36,0.95) 0%, rgba(63,9,121,0.85)),
+    url('/src/components/Figures/laws.jpg') center/cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ataCard:hover {
+  transform: translateY(-5px);
+}
+
+.card {
+  text-decoration: none;
+  display: block;
+}
+
+.addButton {
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  text-align: center;
+  width: 350px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  background: linear-gradient(135deg, rgba(2,0,36,0.85), rgba(9,94,121,0.85));
+  cursor: pointer;
+  border: 2px dashed rgba(255,255,255,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addButton:hover {
+  transform: translateY(-5px);
+}
+
+.ataSubtitle {
+  font-size: 12px;
+  opacity: 0.8;
+  margin-top: 4px;
+}
+
+@media (max-width: 1024px) {
+  .title {
+    text-align: center;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .yearTabs {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .container {
+    flex-direction: column;
+    align-items: center;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    justify-content: center;
+    margin-top: -400px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    max-width: 350px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  
+  .ataCard,
+  .addButton {
+    width: 100%;
+    max-width: 350px;
+  }
+  
+  .title {
+    font-size: 24px;
+    margin-top: 155px;
+    text-align: center;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .ataCard,
+  .addButton {
+    min-height: 90px;
+    padding: 1rem;
+  }
+  
+  .title {
+    font-size: 20px;
+    margin-top: 155px;
+  }
+}
+
+@media (min-width: 376px) and (max-width: 430px) {
+  .title {
+    margin-top: 195px !important;
+    text-align: center;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .yearTabs {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  
+  .container {
+    margin-top: -170px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .ataCard,
+  .addButton {
+    width: 90% !important;
+    max-width: 320px !important;
+    min-width: unset !important;
+    height: 100px !important;
+    padding: 2rem !important;
+  }
+}
+
+@media (max-width: 375px) {
+  .title {
+    margin-top: 195px !important;
+  }
+  
+  .container {
+    margin-top: -170px !important;
+  }
+  
+  .ataCard,
+  .addButton {
+    width: 100% !important;
+    max-width: 350px !important;
+    min-width: 350px !important;
+  }
+}
