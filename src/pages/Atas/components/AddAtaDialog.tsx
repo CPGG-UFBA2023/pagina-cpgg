@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -22,6 +22,12 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
   const [yearGroup, setYearGroup] = useState(defaultYearGroup)
   const [isLoading, setIsLoading] = useState(false)
 
+  useEffect(() => {
+    if (isOpen) {
+      setYearGroup(defaultYearGroup)
+    }
+  }, [defaultYearGroup, isOpen])
+
   const handleSubmit = async () => {
     if (!name || !pdfUrl || !meetingDate || !meetingType || !yearGroup) return
     setIsLoading(true)
@@ -43,7 +49,9 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={handleClose}>
+    <Dialog open={isOpen} onOpenChange={(open) => {
+      if (!open) handleClose()
+    }}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Adicionar Nova Ata</DialogTitle>

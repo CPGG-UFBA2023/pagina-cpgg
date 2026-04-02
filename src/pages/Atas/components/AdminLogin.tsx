@@ -25,11 +25,11 @@ export function AdminLogin({ isOpen, onClose, onSuccess }: AdminLoginProps) {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!email || !password) {
-      toast({ title: "Erro", description: "Email e senha são obrigatórios", variant: "destructive" })
+      toast({ title: 'Erro', description: 'Email e senha são obrigatórios', variant: 'destructive' })
       return
     }
     if (!captchaToken) {
-      toast({ title: "Verificação necessária", description: "Por favor, complete o reCAPTCHA.", variant: "destructive" })
+      toast({ title: 'Verificação necessária', description: 'Por favor, complete o reCAPTCHA.', variant: 'destructive' })
       return
     }
 
@@ -37,7 +37,7 @@ export function AdminLogin({ isOpen, onClose, onSuccess }: AdminLoginProps) {
     try {
       const { data: captchaData, error: captchaError } = await supabase.functions.invoke('verify-recaptcha', { body: { token: captchaToken } })
       if (captchaError || !captchaData?.success) {
-        toast({ title: "Erro de verificação", description: "Falha na verificação do reCAPTCHA.", variant: "destructive" })
+        toast({ title: 'Erro de verificação', description: 'Falha na verificação do reCAPTCHA.', variant: 'destructive' })
         recaptchaRef.current?.reset()
         setCaptchaToken(null)
         return
@@ -45,7 +45,7 @@ export function AdminLogin({ isOpen, onClose, onSuccess }: AdminLoginProps) {
 
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({ email, password })
       if (authError) {
-        toast({ title: "Erro de Login", description: "Email ou senha incorretos", variant: "destructive" })
+        toast({ title: 'Erro de Login', description: 'Email ou senha incorretos', variant: 'destructive' })
         recaptchaRef.current?.reset()
         setCaptchaToken(null)
         return
@@ -60,11 +60,11 @@ export function AdminLogin({ isOpen, onClose, onSuccess }: AdminLoginProps) {
 
       if (adminError || !adminData) {
         await supabase.auth.signOut()
-        toast({ title: "Erro de Login", description: "Você não tem permissão de coordenação", variant: "destructive" })
+        toast({ title: 'Erro de Login', description: 'Você não tem permissão de coordenação', variant: 'destructive' })
         return
       }
 
-      toast({ title: "Login realizado", description: "Bem-vindo ao modo de edição!" })
+      toast({ title: 'Login realizado', description: 'Bem-vindo ao modo de edição!' })
       onSuccess()
       onClose()
       setEmail('')
@@ -72,7 +72,7 @@ export function AdminLogin({ isOpen, onClose, onSuccess }: AdminLoginProps) {
       setCaptchaToken(null)
       recaptchaRef.current?.reset()
     } catch (error) {
-      toast({ title: "Erro", description: "Erro interno do sistema", variant: "destructive" })
+      toast({ title: 'Erro', description: 'Erro interno do sistema', variant: 'destructive' })
     } finally {
       setIsLoading(false)
     }
@@ -87,7 +87,9 @@ export function AdminLogin({ isOpen, onClose, onSuccess }: AdminLoginProps) {
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={handleClose}>
+    <Dialog open={isOpen} onOpenChange={(open) => {
+      if (!open) handleClose()
+    }}>
       <DialogContent className="sm:max-w-md max-h-[85vh]">
         <DialogHeader>
           <DialogTitle>Login Administrativo</DialogTitle>

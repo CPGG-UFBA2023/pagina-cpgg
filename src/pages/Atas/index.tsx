@@ -130,10 +130,15 @@ export function Atas() {
           ))}
 
           {isEditMode && (
-            <div className={styles.addButton} onClick={() => setShowAddDialog(true)}>
+            <button
+              type="button"
+              className={styles.addButton}
+              onClick={() => setShowAddDialog(true)}
+              aria-label="Adicionar nova ata"
+            >
               <Plus size={32} />
               <span style={{ marginLeft: 8, fontSize: 16, fontWeight: 600 }}>Adicionar Ata</span>
-            </div>
+            </button>
           )}
 
           {!isEditMode && filteredAtas.length === 0 && (
