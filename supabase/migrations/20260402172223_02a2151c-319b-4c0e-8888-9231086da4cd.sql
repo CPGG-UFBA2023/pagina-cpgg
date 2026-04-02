@@ -1,0 +1,2 @@
+INSERT INTO public.atas (name, pdf_url, meeting_date, meeting_type, year_group)
+VALUES ('ATA - Reunião Conselho Científico (23/11/2011)', '/atas/ATA_Conselho_Cientifico_2011.pdf', '2011-11-23', 'Conselho Científico', '2010-2020');
