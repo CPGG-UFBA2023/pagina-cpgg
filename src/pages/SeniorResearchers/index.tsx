@@ -24,6 +24,9 @@ export function SeniorResearchers() {
       <main className={styles.mainContent}>
         <h1 className={styles.title}>Pesquisadores Seniores</h1>
         <div className={styles.card}>
+          <p className={styles.description}>
+            A denominação "pesquisador sênior" foi normatizada pelo Conselho Científico no ano de 2023 a partir da aprovação da Deliberação Normativa 02/2023, em que os critérios para tal classificação são definidos.
+          </p>
           <ul className={styles.list}>
             {seniorResearchers.map((researcher) => (
               <li key={researcher.name}>
