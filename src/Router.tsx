@@ -112,6 +112,7 @@ import { InstituicaoMobile } from './pages/Institution/InstituicaoMobile'
 import { PessoalMobile } from './pages/Pessoal/PessoalMobile'
 import { TCCGeofisica } from './pages/TCCGeofisica'
 import { Atas } from './pages/Atas'
+import { SeniorResearchers } from './pages/SeniorResearchers'
 
 export function Router() {
   return (
@@ -157,6 +158,7 @@ export function Router() {
         <Route path='/researchers/personal/Suzan' element={<Suzan />} />
         <Route path='/researchers/personal/Wilson' element={<Wilson />} />
 
+        <Route path='/senior-researchers' element={<SeniorResearchers />} />
         <Route path='/coordination' element={<Coordination />} />
         <Route path='/technicians' element={<Technicians />} />
          <Route path='/recipes' element={<Recipes />} />
