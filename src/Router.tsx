@@ -112,6 +112,7 @@ import { InstituicaoMobile } from './pages/Institution/InstituicaoMobile'
 import { PessoalMobile } from './pages/Pessoal/PessoalMobile'
 import { TCCGeofisica } from './pages/TCCGeofisica'
 import { Atas } from './pages/Atas'
+import { SeniorResearchers } from './pages/SeniorResearchers'
 
 export function Router() {
   return (
