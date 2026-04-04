@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Header } from '@/components/Header';
-
+import { Footer } from '@/components/Footer';
 import styles from './SeniorResearchers.module.css';
 
 const seniorResearchers = [
@@ -38,7 +38,7 @@ export function SeniorResearchers() {
           </ul>
         </div>
       </main>
-      
+      <Footer />
     </div>
   );
 }
