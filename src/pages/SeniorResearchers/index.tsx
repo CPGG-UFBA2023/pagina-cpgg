@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { Header } from '@/components/Header';
-import { Footer } from '@/components/Footer';
 import styles from './SeniorResearchers.module.css';
 
 const seniorResearchers = [
@@ -19,26 +18,27 @@ const seniorResearchers = [
 
 export function SeniorResearchers() {
   return (
-    <div className={styles.container}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', overflow: 'visible' }}>
       <Header />
-      <main className={styles.mainContent}>
-        <h1 className={styles.title}>Pesquisadores Seniores</h1>
-        <div className={styles.card}>
-          <p className={styles.description}>
-            A denominação "pesquisador sênior" foi normatizada pelo Conselho Científico no ano de 2023 a partir da aprovação da Deliberação Normativa 02/2023, em que os critérios para tal classificação são definidos.
-          </p>
-          <ul className={styles.list}>
-            {seniorResearchers.map((researcher) => (
-              <li key={researcher.name}>
-                <Link to={researcher.route} className={styles.listItem}>
-                  {researcher.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
+      <div className={`${styles.researchers} hide-earth`} style={{ flex: 1, overflow: 'visible', position: 'relative' }}>
+        <div className={styles.Programs}>
+          <ul>Pesquisadores Seniores</ul>
+          <div className={styles.card}>
+            <p className={styles.description}>
+              A denominação "pesquisador sênior" foi normatizada pelo Conselho Científico no ano de 2023 a partir da aprovação da Deliberação Normativa 02/2023, em que os critérios para tal classificação são definidos.
+            </p>
+            <ul className={styles.list}>
+              {seniorResearchers.map((researcher) => (
+                <li key={researcher.name}>
+                  <Link to={researcher.route} className={styles.listItem}>
+                    {researcher.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </main>
-      
+      </div>
     </div>
   );
 }
