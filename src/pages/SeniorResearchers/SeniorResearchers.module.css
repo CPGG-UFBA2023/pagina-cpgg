@@ -54,6 +54,14 @@
   gap: 1rem;
 }
 
+.description {
+  font-size: 16px;
+  color: hsl(220 15% 40%);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  text-align: justify;
+}
+
 .listItem {
   font-size: 18px;
   font-weight: 500;
