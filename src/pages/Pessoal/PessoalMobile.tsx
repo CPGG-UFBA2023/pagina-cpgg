@@ -24,6 +24,12 @@ export function PessoalMobile() {
             </div>
           </Link>
 
+          <Link className={styles.card} to="/senior-researchers">
+            <div className={styles.button}>
+              <h2>Pesquisadores Seniores</h2>
+            </div>
+          </Link>
+
           <Link className={styles.card} to="/technicians">
             <div className={styles.button}>
               <h2>Corpo Técnico</h2>
