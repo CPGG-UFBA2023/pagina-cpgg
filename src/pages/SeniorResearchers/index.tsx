@@ -7,7 +7,7 @@ const seniorResearchers = [
   { name: 'Edson Emanuel Starteri Sampaio', route: '/researchers/personal/Edson' },
   { name: 'Johildo Salomão Figuerêdo Barbosa', route: '/researchers/personal/Johildo' },
   { name: 'José Maria Dominguez Landim', route: '/researchers/personal/Landim' },
-  { name: 'Juarez dos Santos Azevedo', route: '/researchers/dynamic/Juarez' },
+  { name: 'Juarez dos Santos Azevedo', route: '/researchers/dynamic/e288b7c5-ffb1-404b-a952-783cc2fb0967' },
   { name: 'Luiz Rogério Bastos Leal', route: '/researchers/personal/LRogerio' },
   { name: 'Marcos Alberto Rodrigues Vasconcelos', route: '/researchers/personal/Marcos' },
   { name: 'Milton José Porsani', route: '/researchers/personal/Porsani' },
