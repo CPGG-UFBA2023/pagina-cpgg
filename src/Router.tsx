@@ -158,6 +158,7 @@ export function Router() {
         <Route path='/researchers/personal/Suzan' element={<Suzan />} />
         <Route path='/researchers/personal/Wilson' element={<Wilson />} />
 
+        <Route path='/senior-researchers' element={<SeniorResearchers />} />
         <Route path='/coordination' element={<Coordination />} />
         <Route path='/technicians' element={<Technicians />} />
          <Route path='/recipes' element={<Recipes />} />

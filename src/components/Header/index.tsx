@@ -206,6 +206,11 @@ export function Header() {
                           </NavLink>
                         </li>
                         <li>
+                          <NavLink to='/senior-researchers' className={styles.navLink} onClick={closeAllMenus}>
+                            Pesquisadores Seniores
+                          </NavLink>
+                        </li>
+                        <li>
                           <NavLink to='/Technicians' className={styles.navLink} onClick={closeAllMenus}>
                             {t('nav.technicians')}
                           </NavLink>
