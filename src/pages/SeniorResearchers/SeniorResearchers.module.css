@@ -1,6 +1,6 @@
 /* Container Principal - Permite scroll vertical */
 .researchers {
-  padding: 2rem 2rem 4rem 2rem;
+  padding: 2rem calc(2rem + 100px) 4rem 2rem;
   min-height: calc(100vh - 100px);
   width: 100%;
   max-width: 1600px;
