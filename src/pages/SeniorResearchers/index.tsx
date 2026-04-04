@@ -38,7 +38,7 @@ export function SeniorResearchers() {
           </ul>
         </div>
       </main>
-      <Footer />
+      
     </div>
   );
 }
