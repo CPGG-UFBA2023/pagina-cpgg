@@ -1,3 +1,5 @@
+import haroldoPhoto from '@/assets/Photos/haroldo.jpeg'
+
 // Mapeamento de fotos dos pesquisadores por nome
 export const researcherPhotos: Record<string, string> = {
   // Programa Oil
