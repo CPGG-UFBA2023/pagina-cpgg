@@ -1,6 +1,7 @@
 import haroldoPhoto from '@/assets/Photos/haroldo.jpeg'
 import jailmaPhoto from '@/assets/Photos/jailma.png'
 import ricardoPhoto from '@/assets/Photos/ricardo.png'
+import daniloPhoto from '@/assets/Photos/danilo.png'
 
 // Mapeamento de fotos dos pesquisadores por nome
 export const researcherPhotos: Record<string, string> = {
