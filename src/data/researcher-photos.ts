@@ -40,6 +40,7 @@ export const researcherPhotos: Record<string, string> = {
   'Ruy Kenji Papa de Kikuchi': 'https://i.imgur.com/8tBcXOz.png',
   'Juarez dos Santos Azevedo': '/images/researchers/juarez-azevedo.png',
   'José Haroldo da Silva Sá': haroldoPhoto,
+  'Jailma Santos de Souza de Oliveira': jailmaPhoto,
 }
 
 // Função para obter a foto de um pesquisador pelo nome
