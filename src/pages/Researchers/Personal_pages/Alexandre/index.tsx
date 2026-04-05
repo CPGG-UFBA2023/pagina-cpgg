@@ -25,7 +25,7 @@ export function Alexandre() {
             <ul> Link para Currículo Lattes</ul>
 
             <nav>
-             <a href="https://lattes.cnpq.br/9954455880450271" target="_blank" rel="noopener noreferrer">Currículo</a>
+             <a href="http://lattes.cnpq.br/5484149216615431" target="_blank" rel="noopener noreferrer">Currículo</a>
            </nav>
            <b> e-mail</b>
            <p>abc@ufba.br</p> 

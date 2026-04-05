@@ -24,7 +24,7 @@ export function Arthur() {
             <ul> Link para Currículo Lattes</ul>
 
             <nav>
-             <a href="https://lattes.cnpq.br/0995930862317550" target="_blank" rel="noopener noreferrer">Currículo</a>
+             <a href="http://lattes.cnpq.br/0995930862317550" target="_blank" rel="noopener noreferrer">Currículo</a>
            </nav>
            <b> e-mail</b>
            <p>arthur.machado@ufba.br</p> 

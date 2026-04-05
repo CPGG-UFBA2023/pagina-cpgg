@@ -24,7 +24,7 @@ export function MZucchi() {
             <ul> Link para Currículo Lattes</ul>
 
             <nav>
-             <a href="https://lattes.cnpq.br/2345678901234567" target="_blank" rel="noopener noreferrer">Currículo</a>
+             <a href="http://lattes.cnpq.br/8882959656170754" target="_blank" rel="noopener noreferrer">Currículo</a>
            </nav>
            <b> e-mail</b>
            <p>mzucchi@ufba.br</p> 
