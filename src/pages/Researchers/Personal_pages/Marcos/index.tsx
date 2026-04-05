@@ -20,7 +20,7 @@ export function Marcos() {
             belowPhoto={<ResearcherEditButton researcherName="Marcos Alberto Rodrigues Vasconcelos" inline />}
           />
             <nav>
-             <a href="https://lattes.cnpq.br/4567890123456789" target="_blank" rel="noopener noreferrer">Currículo</a>
+             <a href="http://lattes.cnpq.br/8121769175814703" target="_blank" rel="noopener noreferrer">Currículo</a>
            </nav>
            <b> email</b>
            <p>marcos.vasconcelos@ufba.br</p> 
