@@ -20,7 +20,7 @@ export function AnaV() {
               belowPhoto={<ResearcherEditButton researcherName="Ana Virgínia Alves de Santana" inline />}
             />
             <nav>
-             <a href="https://buscatextual.cnpq.br/buscatextual/visualizacv.do?id=K4706843J3" target="_blank" rel="noopener noreferrer">Currículo</a>
+             <a href="http://lattes.cnpq.br/4935400114001309" target="_blank" rel="noopener noreferrer">Currículo</a>
            </nav>
            <b> e-mail</b>
            <p>anavas@ufba.br</p> 
