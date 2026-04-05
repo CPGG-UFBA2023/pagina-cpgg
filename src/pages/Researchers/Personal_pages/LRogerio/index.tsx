@@ -20,7 +20,7 @@ export function LRogerio() {
             belowPhoto={<ResearcherEditButton researcherName="Luiz Rogério Bastos Leal" inline />}
           />
             <nav>
-             <a href="https://lattes.cnpq.br/1234567890123456" target="_blank" rel="noopener noreferrer">Currículo</a>
+             <a href="http://lattes.cnpq.br/6409332830031336" target="_blank" rel="noopener noreferrer">Currículo</a>
            </nav>
            <b> e-mail</b>
            <p>lrogerio@ufba.br</p> 

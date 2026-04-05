@@ -23,7 +23,7 @@ export function Eduardo() {
             <ul> Link para Currículo Lattes</ul>
 
             <nav>
-             <a href="https://lattes.cnpq.br/6789012345678901" target="_blank" rel="noopener noreferrer">Currículo</a>
+             <a href="http://lattes.cnpq.br/5873087225520769" target="_blank" rel="noopener noreferrer">Currículo</a>
            </nav>
            <b> e-mail</b>
            <p>eduardo@ufba.br</p> 

@@ -1,0 +1,11 @@
+UPDATE researchers SET lattes_link = 'http://lattes.cnpq.br/2916849932837997' WHERE id = '2b1a5a7f-8910-44e1-b88d-f5feee7a4195';
+UPDATE researchers SET lattes_link = 'http://lattes.cnpq.br/5873087225520769' WHERE id = '4b6bd687-634a-47c0-a622-bdf0ece9f846';
+UPDATE researchers SET lattes_link = 'http://lattes.cnpq.br/4320432653750589' WHERE id = 'b87ce8f9-e548-4bac-ba8a-79559f21a844';
+UPDATE researchers SET lattes_link = 'http://lattes.cnpq.br/1670809981583072' WHERE id = '32d973bf-215e-4145-9759-31685cee7e7a';
+UPDATE researchers SET lattes_link = 'http://lattes.cnpq.br/0345959348124698' WHERE id = '5f2752aa-b103-48ab-8b7a-89e358795b09';
+UPDATE researchers SET lattes_link = 'http://lattes.cnpq.br/6409332830031336' WHERE id = 'c60ebb49-68d6-4c89-8d16-5ce402f0cd91';
+UPDATE researchers SET lattes_link = 'http://lattes.cnpq.br/0254085595142341' WHERE id = 'c6b4631a-ab78-4d33-a89d-08d3e4786804';
+UPDATE researchers SET lattes_link = 'http://lattes.cnpq.br/7927685281122435' WHERE id = '0b968483-40e2-44c8-90b9-878888760a77';
+UPDATE researchers SET lattes_link = 'http://lattes.cnpq.br/8121769175814703' WHERE id = '76be24ad-b44c-48dc-8cbd-9f96362678e7';
+UPDATE researchers SET lattes_link = 'http://lattes.cnpq.br/9317836039988664' WHERE id = '2cde66ae-2839-4e98-a404-4d23f0bd8687';
+UPDATE researchers SET lattes_link = 'http://lattes.cnpq.br/8391627429679768' WHERE id = 'a403df12-741d-41da-aa2d-60d7b654e1cd';

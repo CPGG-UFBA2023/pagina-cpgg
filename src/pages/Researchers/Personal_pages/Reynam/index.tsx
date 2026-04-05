@@ -24,7 +24,7 @@ export function Reynam() {
             <ul> Link para Currículo Lattes</ul>
 
             <nav>
-             <a href="https://lattes.cnpq.br/5678901234567890" target="_blank" rel="noopener noreferrer">Currículo</a>
+             <a href="http://lattes.cnpq.br/7927685281122435" target="_blank" rel="noopener noreferrer">Currículo</a>
            </nav>
            <b> e-mail</b>
            <p>reynam@ufba.br</p> 

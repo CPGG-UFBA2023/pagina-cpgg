@@ -22,7 +22,7 @@ export function RicardoM() {
             belowPhoto={<ResearcherEditButton researcherName="Ricardo Piazza Meireles" inline />}
           />
             <nav>
-             <a href="https://lattes.cnpq.br/3456789012345678" target="_blank" rel="noopener noreferrer">Currículo</a>
+             <a href="http://lattes.cnpq.br/9317836039988664" target="_blank" rel="noopener noreferrer">Currículo</a>
            </nav>
            <b> e-mail</b>
            <p>ricardo@ufba.br</p> 
