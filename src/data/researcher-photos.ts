@@ -1,3 +1,5 @@
+import haroldoPhoto from '@/assets/Photos/haroldo.jpeg'
+
 // Mapeamento de fotos dos pesquisadores por nome
 export const researcherPhotos: Record<string, string> = {
   // Programa Oil
@@ -36,6 +38,7 @@ export const researcherPhotos: Record<string, string> = {
   'José Maria Dominguez Landim': 'https://i.imgur.com/uvpyYg7.png',
   'Ruy Kenji Papa de Kikuchi': 'https://i.imgur.com/8tBcXOz.png',
   'Juarez dos Santos Azevedo': '/images/researchers/juarez-azevedo.png',
+  'José Haroldo da Silva Sá': haroldoPhoto,
 }
 
 // Função para obter a foto de um pesquisador pelo nome
