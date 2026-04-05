@@ -1,6 +1,7 @@
 import haroldoPhoto from '@/assets/Photos/haroldo.jpeg'
 import jailmaPhoto from '@/assets/Photos/jailma.png'
 import ricardoPhoto from '@/assets/Photos/ricardo.png'
+import daniloPhoto from '@/assets/Photos/danilo.png'
 
 // Mapeamento de fotos dos pesquisadores por nome
 export const researcherPhotos: Record<string, string> = {
@@ -43,6 +44,7 @@ export const researcherPhotos: Record<string, string> = {
   'José Haroldo da Silva Sá': haroldoPhoto,
   'Jailma Santos de Souza de Oliveira': jailmaPhoto,
   'Ricardo Piazza Meireles': ricardoPhoto,
+  'Danilo Heitor Caires Tinoco Bisneto Melo': daniloPhoto,
 }
 
 // Função para obter a foto de um pesquisador pelo nome
