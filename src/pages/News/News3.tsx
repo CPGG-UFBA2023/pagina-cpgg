@@ -14,7 +14,12 @@ interface NewsArticle {
   photo3_url: string | null
   cover_photo_number: number
   external_link: string | null
-  pdf_url: string | null
+  pdf1_url: string | null
+  pdf1_title: string | null
+  pdf2_url: string | null
+  pdf2_title: string | null
+  pdf3_url: string | null
+  pdf3_title: string | null
 }
 
 export function News3() {
@@ -74,6 +79,11 @@ export function News3() {
   }
 
   const photos = [news.photo1_url, news.photo2_url, news.photo3_url].filter(Boolean)
+  const pdfs = [
+    { url: news.pdf1_url, title: news.pdf1_title },
+    { url: news.pdf2_url, title: news.pdf2_title },
+    { url: news.pdf3_url, title: news.pdf3_title },
+  ].filter(p => p.url)
 
   return (
     <div className={styles.container}>
@@ -84,7 +94,7 @@ export function News3() {
             <h1 className={styles.title}>{news.title}</h1>
             <div className={styles.text}>{news.content}</div>
             
-            {(news.external_link || news.pdf_url) && (
+            {(news.external_link || pdfs.length > 0) && (
               <div className={styles.attachments}>
                 {news.external_link && (
                   <a href={news.external_link} target="_blank" rel="noopener noreferrer" className={styles.attachmentLink}>
@@ -92,12 +102,12 @@ export function News3() {
                     <span>Acessar link externo</span>
                   </a>
                 )}
-                {news.pdf_url && (
-                  <a href={news.pdf_url} target="_blank" rel="noopener noreferrer" className={styles.attachmentLink}>
+                {pdfs.map((pdf, index) => (
+                  <a key={index} href={pdf.url!} target="_blank" rel="noopener noreferrer" className={styles.attachmentLink}>
                     <FileDown size={18} />
-                    <span>Baixar PDF anexo</span>
+                    <span>{pdf.title || `Baixar PDF ${index + 1}`}</span>
                   </a>
-                )}
+                ))}
               </div>
             )}
           </div>

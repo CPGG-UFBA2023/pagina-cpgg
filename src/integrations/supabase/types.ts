@@ -317,7 +317,12 @@ export type Database = {
           external_link: string | null
           id: string
           news_position: string
-          pdf_url: string | null
+          pdf1_title: string | null
+          pdf1_url: string | null
+          pdf2_title: string | null
+          pdf2_url: string | null
+          pdf3_title: string | null
+          pdf3_url: string | null
           photo1_url: string | null
           photo2_url: string | null
           photo3_url: string | null
@@ -331,7 +336,12 @@ export type Database = {
           external_link?: string | null
           id?: string
           news_position: string
-          pdf_url?: string | null
+          pdf1_title?: string | null
+          pdf1_url?: string | null
+          pdf2_title?: string | null
+          pdf2_url?: string | null
+          pdf3_title?: string | null
+          pdf3_url?: string | null
           photo1_url?: string | null
           photo2_url?: string | null
           photo3_url?: string | null
@@ -345,7 +355,12 @@ export type Database = {
           external_link?: string | null
           id?: string
           news_position?: string
-          pdf_url?: string | null
+          pdf1_title?: string | null
+          pdf1_url?: string | null
+          pdf2_title?: string | null
+          pdf2_url?: string | null
+          pdf3_title?: string | null
+          pdf3_url?: string | null
           photo1_url?: string | null
           photo2_url?: string | null
           photo3_url?: string | null

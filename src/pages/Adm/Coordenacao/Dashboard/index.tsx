@@ -68,7 +68,12 @@ export function CoordenacaoDashboard() {
   const [newsCoverPhoto, setNewsCoverPhoto] = useState<string>('1')
   const [newsPosition, setNewsPosition] = useState<string>('')
   const [newsExternalLink, setNewsExternalLink] = useState<string>('')
-  const [newsPdfFile, setNewsPdfFile] = useState<File | null>(null)
+  const [newsPdfFile1, setNewsPdfFile1] = useState<File | null>(null)
+  const [newsPdfTitle1, setNewsPdfTitle1] = useState<string>('')
+  const [newsPdfFile2, setNewsPdfFile2] = useState<File | null>(null)
+  const [newsPdfTitle2, setNewsPdfTitle2] = useState<string>('')
+  const [newsPdfFile3, setNewsPdfFile3] = useState<File | null>(null)
+  const [newsPdfTitle3, setNewsPdfTitle3] = useState<string>('')
 
   // Estados para normas/regulamentos
   const [regulationName, setRegulationName] = useState('')
@@ -712,17 +717,20 @@ export function CoordenacaoDashboard() {
         }
       }
 
-      // Upload do PDF se fornecido
-      let newsPdfUrl: string | null = null
-      if (newsPdfFile) {
-        const pdfName = newsPdfFile.name.toLowerCase().replace(/[^a-z0-9._-]/g, '_').replace(/_+/g, '_')
-        const pdfFileName = `${newsPosition || 'news'}/${Date.now()}-pdf-${pdfName}`
-        const { error: pdfUploadError } = await supabase.storage
-          .from('news-photos')
-          .upload(pdfFileName, newsPdfFile, { contentType: newsPdfFile.type || 'application/pdf', upsert: false })
-        if (pdfUploadError) throw pdfUploadError
-        const { data: { publicUrl } } = supabase.storage.from('news-photos').getPublicUrl(pdfFileName)
-        newsPdfUrl = publicUrl
+      // Upload dos PDFs se fornecidos
+      const pdfFiles = [newsPdfFile1, newsPdfFile2, newsPdfFile3]
+      const pdfUrls: (string | null)[] = [null, null, null]
+      for (let i = 0; i < pdfFiles.length; i++) {
+        if (pdfFiles[i]) {
+          const pdfName = pdfFiles[i]!.name.toLowerCase().replace(/[^a-z0-9._-]/g, '_').replace(/_+/g, '_')
+          const pdfFileName = `${newsPosition || 'news'}/${Date.now()}-pdf${i + 1}-${pdfName}`
+          const { error: pdfUploadError } = await supabase.storage
+            .from('news-photos')
+            .upload(pdfFileName, pdfFiles[i]!, { contentType: pdfFiles[i]!.type || 'application/pdf', upsert: false })
+          if (pdfUploadError) throw pdfUploadError
+          const { data: { publicUrl } } = supabase.storage.from('news-photos').getPublicUrl(pdfFileName)
+          pdfUrls[i] = publicUrl
+        }
       }
 
       // Verificar se já existe uma notícia na posição selecionada
@@ -740,7 +748,12 @@ export function CoordenacaoDashboard() {
         photo3_url: photoUrls[2],
         cover_photo_number: parseInt(newsCoverPhoto),
         external_link: newsExternalLink || null,
-        pdf_url: newsPdfUrl,
+        pdf1_url: pdfUrls[0],
+        pdf1_title: newsPdfTitle1 || null,
+        pdf2_url: pdfUrls[1],
+        pdf2_title: newsPdfTitle2 || null,
+        pdf3_url: pdfUrls[2],
+        pdf3_title: newsPdfTitle3 || null,
       }
 
       if (existingNews) {
@@ -770,7 +783,12 @@ export function CoordenacaoDashboard() {
       setNewsCoverPhoto('1')
       setNewsPosition('')
       setNewsExternalLink('')
-      setNewsPdfFile(null)
+      setNewsPdfFile1(null)
+      setNewsPdfTitle1('')
+      setNewsPdfFile2(null)
+      setNewsPdfTitle2('')
+      setNewsPdfFile3(null)
+      setNewsPdfTitle3('')
     } catch (error: any) {
       console.error('Erro ao publicar notícia:', error)
       toast({
@@ -1522,19 +1540,33 @@ export function CoordenacaoDashboard() {
                 placeholder="https://exemplo.com/artigo"
               />
             </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="news-pdf">Arquivo PDF (opcional):</label>
-              <Input
-                id="news-pdf"
-                type="file"
-                accept=".pdf"
-                onChange={(e) => setNewsPdfFile(e.target.files?.[0] || null)}
-                style={{ color: '#000', backgroundColor: '#fff' }}
-              />
-              {newsPdfFile && (
-                <div className={styles.photoPreview}>📄 {newsPdfFile.name}</div>
-              )}
-            </div>
+            {[1, 2, 3].map((num) => {
+              const file = num === 1 ? newsPdfFile1 : num === 2 ? newsPdfFile2 : newsPdfFile3
+              const title = num === 1 ? newsPdfTitle1 : num === 2 ? newsPdfTitle2 : newsPdfTitle3
+              const setFile = num === 1 ? setNewsPdfFile1 : num === 2 ? setNewsPdfFile2 : setNewsPdfFile3
+              const setTitle = num === 1 ? setNewsPdfTitle1 : num === 2 ? setNewsPdfTitle2 : setNewsPdfTitle3
+              return (
+                <div key={num} className={styles.formGroup}>
+                  <label>PDF {num} (opcional):</label>
+                  <Input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder={`Título do PDF ${num}`}
+                    style={{ marginBottom: '0.5rem' }}
+                  />
+                  <Input
+                    type="file"
+                    accept=".pdf"
+                    onChange={(e) => setFile(e.target.files?.[0] || null)}
+                    style={{ color: '#000', backgroundColor: '#fff' }}
+                  />
+                  {file && (
+                    <div className={styles.photoPreview}>📄 {file.name}</div>
+                  )}
+                </div>
+              )
+            })}
             <Button
               onClick={handleRegisterNews}
               disabled={isLoading || uploadingPhotos || !newsTitle || !newsContent || !newsPosition}
