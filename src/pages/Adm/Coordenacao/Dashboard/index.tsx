@@ -1493,13 +1493,13 @@ export function CoordenacaoDashboard() {
             <div className={styles.formGroup}>
               <label htmlFor="news-cover">Foto de Capa:</label>
               <Select value={newsCoverPhoto} onValueChange={setNewsCoverPhoto}>
-                <SelectTrigger>
+                <SelectTrigger className={styles.selectTrigger}>
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="1">Foto 1</SelectItem>
-                  <SelectItem value="2">Foto 2</SelectItem>
-                  <SelectItem value="3">Foto 3</SelectItem>
+                <SelectContent className="bg-white text-black border border-gray-300 z-[9999]">
+                  <SelectItem value="1" className="text-black hover:bg-gray-100 cursor-pointer">Foto 1</SelectItem>
+                  <SelectItem value="2" className="text-black hover:bg-gray-100 cursor-pointer">Foto 2</SelectItem>
+                  <SelectItem value="3" className="text-black hover:bg-gray-100 cursor-pointer">Foto 3</SelectItem>
                 </SelectContent>
               </Select>
             </div>
