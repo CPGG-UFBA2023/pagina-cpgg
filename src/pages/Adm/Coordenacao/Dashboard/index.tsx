@@ -68,7 +68,12 @@ export function CoordenacaoDashboard() {
   const [newsCoverPhoto, setNewsCoverPhoto] = useState<string>('1')
   const [newsPosition, setNewsPosition] = useState<string>('')
   const [newsExternalLink, setNewsExternalLink] = useState<string>('')
-  const [newsPdfFile, setNewsPdfFile] = useState<File | null>(null)
+  const [newsPdfFile1, setNewsPdfFile1] = useState<File | null>(null)
+  const [newsPdfTitle1, setNewsPdfTitle1] = useState<string>('')
+  const [newsPdfFile2, setNewsPdfFile2] = useState<File | null>(null)
+  const [newsPdfTitle2, setNewsPdfTitle2] = useState<string>('')
+  const [newsPdfFile3, setNewsPdfFile3] = useState<File | null>(null)
+  const [newsPdfTitle3, setNewsPdfTitle3] = useState<string>('')
 
   // Estados para normas/regulamentos
   const [regulationName, setRegulationName] = useState('')
