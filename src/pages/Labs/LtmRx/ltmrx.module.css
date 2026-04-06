@@ -93,7 +93,7 @@
 
 .box ul {
   font-size: 28px;
-  color: #592cbb;
+  color: #fff;
   text-align: center;
   margin: 0;
   margin-bottom: 20px;
@@ -102,6 +102,14 @@
   white-space: normal;
   font-weight: bold;
   list-style: none;
+}
+
+.boxFullWidth ul {
+  color: #592cbb !important;
+}
+
+.boxFullWidth a {
+  color: #592cbb !important;
 }
 
 .purpleLink {
