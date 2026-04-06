@@ -1534,6 +1534,7 @@ export function CoordenacaoDashboard() {
               {newsPdfFile && (
                 <div className={styles.photoPreview}>📄 {newsPdfFile.name}</div>
               )}
+            </div>
             <Button
               onClick={handleRegisterNews}
               disabled={isLoading || uploadingPhotos || !newsTitle || !newsContent || !newsPosition}
