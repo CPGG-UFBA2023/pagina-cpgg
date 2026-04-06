@@ -769,6 +769,8 @@ export function CoordenacaoDashboard() {
       setNewsPhoto3(null)
       setNewsCoverPhoto('1')
       setNewsPosition('')
+      setNewsExternalLink('')
+      setNewsPdfFile(null)
     } catch (error: any) {
       console.error('Erro ao publicar notícia:', error)
       toast({
