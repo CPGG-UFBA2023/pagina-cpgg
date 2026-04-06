@@ -1512,6 +1512,28 @@ export function CoordenacaoDashboard() {
                 </SelectContent>
               </Select>
             </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="news-link">Link Externo (opcional):</label>
+              <Input
+                id="news-link"
+                type="url"
+                value={newsExternalLink}
+                onChange={(e) => setNewsExternalLink(e.target.value)}
+                placeholder="https://exemplo.com/artigo"
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="news-pdf">Arquivo PDF (opcional):</label>
+              <Input
+                id="news-pdf"
+                type="file"
+                accept=".pdf"
+                onChange={(e) => setNewsPdfFile(e.target.files?.[0] || null)}
+                style={{ color: '#000', backgroundColor: '#fff' }}
+              />
+              {newsPdfFile && (
+                <div className={styles.photoPreview}>📄 {newsPdfFile.name}</div>
+              )}
             <Button
               onClick={handleRegisterNews}
               disabled={isLoading || uploadingPhotos || !newsTitle || !newsContent || !newsPosition}
