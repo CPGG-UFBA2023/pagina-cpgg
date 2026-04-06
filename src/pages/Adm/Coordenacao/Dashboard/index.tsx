@@ -1459,13 +1459,13 @@ export function CoordenacaoDashboard() {
             <div className={styles.formGroup}>
               <label htmlFor="news-position">Posição na Home:</label>
               <Select value={newsPosition} onValueChange={setNewsPosition}>
-                <SelectTrigger>
+                <SelectTrigger className={styles.selectTrigger}>
                   <SelectValue placeholder="Selecione a posição" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="News1">Notícia 1</SelectItem>
-                  <SelectItem value="News2">Notícia 2</SelectItem>
-                  <SelectItem value="News3">Notícia 3</SelectItem>
+                <SelectContent className="bg-white text-black border border-gray-300 z-[9999]">
+                  <SelectItem value="News1" className="text-black hover:bg-gray-100 cursor-pointer">Notícia 1</SelectItem>
+                  <SelectItem value="News2" className="text-black hover:bg-gray-100 cursor-pointer">Notícia 2</SelectItem>
+                  <SelectItem value="News3" className="text-black hover:bg-gray-100 cursor-pointer">Notícia 3</SelectItem>
                 </SelectContent>
               </Select>
             </div>
