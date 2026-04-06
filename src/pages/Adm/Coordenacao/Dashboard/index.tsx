@@ -712,6 +712,19 @@ export function CoordenacaoDashboard() {
         }
       }
 
+      // Upload do PDF se fornecido
+      let newsPdfUrl: string | null = null
+      if (newsPdfFile) {
+        const pdfName = newsPdfFile.name.toLowerCase().replace(/[^a-z0-9._-]/g, '_').replace(/_+/g, '_')
+        const pdfFileName = `${newsPosition || 'news'}/${Date.now()}-pdf-${pdfName}`
+        const { error: pdfUploadError } = await supabase.storage
+          .from('news-photos')
+          .upload(pdfFileName, newsPdfFile, { contentType: newsPdfFile.type || 'application/pdf', upsert: false })
+        if (pdfUploadError) throw pdfUploadError
+        const { data: { publicUrl } } = supabase.storage.from('news-photos').getPublicUrl(pdfFileName)
+        newsPdfUrl = publicUrl
+      }
+
       // Verificar se já existe uma notícia na posição selecionada
       const { data: existingNews } = await supabase
         .from('news')
@@ -719,35 +732,27 @@ export function CoordenacaoDashboard() {
         .eq('news_position', newsPosition)
         .maybeSingle()
 
+      const newsData: any = {
+        title: newsTitle,
+        content: newsContent,
+        photo1_url: photoUrls[0],
+        photo2_url: photoUrls[1],
+        photo3_url: photoUrls[2],
+        cover_photo_number: parseInt(newsCoverPhoto),
+        external_link: newsExternalLink || null,
+        pdf_url: newsPdfUrl,
+      }
+
       if (existingNews) {
-        // Atualizar notícia existente
         const { error } = await supabase
           .from('news')
-          .update({
-            title: newsTitle,
-            content: newsContent,
-            photo1_url: photoUrls[0],
-            photo2_url: photoUrls[1],
-            photo3_url: photoUrls[2],
-            cover_photo_number: parseInt(newsCoverPhoto),
-          })
+          .update(newsData)
           .eq('id', existingNews.id)
-
         if (error) throw error
       } else {
-        // Inserir nova notícia
         const { error } = await supabase
           .from('news')
-          .insert({
-            title: newsTitle,
-            content: newsContent,
-            photo1_url: photoUrls[0],
-            photo2_url: photoUrls[1],
-            photo3_url: photoUrls[2],
-            cover_photo_number: parseInt(newsCoverPhoto),
-            news_position: newsPosition
-          })
-
+          .insert({ ...newsData, news_position: newsPosition })
         if (error) throw error
       }
 
