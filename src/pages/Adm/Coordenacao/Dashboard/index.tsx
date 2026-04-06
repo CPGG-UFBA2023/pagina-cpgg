@@ -67,6 +67,8 @@ export function CoordenacaoDashboard() {
   const [newsPhoto3, setNewsPhoto3] = useState<File | null>(null)
   const [newsCoverPhoto, setNewsCoverPhoto] = useState<string>('1')
   const [newsPosition, setNewsPosition] = useState<string>('')
+  const [newsExternalLink, setNewsExternalLink] = useState<string>('')
+  const [newsPdfFile, setNewsPdfFile] = useState<File | null>(null)
 
   // Estados para normas/regulamentos
   const [regulationName, setRegulationName] = useState('')
