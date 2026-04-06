@@ -67,6 +67,8 @@ export function CoordenacaoDashboard() {
   const [newsPhoto3, setNewsPhoto3] = useState<File | null>(null)
   const [newsCoverPhoto, setNewsCoverPhoto] = useState<string>('1')
   const [newsPosition, setNewsPosition] = useState<string>('')
+  const [newsExternalLink, setNewsExternalLink] = useState<string>('')
+  const [newsPdfFile, setNewsPdfFile] = useState<File | null>(null)
 
   // Estados para normas/regulamentos
   const [regulationName, setRegulationName] = useState('')
@@ -710,6 +712,19 @@ export function CoordenacaoDashboard() {
         }
       }
 
+      // Upload do PDF se fornecido
+      let newsPdfUrl: string | null = null
+      if (newsPdfFile) {
+        const pdfName = newsPdfFile.name.toLowerCase().replace(/[^a-z0-9._-]/g, '_').replace(/_+/g, '_')
+        const pdfFileName = `${newsPosition || 'news'}/${Date.now()}-pdf-${pdfName}`
+        const { error: pdfUploadError } = await supabase.storage
+          .from('news-photos')
+          .upload(pdfFileName, newsPdfFile, { contentType: newsPdfFile.type || 'application/pdf', upsert: false })
+        if (pdfUploadError) throw pdfUploadError
+        const { data: { publicUrl } } = supabase.storage.from('news-photos').getPublicUrl(pdfFileName)
+        newsPdfUrl = publicUrl
+      }
+
       // Verificar se já existe uma notícia na posição selecionada
       const { data: existingNews } = await supabase
         .from('news')
@@ -717,35 +732,27 @@ export function CoordenacaoDashboard() {
         .eq('news_position', newsPosition)
         .maybeSingle()
 
+      const newsData: any = {
+        title: newsTitle,
+        content: newsContent,
+        photo1_url: photoUrls[0],
+        photo2_url: photoUrls[1],
+        photo3_url: photoUrls[2],
+        cover_photo_number: parseInt(newsCoverPhoto),
+        external_link: newsExternalLink || null,
+        pdf_url: newsPdfUrl,
+      }
+
       if (existingNews) {
-        // Atualizar notícia existente
         const { error } = await supabase
           .from('news')
-          .update({
-            title: newsTitle,
-            content: newsContent,
-            photo1_url: photoUrls[0],
-            photo2_url: photoUrls[1],
-            photo3_url: photoUrls[2],
-            cover_photo_number: parseInt(newsCoverPhoto),
-          })
+          .update(newsData)
           .eq('id', existingNews.id)
-
         if (error) throw error
       } else {
-        // Inserir nova notícia
         const { error } = await supabase
           .from('news')
-          .insert({
-            title: newsTitle,
-            content: newsContent,
-            photo1_url: photoUrls[0],
-            photo2_url: photoUrls[1],
-            photo3_url: photoUrls[2],
-            cover_photo_number: parseInt(newsCoverPhoto),
-            news_position: newsPosition
-          })
-
+          .insert({ ...newsData, news_position: newsPosition })
         if (error) throw error
       }
 
@@ -762,6 +769,8 @@ export function CoordenacaoDashboard() {
       setNewsPhoto3(null)
       setNewsCoverPhoto('1')
       setNewsPosition('')
+      setNewsExternalLink('')
+      setNewsPdfFile(null)
     } catch (error: any) {
       console.error('Erro ao publicar notícia:', error)
       toast({
@@ -1502,6 +1511,29 @@ export function CoordenacaoDashboard() {
                   <SelectItem value="3" className="text-black hover:bg-gray-100 cursor-pointer">Foto 3</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="news-link">Link Externo (opcional):</label>
+              <Input
+                id="news-link"
+                type="url"
+                value={newsExternalLink}
+                onChange={(e) => setNewsExternalLink(e.target.value)}
+                placeholder="https://exemplo.com/artigo"
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="news-pdf">Arquivo PDF (opcional):</label>
+              <Input
+                id="news-pdf"
+                type="file"
+                accept=".pdf"
+                onChange={(e) => setNewsPdfFile(e.target.files?.[0] || null)}
+                style={{ color: '#000', backgroundColor: '#fff' }}
+              />
+              {newsPdfFile && (
+                <div className={styles.photoPreview}>📄 {newsPdfFile.name}</div>
+              )}
             </div>
             <Button
               onClick={handleRegisterNews}

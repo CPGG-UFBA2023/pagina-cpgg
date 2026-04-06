@@ -103,6 +103,33 @@
   font-size: 1.1rem;
 }
 
+.attachments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.attachmentLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: #592cbb;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.attachmentLink:hover {
+  background: #4a1fa3;
+}
+
 @media (max-width: 768px) {
   .content {
     grid-template-columns: 1fr;

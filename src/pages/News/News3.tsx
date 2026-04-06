@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
 import { supabase } from '@/integrations/supabase/client'
+import { ExternalLink, FileDown } from 'lucide-react'
 import styles from './News.module.css'
 
 interface NewsArticle {
@@ -12,6 +13,8 @@ interface NewsArticle {
   photo2_url: string | null
   photo3_url: string | null
   cover_photo_number: number
+  external_link: string | null
+  pdf_url: string | null
 }
 
 export function News3() {
@@ -80,6 +83,23 @@ export function News3() {
           <div className={styles.textSection}>
             <h1 className={styles.title}>{news.title}</h1>
             <div className={styles.text}>{news.content}</div>
+            
+            {(news.external_link || news.pdf_url) && (
+              <div className={styles.attachments}>
+                {news.external_link && (
+                  <a href={news.external_link} target="_blank" rel="noopener noreferrer" className={styles.attachmentLink}>
+                    <ExternalLink size={18} />
+                    <span>Acessar link externo</span>
+                  </a>
+                )}
+                {news.pdf_url && (
+                  <a href={news.pdf_url} target="_blank" rel="noopener noreferrer" className={styles.attachmentLink}>
+                    <FileDown size={18} />
+                    <span>Baixar PDF anexo</span>
+                  </a>
+                )}
+              </div>
+            )}
           </div>
           
           {photos.length > 0 && (
