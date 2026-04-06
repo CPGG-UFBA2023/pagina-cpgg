@@ -26,7 +26,7 @@
 
 .Title ul {
   font-size: 35px;
-  color: #592cbb;
+  color: #fff;
   margin-top: -30px;
   margin-left: calc(50% - 445px);
   padding-left: 0;
@@ -37,7 +37,7 @@
 
 .Title a {
   font-size: 20px;
-  color: #592cbb;
+  color: #fff;
   margin: 0;
   padding: 0;
   padding-bottom: 20px;
