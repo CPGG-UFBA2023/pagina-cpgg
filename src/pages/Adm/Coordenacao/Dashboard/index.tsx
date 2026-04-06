@@ -717,17 +717,20 @@ export function CoordenacaoDashboard() {
         }
       }
 
-      // Upload do PDF se fornecido
-      let newsPdfUrl: string | null = null
-      if (newsPdfFile) {
-        const pdfName = newsPdfFile.name.toLowerCase().replace(/[^a-z0-9._-]/g, '_').replace(/_+/g, '_')
-        const pdfFileName = `${newsPosition || 'news'}/${Date.now()}-pdf-${pdfName}`
-        const { error: pdfUploadError } = await supabase.storage
-          .from('news-photos')
-          .upload(pdfFileName, newsPdfFile, { contentType: newsPdfFile.type || 'application/pdf', upsert: false })
-        if (pdfUploadError) throw pdfUploadError
-        const { data: { publicUrl } } = supabase.storage.from('news-photos').getPublicUrl(pdfFileName)
-        newsPdfUrl = publicUrl
+      // Upload dos PDFs se fornecidos
+      const pdfFiles = [newsPdfFile1, newsPdfFile2, newsPdfFile3]
+      const pdfUrls: (string | null)[] = [null, null, null]
+      for (let i = 0; i < pdfFiles.length; i++) {
+        if (pdfFiles[i]) {
+          const pdfName = pdfFiles[i]!.name.toLowerCase().replace(/[^a-z0-9._-]/g, '_').replace(/_+/g, '_')
+          const pdfFileName = `${newsPosition || 'news'}/${Date.now()}-pdf${i + 1}-${pdfName}`
+          const { error: pdfUploadError } = await supabase.storage
+            .from('news-photos')
+            .upload(pdfFileName, pdfFiles[i]!, { contentType: pdfFiles[i]!.type || 'application/pdf', upsert: false })
+          if (pdfUploadError) throw pdfUploadError
+          const { data: { publicUrl } } = supabase.storage.from('news-photos').getPublicUrl(pdfFileName)
+          pdfUrls[i] = publicUrl
+        }
       }
 
       // Verificar se já existe uma notícia na posição selecionada
