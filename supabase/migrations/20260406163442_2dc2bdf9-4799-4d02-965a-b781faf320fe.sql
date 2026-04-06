@@ -1,0 +1,2 @@
+ALTER TABLE public.news ADD COLUMN IF NOT EXISTS external_link text DEFAULT NULL;
+ALTER TABLE public.news ADD COLUMN IF NOT EXISTS pdf_url text DEFAULT NULL;
