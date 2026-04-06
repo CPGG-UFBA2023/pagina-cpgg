@@ -748,7 +748,12 @@ export function CoordenacaoDashboard() {
         photo3_url: photoUrls[2],
         cover_photo_number: parseInt(newsCoverPhoto),
         external_link: newsExternalLink || null,
-        pdf_url: newsPdfUrl,
+        pdf1_url: pdfUrls[0],
+        pdf1_title: newsPdfTitle1 || null,
+        pdf2_url: pdfUrls[1],
+        pdf2_title: newsPdfTitle2 || null,
+        pdf3_url: pdfUrls[2],
+        pdf3_title: newsPdfTitle3 || null,
       }
 
       if (existingNews) {
