@@ -1540,19 +1540,33 @@ export function CoordenacaoDashboard() {
                 placeholder="https://exemplo.com/artigo"
               />
             </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="news-pdf">Arquivo PDF (opcional):</label>
-              <Input
-                id="news-pdf"
-                type="file"
-                accept=".pdf"
-                onChange={(e) => setNewsPdfFile(e.target.files?.[0] || null)}
-                style={{ color: '#000', backgroundColor: '#fff' }}
-              />
-              {newsPdfFile && (
-                <div className={styles.photoPreview}>📄 {newsPdfFile.name}</div>
-              )}
-            </div>
+            {[1, 2, 3].map((num) => {
+              const file = num === 1 ? newsPdfFile1 : num === 2 ? newsPdfFile2 : newsPdfFile3
+              const title = num === 1 ? newsPdfTitle1 : num === 2 ? newsPdfTitle2 : newsPdfTitle3
+              const setFile = num === 1 ? setNewsPdfFile1 : num === 2 ? setNewsPdfFile2 : setNewsPdfFile3
+              const setTitle = num === 1 ? setNewsPdfTitle1 : num === 2 ? setNewsPdfTitle2 : setNewsPdfTitle3
+              return (
+                <div key={num} className={styles.formGroup}>
+                  <label>PDF {num} (opcional):</label>
+                  <Input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder={`Título do PDF ${num}`}
+                    style={{ marginBottom: '0.5rem' }}
+                  />
+                  <Input
+                    type="file"
+                    accept=".pdf"
+                    onChange={(e) => setFile(e.target.files?.[0] || null)}
+                    style={{ color: '#000', backgroundColor: '#fff' }}
+                  />
+                  {file && (
+                    <div className={styles.photoPreview}>📄 {file.name}</div>
+                  )}
+                </div>
+              )
+            })}
             <Button
               onClick={handleRegisterNews}
               disabled={isLoading || uploadingPhotos || !newsTitle || !newsContent || !newsPosition}
