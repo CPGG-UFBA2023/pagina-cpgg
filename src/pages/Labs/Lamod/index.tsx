@@ -21,6 +21,14 @@ export function Lamod() {
               O laboratório conta com A Mesa de Deformação NSB 2018, única no mundo em seu design e capacidade, permitindo a coleta de um volume significativo de dados experimentais. Para isso, o LAMOD dispõe de sete computadores de mesa e dois notebooks acoplados ao sistema. Sua concepção contou com visitas técnicas do coordenador, Prof. Dr. Luiz Cesar Correa Gomes, a renomados laboratórios do Brasil, como os da UFOP, UFRN e CENPES-RJ, além do Royal Holloway na Universidade de Londres.
             </p>
             <br />
+            <p>
+              Além da mesa simuladora, que permite a modelagem de estruturas geológicas em ambientes contracionais (p.ex. falhas reversas, cinturões de dobras e falhas), dilatacionais (p.ex. falhas normais e bacias tipo rifte) e transcorrentes (p.ex. falhas strike-slip, falhas transformantes e transferentes) o LAMOD pode ir além. Outros equipamentos do LAMOD podem permitir fazer simulações de crateras de impacto de meteoritos (metálicos e rochosos), estruturas de colapso tipo sinkholes em ambientes siliciclásticos e cársticos, estruturas de uplift-domeamento litosférico, ligadas a plumas térmicas mantélicas e zonas de subdução e colisão. Além de outros experimentos que poderão ser apresentados pelos usuários interessados.
+            </p>
+            <br />
+            <p>
+              Todos esses experimentos serão ser discutidos com os usuários de modo que os mesmos possam: i) colaborar na organização/construção dos artefatos de simulação (estruturas especificas tais como rampas e patamares retilíneos ou curvos, lineares ou irregulares em perfil e em planta), ii) participar da preparação e execução dos experimentos, e iii) saber quais materiais e em quais quantidades serão utilizados nos experimentos. Todos os materiais utilizados nos experimentos ficarão a cargo dos usuários. Esses experimentos deverão ser comparados com os seus similares observados na natureza para validação dos modelos obtidos nas modelagens.
+            </p>
+            <br />
 
             <b className={styles.purpleText}>Coordenador:</b>
             <span>Prof. Dr. Luiz Cesar Correa Gomes</span>
