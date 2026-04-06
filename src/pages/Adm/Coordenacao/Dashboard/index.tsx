@@ -783,7 +783,12 @@ export function CoordenacaoDashboard() {
       setNewsCoverPhoto('1')
       setNewsPosition('')
       setNewsExternalLink('')
-      setNewsPdfFile(null)
+      setNewsPdfFile1(null)
+      setNewsPdfTitle1('')
+      setNewsPdfFile2(null)
+      setNewsPdfTitle2('')
+      setNewsPdfFile3(null)
+      setNewsPdfTitle3('')
     } catch (error: any) {
       console.error('Erro ao publicar notícia:', error)
       toast({
