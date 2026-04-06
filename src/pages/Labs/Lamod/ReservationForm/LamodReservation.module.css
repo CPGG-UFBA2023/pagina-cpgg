@@ -40,7 +40,7 @@
 
 .formContainer {
   max-width: 800px;
-  max-height: calc(100% - 300px);
+  max-height: calc(100% - 500px);
   margin: 160px auto 20px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
