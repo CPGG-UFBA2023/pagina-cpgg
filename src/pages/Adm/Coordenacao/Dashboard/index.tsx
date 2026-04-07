@@ -1474,13 +1474,11 @@ export function CoordenacaoDashboard() {
               />
             </div>
             <div className={styles.formGroup}>
-              <label htmlFor="news-content">Conteúdo:</label>
-              <Textarea
-                id="news-content"
+              <label>Conteúdo:</label>
+              <RichTextEditor
                 value={newsContent}
-                onChange={(e) => setNewsContent(e.target.value)}
+                onChange={setNewsContent}
                 placeholder="Digite o conteúdo da notícia"
-                rows={8}
               />
             </div>
             <div className={styles.formGroup}>
