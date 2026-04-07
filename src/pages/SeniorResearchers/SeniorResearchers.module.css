@@ -164,6 +164,7 @@
 
   .Programs {
     margin-top: 0 !important;
+    transform: none;
   }
 }
 
