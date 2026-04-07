@@ -588,6 +588,38 @@ export type Database = {
         }
         Relationships: []
       }
+      senior_researchers: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          researcher_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          researcher_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          researcher_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "senior_researchers_researcher_id_fkey"
+            columns: ["researcher_id"]
+            isOneToOne: false
+            referencedRelation: "researchers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tcc_geofisica: {
         Row: {
           created_at: string
