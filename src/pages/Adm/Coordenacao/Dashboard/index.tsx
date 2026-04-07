@@ -75,6 +75,10 @@ export function CoordenacaoDashboard() {
   const [newsPdfTitle2, setNewsPdfTitle2] = useState<string>('')
   const [newsPdfFile3, setNewsPdfFile3] = useState<File | null>(null)
   const [newsPdfTitle3, setNewsPdfTitle3] = useState<string>('')
+  const [editingNewsId, setEditingNewsId] = useState<string | null>(null)
+  const [loadingNews, setLoadingNews] = useState(false)
+  const [existingPhotoUrls, setExistingPhotoUrls] = useState<(string | null)[]>([null, null, null])
+  const [existingPdfUrls, setExistingPdfUrls] = useState<(string | null)[]>([null, null, null])
 
   // Estados para normas/regulamentos
   const [regulationName, setRegulationName] = useState('')
@@ -674,6 +678,66 @@ export function CoordenacaoDashboard() {
     }
   }
 
+  const handleLoadExistingNews = async (position: string) => {
+    if (!position) return
+    setLoadingNews(true)
+    try {
+      const { data, error } = await supabase
+        .from('news')
+        .select('*')
+        .eq('news_position', position)
+        .maybeSingle()
+
+      if (error) throw error
+
+      if (data) {
+        setEditingNewsId(data.id)
+        setNewsTitle(data.title)
+        setNewsContent(data.content)
+        setNewsCoverPhoto(String(data.cover_photo_number || 1))
+        setNewsExternalLink(data.external_link || '')
+        setNewsPdfTitle1(data.pdf1_title || '')
+        setNewsPdfTitle2(data.pdf2_title || '')
+        setNewsPdfTitle3(data.pdf3_title || '')
+        setExistingPhotoUrls([data.photo1_url, data.photo2_url, data.photo3_url])
+        setExistingPdfUrls([data.pdf1_url, data.pdf2_url, data.pdf3_url])
+        setNewsPhoto1(null)
+        setNewsPhoto2(null)
+        setNewsPhoto3(null)
+        setNewsPdfFile1(null)
+        setNewsPdfFile2(null)
+        setNewsPdfFile3(null)
+        toast({ title: "Notícia carregada", description: "Edite os campos desejados e salve." })
+      } else {
+        handleClearNewsForm()
+        toast({ title: "Nenhuma notícia", description: "Nenhuma notícia encontrada nesta posição. Preencha para criar uma nova." })
+      }
+    } catch (err: any) {
+      toast({ title: "Erro", description: err.message, variant: "destructive" })
+    } finally {
+      setLoadingNews(false)
+    }
+  }
+
+  const handleClearNewsForm = () => {
+    setEditingNewsId(null)
+    setNewsTitle('')
+    setNewsContent('')
+    setNewsPhoto1(null)
+    setNewsPhoto2(null)
+    setNewsPhoto3(null)
+    setNewsCoverPhoto('1')
+    setNewsExternalLink('')
+    setNewsPdfFile1(null)
+    setNewsPdfTitle1('')
+    setNewsPdfFile2(null)
+    setNewsPdfTitle2('')
+    setNewsPdfFile3(null)
+    setNewsPdfTitle3('')
+    setExistingPhotoUrls([null, null, null])
+    setExistingPdfUrls([null, null, null])
+  }
+
   const handleRegisterNews = async () => {
     if (!newsTitle || !newsContent || !newsPosition) {
       toast({
@@ -689,38 +753,25 @@ export function CoordenacaoDashboard() {
 
     try {
       const photos = [newsPhoto1, newsPhoto2, newsPhoto3]
-      const photoUrls: (string | null)[] = [null, null, null]
+      const photoUrls: (string | null)[] = [...existingPhotoUrls]
 
-      // Upload das fotos (sanitiza nome e define contentType)
       for (let i = 0; i < photos.length; i++) {
         const photo = photos[i]
         if (photo) {
           const originalName = photo.name || `foto-${i + 1}.jpg`
-          const sanitizedName = originalName
-            .toLowerCase()
-            .replace(/[^a-z0-9._-]/g, '_')
-            .replace(/_+/g, '_')
+          const sanitizedName = originalName.toLowerCase().replace(/[^a-z0-9._-]/g, '_').replace(/_+/g, '_')
           const fileName = `${newsPosition || 'news'}/${Date.now()}-${i + 1}-${sanitizedName}`
           const { error: uploadError } = await supabase.storage
             .from('news-photos')
             .upload(fileName, photo, { contentType: photo.type || 'application/octet-stream', upsert: false })
-
-          if (uploadError) {
-            console.error('Erro upload storage:', uploadError)
-            throw uploadError
-          }
-
-          const { data: { publicUrl } } = supabase.storage
-            .from('news-photos')
-            .getPublicUrl(fileName)
-
+          if (uploadError) throw uploadError
+          const { data: { publicUrl } } = supabase.storage.from('news-photos').getPublicUrl(fileName)
           photoUrls[i] = publicUrl
         }
       }
 
-      // Upload dos PDFs se fornecidos
       const pdfFiles = [newsPdfFile1, newsPdfFile2, newsPdfFile3]
-      const pdfUrls: (string | null)[] = [null, null, null]
+      const pdfUrls: (string | null)[] = [...existingPdfUrls]
       for (let i = 0; i < pdfFiles.length; i++) {
         if (pdfFiles[i]) {
           const pdfName = pdfFiles[i]!.name.toLowerCase().replace(/[^a-z0-9._-]/g, '_').replace(/_+/g, '_')
@@ -733,13 +784,6 @@ export function CoordenacaoDashboard() {
           pdfUrls[i] = publicUrl
         }
       }
-
-      // Verificar se já existe uma notícia na posição selecionada
-      const { data: existingNews } = await supabase
-        .from('news')
-        .select('id')
-        .eq('news_position', newsPosition)
-        .maybeSingle()
 
       const newsData: any = {
         title: newsTitle,
@@ -757,39 +801,29 @@ export function CoordenacaoDashboard() {
         pdf3_title: newsPdfTitle3 || null,
       }
 
-      if (existingNews) {
-        const { error } = await supabase
-          .from('news')
-          .update(newsData)
-          .eq('id', existingNews.id)
+      if (editingNewsId) {
+        const { error } = await supabase.from('news').update(newsData).eq('id', editingNewsId)
         if (error) throw error
       } else {
-        const { error } = await supabase
-          .from('news')
-          .insert({ ...newsData, news_position: newsPosition })
-        if (error) throw error
+        const { data: existingNews } = await supabase
+          .from('news').select('id').eq('news_position', newsPosition).maybeSingle()
+
+        if (existingNews) {
+          const { error } = await supabase.from('news').update(newsData).eq('id', existingNews.id)
+          if (error) throw error
+        } else {
+          const { error } = await supabase.from('news').insert({ ...newsData, news_position: newsPosition })
+          if (error) throw error
+        }
       }
 
       toast({
         title: "Sucesso",
-        description: "Notícia publicada com sucesso!",
+        description: editingNewsId ? "Notícia atualizada com sucesso!" : "Notícia publicada com sucesso!",
       })
 
-      // Limpar formulário
-      setNewsTitle('')
-      setNewsContent('')
-      setNewsPhoto1(null)
-      setNewsPhoto2(null)
-      setNewsPhoto3(null)
-      setNewsCoverPhoto('1')
+      handleClearNewsForm()
       setNewsPosition('')
-      setNewsExternalLink('')
-      setNewsPdfFile1(null)
-      setNewsPdfTitle1('')
-      setNewsPdfFile2(null)
-      setNewsPdfTitle2('')
-      setNewsPdfFile3(null)
-      setNewsPdfTitle3('')
     } catch (error: any) {
       console.error('Erro ao publicar notícia:', error)
       toast({
@@ -1464,6 +1498,37 @@ export function CoordenacaoDashboard() {
               <Newspaper size={24} />
               <h2>Gerenciar Notícias</h2>
             </div>
+            {editingNewsId && (
+              <div style={{ background: '#ede9fe', padding: '0.75rem 1rem', borderRadius: 8, marginBottom: '1rem', color: '#5b21b6', fontWeight: 500, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span>✏️ Editando notícia existente</span>
+                <Button variant="outline" size="sm" onClick={handleClearNewsForm} style={{ borderColor: '#7c3aed', color: '#7c3aed' }}>
+                  Limpar e criar nova
+                </Button>
+              </div>
+            )}
+            <div className={styles.formGroup}>
+              <label htmlFor="news-position">Posição na Home:</label>
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <Select value={newsPosition} onValueChange={(val) => { setNewsPosition(val); handleClearNewsForm(); }}>
+                  <SelectTrigger className={styles.selectTrigger}>
+                    <SelectValue placeholder="Selecione a posição" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white text-black border border-gray-300 z-[9999]">
+                    <SelectItem value="News1" className="text-black hover:bg-gray-100 cursor-pointer">Notícia 1</SelectItem>
+                    <SelectItem value="News2" className="text-black hover:bg-gray-100 cursor-pointer">Notícia 2</SelectItem>
+                    <SelectItem value="News3" className="text-black hover:bg-gray-100 cursor-pointer">Notícia 3</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Button
+                  variant="outline"
+                  onClick={() => handleLoadExistingNews(newsPosition)}
+                  disabled={!newsPosition || loadingNews}
+                  style={{ whiteSpace: 'nowrap' }}
+                >
+                  {loadingNews ? 'Carregando...' : 'Carregar existente'}
+                </Button>
+              </div>
+            </div>
             <div className={styles.formGroup}>
               <label htmlFor="news-title">Título:</label>
               <Input
@@ -1482,40 +1547,27 @@ export function CoordenacaoDashboard() {
                 placeholder="Digite o conteúdo da notícia"
               />
             </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="news-position">Posição na Home:</label>
-              <Select value={newsPosition} onValueChange={setNewsPosition}>
-                <SelectTrigger className={styles.selectTrigger}>
-                  <SelectValue placeholder="Selecione a posição" />
-                </SelectTrigger>
-                <SelectContent className="bg-white text-black border border-gray-300 z-[9999]">
-                  <SelectItem value="News1" className="text-black hover:bg-gray-100 cursor-pointer">Notícia 1</SelectItem>
-                  <SelectItem value="News2" className="text-black hover:bg-gray-100 cursor-pointer">Notícia 2</SelectItem>
-                  <SelectItem value="News3" className="text-black hover:bg-gray-100 cursor-pointer">Notícia 3</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <PhotoDropZone
-              id="news-photo1"
-              label="Foto 1:"
-              value={newsPhoto1}
-              onChange={setNewsPhoto1}
-              className={styles.photoDropZone}
-            />
-            <PhotoDropZone
-              id="news-photo2"
-              label="Foto 2:"
-              value={newsPhoto2}
-              onChange={setNewsPhoto2}
-              className={styles.photoDropZone}
-            />
-            <PhotoDropZone
-              id="news-photo3"
-              label="Foto 3:"
-              value={newsPhoto3}
-              onChange={setNewsPhoto3}
-              className={styles.photoDropZone}
-            />
+            {[1, 2, 3].map((num) => {
+              const photo = num === 1 ? newsPhoto1 : num === 2 ? newsPhoto2 : newsPhoto3
+              const setPhoto = num === 1 ? setNewsPhoto1 : num === 2 ? setNewsPhoto2 : setNewsPhoto3
+              const existingUrl = existingPhotoUrls[num - 1]
+              return (
+                <div key={`photo-${num}`}>
+                  <PhotoDropZone
+                    id={`news-photo${num}`}
+                    label={`Foto ${num}:${existingUrl ? ' (já existe — envie nova para substituir)' : ''}`}
+                    value={photo}
+                    onChange={setPhoto}
+                    className={styles.photoDropZone}
+                  />
+                  {existingUrl && !photo && (
+                    <div style={{ fontSize: '0.85rem', color: '#059669', marginTop: '-0.5rem', marginBottom: '0.5rem' }}>
+                      ✅ Foto atual mantida
+                    </div>
+                  )}
+                </div>
+              )
+            })}
             <div className={styles.formGroup}>
               <label htmlFor="news-cover">Foto de Capa:</label>
               <Select value={newsCoverPhoto} onValueChange={setNewsCoverPhoto}>
@@ -1544,9 +1596,10 @@ export function CoordenacaoDashboard() {
               const title = num === 1 ? newsPdfTitle1 : num === 2 ? newsPdfTitle2 : newsPdfTitle3
               const setFile = num === 1 ? setNewsPdfFile1 : num === 2 ? setNewsPdfFile2 : setNewsPdfFile3
               const setTitle = num === 1 ? setNewsPdfTitle1 : num === 2 ? setNewsPdfTitle2 : setNewsPdfTitle3
+              const existingPdf = existingPdfUrls[num - 1]
               return (
                 <div key={num} className={styles.formGroup}>
-                  <label>PDF {num} (opcional):</label>
+                  <label>PDF {num} (opcional):{existingPdf ? ' (já existe)' : ''}</label>
                   <Input
                     type="text"
                     value={title}
@@ -1563,6 +1616,11 @@ export function CoordenacaoDashboard() {
                   {file && (
                     <div className={styles.photoPreview}>📄 {file.name}</div>
                   )}
+                  {existingPdf && !file && (
+                    <div style={{ fontSize: '0.85rem', color: '#059669', marginTop: '0.25rem' }}>
+                      ✅ PDF atual mantido
+                    </div>
+                  )}
                 </div>
               )
             })}
@@ -1571,7 +1629,7 @@ export function CoordenacaoDashboard() {
               disabled={isLoading || uploadingPhotos || !newsTitle || !newsContent || !newsPosition}
               className={styles.submitButton}
             >
-              {uploadingPhotos ? 'Enviando fotos...' : isLoading ? 'Publicando...' : 'Publicar Notícia'}
+              {uploadingPhotos ? 'Enviando fotos...' : isLoading ? 'Salvando...' : editingNewsId ? 'Salvar Alterações' : 'Publicar Notícia'}
             </Button>
           </div>
 
