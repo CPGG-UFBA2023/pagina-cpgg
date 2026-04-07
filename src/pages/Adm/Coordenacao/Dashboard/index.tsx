@@ -678,6 +678,66 @@ export function CoordenacaoDashboard() {
     }
   }
 
+  const handleLoadExistingNews = async (position: string) => {
+    if (!position) return
+    setLoadingNews(true)
+    try {
+      const { data, error } = await supabase
+        .from('news')
+        .select('*')
+        .eq('news_position', position)
+        .maybeSingle()
+
+      if (error) throw error
+
+      if (data) {
+        setEditingNewsId(data.id)
+        setNewsTitle(data.title)
+        setNewsContent(data.content)
+        setNewsCoverPhoto(String(data.cover_photo_number || 1))
+        setNewsExternalLink(data.external_link || '')
+        setNewsPdfTitle1(data.pdf1_title || '')
+        setNewsPdfTitle2(data.pdf2_title || '')
+        setNewsPdfTitle3(data.pdf3_title || '')
+        setExistingPhotoUrls([data.photo1_url, data.photo2_url, data.photo3_url])
+        setExistingPdfUrls([data.pdf1_url, data.pdf2_url, data.pdf3_url])
+        setNewsPhoto1(null)
+        setNewsPhoto2(null)
+        setNewsPhoto3(null)
+        setNewsPdfFile1(null)
+        setNewsPdfFile2(null)
+        setNewsPdfFile3(null)
+        toast({ title: "Notícia carregada", description: "Edite os campos desejados e salve." })
+      } else {
+        handleClearNewsForm()
+        toast({ title: "Nenhuma notícia", description: "Nenhuma notícia encontrada nesta posição. Preencha para criar uma nova." })
+      }
+    } catch (err: any) {
+      toast({ title: "Erro", description: err.message, variant: "destructive" })
+    } finally {
+      setLoadingNews(false)
+    }
+  }
+
+  const handleClearNewsForm = () => {
+    setEditingNewsId(null)
+    setNewsTitle('')
+    setNewsContent('')
+    setNewsPhoto1(null)
+    setNewsPhoto2(null)
+    setNewsPhoto3(null)
+    setNewsCoverPhoto('1')
+    setNewsExternalLink('')
+    setNewsPdfFile1(null)
+    setNewsPdfTitle1('')
+    setNewsPdfFile2(null)
+    setNewsPdfTitle2('')
+    setNewsPdfFile3(null)
+    setNewsPdfTitle3('')
+    setExistingPhotoUrls([null, null, null])
+    setExistingPdfUrls([null, null, null])
+  }
+
   const handleRegisterNews = async () => {
     if (!newsTitle || !newsContent || !newsPosition) {
       toast({
@@ -693,38 +753,25 @@ export function CoordenacaoDashboard() {
 
     try {
       const photos = [newsPhoto1, newsPhoto2, newsPhoto3]
-      const photoUrls: (string | null)[] = [null, null, null]
+      const photoUrls: (string | null)[] = [...existingPhotoUrls]
 
-      // Upload das fotos (sanitiza nome e define contentType)
       for (let i = 0; i < photos.length; i++) {
         const photo = photos[i]
         if (photo) {
           const originalName = photo.name || `foto-${i + 1}.jpg`
-          const sanitizedName = originalName
-            .toLowerCase()
-            .replace(/[^a-z0-9._-]/g, '_')
-            .replace(/_+/g, '_')
+          const sanitizedName = originalName.toLowerCase().replace(/[^a-z0-9._-]/g, '_').replace(/_+/g, '_')
           const fileName = `${newsPosition || 'news'}/${Date.now()}-${i + 1}-${sanitizedName}`
           const { error: uploadError } = await supabase.storage
             .from('news-photos')
             .upload(fileName, photo, { contentType: photo.type || 'application/octet-stream', upsert: false })
-
-          if (uploadError) {
-            console.error('Erro upload storage:', uploadError)
-            throw uploadError
-          }
-
-          const { data: { publicUrl } } = supabase.storage
-            .from('news-photos')
-            .getPublicUrl(fileName)
-
+          if (uploadError) throw uploadError
+          const { data: { publicUrl } } = supabase.storage.from('news-photos').getPublicUrl(fileName)
           photoUrls[i] = publicUrl
         }
       }
 
-      // Upload dos PDFs se fornecidos
       const pdfFiles = [newsPdfFile1, newsPdfFile2, newsPdfFile3]
-      const pdfUrls: (string | null)[] = [null, null, null]
+      const pdfUrls: (string | null)[] = [...existingPdfUrls]
       for (let i = 0; i < pdfFiles.length; i++) {
         if (pdfFiles[i]) {
           const pdfName = pdfFiles[i]!.name.toLowerCase().replace(/[^a-z0-9._-]/g, '_').replace(/_+/g, '_')
@@ -737,13 +784,6 @@ export function CoordenacaoDashboard() {
           pdfUrls[i] = publicUrl
         }
       }
-
-      // Verificar se já existe uma notícia na posição selecionada
-      const { data: existingNews } = await supabase
-        .from('news')
-        .select('id')
-        .eq('news_position', newsPosition)
-        .maybeSingle()
 
       const newsData: any = {
         title: newsTitle,
@@ -761,39 +801,29 @@ export function CoordenacaoDashboard() {
         pdf3_title: newsPdfTitle3 || null,
       }
 
-      if (existingNews) {
-        const { error } = await supabase
-          .from('news')
-          .update(newsData)
-          .eq('id', existingNews.id)
+      if (editingNewsId) {
+        const { error } = await supabase.from('news').update(newsData).eq('id', editingNewsId)
         if (error) throw error
       } else {
-        const { error } = await supabase
-          .from('news')
-          .insert({ ...newsData, news_position: newsPosition })
-        if (error) throw error
+        const { data: existingNews } = await supabase
+          .from('news').select('id').eq('news_position', newsPosition).maybeSingle()
+
+        if (existingNews) {
+          const { error } = await supabase.from('news').update(newsData).eq('id', existingNews.id)
+          if (error) throw error
+        } else {
+          const { error } = await supabase.from('news').insert({ ...newsData, news_position: newsPosition })
+          if (error) throw error
+        }
       }
 
       toast({
         title: "Sucesso",
-        description: "Notícia publicada com sucesso!",
+        description: editingNewsId ? "Notícia atualizada com sucesso!" : "Notícia publicada com sucesso!",
       })
 
-      // Limpar formulário
-      setNewsTitle('')
-      setNewsContent('')
-      setNewsPhoto1(null)
-      setNewsPhoto2(null)
-      setNewsPhoto3(null)
-      setNewsCoverPhoto('1')
+      handleClearNewsForm()
       setNewsPosition('')
-      setNewsExternalLink('')
-      setNewsPdfFile1(null)
-      setNewsPdfTitle1('')
-      setNewsPdfFile2(null)
-      setNewsPdfTitle2('')
-      setNewsPdfFile3(null)
-      setNewsPdfTitle3('')
     } catch (error: any) {
       console.error('Erro ao publicar notícia:', error)
       toast({
