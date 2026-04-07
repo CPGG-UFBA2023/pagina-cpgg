@@ -20,7 +20,7 @@
   margin: 0 !important;
   margin-top: 155px !important;
   padding: 0 !important;
-  transform: translateX(-100px);
+  transform: translateX(-200px);
 }
 
 @keyframes fadeIn {
