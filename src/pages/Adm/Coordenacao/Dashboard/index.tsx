@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import { RichTextEditor } from '@/components/RichTextEditor'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useToast } from '@/hooks/use-toast'
 import { supabase } from '@/integrations/supabase/client'
@@ -1474,13 +1475,11 @@ export function CoordenacaoDashboard() {
               />
             </div>
             <div className={styles.formGroup}>
-              <label htmlFor="news-content">Conteúdo:</label>
-              <Textarea
-                id="news-content"
+              <label>Conteúdo:</label>
+              <RichTextEditor
                 value={newsContent}
-                onChange={(e) => setNewsContent(e.target.value)}
+                onChange={setNewsContent}
                 placeholder="Digite o conteúdo da notícia"
-                rows={8}
               />
             </div>
             <div className={styles.formGroup}>

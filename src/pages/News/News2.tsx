@@ -92,7 +92,7 @@ export function News2() {
         <div className={styles.content}>
           <div className={styles.textSection}>
             <h1 className={styles.title}>{news.title}</h1>
-            <div className={styles.text}>{news.content}</div>
+            <div className={styles.text} dangerouslySetInnerHTML={{ __html: news.content }} />
             
             {(news.external_link || pdfs.length > 0) && (
               <div className={styles.attachments}>
