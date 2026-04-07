@@ -75,6 +75,10 @@ export function CoordenacaoDashboard() {
   const [newsPdfTitle2, setNewsPdfTitle2] = useState<string>('')
   const [newsPdfFile3, setNewsPdfFile3] = useState<File | null>(null)
   const [newsPdfTitle3, setNewsPdfTitle3] = useState<string>('')
+  const [editingNewsId, setEditingNewsId] = useState<string | null>(null)
+  const [loadingNews, setLoadingNews] = useState(false)
+  const [existingPhotoUrls, setExistingPhotoUrls] = useState<(string | null)[]>([null, null, null])
+  const [existingPdfUrls, setExistingPdfUrls] = useState<(string | null)[]>([null, null, null])
 
   // Estados para normas/regulamentos
   const [regulationName, setRegulationName] = useState('')
