@@ -1498,6 +1498,37 @@ export function CoordenacaoDashboard() {
               <Newspaper size={24} />
               <h2>Gerenciar Notícias</h2>
             </div>
+            {editingNewsId && (
+              <div style={{ background: '#ede9fe', padding: '0.75rem 1rem', borderRadius: 8, marginBottom: '1rem', color: '#5b21b6', fontWeight: 500, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span>✏️ Editando notícia existente</span>
+                <Button variant="outline" size="sm" onClick={handleClearNewsForm} style={{ borderColor: '#7c3aed', color: '#7c3aed' }}>
+                  Limpar e criar nova
+                </Button>
+              </div>
+            )}
+            <div className={styles.formGroup}>
+              <label htmlFor="news-position">Posição na Home:</label>
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <Select value={newsPosition} onValueChange={(val) => { setNewsPosition(val); handleClearNewsForm(); }}>
+                  <SelectTrigger className={styles.selectTrigger}>
+                    <SelectValue placeholder="Selecione a posição" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white text-black border border-gray-300 z-[9999]">
+                    <SelectItem value="News1" className="text-black hover:bg-gray-100 cursor-pointer">Notícia 1</SelectItem>
+                    <SelectItem value="News2" className="text-black hover:bg-gray-100 cursor-pointer">Notícia 2</SelectItem>
+                    <SelectItem value="News3" className="text-black hover:bg-gray-100 cursor-pointer">Notícia 3</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Button
+                  variant="outline"
+                  onClick={() => handleLoadExistingNews(newsPosition)}
+                  disabled={!newsPosition || loadingNews}
+                  style={{ whiteSpace: 'nowrap' }}
+                >
+                  {loadingNews ? 'Carregando...' : 'Carregar existente'}
+                </Button>
+              </div>
+            </div>
             <div className={styles.formGroup}>
               <label htmlFor="news-title">Título:</label>
               <Input
@@ -1516,40 +1547,27 @@ export function CoordenacaoDashboard() {
                 placeholder="Digite o conteúdo da notícia"
               />
             </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="news-position">Posição na Home:</label>
-              <Select value={newsPosition} onValueChange={setNewsPosition}>
-                <SelectTrigger className={styles.selectTrigger}>
-                  <SelectValue placeholder="Selecione a posição" />
-                </SelectTrigger>
-                <SelectContent className="bg-white text-black border border-gray-300 z-[9999]">
-                  <SelectItem value="News1" className="text-black hover:bg-gray-100 cursor-pointer">Notícia 1</SelectItem>
-                  <SelectItem value="News2" className="text-black hover:bg-gray-100 cursor-pointer">Notícia 2</SelectItem>
-                  <SelectItem value="News3" className="text-black hover:bg-gray-100 cursor-pointer">Notícia 3</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <PhotoDropZone
-              id="news-photo1"
-              label="Foto 1:"
-              value={newsPhoto1}
-              onChange={setNewsPhoto1}
-              className={styles.photoDropZone}
-            />
-            <PhotoDropZone
-              id="news-photo2"
-              label="Foto 2:"
-              value={newsPhoto2}
-              onChange={setNewsPhoto2}
-              className={styles.photoDropZone}
-            />
-            <PhotoDropZone
-              id="news-photo3"
-              label="Foto 3:"
-              value={newsPhoto3}
-              onChange={setNewsPhoto3}
-              className={styles.photoDropZone}
-            />
+            {[1, 2, 3].map((num) => {
+              const photo = num === 1 ? newsPhoto1 : num === 2 ? newsPhoto2 : newsPhoto3
+              const setPhoto = num === 1 ? setNewsPhoto1 : num === 2 ? setNewsPhoto2 : setNewsPhoto3
+              const existingUrl = existingPhotoUrls[num - 1]
+              return (
+                <div key={`photo-${num}`}>
+                  <PhotoDropZone
+                    id={`news-photo${num}`}
+                    label={`Foto ${num}:${existingUrl ? ' (já existe — envie nova para substituir)' : ''}`}
+                    value={photo}
+                    onChange={setPhoto}
+                    className={styles.photoDropZone}
+                  />
+                  {existingUrl && !photo && (
+                    <div style={{ fontSize: '0.85rem', color: '#059669', marginTop: '-0.5rem', marginBottom: '0.5rem' }}>
+                      ✅ Foto atual mantida
+                    </div>
+                  )}
+                </div>
+              )
+            })}
             <div className={styles.formGroup}>
               <label htmlFor="news-cover">Foto de Capa:</label>
               <Select value={newsCoverPhoto} onValueChange={setNewsCoverPhoto}>
@@ -1578,9 +1596,10 @@ export function CoordenacaoDashboard() {
               const title = num === 1 ? newsPdfTitle1 : num === 2 ? newsPdfTitle2 : newsPdfTitle3
               const setFile = num === 1 ? setNewsPdfFile1 : num === 2 ? setNewsPdfFile2 : setNewsPdfFile3
               const setTitle = num === 1 ? setNewsPdfTitle1 : num === 2 ? setNewsPdfTitle2 : setNewsPdfTitle3
+              const existingPdf = existingPdfUrls[num - 1]
               return (
                 <div key={num} className={styles.formGroup}>
-                  <label>PDF {num} (opcional):</label>
+                  <label>PDF {num} (opcional):{existingPdf ? ' (já existe)' : ''}</label>
                   <Input
                     type="text"
                     value={title}
@@ -1597,6 +1616,11 @@ export function CoordenacaoDashboard() {
                   {file && (
                     <div className={styles.photoPreview}>📄 {file.name}</div>
                   )}
+                  {existingPdf && !file && (
+                    <div style={{ fontSize: '0.85rem', color: '#059669', marginTop: '0.25rem' }}>
+                      ✅ PDF atual mantido
+                    </div>
+                  )}
                 </div>
               )
             })}
@@ -1605,7 +1629,7 @@ export function CoordenacaoDashboard() {
               disabled={isLoading || uploadingPhotos || !newsTitle || !newsContent || !newsPosition}
               className={styles.submitButton}
             >
-              {uploadingPhotos ? 'Enviando fotos...' : isLoading ? 'Publicando...' : 'Publicar Notícia'}
+              {uploadingPhotos ? 'Enviando fotos...' : isLoading ? 'Salvando...' : editingNewsId ? 'Salvar Alterações' : 'Publicar Notícia'}
             </Button>
           </div>
 
