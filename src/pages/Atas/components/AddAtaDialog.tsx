@@ -40,7 +40,7 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
-    if (file && file.type === 'application/pdf') {
+    if (file && (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf'))) {
       setSelectedFile(file)
     }
   }
@@ -145,6 +145,13 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
           <Button onClick={handleSubmit} disabled={isLoading || !name || !selectedFile || !meetingDate || !meetingType || !yearValid}>
             {isLoading ? 'Enviando...' : 'Adicionar'}
           </Button>
+          {(!name || !selectedFile || !meetingDate || !meetingType || !yearValid) && (
+            <p className="text-xs text-muted-foreground w-full text-center mt-1">
+              Preencha todos os campos obrigatórios
+              {!selectedFile && ' • Selecione um PDF'}
+              {!meetingType && ' • Escolha o tipo'}
+            </p>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>
