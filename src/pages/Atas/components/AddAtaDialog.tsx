@@ -15,6 +15,13 @@ interface AddAtaDialogProps {
 
 const MEETING_TYPES = ['Conselho Científico', 'Conselho Deliberativo', 'Geral']
 
+const isValidYearGroup = (value: string): boolean => {
+  const trimmed = value.trim()
+  if (!trimmed) return false
+  // Accepts: "2025", "2010-2020", "2024-2025"
+  return /^\d{4}(-\d{4})?$/.test(trimmed)
+}
+
 export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAtaDialogProps) {
   const [name, setName] = useState('')
   const [meetingDate, setMeetingDate] = useState('')
@@ -23,6 +30,7 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
   const [isLoading, setIsLoading] = useState(false)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const yearValid = isValidYearGroup(yearGroup)
 
   useEffect(() => {
     if (isOpen) {
@@ -38,7 +46,7 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
   }
 
   const handleSubmit = async () => {
-    if (!name || !selectedFile || !meetingDate || !meetingType || !yearGroup) return
+    if (!name || !selectedFile || !meetingDate || !meetingType || !yearValid) return
     setIsLoading(true)
     try {
       // Upload PDF to Supabase Storage
@@ -105,7 +113,10 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
           </div>
           <div>
             <label className="text-sm font-medium">Período/Ano:</label>
-            <Input value={yearGroup} onChange={(e) => setYearGroup(e.target.value)} placeholder="Ex: 2025, 2010-2020" />
+            <Input value={yearGroup} onChange={(e) => setYearGroup(e.target.value)} placeholder="Ex: 2025, 2010-2020" className={yearGroup && !yearValid ? 'border-destructive' : ''} />
+            {yearGroup && !yearValid && (
+              <p className="text-xs text-destructive mt-1">Formato inválido. Use: 2025 ou 2010-2020</p>
+            )}
           </div>
           <div>
             <label className="text-sm font-medium">Arquivo PDF:</label>
@@ -131,7 +142,7 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
         </div>
         <DialogFooter className="gap-2">
           <Button variant="outline" onClick={handleClose} disabled={isLoading}>Cancelar</Button>
-          <Button onClick={handleSubmit} disabled={isLoading || !name || !selectedFile || !meetingDate || !meetingType}>
+          <Button onClick={handleSubmit} disabled={isLoading || !name || !selectedFile || !meetingDate || !meetingType || !yearValid}>
             {isLoading ? 'Enviando...' : 'Adicionar'}
           </Button>
         </DialogFooter>
