@@ -40,7 +40,7 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
-    if (file && file.type === 'application/pdf') {
+    if (file && (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf'))) {
       setSelectedFile(file)
     }
   }
