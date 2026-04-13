@@ -145,6 +145,13 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
           <Button onClick={handleSubmit} disabled={isLoading || !name || !selectedFile || !meetingDate || !meetingType || !yearValid}>
             {isLoading ? 'Enviando...' : 'Adicionar'}
           </Button>
+          {(!name || !selectedFile || !meetingDate || !meetingType || !yearValid) && (
+            <p className="text-xs text-muted-foreground w-full text-center mt-1">
+              Preencha todos os campos obrigatórios
+              {!selectedFile && ' • Selecione um PDF'}
+              {!meetingType && ' • Escolha o tipo'}
+            </p>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>
