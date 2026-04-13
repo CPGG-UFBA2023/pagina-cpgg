@@ -18,11 +18,9 @@ const MEETING_TYPES = ['Conselho Científico', 'Conselho Deliberativo', 'Geral']
 const isValidYearGroup = (value: string): boolean => {
   const trimmed = value.trim()
   if (!trimmed) return false
-  // Accepts: "2025", "2010-2020", "2024-2025", or any non-empty string with digits
-  return /^\d{4}(-\d{4})?$/.test(trimmed)
+  // Accepts: "2025", "2010-2020", or any year-like string
+  return /\d{4}/.test(trimmed)
 }
-
-const hasYearContent = (value: string): boolean => value.trim().length > 0
 
 export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAtaDialogProps) {
   const [name, setName] = useState('')
