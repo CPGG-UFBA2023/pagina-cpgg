@@ -135,7 +135,7 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
     <Dialog open={isOpen} onOpenChange={(open) => {
       if (!open) handleClose()
     }}>
-      <DialogContent className="sm:max-w-md max-h-[85vh] overflow-visible" style={{ marginTop: '80px' }}>
+      <DialogContent className="sm:max-w-md max-h-[85vh]" style={{ marginTop: '80px', overflowY: 'auto', overflowX: 'hidden' }}>
         <DialogHeader>
           <DialogTitle>Adicionar Nova Ata</DialogTitle>
           <DialogDescription>Preencha os campos abaixo para adicionar uma nova ata.</DialogDescription>
@@ -155,7 +155,7 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
               <SelectTrigger>
                 <SelectValue placeholder="Selecione o tipo" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent position="popper" className="z-[200]">
                 {MEETING_TYPES.map(t => (
                   <SelectItem key={t} value={t}>{t}</SelectItem>
                 ))}
