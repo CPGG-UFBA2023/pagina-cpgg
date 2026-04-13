@@ -113,7 +113,10 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
           </div>
           <div>
             <label className="text-sm font-medium">Período/Ano:</label>
-            <Input value={yearGroup} onChange={(e) => setYearGroup(e.target.value)} placeholder="Ex: 2025, 2010-2020" />
+            <Input value={yearGroup} onChange={(e) => setYearGroup(e.target.value)} placeholder="Ex: 2025, 2010-2020" className={yearGroup && !yearValid ? 'border-red-500' : ''} />
+            {yearGroup && !yearValid && (
+              <p className="text-xs text-red-500 mt-1">Formato inválido. Use: 2025 ou 2010-2020</p>
+            )}
           </div>
           <div>
             <label className="text-sm font-medium">Arquivo PDF:</label>
