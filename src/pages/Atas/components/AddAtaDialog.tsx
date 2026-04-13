@@ -46,7 +46,7 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
   }
 
   const handleSubmit = async () => {
-    if (!name || !selectedFile || !meetingDate || !meetingType || !yearGroup) return
+    if (!name || !selectedFile || !meetingDate || !meetingType || !yearValid) return
     setIsLoading(true)
     try {
       // Upload PDF to Supabase Storage
