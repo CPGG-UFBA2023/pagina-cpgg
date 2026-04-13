@@ -15,6 +15,13 @@ interface AddAtaDialogProps {
 
 const MEETING_TYPES = ['Conselho Científico', 'Conselho Deliberativo', 'Geral']
 
+const isValidYearGroup = (value: string): boolean => {
+  const trimmed = value.trim()
+  if (!trimmed) return false
+  // Accepts: "2025", "2010-2020", "2024-2025"
+  return /^\d{4}(-\d{4})?$/.test(trimmed)
+}
+
 export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAtaDialogProps) {
   const [name, setName] = useState('')
   const [meetingDate, setMeetingDate] = useState('')
@@ -23,6 +30,7 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
   const [isLoading, setIsLoading] = useState(false)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const yearValid = isValidYearGroup(yearGroup)
 
   useEffect(() => {
     if (isOpen) {
