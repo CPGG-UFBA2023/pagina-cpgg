@@ -84,7 +84,7 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
     <Dialog open={isOpen} onOpenChange={(open) => {
       if (!open) handleClose()
     }}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md max-h-[85vh] overflow-y-auto" style={{ marginTop: '50px' }}>
         <DialogHeader>
           <DialogTitle>Adicionar Nova Ata</DialogTitle>
           <DialogDescription>Preencha os campos abaixo para adicionar uma nova ata.</DialogDescription>
