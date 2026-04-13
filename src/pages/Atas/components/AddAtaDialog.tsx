@@ -14,7 +14,6 @@ interface AddAtaDialogProps {
 }
 
 const MEETING_TYPES = ['Conselho Científico', 'Conselho Deliberativo', 'Geral']
-const YEAR_GROUPS = ['2010-2020', '2023', '2024', '2025']
 
 export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAtaDialogProps) {
   const [name, setName] = useState('')
@@ -106,16 +105,7 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
           </div>
           <div>
             <label className="text-sm font-medium">Período/Ano:</label>
-            <Select value={yearGroup} onValueChange={setYearGroup}>
-              <SelectTrigger>
-                <SelectValue placeholder="Selecione o período" />
-              </SelectTrigger>
-              <SelectContent>
-                {YEAR_GROUPS.map(y => (
-                  <SelectItem key={y} value={y}>{y}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <Input value={yearGroup} onChange={(e) => setYearGroup(e.target.value)} placeholder="Ex: 2025, 2010-2020" />
           </div>
           <div>
             <label className="text-sm font-medium">Arquivo PDF:</label>

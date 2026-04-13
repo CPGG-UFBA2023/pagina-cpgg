@@ -19,7 +19,7 @@ interface Ata {
   year_group: string;
 }
 
-const YEAR_GROUPS = ['2010-2020', '2023', '2024', '2025'];
+const DEFAULT_YEAR_GROUPS = ['2025'];
 
 export function Atas() {
   const [atas, setAtas] = useState<Ata[]>([]);
@@ -98,7 +98,22 @@ export function Atas() {
     toast({ title: "Logout", description: "Saindo do modo de edição" });
   };
 
+  // Build dynamic year groups from data
+  const yearGroups = Array.from(new Set([...DEFAULT_YEAR_GROUPS, ...atas.map(a => a.year_group)]));
+  // Sort: ranges like "2010-2020" by first number, single years numerically
+  yearGroups.sort((a, b) => {
+    const na = parseInt(a);
+    const nb = parseInt(b);
+    return na - nb;
+  });
+
   const filteredAtas = atas.filter(a => a.year_group === selectedYearGroup);
+
+  // If selectedYearGroup doesn't exist in tabs, select the last one
+  const activeTab = yearGroups.includes(selectedYearGroup) ? selectedYearGroup : yearGroups[yearGroups.length - 1];
+  if (activeTab !== selectedYearGroup) {
+    setSelectedYearGroup(activeTab);
+  }
 
   return (
     <div className={styles.pageContainer}>
@@ -107,7 +122,7 @@ export function Atas() {
         <h1 className={styles.title}>Atas</h1>
 
         <div className={styles.yearTabs}>
-          {YEAR_GROUPS.map(yg => (
+          {yearGroups.map(yg => (
             <button
               key={yg}
               className={`${styles.yearTab} ${selectedYearGroup === yg ? styles.yearTabActive : ''}`}
