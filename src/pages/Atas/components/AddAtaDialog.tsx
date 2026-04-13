@@ -18,8 +18,7 @@ const MEETING_TYPES = ['Conselho Científico', 'Conselho Deliberativo', 'Geral']
 const isValidYearGroup = (value: string): boolean => {
   const trimmed = value.trim()
   if (!trimmed) return false
-  // Accepts: "2025", "2010-2020", or any year-like string
-  return /\d{4}/.test(trimmed)
+  return /^\d{4}(?:-\d{4})?$/.test(trimmed)
 }
 
 export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAtaDialogProps) {
@@ -29,42 +28,93 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
   const [yearGroup, setYearGroup] = useState(defaultYearGroup)
   const [isLoading, setIsLoading] = useState(false)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const [submitError, setSubmitError] = useState('')
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const yearValid = isValidYearGroup(yearGroup)
+
+  const trimmedName = name.trim()
+  const trimmedYearGroup = yearGroup.trim()
+  const yearValid = isValidYearGroup(trimmedYearGroup)
+  const canSubmit = Boolean(trimmedName && selectedFile && meetingDate && meetingType && yearValid)
 
   useEffect(() => {
     if (isOpen) {
       setYearGroup(defaultYearGroup)
+      setSubmitError('')
     }
   }, [defaultYearGroup, isOpen])
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
-    if (file && (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf'))) {
-      setSelectedFile(file)
+
+    if (!file) return
+
+    if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+      setSelectedFile(null)
+      setSubmitError('Selecione um arquivo PDF válido.')
+      if (fileInputRef.current) fileInputRef.current.value = ''
+      return
     }
+
+    setSelectedFile(file)
+    setSubmitError('')
   }
 
   const handleSubmit = async () => {
-    if (!name || !selectedFile || !meetingDate || !meetingType || !yearValid) return
+    if (!trimmedName) {
+      setSubmitError('Informe o nome da ata.')
+      return
+    }
+
+    if (!meetingDate) {
+      setSubmitError('Informe a data da reunião.')
+      return
+    }
+
+    if (!meetingType) {
+      setSubmitError('Selecione o tipo de reunião.')
+      return
+    }
+
+    if (!yearValid) {
+      setSubmitError('Use um período válido, como 2025 ou 2010-2020.')
+      return
+    }
+
+    if (!selectedFile) {
+      setSubmitError('Selecione um arquivo PDF.')
+      return
+    }
+
     setIsLoading(true)
+    setSubmitError('')
+
+    let uploadedPath: string | null = null
+
     try {
-      // Upload PDF to Supabase Storage
-      const fileName = `${yearGroup}/${Date.now()}_${selectedFile.name.replace(/\s+/g, '_')}`
+      const sanitizedFileName = selectedFile.name.replace(/[^a-zA-Z0-9._-]+/g, '_')
+      const safeYearFolder = trimmedYearGroup.replace(/[\\/]+/g, '-')
+      const fileName = `${safeYearFolder}/${Date.now()}_${sanitizedFileName}`
+
       const { data: uploadData, error: uploadError } = await supabase.storage
         .from('atas')
         .upload(fileName, selectedFile, { contentType: 'application/pdf' })
 
-      if (uploadError) throw uploadError
+      if (uploadError) {
+        throw new Error(uploadError.message || 'Não foi possível enviar o PDF.')
+      }
 
-      // Get public URL
-      const { data: urlData } = supabase.storage.from('atas').getPublicUrl(uploadData.path)
-      const pdfUrl = urlData.publicUrl
+      uploadedPath = uploadData.path
 
-      await onAdd(name, pdfUrl, meetingDate, meetingType, yearGroup)
+      const { data: urlData } = supabase.storage.from('atas').getPublicUrl(uploadedPath)
+      await onAdd(trimmedName, urlData.publicUrl, meetingDate, meetingType, trimmedYearGroup)
       handleClose()
-    } catch (error: any) {
-      console.error('Erro ao fazer upload:', error)
+    } catch (error) {
+      if (uploadedPath) {
+        await supabase.storage.from('atas').remove([uploadedPath])
+      }
+
+      console.error('Erro ao adicionar ata:', error)
+      setSubmitError(error instanceof Error ? error.message : 'Não foi possível adicionar a ata.')
     } finally {
       setIsLoading(false)
     }
@@ -76,6 +126,7 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
     setMeetingDate('')
     setMeetingType('')
     setYearGroup(defaultYearGroup)
+    setSubmitError('')
     if (fileInputRef.current) fileInputRef.current.value = ''
     onClose()
   }
@@ -133,19 +184,24 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
               <input
                 ref={fileInputRef}
                 type="file"
-                accept="application/pdf"
+                accept="application/pdf,.pdf"
                 onChange={handleFileChange}
                 className="hidden"
               />
             </div>
           </div>
         </div>
+
+        {submitError && (
+          <p className="text-sm text-destructive">{submitError}</p>
+        )}
+
         <DialogFooter className="gap-2">
-          <Button variant="outline" onClick={handleClose} disabled={isLoading}>Cancelar</Button>
-          <Button onClick={handleSubmit} disabled={isLoading || !name || !selectedFile || !meetingDate || !meetingType || !yearValid}>
+          <Button type="button" variant="outline" onClick={handleClose} disabled={isLoading}>Cancelar</Button>
+          <Button type="button" onClick={handleSubmit} disabled={isLoading || !canSubmit}>
             {isLoading ? 'Enviando...' : 'Adicionar'}
           </Button>
-          {(!name || !selectedFile || !meetingDate || !meetingType || !yearValid) && (
+          {!canSubmit && !submitError && (
             <p className="text-xs text-muted-foreground w-full text-center mt-1">
               Preencha todos os campos obrigatórios
               {!selectedFile && ' • Selecione um PDF'}

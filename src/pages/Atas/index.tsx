@@ -48,17 +48,28 @@ export function Atas() {
   };
 
   const handleAddAta = async (name: string, pdfUrl: string, meetingDate: string, meetingType: string, yearGroup: string) => {
+    const normalizedName = name.trim();
+    const normalizedYearGroup = yearGroup.trim();
+
     try {
       const { error } = await supabase
         .from('atas')
-        .insert({ name, pdf_url: pdfUrl, meeting_date: meetingDate, meeting_type: meetingType, year_group: yearGroup });
+        .insert({
+          name: normalizedName,
+          pdf_url: pdfUrl,
+          meeting_date: meetingDate,
+          meeting_type: meetingType,
+          year_group: normalizedYearGroup,
+        });
 
       if (error) throw error;
 
+      setSelectedYearGroup(normalizedYearGroup);
       toast({ title: "Sucesso", description: "Ata adicionada com sucesso!" });
       await fetchAtas();
     } catch (error: any) {
       toast({ title: "Erro", description: error.message || "Erro ao adicionar ata", variant: "destructive" });
+      throw error;
     }
   };
 
