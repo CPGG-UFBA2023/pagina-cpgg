@@ -16,6 +16,14 @@ interface NewsArticle {
   news_position: string
 }
 
+const stripHtml = (html: string): string => {
+  if (!html) return ''
+  const withoutTags = html.replace(/<[^>]*>/g, ' ')
+  const txt = document.createElement('textarea')
+  txt.innerHTML = withoutTags
+  return txt.value.replace(/\s+/g, ' ').trim()
+}
+
 export function Middle() {
   const [newsArticles, setNewsArticles] = useState<NewsArticle[]>([])
   const [loading, setLoading] = useState(true)
