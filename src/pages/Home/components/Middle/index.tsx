@@ -145,7 +145,7 @@ export function Middle() {
               <div className={styles.newsContent}>
                 <h2 className={styles.newsTitle}>{currentArticle.title}</h2>
                 <p className={styles.newsDescription}>
-                  {currentArticle.content.substring(0, 150)}...
+                  {stripHtml(currentArticle.content).substring(0, 150)}...
                 </p>
               </div>
             </div>
