@@ -163,6 +163,33 @@ export type Database = {
         }
         Relationships: []
       }
+      history_documents: {
+        Row: {
+          created_at: string
+          id: string
+          pdf_url: string
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          pdf_url: string
+          slug: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          pdf_url?: string
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       laboratories: {
         Row: {
           acronym: string
