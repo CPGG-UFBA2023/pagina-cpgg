@@ -78,11 +78,12 @@ export function History() {
 
       {!isAdmin ? (
         <Button
-          size="sm"
+          size="lg"
           onClick={() => setShowLogin(true)}
           style={{
             position: 'fixed', top: '170px', right: '20px', zIndex: 100,
             backgroundColor: '#592cbb', color: 'white',
+            padding: '12px 20px', fontSize: '15px', minHeight: '44px', cursor: 'pointer',
           }}
         >
           <Lock className="w-4 h-4 mr-2" />
@@ -92,10 +93,13 @@ export function History() {
         <>
           <HistoryPdfUpload onUpdated={(url) => setPdfUrl(url)} />
           <Button
-            size="sm"
+            size="lg"
             variant="outline"
             onClick={handleLogout}
-            style={{ position: 'fixed', top: '215px', right: '20px', zIndex: 100 }}
+            style={{
+              position: 'fixed', top: '225px', right: '20px', zIndex: 100,
+              padding: '12px 20px', fontSize: '15px', minHeight: '44px', cursor: 'pointer',
+            }}
           >
             <LogOut className="w-4 h-4 mr-2" />
             Sair

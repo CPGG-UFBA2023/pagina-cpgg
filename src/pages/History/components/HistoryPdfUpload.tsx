@@ -64,7 +64,7 @@ export function HistoryPdfUpload({ onUpdated }: HistoryPdfUploadProps) {
   return (
     <>
       <Button
-        size="sm"
+        size="lg"
         onClick={() => setOpen(true)}
         style={{
           position: 'fixed',
@@ -73,6 +73,10 @@ export function HistoryPdfUpload({ onUpdated }: HistoryPdfUploadProps) {
           zIndex: 100,
           backgroundColor: '#592cbb',
           color: 'white',
+          padding: '12px 20px',
+          fontSize: '15px',
+          minHeight: '44px',
+          cursor: 'pointer',
         }}
       >
         <Upload className="w-4 h-4 mr-2" />
@@ -80,7 +84,10 @@ export function HistoryPdfUpload({ onUpdated }: HistoryPdfUploadProps) {
       </Button>
 
       <Dialog open={open} onOpenChange={(o) => { if (!o) handleClose() }}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent
+          className="sm:max-w-md"
+          style={{ top: 'calc(50% + 50px)', maxHeight: '50vh', overflowY: 'auto', padding: '16px', gap: '12px' }}
+        >
           <DialogHeader>
             <DialogTitle>Substituir PDF da História do CPGG</DialogTitle>
             <DialogDescription>
