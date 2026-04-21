@@ -73,7 +73,6 @@ export function HistoryPdfViewer() {
           Este documento é protegido. Cópia, download e impressão estão desabilitados.
         </p>
       </main>
-      <Footer />
     </div>
   );
 }
