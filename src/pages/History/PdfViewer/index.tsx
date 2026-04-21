@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Header } from '@/components/Header';
-import { Footer } from '@/components/Footer';
 import styles from './pdfviewer.module.css';
 
 const FALLBACK_PDF_URL = '/PDF_history.pdf';
@@ -74,7 +73,6 @@ export function HistoryPdfViewer() {
           Este documento é protegido. Cópia, download e impressão estão desabilitados.
         </p>
       </main>
-      <Footer />
     </div>
   );
 }
