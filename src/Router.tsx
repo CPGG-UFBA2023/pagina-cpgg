@@ -9,6 +9,7 @@ import { CPGG } from './pages/CPGG'
 import { CPGG2 } from './pages/CPGG2'
 import { History } from './pages/History'
 import { Former } from './pages/History/FormerHeaders'
+import { HistoryPdfViewer } from './pages/History/PdfViewer'
 import { Institution } from './pages/Institution'
 
 import { Researchers } from './pages/Researchers'
@@ -176,6 +177,7 @@ export function Router() {
         <Route path='/cpgg2' element={<CPGG2 />} />
         <Route path='/history' element={<History />} />
         <Route path='/history/Former' element={<Former />} />
+        <Route path='/history/view' element={<HistoryPdfViewer />} />
         <Route path='/production' element={<Production />} />
          <Route path='/spaces' element={<Spaces />} />
          <Route path='/labs' element={<Labs />} />

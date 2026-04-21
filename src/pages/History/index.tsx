@@ -68,11 +68,11 @@ export function History() {
             </div>
           </Link>
 
-          <a className={styles.card} href={pdfUrl} target="_blank" rel="noopener noreferrer">
+          <Link className={styles.card} to="/history/view">
             <div className={styles.document}>
               <h2>{t('history.cpggHistory')}</h2>
             </div>
-          </a>
+          </Link>
         </div>
       </main>
 
