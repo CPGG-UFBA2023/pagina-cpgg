@@ -14,6 +14,7 @@ interface NewsArticle {
   photo3_url: string | null
   cover_photo_number: number
   news_position: string
+  archive_number: number
 }
 
 const stripHtml = (html: string): string => {
@@ -73,17 +74,8 @@ export function Middle() {
     }
   }
 
-  const getNewsRoute = (position: string) => {
-    switch (position) {
-      case 'News1':
-        return '/News/News1'
-      case 'News2':
-        return '/News/News2'
-      case 'News3':
-        return '/News/News3'
-      default:
-        return '/News/News1'
-    }
+  const getNewsRoute = (article: NewsArticle) => {
+    return `/News/${article.archive_number}`
   }
 
   const handlePrevious = () => {
@@ -141,7 +133,7 @@ export function Middle() {
       {/* News carousel section */}
       <div className={styles.carouselContainer}>
         {currentArticle && (
-          <Link to={getNewsRoute(currentArticle.news_position)} className={styles.newsLink}>
+          <Link to={getNewsRoute(currentArticle)} className={styles.newsLink}>
             <div className={styles.newsCard}>
               <div className={styles.imageWrapper}>
                 <img 
@@ -200,6 +192,10 @@ export function Middle() {
             </div>
           </>
         )}
+
+        <Link to="/News/Archive" className={styles.archiveLink}>
+          Ver todas as notícias →
+        </Link>
       </div>
 
       {/* Earth image - desktop only */}
