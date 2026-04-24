@@ -23,7 +23,8 @@ export function GlobalEarth() {
     '/Production',
     '/News/News1',
     '/News/News2',
-    '/News/News3'
+    '/News/News3',
+    '/News/Archive'
   ]
   
   // Also hide on photo subpages (but not /Photos root or /Photos/HistoricalPhotos root)
@@ -31,7 +32,10 @@ export function GlobalEarth() {
                          location.pathname.includes('/photos/')) &&
                          location.pathname !== '/Photos/HistoricalPhotos'
   
-  const shouldHide = hideOnRoutes.includes(location.pathname) || isPhotoSubPage
+  // Hide on any /News/* route (including dynamic /News/:archiveNumber)
+  const isNewsPage = location.pathname.startsWith('/News/') || location.pathname.startsWith('/news/')
+  
+  const shouldHide = hideOnRoutes.includes(location.pathname) || isPhotoSubPage || isNewsPage
   
   if (shouldHide) {
     return null
