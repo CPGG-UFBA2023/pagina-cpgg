@@ -23,10 +23,32 @@
   width: 35%;
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   order: 1;
+}
+
+.archiveLink {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 8px 18px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #592cbb;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 6px;
+  border: 1px solid rgba(89, 44, 187, 0.25);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.archiveLink:hover {
+  background: #592cbb;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(89, 44, 187, 0.3);
 }
 
 .newsLink {
