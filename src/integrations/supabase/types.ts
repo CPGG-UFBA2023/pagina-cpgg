@@ -338,6 +338,7 @@ export type Database = {
       }
       news: {
         Row: {
+          archive_number: number
           content: string
           cover_photo_number: number | null
           created_at: string
@@ -357,6 +358,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          archive_number?: number
           content: string
           cover_photo_number?: number | null
           created_at?: string
@@ -376,6 +378,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          archive_number?: number
           content?: string
           cover_photo_number?: number | null
           created_at?: string
