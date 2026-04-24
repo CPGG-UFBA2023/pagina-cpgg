@@ -5,6 +5,8 @@ import { Contact } from './pages/Contact'
 import { News1 } from './pages/News/News1'
 import { News2 } from './pages/News/News2'
 import { News3 } from './pages/News/News3'
+import { NewsDynamic } from './pages/News/NewsDynamic'
+import { NewsArchive } from './pages/News/Archive'
 import { CPGG } from './pages/CPGG'
 import { CPGG2 } from './pages/CPGG2'
 import { History } from './pages/History'
@@ -124,6 +126,8 @@ export function Router() {
         <Route path='/News/News1' element={<News1 />} />
         <Route path='/News/News2' element={<News2 />} />
         <Route path='/News/News3' element={<News3 />} />
+        <Route path='/News/Archive' element={<NewsArchive />} />
+        <Route path='/News/:archiveNumber' element={<NewsDynamic />} />
 
         <Route path='/researchers' element={<Researchers />} />
         <Route path='/researchers/dynamic/:id' element={<DynamicResearcher />} />
