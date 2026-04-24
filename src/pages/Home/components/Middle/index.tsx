@@ -192,6 +192,10 @@ export function Middle() {
             </div>
           </>
         )}
+
+        <Link to="/News/Archive" className={styles.archiveLink}>
+          Ver todas as notícias →
+        </Link>
       </div>
 
       {/* Earth image - desktop only */}
