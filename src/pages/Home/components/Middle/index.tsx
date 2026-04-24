@@ -133,7 +133,7 @@ export function Middle() {
       {/* News carousel section */}
       <div className={styles.carouselContainer}>
         {currentArticle && (
-          <Link to={getNewsRoute(currentArticle.news_position)} className={styles.newsLink}>
+          <Link to={getNewsRoute(currentArticle)} className={styles.newsLink}>
             <div className={styles.newsCard}>
               <div className={styles.imageWrapper}>
                 <img 
