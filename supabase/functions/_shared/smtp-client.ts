@@ -61,10 +61,25 @@ export async function sendEmail(options: EmailOptions): Promise<EmailResult> {
       contentType: att.contentType || "application/pdf",
     }));
 
+    // Gerar versão em texto simples a partir do HTML como fallback
+    const plainText = options.html
+      .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
+      .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "")
+      .replace(/<[^>]+>/g, "")
+      .replace(/&nbsp;/g, " ")
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/\s+\n/g, "\n")
+      .replace(/\n\s+/g, "\n")
+      .replace(/\n{3,}/g, "\n\n")
+      .trim();
+
     await client.send({
       from: `CPGG UFBA <${smtpUser}>`,
       to: toAddresses,
       subject: options.subject,
+      content: plainText,
       html: options.html,
       replyTo: options.replyTo,
       attachments: attachments,
@@ -75,7 +90,8 @@ export async function sendEmail(options: EmailOptions): Promise<EmailResult> {
     console.log("✅ Email enviado com sucesso via SMTP");
     return { success: true };
   } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
     console.error("❌ Erro ao enviar email via SMTP:", error);
-    return { success: false, error: error.message };
+    return { success: false, error: errorMessage };
   }
 }
