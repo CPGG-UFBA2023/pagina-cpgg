@@ -191,12 +191,7 @@ export function RF() {
         description: "Em breve o coordenador do laboratório entrará em contato por e-mail.",
       });
 
-      // Redirecionar para página de sucesso
-      setTimeout(() => {
-        window.location.href = '/labs/laiga/success';
-      }, 2000);
-
-      // Resetar formulário
+      // Resetar formulário antes de redirecionar
       setFormData({
         selectedEquipments: [],
         otherEquipment: "",
