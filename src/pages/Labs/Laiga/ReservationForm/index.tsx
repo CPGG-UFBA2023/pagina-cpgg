@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Header } from "../../../../components/Header";
 import { supabase } from "../../../../integrations/supabase/client";
 import { LaigaEquipmentEditor } from "../../../../components/LaigaEquipmentEditor";
@@ -6,6 +7,7 @@ import styles from "./LaigaReservation.module.css";
 import { toast } from "@/hooks/use-toast";
 
 export function RF() {
+  const navigate = useNavigate();
   const [equipments, setEquipments] = useState<string[]>([]);
   const [formData, setFormData] = useState({
     selectedEquipments: [] as string[],
