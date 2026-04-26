@@ -90,7 +90,8 @@ export async function sendEmail(options: EmailOptions): Promise<EmailResult> {
     console.log("✅ Email enviado com sucesso via SMTP");
     return { success: true };
   } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
     console.error("❌ Erro ao enviar email via SMTP:", error);
-    return { success: false, error: error.message };
+    return { success: false, error: errorMessage };
   }
 }
