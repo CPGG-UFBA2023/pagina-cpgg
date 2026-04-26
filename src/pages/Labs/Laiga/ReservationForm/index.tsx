@@ -203,6 +203,9 @@ export function RF() {
         applicantEmail: "",
         applicantPassword: "",
       });
+
+      // Redirecionar para página de sucesso (SPA navigation)
+      navigate('/labs/laiga/success');
     } catch (error: any) {
       console.error("Erro ao enviar solicitação:", error);
       console.error("Detalhes do erro:", {
