@@ -3,7 +3,9 @@ import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
 interface EmailOptions {
   to: string | string[];
   subject: string;
-  html: string;
+  html?: string;
+  text?: string;
+  plainTextOnly?: boolean;
   replyTo?: string;
   attachments?: Array<{
     filename: string;
@@ -29,6 +31,10 @@ export async function sendEmail(options: EmailOptions): Promise<EmailResult> {
   }
 
   const toAddresses = Array.isArray(options.to) ? options.to : [options.to];
+
+  if (!options.html && !options.text) {
+    return { success: false, error: "Conteúdo do email não informado" };
+  }
 
   console.log(`📧 Enviando email via SMTP (${smtpHost}:${smtpPort}) para ${toAddresses.join(", ")}`);
 
@@ -61,11 +67,18 @@ export async function sendEmail(options: EmailOptions): Promise<EmailResult> {
       contentType: att.contentType || "application/pdf",
     }));
 
-    // Gerar versão em texto simples a partir do HTML como fallback
-    const plainText = options.html
+    // Gerar versão em texto simples como fallback, removendo caracteres invisíveis
+    // gerados por componentes de preview de email que alguns clientes exibem indevidamente.
+    const htmlAsText = options.html
+      ? options.html
       .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
       .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "")
       .replace(/<[^>]+>/g, "")
+      : "";
+
+    const plainText = (options.text || htmlAsText)
+      .replace(/[\u200B-\u200F\uFEFF]/g, "")
+      .replace(/\u00A0/g, " ")
       .replace(/&nbsp;/g, " ")
       .replace(/&amp;/g, "&")
       .replace(/&lt;/g, "<")
@@ -75,15 +88,34 @@ export async function sendEmail(options: EmailOptions): Promise<EmailResult> {
       .replace(/\n{3,}/g, "\n\n")
       .trim();
 
-    await client.send({
+    const safePlainText = options.plainTextOnly
+      ? plainText
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^\x09\x0A\x0D\x20-\x7E]/g, "")
+      : plainText;
+
+    const baseMessage = {
       from: `CPGG UFBA <${smtpUser}>`,
       to: toAddresses,
       subject: options.subject,
-      content: plainText,
-      html: options.html,
       replyTo: options.replyTo,
       attachments: attachments,
-    });
+    };
+
+    await client.send(options.plainTextOnly
+      ? {
+        ...baseMessage,
+        mimeContent: [{
+          mimeType: 'text/plain; charset="us-ascii"',
+          content: safePlainText,
+        }],
+      }
+      : {
+        ...baseMessage,
+        content: plainText,
+        ...(options.html ? { html: options.html } : {}),
+      });
 
     await client.close();
 

@@ -1,8 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.57.3'
-import React from 'npm:react@18.3.1'
-import { renderAsync } from 'npm:@react-email/components@0.0.22'
-import { ReservationEmail } from './_templates/reservation-email.tsx'
 import { sendEmail } from "../_shared/smtp-client.ts"
 import { PDFDocument, rgb, StandardFonts } from 'https://esm.sh/pdf-lib@1.17.1'
 
@@ -92,19 +89,12 @@ const handler = async (req: Request): Promise<Response> => {
     const formattedWithdrawalDate = new Date(reservationData.withdrawalDate).toLocaleDateString('pt-BR')
     const formattedReturnDate = new Date(reservationData.returnDate).toLocaleDateString('pt-BR')
 
-    // Gerar HTML do email usando React Email
-    const emailHtml = await renderAsync(
-      React.createElement(ReservationEmail, {
-        applicantName: reservationData.applicantName,
-        applicantEmail: reservationData.applicantEmail,
-        equipmentsList,
-        otherEquipment: reservationData.otherEquipment,
-        peripherals: reservationData.peripherals,
-        withdrawalDate: formattedWithdrawalDate,
-        returnDate: formattedReturnDate,
-        purpose: reservationData.purpose,
-        reservationId: reservation.id,
-      })
+    const emailText = buildReservationEmailText(
+      reservationData,
+      reservation.id,
+      equipmentsList,
+      formattedWithdrawalDate,
+      formattedReturnDate
     )
 
     // Gerar PDF do comprovante
@@ -124,7 +114,8 @@ const handler = async (req: Request): Promise<Response> => {
     const emailResult = await sendEmail({
       to: chiefEmail,
       subject: `Nova Solicitação de Equipamentos LAIGA - ${reservationData.applicantName}`,
-      html: emailHtml,
+      text: emailText,
+      plainTextOnly: true,
       replyTo: reservationData.applicantEmail,
       attachments: [
         {
@@ -156,7 +147,7 @@ const handler = async (req: Request): Promise<Response> => {
       }
     )
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('Erro na função send-laiga-reservation:', error)
     
     return new Response(
@@ -173,6 +164,44 @@ const handler = async (req: Request): Promise<Response> => {
       }
     )
   }
+}
+
+function buildReservationEmailText(
+  reservationData: LaigaReservationRequest,
+  reservationId: string,
+  equipmentsList: string,
+  withdrawalDate: string,
+  returnDate: string
+): string {
+  return [
+    'Nova Solicitacao de Reserva de Equipamentos - LAIGA',
+    'Laboratorio Integrado de Geofisica Aplicada - LAIGA',
+    '',
+    'Dados do Solicitante',
+    `Nome: ${reservationData.applicantName}`,
+    `Email: ${reservationData.applicantEmail}`,
+    '',
+    'Equipamentos Solicitados',
+    `Da lista: ${equipmentsList}`,
+    reservationData.otherEquipment ? `Outros equipamentos: ${reservationData.otherEquipment}` : '',
+    reservationData.peripherals ? `Perifericos adicionais: ${reservationData.peripherals}` : '',
+    '',
+    'Periodo de Uso',
+    `Data de Retirada: ${withdrawalDate}`,
+    `Data de Devolucao: ${returnDate}`,
+    '',
+    'Finalidade',
+    reservationData.purpose,
+    '',
+    'Termos aceitos',
+    '- O solicitante concordou em expressar agradecimentos ao LAIGA/CPGG nos trabalhos apresentados.',
+    '- O solicitante concordou em reportar problemas ou avarias no ato da devolucao.',
+    '',
+    `Protocolo: ${reservationId}`,
+    `Data da Solicitacao: ${new Date().toLocaleString('pt-BR')}`,
+    '',
+    'Em anexo segue o comprovante de solicitacao em PDF.',
+  ].filter(Boolean).join('\n')
 }
 
 // Função auxiliar para gerar o PDF real
