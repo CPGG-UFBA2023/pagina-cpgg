@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Header } from "../../../../components/Header";
 import { supabase } from "../../../../integrations/supabase/client";
 import { LaigaEquipmentEditor } from "../../../../components/LaigaEquipmentEditor";
@@ -6,6 +7,7 @@ import styles from "./LaigaReservation.module.css";
 import { toast } from "@/hooks/use-toast";
 
 export function RF() {
+  const navigate = useNavigate();
   const [equipments, setEquipments] = useState<string[]>([]);
   const [formData, setFormData] = useState({
     selectedEquipments: [] as string[],
@@ -189,12 +191,7 @@ export function RF() {
         description: "Em breve o coordenador do laboratório entrará em contato por e-mail.",
       });
 
-      // Redirecionar para página de sucesso
-      setTimeout(() => {
-        window.location.href = '/labs/laiga/success';
-      }, 2000);
-
-      // Resetar formulário
+      // Resetar formulário antes de redirecionar
       setFormData({
         selectedEquipments: [],
         otherEquipment: "",
@@ -206,6 +203,9 @@ export function RF() {
         applicantEmail: "",
         applicantPassword: "",
       });
+
+      // Redirecionar para página de sucesso (SPA navigation)
+      navigate('/labs/laiga/success');
     } catch (error: any) {
       console.error("Erro ao enviar solicitação:", error);
       console.error("Detalhes do erro:", {
