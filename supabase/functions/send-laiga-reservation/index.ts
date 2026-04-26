@@ -147,7 +147,7 @@ const handler = async (req: Request): Promise<Response> => {
       }
     )
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('Erro na função send-laiga-reservation:', error)
     
     return new Response(
@@ -164,6 +164,44 @@ const handler = async (req: Request): Promise<Response> => {
       }
     )
   }
+}
+
+function buildReservationEmailText(
+  reservationData: LaigaReservationRequest,
+  reservationId: string,
+  equipmentsList: string,
+  withdrawalDate: string,
+  returnDate: string
+): string {
+  return [
+    'Nova Solicitacao de Reserva de Equipamentos - LAIGA',
+    'Laboratorio Integrado de Geofisica Aplicada - LAIGA',
+    '',
+    'Dados do Solicitante',
+    `Nome: ${reservationData.applicantName}`,
+    `Email: ${reservationData.applicantEmail}`,
+    '',
+    'Equipamentos Solicitados',
+    `Da lista: ${equipmentsList}`,
+    reservationData.otherEquipment ? `Outros equipamentos: ${reservationData.otherEquipment}` : '',
+    reservationData.peripherals ? `Perifericos adicionais: ${reservationData.peripherals}` : '',
+    '',
+    'Periodo de Uso',
+    `Data de Retirada: ${withdrawalDate}`,
+    `Data de Devolucao: ${returnDate}`,
+    '',
+    'Finalidade',
+    reservationData.purpose,
+    '',
+    'Termos aceitos',
+    '- O solicitante concordou em expressar agradecimentos ao LAIGA/CPGG nos trabalhos apresentados.',
+    '- O solicitante concordou em reportar problemas ou avarias no ato da devolucao.',
+    '',
+    `Protocolo: ${reservationId}`,
+    `Data da Solicitacao: ${new Date().toLocaleString('pt-BR')}`,
+    '',
+    'Em anexo segue o comprovante de solicitacao em PDF.',
+  ].filter(Boolean).join('\n')
 }
 
 // Função auxiliar para gerar o PDF real
