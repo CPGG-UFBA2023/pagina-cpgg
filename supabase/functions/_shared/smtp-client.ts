@@ -5,6 +5,7 @@ interface EmailOptions {
   subject: string;
   html?: string;
   text?: string;
+  plainTextOnly?: boolean;
   replyTo?: string;
   attachments?: Array<{
     filename: string;
@@ -87,15 +88,34 @@ export async function sendEmail(options: EmailOptions): Promise<EmailResult> {
       .replace(/\n{3,}/g, "\n\n")
       .trim();
 
-    await client.send({
+    const safePlainText = options.plainTextOnly
+      ? plainText
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^\x09\x0A\x0D\x20-\x7E]/g, "")
+      : plainText;
+
+    const baseMessage = {
       from: `CPGG UFBA <${smtpUser}>`,
       to: toAddresses,
       subject: options.subject,
-      content: plainText,
-      ...(options.html ? { html: options.html } : {}),
       replyTo: options.replyTo,
       attachments: attachments,
-    });
+    };
+
+    await client.send(options.plainTextOnly
+      ? {
+        ...baseMessage,
+        mimeContent: [{
+          mimeType: 'text/plain; charset="us-ascii"',
+          content: safePlainText,
+        }],
+      }
+      : {
+        ...baseMessage,
+        content: plainText,
+        ...(options.html ? { html: options.html } : {}),
+      });
 
     await client.close();
 
