@@ -89,16 +89,20 @@ export async function sendEmail(options: EmailOptions): Promise<EmailResult> {
       .trim();
 
     const safePlainText = options.plainTextOnly
-      ? plainText
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^\x09\x0A\x0D\x20-\x7E]/g, "")
+      ? toSafeAscii(plainText)
       : plainText;
+
+    // O denomailer quebra assuntos UTF-8 longos usando quoted-printable com
+    // quebras de linha que alguns clientes (Zimbra/UFBA) exibem como texto.
+    // Para emails em modo compatível, forçamos assunto ASCII em uma única linha.
+    const safeSubject = options.plainTextOnly
+      ? toSafeAscii(options.subject).replace(/[\r\n]+/g, " ").replace(/\s{2,}/g, " ").trim()
+      : options.subject;
 
     const baseMessage = {
       from: `CPGG UFBA <${smtpUser}>`,
       to: toAddresses,
-      subject: options.subject,
+      subject: safeSubject,
       replyTo: options.replyTo,
       attachments: attachments,
     };
