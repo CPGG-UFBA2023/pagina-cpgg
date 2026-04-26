@@ -1,8 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.57.3'
-import React from 'npm:react@18.3.1'
-import { renderAsync } from 'npm:@react-email/components@0.0.22'
-import { ReservationEmail } from './_templates/reservation-email.tsx'
 import { sendEmail } from "../_shared/smtp-client.ts"
 import { PDFDocument, rgb, StandardFonts } from 'https://esm.sh/pdf-lib@1.17.1'
 
@@ -92,19 +89,12 @@ const handler = async (req: Request): Promise<Response> => {
     const formattedWithdrawalDate = new Date(reservationData.withdrawalDate).toLocaleDateString('pt-BR')
     const formattedReturnDate = new Date(reservationData.returnDate).toLocaleDateString('pt-BR')
 
-    // Gerar HTML do email usando React Email
-    const emailHtml = await renderAsync(
-      React.createElement(ReservationEmail, {
-        applicantName: reservationData.applicantName,
-        applicantEmail: reservationData.applicantEmail,
-        equipmentsList,
-        otherEquipment: reservationData.otherEquipment,
-        peripherals: reservationData.peripherals,
-        withdrawalDate: formattedWithdrawalDate,
-        returnDate: formattedReturnDate,
-        purpose: reservationData.purpose,
-        reservationId: reservation.id,
-      })
+    const emailText = buildReservationEmailText(
+      reservationData,
+      reservation.id,
+      equipmentsList,
+      formattedWithdrawalDate,
+      formattedReturnDate
     )
 
     // Gerar PDF do comprovante
@@ -124,7 +114,8 @@ const handler = async (req: Request): Promise<Response> => {
     const emailResult = await sendEmail({
       to: chiefEmail,
       subject: `Nova Solicitação de Equipamentos LAIGA - ${reservationData.applicantName}`,
-      html: emailHtml,
+      text: emailText,
+      plainTextOnly: true,
       replyTo: reservationData.applicantEmail,
       attachments: [
         {
