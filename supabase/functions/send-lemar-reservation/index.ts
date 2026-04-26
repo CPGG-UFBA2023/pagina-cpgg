@@ -149,10 +149,11 @@ const handler = async (req: Request): Promise<Response> => {
     )
 
   } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error)
     console.error('Erro na função send-lemar-reservation:', error)
     
     return new Response(
-      JSON.stringify({ error: 'Erro interno do servidor', details: error.message }),
+      JSON.stringify({ error: 'Erro interno do servidor', details: errorMessage }),
       { status: 500, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
     )
   }
