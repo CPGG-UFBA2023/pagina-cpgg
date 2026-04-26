@@ -3,7 +3,8 @@ import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
 interface EmailOptions {
   to: string | string[];
   subject: string;
-  html: string;
+  html?: string;
+  text?: string;
   replyTo?: string;
   attachments?: Array<{
     filename: string;
@@ -29,6 +30,10 @@ export async function sendEmail(options: EmailOptions): Promise<EmailResult> {
   }
 
   const toAddresses = Array.isArray(options.to) ? options.to : [options.to];
+
+  if (!options.html && !options.text) {
+    return { success: false, error: "Conteúdo do email não informado" };
+  }
 
   console.log(`📧 Enviando email via SMTP (${smtpHost}:${smtpPort}) para ${toAddresses.join(", ")}`);
 
@@ -61,11 +66,18 @@ export async function sendEmail(options: EmailOptions): Promise<EmailResult> {
       contentType: att.contentType || "application/pdf",
     }));
 
-    // Gerar versão em texto simples a partir do HTML como fallback
-    const plainText = options.html
+    // Gerar versão em texto simples como fallback, removendo caracteres invisíveis
+    // gerados por componentes de preview de email que alguns clientes exibem indevidamente.
+    const htmlAsText = options.html
+      ? options.html
       .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
       .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "")
       .replace(/<[^>]+>/g, "")
+      : "";
+
+    const plainText = (options.text || htmlAsText)
+      .replace(/[\u200B-\u200F\uFEFF]/g, "")
+      .replace(/\u00A0/g, " ")
       .replace(/&nbsp;/g, " ")
       .replace(/&amp;/g, "&")
       .replace(/&lt;/g, "<")
@@ -80,7 +92,7 @@ export async function sendEmail(options: EmailOptions): Promise<EmailResult> {
       to: toAddresses,
       subject: options.subject,
       content: plainText,
-      html: options.html,
+      ...(options.html ? { html: options.html } : {}),
       replyTo: options.replyTo,
       attachments: attachments,
     });
