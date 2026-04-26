@@ -19,6 +19,13 @@ interface EmailResult {
   error?: string;
 }
 
+function toSafeAscii(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^\x09\x0A\x0D\x20-\x7E]/g, "");
+}
+
 export async function sendEmail(options: EmailOptions): Promise<EmailResult> {
   const smtpHost = Deno.env.get("SMTP_HOST");
   const smtpPort = Deno.env.get("SMTP_PORT");
