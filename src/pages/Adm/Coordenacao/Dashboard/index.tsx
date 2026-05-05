@@ -805,16 +805,19 @@ export function CoordenacaoDashboard() {
         const { error } = await supabase.from('news').update(newsData).eq('id', editingNewsId)
         if (error) throw error
       } else {
-        const { data: existingNews } = await supabase
-          .from('news').select('id').eq('news_position', newsPosition).maybeSingle()
+        // Liberar a posição (News1/News2/News3) de qualquer notícia anterior,
+        // movendo-a para o arquivo geral. Assim, sempre criamos uma nova entrada
+        // e preservamos o histórico completo no Arquivo de Notícias.
+        const { error: clearError } = await supabase
+          .from('news')
+          .update({ news_position: 'archive' })
+          .eq('news_position', newsPosition)
+        if (clearError) throw clearError
 
-        if (existingNews) {
-          const { error } = await supabase.from('news').update(newsData).eq('id', existingNews.id)
-          if (error) throw error
-        } else {
-          const { error } = await supabase.from('news').insert({ ...newsData, news_position: newsPosition })
-          if (error) throw error
-        }
+        const { error } = await supabase
+          .from('news')
+          .insert({ ...newsData, news_position: newsPosition })
+        if (error) throw error
       }
 
       toast({
