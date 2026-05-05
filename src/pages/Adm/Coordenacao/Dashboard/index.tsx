@@ -245,7 +245,6 @@ export function CoordenacaoDashboard() {
         .from('admin_users')
         .upsert({ 
           email: secretariaEmail, 
-          password: secretariaPassword, 
           role: 'secretaria' 
         }, {
           onConflict: 'email'
