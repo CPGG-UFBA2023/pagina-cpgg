@@ -245,7 +245,6 @@ export function CoordenacaoDashboard() {
         .from('admin_users')
         .upsert({ 
           email: secretariaEmail, 
-          password: secretariaPassword, 
           role: 'secretaria' 
         }, {
           onConflict: 'email'
@@ -926,7 +925,7 @@ export function CoordenacaoDashboard() {
           .from('event-photos')
           .getPublicUrl(fileName)
 
-        return { event_id: eventData.id, photo_url: publicUrl, display_order: index }
+        return { event_id: eventData.id, photo_url: publicUrl, photo_order: index }
       })
 
       const photoRecords = await Promise.all(uploadPromises)
