@@ -11,6 +11,9 @@
 /* Onda 5 — safety nets compartilhados para páginas de pesquisador */
 @import './pages/Researchers/Personal_pages/_shared-mobile.css';
 
+/* Onda 7 — safety nets compartilhados para páginas institucionais */
+@import './styles/_shared-institutional-mobile.css';
+
 /* Importar fix para Adm page */
 @import './pages/Adm/adm-no-scroll.css';
 
