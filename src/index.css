@@ -147,6 +147,20 @@ All colors MUST be HSL.
     margin: 0;
     padding: 0;
     overflow-x: hidden; /* safety net: kill any residual horizontal overflow */
+    overscroll-behavior-x: none;
+  }
+
+  /* Onda 3 – Safety nets globais de responsividade.
+     Não altera identidade visual, apenas previne estouros horizontais. */
+  img, video, iframe, svg, canvas {
+    max-width: 100%;
+    height: auto;
+  }
+  /* vídeos com object-fit/preenchimento explícito não devem ter height:auto forçado */
+  video[style*="object-fit"],
+  .video, /* VideoSection.module.css */
+  [class*="VideoSection"] video {
+    height: auto;
   }
 
   /* Main app container */
