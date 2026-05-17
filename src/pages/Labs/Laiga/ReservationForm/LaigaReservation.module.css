@@ -1,52 +1,42 @@
+/* Laiga Reservation — Mobile-first */
 .container {
   display: flex;
   flex-direction: column;
-  height: 100vh !important;
-  max-height: 100vh !important;
-  overflow: hidden !important;
-  position: fixed !important;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .content {
-  padding-top: calc(100vh - 830px);
   flex: 1;
-  position: relative;
-  overflow: hidden;
   width: 100%;
+  padding: 130px 16px 40px;
+  box-sizing: border-box;
 }
 
 .title {
   text-align: center;
   color: #592cbb;
-  margin-top: 0;
-  margin-bottom: 25px;
-  font-size: 28px;
+  margin: 0 0 20px;
+  font-size: clamp(20px, 5vw, 28px);
   font-weight: 600;
 }
 
 .formContainer {
+  width: 100%;
   max-width: 800px;
-  max-height: calc(100vh - 220px);
   margin: 0 auto;
-  margin-top: 110px;
-  margin-bottom: 20px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  padding: 25px 25px 10px 25px;
+  padding: 20px 16px 12px;
   border-radius: 15px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  transform: translateX(-250px);
-  overflow-y: auto;
-  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .form {
-  margin-bottom: 1px;
+  margin-bottom: 12px;
 }
 
 .form label {
@@ -60,10 +50,11 @@
 .form select,
 .form textarea {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 14px;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
 }
 
 .form input:focus,
@@ -75,11 +66,11 @@
 }
 
 .equipmentList {
-  max-height: 300px;
+  max-height: clamp(200px, 40dvh, 300px);
   overflow-y: auto;
   border: 1px solid #ddd;
   padding: 12px;
-  border-radius: 5px;
+  border-radius: 8px;
   background: #fafafa;
 }
 
@@ -101,17 +92,13 @@
 
 .dateContainer {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 15px;
-  margin-bottom: -825px !important;
+  margin-bottom: 12px;
 }
 
 .dateContainer .form {
   margin-bottom: 0;
-}
-
-.dateContainer + .form {
-  margin-top: 105px;
 }
 
 .agreementText {
@@ -135,10 +122,10 @@
   border: none;
   border-radius: 10px;
   font-size: 16px;
+  min-height: 48px;
   cursor: pointer;
   width: 100%;
-  margin-top: 25px;
-  margin-bottom: 10px;
+  margin: 25px 0 10px;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(89, 44, 187, 0.3);
 }
@@ -156,64 +143,15 @@
   box-shadow: none;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 640px) {
   .dateContainer {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
-
   .formContainer {
-    padding: 20px;
+    padding: 25px 25px 12px;
   }
-
-  .title {
-    font-size: 22px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .formContainer {
-    transform: translateX(0);
-    margin-top: -300px;
-  }
-}
-
-/* Remove backgrounds lilás em resoluções 390x844 ou menores */
-@media (max-width: 390px), (max-height: 844px) {
-  .agreementText {
-    background: transparent;
-    border-left-color: rgba(89, 44, 187, 0.3);
-  }
-  
-  .submitButton {
-    background: linear-gradient(145deg, #592cbb 0%, #6a3bc5 100%);
-    border: none;
-    box-shadow: 0 4px 15px rgba(89, 44, 187, 0.3);
-  }
-  
-  .submitButton:hover {
-    background: linear-gradient(145deg, #4a237a 0%, #592cbb 100%);
-    box-shadow: 0 6px 20px rgba(89, 44, 187, 0.4);
-  }
-  
-  .submitButton:disabled {
-    background: #ccc;
-    border-color: #ccc;
-  }
-}
-
-/* Ajuste para telas pequenas 430px de largura e menores */
-@media (max-width: 430px) {
-  .formContainer {
-    margin-top: 200px !important;
-    max-height: calc(100vh - 280px) !important;
-    overflow-y: auto !important;
-  }
-  
-  .container {
-    overflow-y: auto !important;
-  }
-  
   .content {
-    overflow-y: auto !important;
+    padding-left: 24px;
+    padding-right: 24px;
   }
 }

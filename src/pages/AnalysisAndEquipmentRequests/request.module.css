@@ -1,79 +1,90 @@
-.AnalysisAndEquipmentRequestsContainer{
+/* Analysis & Equipment Requests — Mobile-first */
+.AnalysisAndEquipmentRequestsContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  margin: 0 0 0 0;
-  padding-top: 32px;
+  margin: 0;
+  padding: 32px 16px;
   background-color: #F0F2F5;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 .List {
   display: flex;
   flex-direction: column;
-  overflow: visible;
-  text-overflow: ellipsis;
   justify-content: center;
-  align-items:  normal;
   color: #363F5F;
-  margin-left: 32px;
-  margin-right: 32px;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 8px;
+  box-sizing: border-box;
+  list-style-position: inside;
 }
 
-.ListItem { 
- text-overflow: ellipsis;
- justify-content: center;
- align-items: center;
- margin-top: 8px;
+.ListItem {
+  margin-top: 8px;
+  line-height: 1.5;
 }
 
-.FormContainer{
+.FormContainer {
   display: flex;
   flex-direction: column;
   margin-bottom: 8px;
   align-items: center;
+  width: 100%;
+  gap: 12px;
 }
 
-.FormTitle{
-display: flex;
-overflow: visible;
-text-overflow: ellipsis;
-justify-content: left;
-margin-right: 4px;
-font-weight: bold;
-color: black;
-font-size: 14px;
+.FormTitle {
+  display: flex;
+  justify-content: flex-start;
+  margin-right: 4px;
+  font-weight: bold;
+  color: black;
+  font-size: 14px;
 }
 
-.Container{
-display: flex;
-flex-direction: row;
-flex-wrap: wrap;
-align-items: center;
-justify-content: center;
-padding-top: 4px;
-gap: 16px;
+.Container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding-top: 4px;
+  gap: 16px;
 }
 
-.sendButton{
-display: flex;
-flex:1;
-justify-content: center;
-width: 330px;
-height: 64px;
-background-color: #FF872C;
-border-radius: 5px;
-border: none;
-font-size: 24px;
+.SendButton,
+.sendButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 330px;
+  min-height: 56px;
+  padding: 0 20px;
+  background-color: #FF872C;
+  border-radius: 8px;
+  border: none;
+  font-size: clamp(18px, 4vw, 24px);
+  cursor: pointer;
+  margin-top: 12px;
 }
 
-.SendButtonTitle{
-display: flex;
-overflow: visible;
-text-overflow: ellipsis;
-justify-content: center;
-font-weight: bold;
-color: white;
-font-size: 24px;
-font-family: Poppins;
+.SendButtonTitle {
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  font-size: clamp(18px, 4vw, 24px);
+  font-family: Poppins, sans-serif;
+}
+
+@media (min-width: 768px) {
+  .AnalysisAndEquipmentRequestsContainer {
+    padding: 32px;
+  }
 }
