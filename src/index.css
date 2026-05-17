@@ -14,6 +14,9 @@
 /* Importar fix para Adm page */
 @import './pages/Adm/adm-no-scroll.css';
 
+/* Onda 6 — safety nets mobile-first para áreas administrativas */
+@import './pages/Adm/_shared-admin-mobile.css';
+
 /* Importar fix para Reservations Success/Receipt pages */
 @import './pages/Reservations/reservations-no-scroll.css';
 
