@@ -131,25 +131,35 @@
 }
 
 @media (max-width: 768px) {
+  .main {
+    padding: 1rem;
+    height: auto;
+    overflow: visible;
+  }
+
   .content {
     grid-template-columns: 1fr;
     gap: 1rem;
+    height: auto;
+    margin-top: calc(1rem + 120px);
   }
-  
+
+  .textSection {
+    height: auto;
+    overflow: visible;
+  }
+
   .sidebar {
     flex-direction: row;
     overflow-x: auto;
+    height: auto;
   }
-  
+
   .photoContainer {
     min-width: 200px;
   }
-  
+
   .title {
     font-size: 2rem;
-  }
-  
-  .main {
-    padding: 1rem;
   }
 }
