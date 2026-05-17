@@ -167,36 +167,6 @@
   }
 }
 
-@media (max-width: 800px) {
-
-.box{
-  left: 18%;
-  top:23%;
-  height: 600px;
-  padding: 30%;
-}
-
-.Years ul {
-  margin-left: -570px;
-  margin-bottom: -50px;
-}
-}
-
-@media (max-width: 400px) {
-
-  .box{
-    left: 25%;
-    top:35%;
-    height: 1200px;
-    padding-left: 60%;
-    padding-right: 60%;
-    padding-top: 10%;
-
-  }
-  
-  .Years ul {
-    margin-left: -600px;
-    margin-bottom: 600px;
-  }
+/* Onda 4: regras legadas removidas (causavam margin-left:-600px e padding:60%). */
 
 }
