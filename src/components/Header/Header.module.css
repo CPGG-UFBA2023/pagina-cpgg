@@ -2282,3 +2282,40 @@ nav ul li:hover .submenu2 ul li a {
     padding-inline: 0.24rem !important;
   }
 }
+
+@media screen and (max-width: 576px) {
+  .header {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    height: 150px !important;
+    max-height: 150px !important;
+    gap: 0.25rem !important;
+  }
+
+  .centerContent {
+    order: 1 !important;
+    padding: 1.9rem 2.5rem 0 2.5rem !important;
+  }
+
+  .header nav {
+    order: 2 !important;
+    display: flex !important;
+    margin-top: 0.15rem !important;
+  }
+
+  .figure,
+  .logoufba {
+    position: absolute !important;
+    top: 0.5rem !important;
+  }
+
+  .figure {
+    left: 0.5rem !important;
+  }
+
+  .logoufba {
+    right: 0.5rem !important;
+  }
+}
