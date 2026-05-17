@@ -64,13 +64,25 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 30px;
-  margin-left: calc(50% - 1180px) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  max-width: 1200px;
   margin-top: 0 !important;
   margin-bottom: 4rem;
   padding-top: 0 !important;
   position: relative;
   z-index: 1;
   pointer-events: auto;
+  justify-content: center;
+}
+
+/* Layout autoral desktop largo (>1400px): alinhamento à esquerda */
+@media (min-width: 1400px) {
+  .container {
+    max-width: none;
+    justify-content: flex-start;
+    margin-left: calc(50% - 580px) !important;
+  }
 }
 
 .ataCard {
