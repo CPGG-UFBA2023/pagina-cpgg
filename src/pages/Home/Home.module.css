@@ -82,9 +82,9 @@
 /* Small devices */
 @media (max-width: 500px) {
   .videoSection {
-    height: calc(100vh - 126px) !important;
-    height: calc(100dvh - 126px) !important;
-    margin-top: 126px !important;
+    height: calc(100vh - 150px) !important;
+    height: calc(100dvh - 150px) !important;
+    margin-top: 150px !important;
   }
 
   .middle {
