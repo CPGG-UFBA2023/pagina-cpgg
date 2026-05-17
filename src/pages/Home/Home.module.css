@@ -81,6 +81,12 @@
 
 /* Small devices */
 @media (max-width: 500px) {
+  .videoSection {
+    height: calc(100vh - 126px) !important;
+    height: calc(100dvh - 126px) !important;
+    margin-top: 126px !important;
+  }
+
   .middle {
     padding-top: 30px;
     padding-left: 16px;
@@ -92,12 +98,6 @@
 @media (max-width: 375px) {
   .Container {
     overflow-y: auto !important;
-  }
-  
-  .videoSection {
-    height: calc(100vh - 100px) !important;
-    height: calc(100dvh - 100px) !important;
-    margin-top: 100px !important;
   }
   
   .middle {
