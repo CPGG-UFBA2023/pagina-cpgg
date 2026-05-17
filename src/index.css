@@ -146,6 +146,7 @@ All colors MUST be HSL.
     height: 100%;
     margin: 0;
     padding: 0;
+    overflow-x: hidden; /* safety net: kill any residual horizontal overflow */
   }
 
   /* Main app container */
