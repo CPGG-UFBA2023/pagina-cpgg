@@ -96,6 +96,7 @@
   
   .videoSection {
     height: calc(100vh - 100px) !important;
+    height: calc(100dvh - 100px) !important;
     margin-top: 100px !important;
   }
   
