@@ -26,15 +26,24 @@
   color: #fff;
   padding-top: 150px;
   padding-bottom: 50px;
-  padding-left: 700px;
+  padding-left: 8px;
   padding-right: 8px;
   }
 
 .Years ul {
   font-size: 24px;
-  color: #363F5; 
-  margin-left: -850px;
+  color: #363F5;
   margin-top: -10px;
+}
+
+/* Desktop wide: layout autoral original */
+@media (min-width: 1400px) {
+  .Years {
+    padding-left: 700px;
+  }
+  .Years ul {
+    margin-left: -850px;
+  }
 }
 
 .gallery {
