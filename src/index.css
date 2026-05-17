@@ -147,6 +147,17 @@ All colors MUST be HSL.
     margin: 0;
     padding: 0;
     overflow-x: hidden; /* safety net: kill any residual horizontal overflow */
+    overscroll-behavior-x: none;
+  }
+
+  /* Onda 3 – Safety nets globais de responsividade.
+     Não altera identidade visual, apenas previne estouros horizontais. */
+  img, svg, canvas {
+    max-width: 100%;
+    height: auto;
+  }
+  iframe {
+    max-width: 100%;
   }
 
   /* Main app container */
