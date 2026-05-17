@@ -1,0 +1,81 @@
+/* Onda 7 — Safety nets mobile-first para páginas institucionais restantes.
+   Cobre: Institution, SobreNos, History, Map, Coordination, Technicians,
+   SeniorResearchers, Regulations, Production, ResearchProjects, TCCGeofisica,
+   Recipes, Repairs, Solicitacoes, AnalysisAndEquipmentRequests, Sign, Login,
+   Register, Registration, ResetPassword, EmailConfirmed, Spaces, CPGG, CPGG2,
+   Panorama360, Pessoal, Photos.
+   Não altera identidade visual — apenas previne overflow horizontal e ajusta
+   tipografia/espaçamento em mobile. */
+
+@media (max-width: 768px) {
+  /* Containers raiz comuns destas páginas */
+  [class*="container"],
+  [class*="Container"],
+  [class*="content"],
+  [class*="Content"],
+  [class*="box"],
+  [class*="Box"],
+  [class*="main"],
+  [class*="Main"] {
+    max-width: 100vw;
+  }
+
+  /* Tipografia fluida para títulos institucionais */
+  [class*="title"],
+  [class*="Title"],
+  [class*="mainTitle"],
+  [class*="pageTitle"] {
+    font-size: clamp(1.25rem, 5.5vw, 2rem) !important;
+    line-height: 1.25 !important;
+    word-break: break-word;
+  }
+
+  /* Parágrafos longos quebram corretamente */
+  [class*="description"],
+  [class*="Description"],
+  [class*="paragraph"],
+  [class*="text"] {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  /* Formulários (Sign, Login, Register, Registration, ResetPassword,
+     Solicitacoes, AnalysisAndEquipmentRequests) ocupam toda a largura */
+  form,
+  [class*="form"],
+  [class*="Form"] {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  form input,
+  form textarea,
+  form select,
+  form button,
+  [class*="form"] input,
+  [class*="form"] textarea,
+  [class*="form"] select,
+  [class*="form"] button {
+    width: 100%;
+    max-width: 100%;
+    min-height: 44px;
+    box-sizing: border-box;
+  }
+
+  /* Cards/grids institucionais em coluna única */
+  [class*="cardGrid"],
+  [class*="CardGrid"],
+  [class*="grid"]:not([class*="gridArea"]) {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+}
+
+@media (max-width: 430px) {
+  /* Padding lateral reduzido em telas pequenas */
+  [class*="container"],
+  [class*="Container"] {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+}

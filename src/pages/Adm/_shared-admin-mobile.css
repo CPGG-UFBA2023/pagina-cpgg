@@ -1,0 +1,77 @@
+/* Onda 6 — Safety nets mobile-first para áreas administrativas.
+   Aplica-se a /adm, /adm/coordenacao/*, /adm/secretaria, /adm/ti, /adm/repair-stats.
+   Não altera identidade visual (gradiente roxo, tipografia, cores) — apenas
+   previne overflow horizontal e força tabelas/grids a caberem em ≤430px. */
+
+@media (max-width: 768px) {
+  /* Containers raiz das telas admin: permitir scroll vertical, eliminar horizontal */
+  [class*="adm_adm"],
+  [class*="coordenacao"],
+  [class*="laboratorios"],
+  [class*="reservas"],
+  [class*="pesquisadores"],
+  [class*="usuarios"],
+  [class*="dashboard"],
+  [class*="equipamentos"],
+  [class*="secretaria"],
+  [class*="ti_"],
+  [class*="stats_"] {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Títulos longos não devem forçar scroll horizontal */
+  [class*="title"] {
+    white-space: normal !important;
+    word-break: break-word;
+    font-size: clamp(1.25rem, 5vw, 1.75rem) !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Tabelas: scroll horizontal contido no container, nunca no body */
+  [class*="tableContainer"],
+  [class*="TableContainer"] {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+  }
+
+  /* Filtros/selects em coluna no mobile */
+  [class*="filters"] {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+  [class*="select"] {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Inputs e botões touch-friendly */
+  [class*="adm_adm"] input,
+  [class*="adm_adm"] button,
+  [class*="coordenacao"] input,
+  [class*="coordenacao"] button {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 430px) {
+  /* Reduzir padding lateral em telas pequenas */
+  [class*="adm_adm"],
+  [class*="coordenacao"],
+  [class*="laboratorios"] [class*="container"],
+  [class*="reservas"] [class*="container"],
+  [class*="secretaria"] [class*="container"],
+  [class*="ti_"] [class*="container"],
+  [class*="stats_"] [class*="container"] {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  /* Cards de estatística empilhados */
+  [class*="statCard"] {
+    width: 100% !important;
+  }
+}
