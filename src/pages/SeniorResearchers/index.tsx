@@ -9,6 +9,9 @@ import { Input } from '@/components/ui/input'
 import { Trash2, Plus, Edit, Save, X } from 'lucide-react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import styles from './SeniorResearchers.module.css'
+import { researcherData, normalize } from '@/data/researchers'
+
+const staticResearchers = Object.values(researcherData).flat()
 
 const RECAPTCHA_SITE_KEY = "6Lc_tCcsAAAAANaPjNTNCehs44DT3dPVbUJao07b"
 
