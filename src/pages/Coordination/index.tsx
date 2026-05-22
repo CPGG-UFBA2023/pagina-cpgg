@@ -202,6 +202,12 @@ export function Coordination() {
                   isEditMode={isEditMode}
                 />
               ))}
+              {isEditMode && (
+                <AddCoordinationMember
+                  withTitle
+                  onAdd={(name, title) => handleAddMember('coordination', name, title)}
+                />
+              )}
             </div>
           </div>
           
@@ -217,6 +223,11 @@ export function Coordination() {
                   isEditMode={isEditMode}
                 />
               ))}
+              {isEditMode && (
+                <AddCoordinationMember
+                  onAdd={(name) => handleAddMember('scientific', name)}
+                />
+              )}
             </div>
           </div>
           
@@ -232,10 +243,16 @@ export function Coordination() {
                   isEditMode={isEditMode}
                 />
               ))}
+              {isEditMode && (
+                <AddCoordinationMember
+                  onAdd={(name) => handleAddMember('deliberative', name)}
+                />
+              )}
             </div>
           </div>
         </div>
       </div>
+
 
       <EditButtonCoordination 
         onClick={() => setShowLogin(true)}
