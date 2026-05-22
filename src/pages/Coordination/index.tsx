@@ -4,6 +4,7 @@ import { Header } from '../../components/Header'
 import { EditButtonCoordination } from './components/EditButtonCoordination'
 import { AdminLoginCoordination } from './components/AdminLoginCoordination'
 import { EditableCoordinationMember } from './components/EditableCoordinationMember'
+import { AddCoordinationMember } from './components/AddCoordinationMember'
 import { useToast } from '@/hooks/use-toast'
 import { supabase } from '@/integrations/supabase/client'
 
