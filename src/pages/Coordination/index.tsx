@@ -4,6 +4,7 @@ import { Header } from '../../components/Header'
 import { EditButtonCoordination } from './components/EditButtonCoordination'
 import { AdminLoginCoordination } from './components/AdminLoginCoordination'
 import { EditableCoordinationMember } from './components/EditableCoordinationMember'
+import { AddCoordinationMember } from './components/AddCoordinationMember'
 import { useToast } from '@/hooks/use-toast'
 import { supabase } from '@/integrations/supabase/client'
 
@@ -170,6 +171,19 @@ export function Coordination() {
     return members.filter(member => member.section === section)
   }
 
+  const handleAddMember = (section: CoordinationMember['section'], name: string, title?: string) => {
+    if (!name.trim()) return
+    const newMember: CoordinationMember = {
+      name: name.trim(),
+      section,
+      ...(title && title.trim() ? { title: title.trim() } : {}),
+    }
+    const newMembers = [...members, newMember]
+    setMembers(newMembers)
+    saveToStorage(newMembers)
+    toast({ title: 'Adicionado', description: 'Novo membro adicionado.' })
+  }
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', overflowY: 'auto', overflowX: 'hidden' }}>
       <Header />
@@ -188,6 +202,12 @@ export function Coordination() {
                   isEditMode={isEditMode}
                 />
               ))}
+              {isEditMode && (
+                <AddCoordinationMember
+                  withTitle
+                  onAdd={(name, title) => handleAddMember('coordination', name, title)}
+                />
+              )}
             </div>
           </div>
           
@@ -203,6 +223,11 @@ export function Coordination() {
                   isEditMode={isEditMode}
                 />
               ))}
+              {isEditMode && (
+                <AddCoordinationMember
+                  onAdd={(name) => handleAddMember('scientific', name)}
+                />
+              )}
             </div>
           </div>
           
@@ -218,10 +243,16 @@ export function Coordination() {
                   isEditMode={isEditMode}
                 />
               ))}
+              {isEditMode && (
+                <AddCoordinationMember
+                  onAdd={(name) => handleAddMember('deliberative', name)}
+                />
+              )}
             </div>
           </div>
         </div>
       </div>
+
 
       <EditButtonCoordination 
         onClick={() => setShowLogin(true)}
