@@ -170,6 +170,19 @@ export function Coordination() {
     return members.filter(member => member.section === section)
   }
 
+  const handleAddMember = (section: CoordinationMember['section'], name: string, title?: string) => {
+    if (!name.trim()) return
+    const newMember: CoordinationMember = {
+      name: name.trim(),
+      section,
+      ...(title && title.trim() ? { title: title.trim() } : {}),
+    }
+    const newMembers = [...members, newMember]
+    setMembers(newMembers)
+    saveToStorage(newMembers)
+    toast({ title: 'Adicionado', description: 'Novo membro adicionado.' })
+  }
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', overflowY: 'auto', overflowX: 'hidden' }}>
       <Header />
