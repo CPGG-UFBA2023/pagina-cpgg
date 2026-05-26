@@ -243,19 +243,31 @@ export function Researchers() {
     }
 
     try {
-      const { error } = await supabase.rpc('set_researcher_as_chief', {
-        _researcher_id: id,
-        _program: programKey
-      })
+      const current = dbResearchers.find((r: any) => r.id === id)
+      const isCurrentlyChief = !!current?.is_chief
 
-      if (error) throw error
-
-      await fetchDbResearchers()
-      toast({ title: 'Atualizado', description: 'Coordenador do programa definido com sucesso.' })
+      if (isCurrentlyChief) {
+        const { error } = await supabase
+          .from('researchers')
+          .update({ is_chief: false })
+          .eq('id', id)
+        if (error) throw error
+        await fetchDbResearchers()
+        toast({ title: 'Atualizado', description: 'Programa agora está sem coordenador.' })
+      } else {
+        const { error } = await supabase.rpc('set_researcher_as_chief', {
+          _researcher_id: id,
+          _program: programKey
+        })
+        if (error) throw error
+        await fetchDbResearchers()
+        toast({ title: 'Atualizado', description: 'Coordenador do programa definido com sucesso.' })
+      }
     } catch (error: any) {
       toast({ title: 'Erro ao definir coordenador', description: error.message, variant: 'destructive' })
     }
   }
+
 
   const handleUpdateResearcher = async (id: string, name: string) => {
     if (!adminCreds) {
