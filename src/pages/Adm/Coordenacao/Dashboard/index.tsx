@@ -1051,6 +1051,15 @@ export function CoordenacaoDashboard() {
             <FileSpreadsheet className="w-5 h-5 mr-2" />
             Equipamentos LAIGA
           </Button>
+
+          <Button
+            onClick={() => navigate('/adm/coordenacao/equipamentos-labs')}
+            className={styles.actionButton}
+            variant="outline"
+          >
+            <FlaskConical className="w-5 h-5 mr-2" />
+            Equipamentos dos Laboratórios
+          </Button>
           
           <Button
             onClick={() => navigate('/adm/repair-stats')}

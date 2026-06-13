@@ -105,6 +105,7 @@ import { PesquisadoresAdmin } from './pages/Adm/Coordenacao/Pesquisadores'
 import { LaboratoriosAdmin } from './pages/Adm/Coordenacao/Laboratorios'
 import { ReservasAdmin } from './pages/Adm/Coordenacao/Reservas'
 import { EquipamentosLaiga } from './pages/Adm/Coordenacao/EquipamentosLaiga'
+import { EquipamentosLabs } from './pages/Adm/Coordenacao/EquipamentosLabs'
 import { RepairStats } from './pages/Adm/RepairStats'
 import { ResearchProjects } from './pages/ResearchProjects'
 import { RepairsServices } from './pages/Repairs'
@@ -234,6 +235,7 @@ export function Router() {
          <Route path='/adm/coordenacao/laboratorios' element={<LaboratoriosAdmin />} />
          <Route path='/adm/coordenacao/reservas' element={<ReservasAdmin />} />
          <Route path='/adm/coordenacao/equipamentos-laiga' element={<EquipamentosLaiga />} />
+         <Route path='/adm/coordenacao/equipamentos-labs' element={<EquipamentosLabs />} />
          <Route path='/adm/repair-stats' element={<RepairStats />} />
          <Route path='/adm/secretaria' element={<Secretaria />} />
 
