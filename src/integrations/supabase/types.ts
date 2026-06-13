@@ -255,6 +255,62 @@ export type Database = {
           },
         ]
       }
+      laboratory_equipments: {
+        Row: {
+          brand: string | null
+          created_at: string
+          description: string | null
+          id: string
+          laboratory_id: string
+          location: string | null
+          model: string | null
+          name: string
+          observations: string | null
+          responsible_person: string | null
+          serial_number: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          brand?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          laboratory_id: string
+          location?: string | null
+          model?: string | null
+          name: string
+          observations?: string | null
+          responsible_person?: string | null
+          serial_number?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          brand?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          laboratory_id?: string
+          location?: string | null
+          model?: string | null
+          name?: string
+          observations?: string | null
+          responsible_person?: string | null
+          serial_number?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "laboratory_equipments_laboratory_id_fkey"
+            columns: ["laboratory_id"]
+            isOneToOne: false
+            referencedRelation: "laboratories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       laiga_equipment: {
         Row: {
           created_at: string
