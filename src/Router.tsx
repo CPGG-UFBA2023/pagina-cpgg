@@ -235,6 +235,7 @@ export function Router() {
          <Route path='/adm/coordenacao/laboratorios' element={<LaboratoriosAdmin />} />
          <Route path='/adm/coordenacao/reservas' element={<ReservasAdmin />} />
          <Route path='/adm/coordenacao/equipamentos-laiga' element={<EquipamentosLaiga />} />
+         <Route path='/adm/coordenacao/equipamentos-labs' element={<EquipamentosLabs />} />
          <Route path='/adm/repair-stats' element={<RepairStats />} />
          <Route path='/adm/secretaria' element={<Secretaria />} />
 
