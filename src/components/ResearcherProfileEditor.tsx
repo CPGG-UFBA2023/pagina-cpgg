@@ -224,14 +224,17 @@ export function ResearcherProfileEditor({
             />
           </div>
           
-          <div className="flex justify-center">
-            <ReCAPTCHA
-              ref={recaptchaRef}
-              sitekey={RECAPTCHA_SITE_KEY}
-              onChange={(token) => setCaptchaToken(token)}
-              onExpired={() => setCaptchaToken(null)}
-            />
-          </div>
+          {CAPTCHA_ENFORCED && (
+            <div className="flex justify-center">
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={RECAPTCHA_SITE_KEY}
+                onChange={(token) => setCaptchaToken(token)}
+                onExpired={() => setCaptchaToken(null)}
+              />
+            </div>
+          )}
+          
           
           <div className="flex gap-2">
             <Button
