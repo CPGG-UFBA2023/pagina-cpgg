@@ -478,14 +478,16 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave, s
                 onChange={(e) => setPhoto(e.target.files?.[0] || null)}
               />
             </div>
-            <div className="flex justify-center my-4">
-              <ReCAPTCHA
-                ref={editRecaptchaRef}
-                sitekey={RECAPTCHA_SITE_KEY}
-                onChange={(token) => setEditCaptchaToken(token)}
-                onExpired={() => setEditCaptchaToken(null)}
-              />
-            </div>
+            {CAPTCHA_ENFORCED && (
+              <div className="flex justify-center my-4">
+                <ReCAPTCHA
+                  ref={editRecaptchaRef}
+                  sitekey={RECAPTCHA_SITE_KEY}
+                  onChange={(token) => setEditCaptchaToken(token)}
+                  onExpired={() => setEditCaptchaToken(null)}
+                />
+              </div>
+            )}
             <div className="flex gap-2">
               <Button onClick={handleSave} disabled={loading}>
                 {loading ? 'Salvando...' : 'Salvar'}
