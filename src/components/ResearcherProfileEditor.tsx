@@ -7,8 +7,9 @@ import { Textarea } from '@/components/ui/textarea'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Edit, Save, X } from 'lucide-react'
 import ReCAPTCHA from 'react-google-recaptcha'
+import { RECAPTCHA_SITE_KEY, isRecaptchaEnforced } from '@/lib/recaptcha'
 
-const RECAPTCHA_SITE_KEY = "6Lc_tCcsAAAAANaPjNTNCehs44DT3dPVbUJao07b"
+const CAPTCHA_ENFORCED = isRecaptchaEnforced()
 
 interface ResearcherProfileEditorProps {
   researcherName: string
