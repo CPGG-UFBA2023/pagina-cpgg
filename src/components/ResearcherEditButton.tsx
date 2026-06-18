@@ -192,8 +192,8 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave, s
   const handleSave = async () => {
     if (!userProfile) return
     
-    // Verifica reCAPTCHA
-    if (!editCaptchaToken) {
+    // Verifica reCAPTCHA (apenas em produção)
+    if (CAPTCHA_ENFORCED && !editCaptchaToken) {
       toast({
         title: 'Verificação necessária',
         description: 'Por favor, complete o reCAPTCHA.',
@@ -205,21 +205,23 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave, s
     setLoading(true)
     
     try {
-      // Verifica o token do reCAPTCHA no servidor
-      const { data: captchaResult, error: captchaError } = await supabase.functions.invoke('verify-recaptcha', {
-        body: { token: editCaptchaToken }
-      })
-      
-      if (captchaError || !captchaResult?.success) {
-        toast({
-          title: 'Erro',
-          description: 'Falha na verificação do reCAPTCHA. Tente novamente.',
-          variant: 'destructive'
+      // Verifica o token do reCAPTCHA no servidor (apenas em produção)
+      if (CAPTCHA_ENFORCED) {
+        const { data: captchaResult, error: captchaError } = await supabase.functions.invoke('verify-recaptcha', {
+          body: { token: editCaptchaToken }
         })
-        editRecaptchaRef.current?.reset()
-        setEditCaptchaToken(null)
-        setLoading(false)
-        return
+        
+        if (captchaError || !captchaResult?.success) {
+          toast({
+            title: 'Erro',
+            description: 'Falha na verificação do reCAPTCHA. Tente novamente.',
+            variant: 'destructive'
+          })
+          editRecaptchaRef.current?.reset()
+          setEditCaptchaToken(null)
+          setLoading(false)
+          return
+        }
       }
       
       let photoUrl = currentPhotoUrl
