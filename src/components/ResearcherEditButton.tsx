@@ -85,8 +85,8 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave, s
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    // Verifica reCAPTCHA
-    if (!loginCaptchaToken) {
+    // Verifica reCAPTCHA (apenas em produção)
+    if (CAPTCHA_ENFORCED && !loginCaptchaToken) {
       toast({
         title: 'Verificação necessária',
         description: 'Por favor, complete o reCAPTCHA.',
@@ -98,21 +98,23 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave, s
     setLoading(true)
 
     try {
-      // Verifica o token do reCAPTCHA no servidor
-      const { data: captchaResult, error: captchaError } = await supabase.functions.invoke('verify-recaptcha', {
-        body: { token: loginCaptchaToken }
-      })
-      
-      if (captchaError || !captchaResult?.success) {
-        toast({
-          title: 'Erro',
-          description: 'Falha na verificação do reCAPTCHA. Tente novamente.',
-          variant: 'destructive'
+      // Verifica o token do reCAPTCHA no servidor (apenas em produção)
+      if (CAPTCHA_ENFORCED) {
+        const { data: captchaResult, error: captchaError } = await supabase.functions.invoke('verify-recaptcha', {
+          body: { token: loginCaptchaToken }
         })
-        loginRecaptchaRef.current?.reset()
-        setLoginCaptchaToken(null)
-        setLoading(false)
-        return
+        
+        if (captchaError || !captchaResult?.success) {
+          toast({
+            title: 'Erro',
+            description: 'Falha na verificação do reCAPTCHA. Tente novamente.',
+            variant: 'destructive'
+          })
+          loginRecaptchaRef.current?.reset()
+          setLoginCaptchaToken(null)
+          setLoading(false)
+          return
+        }
       }
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
