@@ -7,8 +7,9 @@ import { Textarea } from '@/components/ui/textarea'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Edit, Save, X } from 'lucide-react'
 import ReCAPTCHA from 'react-google-recaptcha'
+import { RECAPTCHA_SITE_KEY, isRecaptchaEnforced } from '@/lib/recaptcha'
 
-const RECAPTCHA_SITE_KEY = "6Lc_tCcsAAAAANaPjNTNCehs44DT3dPVbUJao07b"
+const CAPTCHA_ENFORCED = isRecaptchaEnforced()
 
 interface ResearcherProfileEditorProps {
   researcherName: string
@@ -68,8 +69,8 @@ export function ResearcherProfileEditor({
   const handleSave = async () => {
     if (!user || !isAuthorized) return
     
-    // Verifica reCAPTCHA
-    if (!captchaToken) {
+    // Verifica reCAPTCHA (apenas em produção)
+    if (CAPTCHA_ENFORCED && !captchaToken) {
       toast({
         title: 'Verificação necessária',
         description: 'Por favor, complete o reCAPTCHA.',
@@ -81,13 +82,15 @@ export function ResearcherProfileEditor({
     setIsLoading(true)
     
     try {
-      // Verifica o token do reCAPTCHA no servidor
-      const { data: captchaResult, error: captchaError } = await supabase.functions.invoke('verify-recaptcha', {
-        body: { token: captchaToken }
-      })
-      
-      if (captchaError || !captchaResult?.success) {
-        throw new Error('Falha na verificação do reCAPTCHA. Tente novamente.')
+      // Verifica o token do reCAPTCHA no servidor (apenas em produção)
+      if (CAPTCHA_ENFORCED) {
+        const { data: captchaResult, error: captchaError } = await supabase.functions.invoke('verify-recaptcha', {
+          body: { token: captchaToken }
+        })
+        
+        if (captchaError || !captchaResult?.success) {
+          throw new Error('Falha na verificação do reCAPTCHA. Tente novamente.')
+        }
       }
       
       let photoUrl = null
@@ -221,14 +224,17 @@ export function ResearcherProfileEditor({
             />
           </div>
           
-          <div className="flex justify-center">
-            <ReCAPTCHA
-              ref={recaptchaRef}
-              sitekey={RECAPTCHA_SITE_KEY}
-              onChange={(token) => setCaptchaToken(token)}
-              onExpired={() => setCaptchaToken(null)}
-            />
-          </div>
+          {CAPTCHA_ENFORCED && (
+            <div className="flex justify-center">
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={RECAPTCHA_SITE_KEY}
+                onChange={(token) => setCaptchaToken(token)}
+                onExpired={() => setCaptchaToken(null)}
+              />
+            </div>
+          )}
+          
           
           <div className="flex gap-2">
             <Button
