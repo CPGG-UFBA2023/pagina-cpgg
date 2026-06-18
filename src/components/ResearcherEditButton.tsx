@@ -380,14 +380,16 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave, s
               >
                 Esqueci minha senha
               </Button>
-              <div className="flex justify-center my-4">
-                <ReCAPTCHA
-                  ref={loginRecaptchaRef}
-                  sitekey={RECAPTCHA_SITE_KEY}
-                  onChange={(token) => setLoginCaptchaToken(token)}
-                  onExpired={() => setLoginCaptchaToken(null)}
-                />
-              </div>
+              {CAPTCHA_ENFORCED && (
+                <div className="flex justify-center my-4">
+                  <ReCAPTCHA
+                    ref={loginRecaptchaRef}
+                    sitekey={RECAPTCHA_SITE_KEY}
+                    onChange={(token) => setLoginCaptchaToken(token)}
+                    onExpired={() => setLoginCaptchaToken(null)}
+                  />
+                </div>
+              )}
               <div className="flex gap-2">
                 <Button type="submit" disabled={loading}>
                   {loading ? 'Entrando...' : 'Entrar'}
