@@ -9,8 +9,9 @@ import { supabase } from '@/integrations/supabase/client'
 import { useToast } from '@/hooks/use-toast'
 import { useResearcherProfile } from '@/components/ResearcherProfileContext'
 import ReCAPTCHA from 'react-google-recaptcha'
+import { RECAPTCHA_SITE_KEY, isRecaptchaEnforced } from '@/lib/recaptcha'
 
-const RECAPTCHA_SITE_KEY = "6Lc_tCcsAAAAANaPjNTNCehs44DT3dPVbUJao07b"
+const CAPTCHA_ENFORCED = isRecaptchaEnforced()
 
 interface ResearcherEditButtonProps {
   researcherName: string
@@ -84,8 +85,8 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave, s
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    // Verifica reCAPTCHA
-    if (!loginCaptchaToken) {
+    // Verifica reCAPTCHA (apenas em produção)
+    if (CAPTCHA_ENFORCED && !loginCaptchaToken) {
       toast({
         title: 'Verificação necessária',
         description: 'Por favor, complete o reCAPTCHA.',
@@ -97,21 +98,23 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave, s
     setLoading(true)
 
     try {
-      // Verifica o token do reCAPTCHA no servidor
-      const { data: captchaResult, error: captchaError } = await supabase.functions.invoke('verify-recaptcha', {
-        body: { token: loginCaptchaToken }
-      })
-      
-      if (captchaError || !captchaResult?.success) {
-        toast({
-          title: 'Erro',
-          description: 'Falha na verificação do reCAPTCHA. Tente novamente.',
-          variant: 'destructive'
+      // Verifica o token do reCAPTCHA no servidor (apenas em produção)
+      if (CAPTCHA_ENFORCED) {
+        const { data: captchaResult, error: captchaError } = await supabase.functions.invoke('verify-recaptcha', {
+          body: { token: loginCaptchaToken }
         })
-        loginRecaptchaRef.current?.reset()
-        setLoginCaptchaToken(null)
-        setLoading(false)
-        return
+        
+        if (captchaError || !captchaResult?.success) {
+          toast({
+            title: 'Erro',
+            description: 'Falha na verificação do reCAPTCHA. Tente novamente.',
+            variant: 'destructive'
+          })
+          loginRecaptchaRef.current?.reset()
+          setLoginCaptchaToken(null)
+          setLoading(false)
+          return
+        }
       }
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
@@ -189,8 +192,8 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave, s
   const handleSave = async () => {
     if (!userProfile) return
     
-    // Verifica reCAPTCHA
-    if (!editCaptchaToken) {
+    // Verifica reCAPTCHA (apenas em produção)
+    if (CAPTCHA_ENFORCED && !editCaptchaToken) {
       toast({
         title: 'Verificação necessária',
         description: 'Por favor, complete o reCAPTCHA.',
@@ -202,21 +205,23 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave, s
     setLoading(true)
     
     try {
-      // Verifica o token do reCAPTCHA no servidor
-      const { data: captchaResult, error: captchaError } = await supabase.functions.invoke('verify-recaptcha', {
-        body: { token: editCaptchaToken }
-      })
-      
-      if (captchaError || !captchaResult?.success) {
-        toast({
-          title: 'Erro',
-          description: 'Falha na verificação do reCAPTCHA. Tente novamente.',
-          variant: 'destructive'
+      // Verifica o token do reCAPTCHA no servidor (apenas em produção)
+      if (CAPTCHA_ENFORCED) {
+        const { data: captchaResult, error: captchaError } = await supabase.functions.invoke('verify-recaptcha', {
+          body: { token: editCaptchaToken }
         })
-        editRecaptchaRef.current?.reset()
-        setEditCaptchaToken(null)
-        setLoading(false)
-        return
+        
+        if (captchaError || !captchaResult?.success) {
+          toast({
+            title: 'Erro',
+            description: 'Falha na verificação do reCAPTCHA. Tente novamente.',
+            variant: 'destructive'
+          })
+          editRecaptchaRef.current?.reset()
+          setEditCaptchaToken(null)
+          setLoading(false)
+          return
+        }
       }
       
       let photoUrl = currentPhotoUrl
@@ -375,14 +380,16 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave, s
               >
                 Esqueci minha senha
               </Button>
-              <div className="flex justify-center my-4">
-                <ReCAPTCHA
-                  ref={loginRecaptchaRef}
-                  sitekey={RECAPTCHA_SITE_KEY}
-                  onChange={(token) => setLoginCaptchaToken(token)}
-                  onExpired={() => setLoginCaptchaToken(null)}
-                />
-              </div>
+              {CAPTCHA_ENFORCED && (
+                <div className="flex justify-center my-4">
+                  <ReCAPTCHA
+                    ref={loginRecaptchaRef}
+                    sitekey={RECAPTCHA_SITE_KEY}
+                    onChange={(token) => setLoginCaptchaToken(token)}
+                    onExpired={() => setLoginCaptchaToken(null)}
+                  />
+                </div>
+              )}
               <div className="flex gap-2">
                 <Button type="submit" disabled={loading}>
                   {loading ? 'Entrando...' : 'Entrar'}
@@ -471,14 +478,16 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave, s
                 onChange={(e) => setPhoto(e.target.files?.[0] || null)}
               />
             </div>
-            <div className="flex justify-center my-4">
-              <ReCAPTCHA
-                ref={editRecaptchaRef}
-                sitekey={RECAPTCHA_SITE_KEY}
-                onChange={(token) => setEditCaptchaToken(token)}
-                onExpired={() => setEditCaptchaToken(null)}
-              />
-            </div>
+            {CAPTCHA_ENFORCED && (
+              <div className="flex justify-center my-4">
+                <ReCAPTCHA
+                  ref={editRecaptchaRef}
+                  sitekey={RECAPTCHA_SITE_KEY}
+                  onChange={(token) => setEditCaptchaToken(token)}
+                  onExpired={() => setEditCaptchaToken(null)}
+                />
+              </div>
+            )}
             <div className="flex gap-2">
               <Button onClick={handleSave} disabled={loading}>
                 {loading ? 'Salvando...' : 'Salvar'}
