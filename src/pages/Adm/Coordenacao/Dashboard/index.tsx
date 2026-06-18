@@ -492,12 +492,21 @@ export function CoordenacaoDashboard() {
       const researcherRoute = nameParts.length > 1 
         ? `/pesquisadores/${nameParts[0]}-${nameParts[nameParts.length - 1]}`
         : `/pesquisadores/${nameParts[0]}`
-      
+
+      // Gerar email temporário ÚNICO por pesquisador (o pesquisador edita depois)
+      const emailSlug = researcherName
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '.')
+        .replace(/(^\.|\.$)/g, '')
+      const tempEmail = `${emailSlug}.${Date.now()}@a-definir.temporario`
+
       const { error: profileError } = await supabase
         .from('user_profiles')
         .insert({
           full_name: researcherName,
-          email: 'a_definir@temporario.com',
+          email: tempEmail,
           institution: researcherInstitution,
           phone: '(00) 00000-0000',
           first_name: firstName,
