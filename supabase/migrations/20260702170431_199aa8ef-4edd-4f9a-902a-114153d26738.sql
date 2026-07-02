@@ -1,0 +1,2 @@
+ALTER TABLE public.news DROP CONSTRAINT IF EXISTS news_news_position_check;
+ALTER TABLE public.news ADD CONSTRAINT news_news_position_check CHECK (news_position = ANY (ARRAY['News1'::text,'News2'::text,'News3'::text,'archive'::text]));
