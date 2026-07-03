@@ -302,72 +302,49 @@ async function generatePDFContent(
   })
   y -= lineHeight
   
-  page.drawText(`Equipamentos da lista: ${equipmentsList}`, {
-    x: leftMargin,
-    y,
-    size: 10,
-    font: helvetica,
-    color: black,
-  })
-  y -= lineHeight
-  
+  const maxWidth = 495
+  const drawWrapped = (text: string) => {
+    const paragraphs = String(text).split(/\r?\n/)
+    for (const para of paragraphs) {
+      const words = para.split(/\s+/).filter(Boolean)
+      if (words.length === 0) {
+        y -= lineHeight
+        continue
+      }
+      let line = ''
+      for (const word of words) {
+        const test = line ? `${line} ${word}` : word
+        const w = helvetica.widthOfTextAtSize(test, 10)
+        if (w > maxWidth && line) {
+          page.drawText(line, { x: leftMargin, y, size: 10, font: helvetica, color: black })
+          y -= lineHeight
+          line = word
+        } else {
+          line = test
+        }
+      }
+      if (line) {
+        page.drawText(line, { x: leftMargin, y, size: 10, font: helvetica, color: black })
+        y -= lineHeight
+      }
+    }
+  }
+
+  drawWrapped(`Equipamentos da lista: ${equipmentsList}`)
+
   if (reservationData.otherEquipment) {
-    page.drawText(`Outros equipamentos: ${reservationData.otherEquipment}`, {
-      x: leftMargin,
-      y,
-      size: 10,
-      font: helvetica,
-      color: black,
-    })
-    y -= lineHeight
+    drawWrapped(`Outros equipamentos: ${reservationData.otherEquipment}`)
   }
-  
+
   if (reservationData.peripherals) {
-    page.drawText(`Periféricos: ${reservationData.peripherals}`, {
-      x: leftMargin,
-      y,
-      size: 10,
-      font: helvetica,
-      color: black,
-    })
-    y -= lineHeight
+    drawWrapped(`Periféricos: ${reservationData.peripherals}`)
   }
-  
-  page.drawText(`Data de Retirada: ${withdrawalDate}`, {
-    x: leftMargin,
-    y,
-    size: 10,
-    font: helvetica,
-    color: black,
-  })
-  y -= lineHeight
-  
-  page.drawText(`Data de Devolução: ${returnDate}`, {
-    x: leftMargin,
-    y,
-    size: 10,
-    font: helvetica,
-    color: black,
-  })
-  y -= lineHeight
-  
-  page.drawText(`Finalidade: ${reservationData.purpose}`, {
-    x: leftMargin,
-    y,
-    size: 10,
-    font: helvetica,
-    color: black,
-  })
-  y -= lineHeight
-  
-  page.drawText('Status: Aguardando aprovação', {
-    x: leftMargin,
-    y,
-    size: 10,
-    font: helvetica,
-    color: black,
-  })
-  y -= 25
+
+  drawWrapped(`Data de Retirada: ${withdrawalDate}`)
+  drawWrapped(`Data de Devolução: ${returnDate}`)
+  drawWrapped(`Finalidade: ${reservationData.purpose}`)
+  drawWrapped('Status: Aguardando aprovação')
+  y -= 7
   
   // Section: Informações Adicionais
   page.drawText('Informações Adicionais', {
