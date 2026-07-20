@@ -1,5 +1,6 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.57.3'
 import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors'
+import { SMTPClient } from 'https://deno.land/x/denomailer@1.6.0/mod.ts'
 
 interface VisitorLocation {
   id: string
@@ -20,6 +21,10 @@ function csvEscape(value: string | number | null): string {
     return '"' + str.replace(/"/g, '""') + '"'
   }
   return str
+}
+
+function encodeBase64(str: string): string {
+  return btoa(unescape(encodeURIComponent(str)))
 }
 
 Deno.serve(async (req) => {
@@ -65,6 +70,65 @@ Deno.serve(async (req) => {
 
     console.log(`Exported ${rows.length} locations with ${total} visitors`)
 
+    let body: any
+    try {
+      body = await req.json()
+    } catch (_) {
+      body = {}
+    }
+
+    const sendTo = body?.email || Deno.env.get('SMTP_USER')
+
+    if (sendTo) {
+      try {
+        const smtpHost = Deno.env.get('SMTP_HOST')
+        const smtpPort = Deno.env.get('SMTP_PORT')
+        const smtpUser = Deno.env.get('SMTP_USER')
+        const smtpPassword = Deno.env.get('SMTP_PASSWORD')
+
+        if (smtpHost && smtpPort && smtpUser && smtpPassword) {
+          const port = parseInt(smtpPort)
+          const useTls = port === 465
+
+          const client = new SMTPClient({
+            connection: {
+              hostname: smtpHost,
+              port: port,
+              tls: useTls,
+              auth: {
+                username: smtpUser,
+                password: smtpPassword,
+              },
+            },
+          })
+
+          await client.send({
+            from: `CPGG UFBA <${smtpUser}>`,
+            to: [sendTo],
+            subject: 'Exportacao de visitantes - CPGG',
+            content: `Segue em anexo o export de ${rows.length} localizacoes e ${total} visitantes do site CPGG.`,
+            html: `<p>Segue em anexo o export de <strong>${rows.length}</strong> localizações e <strong>${total}</strong> visitantes do site CPGG.</p>`,
+            attachments: [{
+              filename: 'visitantes-cpgg.csv',
+              content: encodeBase64(csv),
+              encoding: 'base64',
+              contentType: 'text/csv; charset=utf-8',
+            }],
+          })
+
+          await client.close()
+          console.log(`CSV emailed to ${sendTo}`)
+
+          return new Response(
+            JSON.stringify({ success: true, message: `CSV enviado para ${sendTo}`, locations: rows.length, visitors: total }),
+            { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 200 }
+          )
+        }
+      } catch (emailError) {
+        console.error('Error sending email:', emailError)
+      }
+    }
+
     return new Response(csv, {
       headers: {
         ...corsHeaders,
@@ -82,3 +146,4 @@ Deno.serve(async (req) => {
     )
   }
 })
+
