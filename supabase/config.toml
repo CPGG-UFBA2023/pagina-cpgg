@@ -15,5 +15,8 @@ verify_jwt = false
 [functions.track-visitor-location]
 verify_jwt = false
 
+[functions.export-visitor-csv]
+verify_jwt = false
+
 [functions.verify-recaptcha]
 verify_jwt = false
