@@ -1,818 +1,201 @@
+/* =========================================================
+   LAIGA - Fluid, responsive layout (no absolute positioning
+   for content). Uses CSS Grid + clamp() so every element
+   scales smoothly between 320px and 4K without overlap.
+   ========================================================= */
+
 .pageContainer {
   display: flex;
   flex-direction: column;
-  height: 100vh !important;
-  max-height: 100vh !important;
-  overflow: hidden !important;
-  position: fixed !important;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .laiga {
-  text-align: justify;
-  font-size: 18px;
-  line-height: 35px;
-  column-count: 1;
-  display: flex;
   flex: 1;
+  width: 100%;
   color: #fff;
-  padding-top: 140px;
-  padding-bottom: 543px;
-  padding-left: 280px;
-  padding-right: 200px;
-}
-
-.Title ul {
-  font-size: 35px;
-  color: #363F5;
-  margin-top: -30px;
-  margin-left: calc(50% - 445px);
-  padding-left: 0;
-  padding-bottom: 20px;
-  white-space: nowrap;
-  font-weight: bold;
-}
-
-.Title a {
-  font-size: 20px;
-  color: #363F5;
-  margin: 0;
-  padding: 0;
-  padding-bottom: 20px;
-  white-space: normal;
-  display: block;
-  text-align: center;
-}
-
-.box {
-  text-align: justify-all;
+  padding: clamp(90px, 12vw, 160px) clamp(12px, 4vw, 48px) clamp(60px, 8vw, 120px);
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+.Title {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  justify-content: center;
+}
+
+/* ---------- Main content card ---------- */
+.box {
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+  padding: clamp(16px, 2.5vw, 32px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(6px);
+
+  display: grid;
+  grid-template-columns: minmax(240px, 320px) 1fr;
+  gap: clamp(16px, 2.5vw, 32px);
+  align-items: start;
+}
+
+/* Reflow to single column on tablets & mobile */
+@media (max-width: 900px) {
+  .box {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Photo column ---------- */
+.photoGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(12px, 1.5vw, 20px);
+  width: 100%;
+}
+
+/* On narrow screens, show photos as a 2x2 grid */
+@media (max-width: 900px) and (min-width: 481px) {
+  .photoGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.box1,
+.box2,
+.box3,
+.box4 {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   border: 2px solid rgba(255, 255, 255, 0.2);
   background-color: rgba(255, 255, 255, 0.2);
-  position: absolute;
-  width: 650px;
-  height: 430px;
-  top: 25%;
-  left: calc(2% + 75px);
-  padding: 20px;
-  padding-left: 300px;
-  border-radius: 20px;
-  gap: 5px;
-  margin-bottom: -500px;
-  overflow-y: scroll;
-}
-
-.box b {
-  font-size: 12px;
-  color: #363F5;
-  margin-left: 130px;
-  white-space: nowrap;
-}
-
-.box c {
-  font-size: 12px;
-  color: #363F5;
-  margin-left: 100px;
-  white-space: nowrap;
-}
-
-.box p {
-  font-size: 16px;
-  color: #fff;
-  text-align: justify;
-  margin-bottom: 15px;
-  line-height: 1.6;
-}
-
-.box span {
-  font-size: 16px;
-  color: #fff;
-  margin-left: 0;
-  text-align: center;
-  display: block;
-}
-
-.box ul {
-  font-size: 28px;
-  color: #363F5;
-  text-align: center;
-  margin: 0;
-  margin-bottom: 20px;
-  padding: 0;
-  padding-top: 10px;
-  white-space: normal;
-  font-weight: bold;
-  list-style: none;
-}
-
-.box nav a {
-  color: #fff;
-  font-size: 12px;
-  cursor: pointer;
-  font-family: Roboto;
-  font-weight: 500;
-  display: block;
-  margin: 8px 0;
-}
-
-
-nav a {
-  list-style: none;
-}
-
-nav a:hover {
-  color: rgba(147 106 235);
-  transition: 0.1s;
-}
-
-.purpleLink {
-  color: rgba(147, 106, 235) !important;
-  font-size: 13px !important;
-  margin-left: 0 !important;
-}
-
-
-.purpleText {
-  color: rgba(147, 106, 235) !important;
-  font-size: 13px !important;
-  text-align: center !important;
-  display: block !important;
-  margin-left: 0 !important;
+  border-radius: 16px;
+  overflow: hidden;
+  background-blend-mode: normal;
 }
 
 .box1 {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  background-color: rgba(255, 255, 255, 0.2);
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  top: 3%;
-  left: calc(2% + 60px);
-  padding: 10px;
-  border-radius: 20px;
-  gap: 5px;
-  margin-bottom: -100px;
   background:
-    linear-gradient(90deg, rgba(2, 0, 36, 0.1) 0%, rgba(63, 9, 121, 0.1)),
-    url("https://i.imgur.com/Nvz2YCS.jpg") center/cover;
+    linear-gradient(180deg, rgba(2, 0, 36, 0.05) 0%, rgba(63, 9, 121, 0.35) 100%),
+    url("https://i.imgur.com/Nvz2YCS.jpg") center/cover no-repeat;
 }
-
-.legend1 {
-  font-size: 12px;
-  right: 10px;
-  left: 10px;
-  top: 300px;
-  position: absolute;
-}
-
 .box2 {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  background-color: rgba(255, 255, 255, 0.2);
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  top: calc(3% + 340px);
-  left: calc(2% + 60px);
-  padding: 10px;
-  border-radius: 20px;
-  gap: 5px;
-  margin-bottom: -100px;
   background:
-    linear-gradient(90deg, rgba(2, 0, 36, 0.1) 0%, rgba(63, 9, 121, 0.1)),
-    url("https://i.imgur.com/tVZWLuM.jpg") center/cover;
+    linear-gradient(180deg, rgba(2, 0, 36, 0.05) 0%, rgba(63, 9, 121, 0.35) 100%),
+    url("https://i.imgur.com/tVZWLuM.jpg") center/cover no-repeat;
 }
-
-.legend2 {
-  font-size: 12px;
-  right: 10px;
-  left: 10px;
-  top: 300px;
-  position: absolute;
-}
-
 .box3 {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  background-color: rgba(255, 255, 255, 0.2);
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  top: calc(3% + 680px);
-  left: calc(2% + 60px);
-  padding: 10px;
-  border-radius: 20px;
-  gap: 5px;
-  margin-bottom: -100px;
   background:
-    linear-gradient(90deg, rgba(2, 0, 36, 0.1) 0%, rgba(63, 9, 121, 0.1)),
-    url("https://i.imgur.com/SDEUc8V.jpg") center/cover;
+    linear-gradient(180deg, rgba(2, 0, 36, 0.05) 0%, rgba(63, 9, 121, 0.35) 100%),
+    url("https://i.imgur.com/SDEUc8V.jpg") center/cover no-repeat;
 }
-
-.legend3 {
-  font-size: 12px;
-  right: 10px;
-  left: 10px;
-  top: 300px;
-  position: absolute;
-}
-
 .box4 {
+  background:
+    linear-gradient(180deg, rgba(2, 0, 36, 0.05) 0%, rgba(63, 9, 121, 0.35) 100%),
+    url("https://i.imgur.com/SDEUc8V.jpg") center/cover no-repeat;
+}
+
+.legend1,
+.legend2,
+.legend3,
+.legend4 {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  margin: 0;
+  padding: 4px 6px;
+  font-size: clamp(10px, 1.1vw, 13px);
+  color: #fff;
   text-align: center;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 6px;
+  line-height: 1.2;
+}
+
+/* ---------- Text column ---------- */
+.content {
   display: flex;
   flex-direction: column;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  background-color: rgba(255, 255, 255, 0.2);
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  top: calc(3% + 1020px);
-  left: calc(2% + 60px);
-  padding: 10px;
-  border-radius: 20px;
-  gap: 5px;
-  margin-bottom: -100px;
-  background:
-    linear-gradient(90deg, rgba(2, 0, 36, 0.1) 0%, rgba(63, 9, 121, 0.1)),
-    url("https://i.imgur.com/SDEUc8V.jpg") center/cover;
+  gap: clamp(8px, 1vw, 14px);
+  min-width: 0; /* prevent overflow inside grid */
 }
 
-.legend4 {
-  font-size: 12px;
-  right: 10px;
-  left: 10px;
-  top: 300px;
-  position: absolute;
-}
-
-.staticFigure img {
-  width: auto;
-  height: 40rem;
-  max-width: 100%;
-  object-fit: contain;
+.box ul {
+  font-size: clamp(20px, 2.6vw, 32px);
+  color: #363F5;
+  font-weight: bold;
+  text-align: center;
   margin: 0;
   padding: 0;
+  list-style: none;
+  line-height: 1.2;
+}
+
+.subtitle,
+.box .subtitle {
   display: block;
+  font-size: clamp(14px, 1.4vw, 18px);
+  color: #363F5;
+  text-align: center;
+  margin: 0 0 6px;
+  line-height: 1.3;
 }
 
-/* Grandes Telas/4K - ≥ 1601px */
-@media (min-width: 1601px) {
-  .laiga {
-    padding-left: 400px;
-    padding-right: 300px;
-    font-size: 20px;
-    line-height: 40px;
-  }
-
-  .box {
-    width: 930px;
-    height: 520px;
-    padding-left: 450px;
-  }
-
-  .staticFigure img {
-    width: auto;
-    height: 45rem;
-    max-width: 100%;
-    object-fit: contain;
-  }
+.box p {
+  font-size: clamp(13px, 1.05vw, 16px);
+  color: #fff;
+  text-align: justify;
+  line-height: 1.55;
+  margin: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
-/* Desktop/HD - 1201px - 1600px */
-@media (min-width: 1201px) and (max-width: 1600px) {
-  .laiga {
-    padding-left: 280px;
-    padding-right: 200px;
-    font-size: 18px;
-    line-height: 35px;
-  }
-
-  .box {
-    width: 760px;
-    height: 430px;
-    padding-left: 350px;
-  }
-
-  .staticFigure img {
-    width: auto;
-    height: 40rem;
-    max-width: 100%;
-    object-fit: contain;
-  }
+.box b,
+.box .purpleText {
+  font-size: clamp(12px, 1vw, 14px);
+  color: rgba(147, 106, 235);
+  display: block;
+  text-align: center;
+  margin: 6px 0 0;
+  white-space: normal;
 }
 
-/* Laptop - 1025px - 1200px */
-@media (min-width: 1025px) and (max-width: 1200px) {
-  .laiga {
-    padding-left: 200px;
-    padding-right: 150px;
-    font-size: 16px;
-    line-height: 32px;
-    padding-bottom: 600px;
-  }
-
-  .box {
-    width: 700px;
-    height: 600px;
-    left: 5%;
-    top: 25%;
-    left: calc(2% + 75px);
-    padding: 20px;
-    padding-left: 300px;
-    border-radius: 20px;
-    gap: 5px;
-    margin-bottom: -500px;
-    padding-left: 280px;
-    font-size: 12px;
-  }
-
-  .staticFigure img {
-    width: auto;
-    height: 35rem;
-    max-width: 100%;
-    object-fit: contain;
-  }
-
-  .Title ul {
-    padding-left: 150px;
-    font-size: 32px;
-  }
-
-  .Title a {
-    font-size: 22px;
-    margin-top: -30px;
-  }
+.box span {
+  font-size: clamp(13px, 1.05vw, 16px);
+  color: #fff;
+  display: block;
+  text-align: center;
+  margin: 0 0 4px;
 }
 
-/* Tablet - 769px - 1024px */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .laiga {
-    padding-left: 20px;
-    padding-right: 20px;
-    font-size: 13px;
-    line-height: 26px;
-    padding-bottom: 950px;
-  }
-
-  .box {
-    width: 700px;
-    height: 600px;
-    left: 5%;
-    top: 25%;
-    left: calc(2% + 75px);
-    padding: 20px;
-    padding-left: 300px;
-    border-radius: 20px;
-    gap: 5px;
-    margin-bottom: -500px;
-    padding-left: 280px;
-    font-size: 12px;
-  }
-
-  .box p {
-    font-size: 13px;
-    line-height: 1.5;
-    margin-bottom: 12px;
-  }
-
-  .box ul {
-    font-size: 24px;
-    margin-bottom: 15px;
-  }
-
-  .staticFigure img {
-    width: auto;
-    height: 24rem;
-    max-width: 100%;
-    object-fit: contain;
-  }
-
-  .Title ul {
-    margin-left: 0;
-    padding-left: 0;
-    font-size: 24px;
-    text-align: center;
-  }
-
-  .Title a {
-    font-size: 18px;
-    margin-top: -20px;
-    text-align: center;
-    margin-left: 0;
-  }
-
-  .box nav a {
-    margin-left: 0;
-    font-size: 10px;
-  }
-
-  .box b {
-    margin-left: 0;
-    font-size: 10px;
-  }
-
-  .box span {
-    font-size: 13px;
-    margin-left: 0;
-  }
-
-  .requerimentoButton {
-    margin-left: 0 !important;
-    margin-top: 130px !important;
-  }
-
-  /* Fotos em coluna à esquerda */
-  .box1,
-  .box2,
-  .box3,
-  .box4 {
-    width: 160px !important;
-    height: 160px !important;
-    position: absolute !important;
-    left: 20px !important;
-  }
-
-  .box1 {
-    top: 15% !important;
-  }
-  .box2 {
-    top: calc(22% + 230px) !important;
-  }
-  .box3 {
-    top: calc(22% + 460px) !important;
-  }
-  .box4 {
-    top: calc(22% + 690px) !important;
-  }
-
-  .legend1,
-  .legend2,
-  .legend3,
-  .legend4 {
-    font-size: 9px;
-    top: 160px;
-  }
+.purpleLink {
+  display: inline-block;
+  color: rgba(147, 106, 235);
+  font-size: clamp(12px, 1vw, 14px);
+  margin-top: 4px;
+  word-break: break-word;
 }
 
-/* Mobile (Médio) - 481px - 768px */
-@media (min-width: 481px) and (max-width: 768px) {
-  .laiga {
-    padding-left: 15px;
-    padding-right: 15px;
-    font-size: 12px;
-    line-height: 24px;
-    padding-bottom: 1100px;
-  }
-
-  .box {
-    width: 550px !important;
-    height: 350px !important;
-    position: absolute !important;
-    left: 150px !important;
-    top: 20% !important;
-    padding: 15px !important;
-    padding-left: 15px !important;
-    padding-right: 15px !important;
-    font-size: 9px;
-  }
-
-  .box p {
-    font-size: 11px;
-    line-height: 1.4;
-    margin-bottom: 10px;
-  }
-
-  .box ul {
-    font-size: 20px;
-    margin-bottom: 12px;
-  }
-
-  .staticFigure {
-    display: none;
-  }
-
-  .Title ul {
-    margin-left: 0;
-    padding-left: 0;
-    font-size: 20px;
-    text-align: center;
-  }
-
-  .Title a {
-    font-size: 16px;
-    text-align: center;
-    margin-left: 0;
-    margin-top: -35px;
-  }
-
-  .box nav a {
-    margin-left: 0;
-    font-size: 9px;
-    display: block;
-    text-align: left;
-    margin-bottom: 8px;
-  }
-
-  .box b {
-    margin-left: 0;
-    font-size: 9px;
-    text-align: left;
-    display: block;
-  }
-
-  .box .purpleText {
-    text-align: center !important;
-    margin-left: 0 !important;
-  }
-
-  .box span {
-    text-align: center !important;
-    display: block;
-    font-size: 11px;
-    margin-left: 0;
-  }
-
-  .requerimentoButton {
-    margin-left: 0 !important;
-    text-align: left;
-    margin-top: 15px !important;
-  }
-
-  .buttonLink,
-  .Title .buttonLink {
-    font-size: 16px !important;
-    height: 32px !important;
-    padding: 0 14px !important;
-  }
-
-  /* Fotos em coluna à esquerda */
-  .box1,
-  .box2,
-  .box3,
-  .box4 {
-    width: 120px !important;
-    height: 120px !important;
-    position: absolute !important;
-    left: 15px !important;
-  }
-
-  .box1 {
-    top: 20% !important;
-  }
-  .box2 {
-    top: calc(20% + 135px) !important;
-  }
-  .box3 {
-    top: calc(20% + 270px) !important;
-  }
-  .box4 {
-    top: calc(20% + 405px) !important;
-  }
-
-  .legend1,
-  .legend2,
-  .legend3,
-  .legend4 {
-    font-size: 8px;
-    top: 120px;
-  }
-}
-
-/* Mobile (Pequeno) - 320px - 480px */
-@media (max-width: 480px) {
-  .laiga {
-    padding-left: 10px;
-    padding-right: 10px;
-    font-size: 11px;
-    line-height: 22px;
-    padding-bottom: 1300px;
-  }
-
-  .box {
-    width: 450px !important;
-    height: 400px !important;
-    position: absolute !important;
-    left: 110px !important;
-    top: 18% !important;
-    padding: 10px !important;
-    padding-left: 10px !important;
-    padding-right: 10px !important;
-    font-size: 8px;
-    overflow-y: auto;
-  }
-
-  .box p {
-    font-size: 10px;
-    line-height: 1.3;
-    margin-bottom: 8px;
-  }
-
-  .box ul {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-
-  .staticFigure {
-    display: none;
-  }
-
-  .Title ul {
-    margin-left: 0;
-    padding-left: 0;
-    font-size: 18px;
-    text-align: center;
-    white-space: normal;
-  }
-
-  .Title a {
-    font-size: 14px;
-    text-align: center;
-    margin-left: 0;
-    margin-top: 0 !important;
-    white-space: normal;
-  }
-
-  .box nav a {
-    margin-left: 0;
-    font-size: 8px;
-    display: block;
-    text-align: left;
-    margin-bottom: 6px;
-    white-space: normal;
-  }
-
-  .box b {
-    margin-left: 0;
-    font-size: 8px;
-    text-align: left;
-    display: block;
-    white-space: normal;
-  }
-
-  .box .purpleText {
-    text-align: center !important;
-    margin-left: 0 !important;
-  }
-
-  .box span {
-    text-align: center !important;
-    display: block;
-    font-size: 10px;
-    white-space: normal;
-    margin-left: 0;
-  }
-
-  .requerimentoButton {
-    margin-left: 0 !important;
-    text-align: left;
-    margin-top: 10px !important;
-  }
-
-  .buttonLink,
-  .Title .buttonLink {
-    font-size: 13px !important;
-    height: 26px !important;
-    padding: 0 10px !important;
-  }
-}
-
-/* Mobile ≤430px - Centralização da box e conteúdo com scroll */
-@media (max-width: 430px) {
-  .pageContainer {
-    position: relative !important;
-    height: auto !important;
-    min-height: 100vh !important;
-    max-height: none !important;
-    overflow-y: auto !important;
-  }
-
-  .laiga {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    padding-top: 170px !important;
-    padding-bottom: 100px !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: flex-start !important;
-    overflow: visible !important;
-  }
-
-  .Title {
-    width: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
-  }
-
-  .box {
-    position: relative !important;
-    left: 0 !important;
-    top: 0 !important;
-    width: 95% !important;
-    max-width: 95% !important;
-    margin: 0 auto !important;
-    padding: 15px !important;
-    padding-left: 15px !important;
-    padding-right: 15px !important;
-    height: auto !important;
-    max-height: none !important;
-    overflow: visible !important;
-    min-height: auto !important;
-  }
-
-  .Title ul {
-    text-align: center !important;
-    margin-left: 0 !important;
-    padding-left: 0 !important;
-    margin-top: 0 !important;
-  }
-
-  .Title a {
-    text-align: center !important;
-    margin-left: 0 !important;
-    margin-top: 10px !important;
-  }
-
-  .box p {
-    text-align: justify !important;
-    margin-bottom: 10px !important;
-  }
-
-  .box span,
-  .box b,
-  .box nav a {
-    margin-left: 0 !important;
-    text-align: center !important;
-  }
-
-  .requerimentoButton {
-    margin-left: 0 !important;
-    text-align: center !important;
-    width: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
-  }
-
-  .buttonLink,
-  .Title .buttonLink {
-    margin: 0 auto !important;
-  }
-
-  /* Fotos centralizadas */
-  .box1,
-  .box2,
-  .box3,
-  .box4 {
-    position: relative !important;
-    left: 0 !important;
-    top: 0 !important;
-    margin: 10px auto !important;
-  }
-
-  /* Fotos em grid 2x2 ao fim da box (mobile pequeno) */
-  .box1,
-  .box2,
-  .box3,
-  .box4 {
-    position: relative !important;
-    left: 0 !important;
-    top: 0 !important;
-    width: 300px !important;
-    height: 300px !important;
-    min-width: 300px !important;
-    min-height: 300px !important;
-    max-width: 300px !important;
-    max-height: 300px !important;
-    display: block !important;
-    margin: 10px auto !important;
-    background-size: cover !important;
-    background-position: center !important;
-  }
-
-  .legend1,
-  .legend2,
-  .legend3,
-  .legend4 {
-    font-size: 10px !important;
-    top: 300px !important;
-    text-align: center !important;
-  }
-}
-
+/* ---------- Buttons ---------- */
 .requerimentoButton {
-  margin: 24px 0 8px;
+  margin-top: clamp(12px, 2vw, 24px);
   display: flex;
-  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .buttonLink,
@@ -823,155 +206,71 @@ nav a:hover {
   gap: 8px;
   background: linear-gradient(135deg, #592cbb 0%, #7c4dff 100%);
   color: #fff;
-  padding: 12px 26px;
+  padding: 0 clamp(16px, 2vw, 28px);
   min-height: 44px;
   line-height: 1;
   border-radius: 999px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 16px;
+  font-size: clamp(13px, 1.1vw, 16px);
   letter-spacing: 0.2px;
   white-space: nowrap;
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 6px 18px rgba(89, 44, 187, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.18);
   transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
   cursor: pointer;
-  position: static;
 }
 
-.buttonLink::after,
-.Title .buttonLink::after {
-  content: "→";
-  font-size: 18px;
-  transition: transform 0.18s ease;
-}
-
-.buttonLink:hover,
-.Title .buttonLink:hover {
+.buttonLink:hover {
   transform: translateY(-1px);
-  box-shadow: 0 10px 24px rgba(89, 44, 187, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.22);
   filter: brightness(1.05);
+  box-shadow: 0 10px 24px rgba(89, 44, 187, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
-.buttonLink:hover::after,
-.Title .buttonLink:hover::after {
-  transform: translateX(3px);
+.buttonLink:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
-.buttonLink:focus-visible,
-.Title .buttonLink:focus-visible {
-  outline: 2px solid #ffffff;
-  outline-offset: 3px;
+/* nav links inside the box (if any) */
+.box nav a {
+  color: #fff;
+  font-size: clamp(11px, 0.95vw, 13px);
+  cursor: pointer;
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+  display: block;
+  margin: 8px 0;
 }
 
-/* Media query específica para telas até 390x844 */
-@media (max-width: 390px) and (max-height: 844px) {
+.box nav a:hover {
+  color: rgba(147, 106, 235);
+  transition: 0.1s;
+}
+
+/* Legacy — kept in case any other component references it */
+.staticFigure {
+  display: none;
+}
+
+/* ---------- Mobile fine-tuning ---------- */
+@media (max-width: 480px) {
   .laiga {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    padding-top: 120px !important;
-    justify-content: center !important;
+    padding-top: 100px;
   }
-
+  .photoGrid {
+    grid-template-columns: 1fr;
+    max-width: 320px;
+    margin: 0 auto;
+  }
   .box {
-    position: relative !important;
-    left: 0 !important;
-    top: 50px !important;
-    width: 95% !important;
-    max-width: 95% !important;
-    margin: 0 auto !important;
-    padding: 15px !important;
-    padding-left: 15px !important;
-    padding-right: 15px !important;
-    height: auto !important;
-    max-height: 60vh !important;
-    overflow-y: auto !important;
-    min-height: 400px !important;
+    padding: 16px;
   }
-
-  .Title ul {
-    text-align: center !important;
-    margin-left: 0 !important;
-    padding-left: 0 !important;
-    margin-top: -20px !important;
-  }
-
-  .Title a {
-    margin-top: 30px !important;
-  }
-
-  .box p {
-    margin-bottom: 7.5px !important;
-    text-align: justify !important;
-  }
-
-  .box span,
-  .box b,
-  .box nav a {
-    margin-left: 0 !important;
-    text-align: justify !important;
-  }
-
-  .box nav a {
-    position: static !important;
-    top: auto !important;
-    display: block !important;
-    margin: 8px 0 !important;
-  }
-
-  .box .purpleText {
-    text-align: center !important;
-  }
-
-  .box span {
-    text-align: center !important;
-  }
-
-  .purpleLink {
-    display: inline-block !important;
-    margin-top: 20px !important;
-    text-align: center !important;
-    width: 100% !important;
-  }
-
   .requerimentoButton {
-    margin-left: 0 !important;
-    text-align: center !important;
-    width: 100% !important;
+    flex-direction: column;
   }
-
   .buttonLink,
   .Title .buttonLink {
-    width: auto !important;
-    margin: 0 auto !important;
-  }
-
-  /* Mostrar as boxes de fotos em grid 2x2 ao fim da box */
-  .box1,
-  .box2,
-  .box3,
-  .box4 {
-    position: relative !important;
-    left: 0 !important;
-    top: 0 !important;
-    width: 300px !important;
-    height: 300px !important;
-    min-width: 300px !important;
-    min-height: 300px !important;
-    max-width: 300px !important;
-    max-height: 300px !important;
-    display: block !important;
-    margin: 10px auto !important;
-    background-size: cover !important;
-    background-position: center !important;
-  }
-
-  .legend1,
-  .legend2,
-  .legend3,
-  .legend4 {
-    font-size: 10px !important;
-    top: 300px !important;
-    text-align: center !important;
+    width: 100%;
   }
 }
