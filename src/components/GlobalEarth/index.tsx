@@ -37,9 +37,9 @@ export function GlobalEarth() {
 
   // Hide on LAIGA repository pages
   const isLaigaRepo = location.pathname.startsWith('/labs/laiga/repositorio')
-  const isLaigaMain = location.pathname === '/labs/laiga'
+  const isLabMainPage = ['/labs/laiga', '/labs/lamod', '/labs/lemar', '/labs/ltm-rx', '/labs/lagep'].includes(location.pathname)
 
-  const shouldHide = hideOnRoutes.includes(location.pathname) || isPhotoSubPage || isNewsPage || isLaigaRepo || isLaigaMain
+  const shouldHide = hideOnRoutes.includes(location.pathname) || isPhotoSubPage || isNewsPage || isLaigaRepo || isLabMainPage
   
   if (shouldHide) {
     return null
