@@ -34,8 +34,11 @@ export function GlobalEarth() {
   
   // Hide on any /News/* route (including dynamic /News/:archiveNumber)
   const isNewsPage = location.pathname.startsWith('/News/') || location.pathname.startsWith('/news/')
-  
-  const shouldHide = hideOnRoutes.includes(location.pathname) || isPhotoSubPage || isNewsPage
+
+  // Hide on LAIGA repository pages
+  const isLaigaRepo = location.pathname.startsWith('/labs/laiga/repositorio')
+
+  const shouldHide = hideOnRoutes.includes(location.pathname) || isPhotoSubPage || isNewsPage || isLaigaRepo
   
   if (shouldHide) {
     return null
