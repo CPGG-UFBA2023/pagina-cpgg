@@ -45,12 +45,8 @@ export function RepositorioLogin() {
         setError('E-mail ou senha inválidos.')
         return
       }
-      const { data: access } = await supabase
-        .from('laiga_repository_access')
-        .select('id')
-        .eq('user_id', signIn.user.id)
-        .maybeSingle()
-      if (!access) {
+      const allowed = await hasRepoAccess(signIn.user.id)
+      if (!allowed) {
         await supabase.auth.signOut()
         setError('Este usuário não tem acesso ao Repositório do LAIGA.')
         return
