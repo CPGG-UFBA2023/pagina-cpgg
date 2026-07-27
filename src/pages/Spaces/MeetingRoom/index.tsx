@@ -31,7 +31,7 @@ export function MeetingRoom() {
               ser feitas pelo link abaixo:
             </div>
 
-            <nav className={styles.buttonContainer}>
+            <nav className={styles.btnWrap}>
                <Button
                  asChild
                  variant="outline"
