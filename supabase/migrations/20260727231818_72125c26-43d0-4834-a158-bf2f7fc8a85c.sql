@@ -1,0 +1,1 @@
+ALTER TABLE public.laboratories ADD COLUMN IF NOT EXISTS technician_name text;

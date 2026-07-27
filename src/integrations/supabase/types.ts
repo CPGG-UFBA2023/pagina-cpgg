@@ -207,6 +207,7 @@ export type Database = {
           photo3_legend: string | null
           photo3_url: string | null
           pnipe_address: string | null
+          technician_name: string | null
           updated_at: string
         }
         Insert: {
@@ -225,6 +226,7 @@ export type Database = {
           photo3_legend?: string | null
           photo3_url?: string | null
           pnipe_address?: string | null
+          technician_name?: string | null
           updated_at?: string
         }
         Update: {
@@ -243,6 +245,7 @@ export type Database = {
           photo3_legend?: string | null
           photo3_url?: string | null
           pnipe_address?: string | null
+          technician_name?: string | null
           updated_at?: string
         }
         Relationships: [
