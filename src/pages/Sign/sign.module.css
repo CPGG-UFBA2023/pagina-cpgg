@@ -96,6 +96,104 @@
   margin-bottom: 1rem;
 }
 
+.roleToggle {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.roleToggle button {
+  flex: 1;
+  padding: 0.75rem 0.5rem;
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.roleToggle button:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.roleToggle button.activeRole {
+  background-color: #936aeb;
+  color: white;
+  border-color: #7c5ce0;
+  font-weight: 600;
+}
+
+.roleToggle button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.labSelection {
+  width: 100%;
+  text-align: left;
+}
+
+.labSelectionTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 0.75rem;
+}
+
+.labLoading {
+  font-size: 13px;
+  color: #333;
+  margin: 0;
+}
+
+.labGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+.labOption {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 13px;
+  color: #000;
+  width: 100%;
+}
+
+.labOption:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.labOptionSelected {
+  background-color: rgba(147, 106, 235, 0.15);
+  border-color: #936aeb;
+}
+
+.labOption input {
+  width: 18px;
+  height: 18px;
+  accent-color: #936aeb;
+  cursor: pointer;
+  margin-top: 2px;
+}
+
+.labOption span {
+  line-height: 1.4;
+  overflow-wrap: break-word;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -240,5 +338,24 @@
   .form button {
     padding: 12px;
     max-width: 250px;
+  }
+
+  .roleToggle {
+    flex-direction: column;
+  }
+
+  .roleToggle button {
+    font-size: 12px;
+    padding: 0.6rem 0.5rem;
+  }
+
+  .labOption {
+    font-size: 12px;
+    padding: 0.6rem;
+  }
+
+  .labOption input {
+    width: 16px;
+    height: 16px;
   }
 }
