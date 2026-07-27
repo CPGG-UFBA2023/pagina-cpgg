@@ -45,6 +45,10 @@ export function Sign() {
   const [resetEmail, setResetEmail] = useState("");
   const [resetProfileId, setResetProfileId] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [isTechnician, setIsTechnician] = useState(false);
+  const [labs, setLabs] = useState<{ id: string; name: string; acronym: string }[]>([]);
+  const [selectedLabId, setSelectedLabId] = useState<string>("");
+  const [isLoadingLabs, setIsLoadingLabs] = useState(false);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const recaptchaResetRef = useRef<ReCAPTCHA>(null);
 
@@ -116,6 +120,32 @@ export function Sign() {
 
     return () => subscription.unsubscribe();
   }, [navigate]);
+
+  // Buscar laboratórios para o formulário de técnico
+  const fetchLabs = async () => {
+    setIsLoadingLabs(true);
+    try {
+      const { data, error } = await supabase
+        .from("laboratories")
+        .select("id, name, acronym")
+        .order("name", { ascending: true });
+
+      if (error) {
+        console.error("Erro ao buscar laboratórios:", error);
+        return;
+      }
+
+      setLabs(data || []);
+    } catch (err) {
+      console.error("Erro inesperado ao buscar laboratórios:", err);
+    } finally {
+      setIsLoadingLabs(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchLabs();
+  }, []);
 
   // Função para verificar se o nome foi pré-cadastrado pelo administrador
   const checkPreRegisteredName = async (fullName: string) => {
@@ -199,68 +229,140 @@ export function Sign() {
         }
       }
 
-      // Verificar se o nome foi pré-cadastrado pelo administrador
-      const preRegisteredProfile = await checkPreRegisteredName(formData.fullName);
+      if (isTechnician) {
+        // Cadastro de técnico de laboratório
+        if (!selectedLabId) {
+          toast({
+            title: "Laboratório não selecionado",
+            description: "Por favor, selecione o laboratório ao qual você é técnico.",
+            variant: "destructive",
+          });
+          setIsLoading(false);
+          return;
+        }
 
-      if (!preRegisteredProfile) {
-        toast({
-          title: "Acesso não autorizado",
-          description:
-            "Seu nome não foi encontrado no sistema. Entre em contato com o administrador para ser adicionado primeiro.",
-          variant: "destructive",
-        });
-        setIsLoading(false);
-        return;
-      }
-
-      // Verificar se o perfil já tem user_id (já foi registrado)
-      if (preRegisteredProfile.user_id) {
-        toast({
-          title: "Usuário já registrado",
-          description: "Este pesquisador já completou o registro.",
-          variant: "destructive",
-        });
-        setIsLoading(false);
-        return;
-      }
-
-      // Criar conta no Supabase Auth
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email: formData.email,
-        password: formData.password,
-        options: {
-          emailRedirectTo: `${window.location.origin}/email-confirmed`,
-          data: {
-            full_name: formData.fullName,
-            institution: "UFBA",
-            phone: formData.phone,
-            researcher_route: preRegisteredProfile.researcher_route || "pesquisador",
-            profile_id: preRegisteredProfile.id,
+        const { data: authData, error: authError } = await supabase.auth.signUp({
+          email: formData.email,
+          password: formData.password,
+          options: {
+            emailRedirectTo: `${window.location.origin}/email-confirmed`,
+            data: {
+              full_name: formData.fullName,
+              institution: "UFBA",
+              phone: formData.phone,
+              is_technician: true,
+              laboratory_id: selectedLabId,
+            },
           },
-        },
-      });
-
-      if (authError) {
-        toast({
-          title: "Erro no registro",
-          description: authError.message,
-          variant: "destructive",
         });
-        setIsLoading(false);
-        return;
+
+        if (authError || !authData.user) {
+          toast({
+            title: "Erro no registro",
+            description: authError?.message || "Erro ao criar conta.",
+            variant: "destructive",
+          });
+          setIsLoading(false);
+          return;
+        }
+
+        // Criar perfil de técnico via edge function (service role)
+        const { error: functionError } = await supabase.functions.invoke("register-technician", {
+          body: {
+            user_id: authData.user.id,
+            full_name: formData.fullName,
+            email: formData.email,
+            phone: formData.phone,
+            laboratory_id: selectedLabId,
+          },
+        });
+
+        if (functionError) {
+          console.error("Erro ao registrar técnico:", functionError);
+          toast({
+            title: "Cadastro parcialmente concluído",
+            description:
+              "Conta criada, mas houve um erro ao vincular o laboratório. Entre em contato com o administrador.",
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Cadastro realizado!",
+            description:
+              "Um email de confirmação foi enviado para " +
+              formData.email +
+              ". Por favor, confirme seu email para poder fazer login.",
+            duration: 8000,
+          });
+        }
+
+        setRegisteredEmail(formData.email);
+        setSuccess(true);
+      } else {
+        // Cadastro de pesquisador (fluxo original com pré-cadastro)
+        // Verificar se o nome foi pré-cadastrado pelo administrador
+        const preRegisteredProfile = await checkPreRegisteredName(formData.fullName);
+
+        if (!preRegisteredProfile) {
+          toast({
+            title: "Acesso não autorizado",
+            description:
+              "Seu nome não foi encontrado no sistema. Entre em contato com o administrador para ser adicionado primeiro.",
+            variant: "destructive",
+          });
+          setIsLoading(false);
+          return;
+        }
+
+        // Verificar se o perfil já tem user_id (já foi registrado)
+        if (preRegisteredProfile.user_id) {
+          toast({
+            title: "Usuário já registrado",
+            description: "Este pesquisador já completou o registro.",
+            variant: "destructive",
+          });
+          setIsLoading(false);
+          return;
+        }
+
+        // Criar conta no Supabase Auth
+        const { data: authData, error: authError } = await supabase.auth.signUp({
+          email: formData.email,
+          password: formData.password,
+          options: {
+            emailRedirectTo: `${window.location.origin}/email-confirmed`,
+            data: {
+              full_name: formData.fullName,
+              institution: "UFBA",
+              phone: formData.phone,
+              researcher_route: preRegisteredProfile.researcher_route || "pesquisador",
+              profile_id: preRegisteredProfile.id,
+            },
+          },
+        });
+
+        if (authError) {
+          toast({
+            title: "Erro no registro",
+            description: authError.message,
+            variant: "destructive",
+          });
+          setIsLoading(false);
+          return;
+        }
+
+        toast({
+          title: "Cadastro realizado!",
+          description:
+            "Um email de confirmação foi enviado para " +
+            formData.email +
+            ". Por favor, confirme seu email para poder fazer login e editar suas informações.",
+          duration: 8000,
+        });
+
+        setRegisteredEmail(formData.email);
+        setSuccess(true);
       }
-
-      toast({
-        title: "Cadastro realizado!",
-        description:
-          "Um email de confirmação foi enviado para " +
-          formData.email +
-          ". Por favor, confirme seu email para poder fazer login e editar suas informações.",
-        duration: 8000,
-      });
-
-      setRegisteredEmail(formData.email);
-      setSuccess(true);
     } catch (error: any) {
       toast({
         title: "Erro no registro",
@@ -817,22 +919,48 @@ export function Sign() {
           <img src={logocpgg} alt="CPGG" />
         </div>
 
-        <div className={styles.formBox} style={{ maxWidth: "600px", margin: "0 auto" }}>
-          <div className={styles.formTitle}>
-            <p>Criar Nova Conta</p>
-            <p
-              style={{
-                fontSize: "12px",
-                color: "rgba(0, 0, 0, 0.5)",
-                marginTop: "8px",
-                fontWeight: "normal",
-              }}
-            >
-              A criação de uma conta permite ao pesquisador alterar as informações da sua página pessoal
-            </p>
-          </div>
+          <div className={styles.formBox} style={{ maxWidth: "600px", margin: "0 auto" }}>
+            <div className={styles.formTitle}>
+              <p>Criar Nova Conta</p>
+              <p
+                style={{
+                  fontSize: "12px",
+                  color: "rgba(0, 0, 0, 0.5)",
+                  marginTop: "8px",
+                  fontWeight: "normal",
+                }}
+              >
+                {isTechnician
+                  ? "Cadastro para técnicos de laboratório vinculados ao CPGG"
+                  : "A criação de uma conta permite ao pesquisador alterar as informações da sua página pessoal"}
+              </p>
+            </div>
 
-          <form onSubmit={handleSubmit} className={styles.form}>
+            <div className={styles.roleToggle}>
+              <button
+                type="button"
+                className={!isTechnician ? styles.activeRole : ""}
+                onClick={() => {
+                  setIsTechnician(false);
+                  setSelectedLabId("");
+                }}
+                disabled={isLoading}
+              >
+                Pesquisador
+              </button>
+              <button
+                type="button"
+                className={isTechnician ? styles.activeRole : ""}
+                onClick={() => {
+                  setIsTechnician(true);
+                }}
+                disabled={isLoading}
+              >
+                Técnico de laboratório
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit} className={styles.form} style={{ paddingTop: "0.75rem" }}>
             <div style={{ width: "100%" }}>
               <input
                 type="text"
@@ -873,6 +1001,39 @@ export function Sign() {
               required
               disabled={isLoading}
             />
+            {isTechnician && (
+              <div className={styles.labSelection}>
+                <p className={styles.labSelectionTitle}>Selecione o laboratório:</p>
+                {isLoadingLabs ? (
+                  <p className={styles.labLoading}>Carregando laboratórios...</p>
+                ) : labs.length === 0 ? (
+                  <p className={styles.labLoading}>Nenhum laboratório encontrado.</p>
+                ) : (
+                  <div className={styles.labGrid}>
+                    {labs.map((lab) => (
+                      <label
+                        key={lab.id}
+                        className={`${styles.labOption} ${
+                          selectedLabId === lab.id ? styles.labOptionSelected : ""
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={selectedLabId === lab.id}
+                          onChange={() =>
+                            setSelectedLabId((prev) => (prev === lab.id ? "" : lab.id))
+                          }
+                          disabled={isLoading}
+                        />
+                        <span>
+                          {lab.name} ({lab.acronym})
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
             <input
               type="password"
               name="password"
