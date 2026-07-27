@@ -1,145 +1,167 @@
+/* LEMAR — Fluid responsive layout (CSS Grid + clamp) */
+
 .pageContainer {
   display: flex;
   flex-direction: column;
-  height: 100vh !important;
-  max-height: 100vh !important;
-  overflow: hidden !important;
-  position: fixed !important;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .laiga {
-  text-align: justify;
-  font-size: 18px;
-  line-height: 35px;
-  column-count: 1;
-  display: flex;
   flex: 1;
+  width: 100%;
   color: #fff;
-  padding-top: 140px;
-  padding-bottom: 543px;
-  padding-left: 280px;
-  padding-right: 200px;
+  padding: clamp(90px, 12vw, 160px) clamp(12px, 4vw, 48px) clamp(60px, 8vw, 120px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
 }
 
-.Title ul {
-  font-size: 35px;
-  color: #363F5;
-  margin-top: -30px;
-  margin-left: calc(50% - 445px);
-  padding-left: 0;
-  padding-bottom: 20px;
-  white-space: nowrap;
-  font-weight: bold;
-}
-
-.Title a {
-  font-size: 20px;
-  color: #363F5;
-  margin: 0;
-  padding: 0;
-  padding-bottom: 20px;
-  white-space: normal;
-  display: block;
-  text-align: center;
+.Title {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 5;
 }
 
 .box {
-  text-align: justify-all;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+  padding: clamp(16px, 2.5vw, 32px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(6px);
+  display: grid;
+  grid-template-columns: minmax(240px, 320px) 1fr;
+  gap: clamp(16px, 2.5vw, 32px);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .box {
+    grid-template-columns: 1fr;
+  }
+}
+
+.photoGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(12px, 1.5vw, 20px);
+  width: 100%;
+}
+
+@media (max-width: 900px) and (min-width: 481px) {
+  .photoGrid { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+.photoBox1,
+.photoBox2,
+.photoBox3 {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   border: 2px solid rgba(255, 255, 255, 0.2);
   background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+
+.legend {
   position: absolute;
-  width: 650px;
-  height: 430px;
-  top: 25%;
-  left: calc(2% + 75px);
-  padding: 20px;
-  padding-left: 300px;
-  border-radius: 20px;
-  gap: 5px;
-  margin-bottom: -500px;
-  overflow-y: scroll;
-}
-
-.box b {
-  font-size: 12px;
-  color: #363F5;
-  margin-left: 0;
-  white-space: nowrap;
-}
-
-.box p {
-  font-size: 16px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  margin: 0;
+  padding: 4px 6px;
+  font-size: clamp(10px, 1.1vw, 13px);
   color: #fff;
-  text-align: justify;
-  margin-bottom: 15px;
-  line-height: 1.6;
-}
-
-.box span {
-  font-size: 16px;
-  color: #fff;
-  margin-left: 0;
   text-align: center;
-  display: block;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 6px;
+  line-height: 1.2;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1vw, 14px);
+  min-width: 0;
 }
 
 .box ul {
-  font-size: 28px;
+  font-size: clamp(20px, 2.6vw, 32px);
   color: #363F5;
+  font-weight: bold;
   text-align: center;
   margin: 0;
-  margin-bottom: 20px;
   padding: 0;
-  padding-top: 10px;
-  white-space: normal;
-  font-weight: bold;
   list-style: none;
+  line-height: 1.2;
 }
 
-.purpleText {
-  color: rgba(147, 106, 235) !important;
-  font-size: 13px !important;
-  text-align: center !important;
-  display: block !important;
-  margin-left: 0 !important;
+.subtitle,
+.box .subtitle {
+  display: block;
+  font-size: clamp(14px, 1.4vw, 18px);
+  color: #363F5;
+  text-align: center;
+  margin: 0 0 6px;
+  line-height: 1.3;
 }
 
-.priceList {
-  font-size: 16px !important;
+.box p {
+  font-size: clamp(13px, 1.05vw, 16px);
   color: #fff;
   text-align: justify;
-  list-style: disc !important;
-  padding-left: 20px !important;
-  margin: 0 !important;
-  margin-bottom: 15px !important;
-  font-weight: normal !important;
-  white-space: normal !important;
+  line-height: 1.55;
+  margin: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
-.priceList li {
-  margin-bottom: 8px;
-  line-height: 1.6;
+.box b,
+.box .purpleText {
+  font-size: clamp(12px, 1vw, 14px);
+  color: rgba(147, 106, 235);
+  display: block;
+  text-align: center;
+  margin: 6px 0 0;
+}
+
+.box span {
+  font-size: clamp(13px, 1.05vw, 16px);
+  color: #fff;
+  display: block;
+  text-align: center;
+  margin: 0;
+}
+
+.emailLine {
+  font-size: clamp(11px, 0.9vw, 13px) !important;
 }
 
 .purpleLink {
+  display: inline-block;
   color: rgba(147, 106, 235);
-  text-decoration: underline;
-  display: inline !important;
-  font-size: inherit !important;
-  white-space: normal !important;
-  padding: 0 !important;
+  font-size: clamp(12px, 1vw, 14px);
+  word-break: break-word;
 }
 
 .requerimentoButton {
-  margin: 24px 0 8px;
+  margin-top: clamp(12px, 2vw, 24px);
   display: flex;
-  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  width: 100%;
 }
 
 .buttonLink,
@@ -150,14 +172,13 @@
   gap: 8px;
   background: linear-gradient(135deg, #592cbb 0%, #7c4dff 100%);
   color: #fff;
-  padding: 12px 26px;
+  padding: 0 clamp(16px, 2vw, 28px);
   min-height: 44px;
   line-height: 1;
   border-radius: 999px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 16px;
-  letter-spacing: 0.2px;
+  font-size: clamp(13px, 1.1vw, 16px);
   white-space: nowrap;
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 6px 18px rgba(89, 44, 187, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.18);
@@ -172,451 +193,26 @@
   transition: transform 0.18s ease;
 }
 
-.buttonLink:hover,
-.Title .buttonLink:hover {
+.buttonLink:hover {
   transform: translateY(-1px);
-  box-shadow: 0 10px 24px rgba(89, 44, 187, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.22);
   filter: brightness(1.05);
+  box-shadow: 0 10px 24px rgba(89, 44, 187, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
-.buttonLink:hover::after,
-.Title .buttonLink:hover::after {
+.buttonLink:hover::after {
   transform: translateX(3px);
 }
 
-.buttonLink:focus-visible,
-.Title .buttonLink:focus-visible {
-  outline: 2px solid #ffffff;
-  outline-offset: 3px;
+.buttonLink:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
-.photoBox1 {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  background-color: rgba(255, 255, 255, 0.2);
-  position: absolute;
-  width: 250px;
-  height: 190px;
-  top: 110px;
-  left: 15px;
-  padding: 10px;
-  border-radius: 20px;
-  gap: 5px;
-  background-size: cover;
-  background-position: center;
-}
-
-.photoBox2 {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  background-color: rgba(255, 255, 255, 0.2);
-  position: absolute;
-  width: 250px;
-  height: 190px;
-  top: 365px;
-  left: 15px;
-  padding: 10px;
-  border-radius: 20px;
-  gap: 5px;
-  background-size: cover;
-  background-position: center;
-}
-
-.photoBox3 {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  background-color: rgba(255, 255, 255, 0.2);
-  position: absolute;
-  width: 250px;
-  height: 190px;
-  top: 620px;
-  left: 15px;
-  padding: 10px;
-  border-radius: 20px;
-  gap: 5px;
-  background-size: cover;
-  background-position: center;
-}
-
-.staticFigure img {
-  width: auto;
-  height: 40rem;
-  max-width: 100%;
-  object-fit: contain;
-  margin: 0;
-  padding: 0;
-  display: block;
-}
-
-/* Grandes Telas/4K - ≥ 1601px */
-@media (min-width: 1601px) {
-  .laiga {
-    padding-left: 400px;
-    padding-right: 300px;
-    font-size: 20px;
-    line-height: 40px;
-  }
-
-  .box {
-    width: 930px;
-    height: 520px;
-    padding-left: 340px;
-  }
-}
-
-/* Desktop/HD - 1201px - 1600px */
-@media (min-width: 1201px) and (max-width: 1600px) {
-  .laiga {
-    padding-left: 280px;
-    padding-right: 200px;
-    font-size: 18px;
-    line-height: 35px;
-  }
-
-  .box {
-    width: 760px;
-    height: 430px;
-    padding-left: 300px;
-  }
-}
-
-/* Laptop - 1025px - 1200px */
-@media (min-width: 1025px) and (max-width: 1200px) {
-  .laiga {
-    padding-left: 200px;
-    padding-right: 150px;
-    font-size: 16px;
-    line-height: 32px;
-    padding-bottom: 600px;
-  }
-
-  .box {
-    width: 700px;
-    height: 600px;
-    left: 5%;
-    top: 25%;
-    left: calc(2% + 75px);
-    padding: 20px;
-    padding-left: 40px;
-    border-radius: 20px;
-    gap: 5px;
-    margin-bottom: -500px;
-    font-size: 12px;
-  }
-
-  .Title ul {
-    padding-left: 150px;
-    font-size: 32px;
-  }
-
-  .Title a {
-    font-size: 22px;
-    margin-top: -30px;
-  }
-}
-
-/* Tablet - 769px - 1024px */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .laiga {
-    padding-left: 20px;
-    padding-right: 20px;
-    font-size: 13px;
-    line-height: 26px;
-    padding-bottom: 950px;
-  }
-
-  .box {
-    width: 700px;
-    height: 600px;
-    left: 5%;
-    top: 25%;
-    left: calc(2% + 75px);
-    padding: 20px;
-    padding-left: 40px;
-    border-radius: 20px;
-    gap: 5px;
-    margin-bottom: -500px;
-    font-size: 12px;
-  }
-
-  .box p {
-    font-size: 13px;
-    line-height: 1.5;
-    margin-bottom: 12px;
-  }
-
-  .box ul {
-    font-size: 24px;
-    margin-bottom: 15px;
-  }
-
-  .Title ul {
-    margin-left: 0;
-    padding-left: 0;
-    font-size: 24px;
-    text-align: center;
-  }
-
-  .Title a {
-    font-size: 18px;
-    margin-top: -20px;
-    text-align: center;
-    margin-left: 0;
-  }
-}
-
-.legend {
-  font-size: 12px;
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  top: 190px;
-  color: #fff;
-  text-align: center;
-}
-
-/* Tablet - fotos */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .photoBox1,
-  .photoBox2,
-  .photoBox3 {
-    width: 200px !important;
-    height: 200px !important;
-  }
-}
-
-/* Mobile (Médio) - 481px - 768px */
-@media (min-width: 481px) and (max-width: 768px) {
-  .laiga {
-    padding-left: 15px;
-    padding-right: 15px;
-    font-size: 12px;
-    line-height: 24px;
-    padding-bottom: 1100px;
-  }
-
-  .box {
-    width: 550px !important;
-    height: 350px !important;
-    position: absolute !important;
-    left: 150px !important;
-    top: 20% !important;
-    padding: 15px !important;
-    padding-left: 15px !important;
-    padding-right: 15px !important;
-    font-size: 9px;
-  }
-
-  .box p {
-    font-size: 11px;
-    line-height: 1.4;
-    margin-bottom: 10px;
-  }
-
-  .box ul {
-    font-size: 20px;
-    margin-bottom: 12px;
-  }
-
-  .Title ul {
-    margin-left: 0;
-    padding-left: 0;
-    font-size: 20px;
-    text-align: center;
-  }
-
-  .Title a {
-    font-size: 16px;
-    text-align: center;
-    margin-left: 0;
-    margin-top: -35px;
-  }
-}
-
-/* Mobile (Pequeno) - 320px - 480px */
 @media (max-width: 480px) {
-  .laiga {
-    padding-left: 10px;
-    padding-right: 10px;
-    font-size: 11px;
-    line-height: 22px;
-    padding-bottom: 1300px;
-  }
-
-  .box {
-    width: 450px !important;
-    height: 400px !important;
-    position: absolute !important;
-    left: 110px !important;
-    top: 18% !important;
-    padding: 10px !important;
-    padding-left: 10px !important;
-    padding-right: 10px !important;
-    font-size: 8px;
-    overflow-y: auto;
-  }
-
-  .box p {
-    font-size: 10px;
-    line-height: 1.3;
-    margin-bottom: 8px;
-  }
-
-  .box ul {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-
-  .Title ul {
-    margin-left: 0;
-    padding-left: 0;
-    font-size: 18px;
-    text-align: center;
-    white-space: normal;
-  }
-
-  .Title a {
-    font-size: 14px;
-    text-align: center;
-    margin-left: 0;
-    margin-top: 0 !important;
-    white-space: normal;
-  }
-}
-
-/* Mobile ≤430px */
-@media (max-width: 430px) {
-  .pageContainer {
-    position: relative !important;
-    height: auto !important;
-    min-height: 100vh !important;
-    max-height: none !important;
-    overflow-y: auto !important;
-  }
-
-  .laiga {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    padding-top: 170px !important;
-    padding-bottom: 100px !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: flex-start !important;
-    overflow: visible !important;
-  }
-
-  .Title {
-    width: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
-  }
-
-  .box {
-    position: relative !important;
-    left: 0 !important;
-    top: 0 !important;
-    width: 95% !important;
-    max-width: 95% !important;
-    margin: 0 auto !important;
-    padding: 15px !important;
-    padding-left: 15px !important;
-    padding-right: 15px !important;
-    height: auto !important;
-    max-height: none !important;
-    overflow: visible !important;
-    min-height: auto !important;
-  }
-
-  .Title ul {
-    text-align: center !important;
-    margin-left: 0 !important;
-    padding-left: 0 !important;
-    margin-top: 0 !important;
-  }
-
-  .Title a {
-    text-align: center !important;
-    margin-left: 0 !important;
-    margin-top: 10px !important;
-  }
-
-  .box p {
-    text-align: justify !important;
-    margin-bottom: 10px !important;
-  }
-
-  .box span,
-  .box b {
-    margin-left: 0 !important;
-    text-align: center !important;
-  }
-
-  .photoBox1,
-  .photoBox2,
-  .photoBox3 {
-    position: relative !important;
-    left: 0 !important;
-    top: 0 !important;
-    width: 90% !important;
-    height: 250px !important;
-    margin: 10px auto !important;
-  }
-}
-
-/* Media query específica para telas até 390x844 */
-@media (max-width: 390px) and (max-height: 844px) {
-  .laiga {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    padding-top: 120px !important;
-    justify-content: center !important;
-  }
-
-  .box {
-    position: relative !important;
-    left: 0 !important;
-    top: 50px !important;
-    width: 95% !important;
-    max-width: 95% !important;
-    margin: 0 auto !important;
-    padding: 15px !important;
-    padding-left: 15px !important;
-    padding-right: 15px !important;
-    height: auto !important;
-    max-height: 60vh !important;
-    overflow-y: auto !important;
-    min-height: 400px !important;
-  }
-
-  .Title ul {
-    text-align: center !important;
-    margin-left: 0 !important;
-    padding-left: 0 !important;
-    margin-top: -20px !important;
-  }
-
-  .Title a {
-    margin-top: 30px !important;
-  }
-
-  .box p {
-    margin-bottom: 7.5px !important;
-    text-align: justify !important;
-  }
-
-  .box span,
-  .box b {
-    margin-left: 0 !important;
-    text-align: center !important;
-  }
-
-  .purpleText {
-    text-align: center !important;
-  }
+  .laiga { padding-top: 100px; }
+  .photoGrid { max-width: 320px; margin: 0 auto; }
+  .box { padding: 16px; }
+  .requerimentoButton { flex-direction: column; }
+  .buttonLink,
+  .Title .buttonLink { width: 100%; }
 }
