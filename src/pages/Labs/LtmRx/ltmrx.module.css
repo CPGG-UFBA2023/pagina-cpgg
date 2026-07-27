@@ -100,7 +100,7 @@
   min-width: 0;
 }
 
-.box ul {
+.content > ul {
   font-size: clamp(20px, 2.6vw, 32px);
   color: #363F5;
   font-weight: bold;
