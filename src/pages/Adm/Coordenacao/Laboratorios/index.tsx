@@ -309,6 +309,7 @@ export function LaboratoriosAdmin() {
                     <td>{lab.acronym}</td>
                     <td>{lab.chief_name}</td>
                     <td>{lab.chief_alternative_email || '-'}</td>
+                    <td>{lab.technician_name || '-'}</td>
                     <td>
                       <Button
                         onClick={() => handleEdit(lab)}
