@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS "Only admins can view admin_users" ON public.admin_users;
