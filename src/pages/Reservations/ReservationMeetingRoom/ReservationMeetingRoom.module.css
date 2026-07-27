@@ -116,9 +116,10 @@
 
 /* Tablet (≥640px) — 2 cols for date fields */
 @media (min-width: 640px) {
-  .container {
+  .box .container {
     grid-template-columns: 1fr 1fr;
   }
+
   .MR {
     padding-left: 24px;
     padding-right: 24px;
