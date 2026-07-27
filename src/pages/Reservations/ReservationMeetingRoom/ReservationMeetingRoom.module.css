@@ -72,12 +72,15 @@
   color: #000;
 }
 
-.container {
-  display: grid;
+.box .container {
+  display: grid !important;
   grid-template-columns: 1fr;
   gap: 12px;
   margin-top: 10px;
+  min-height: auto !important;
+  height: auto !important;
 }
+
 
 .dateField {
   display: flex;
@@ -113,9 +116,10 @@
 
 /* Tablet (≥640px) — 2 cols for date fields */
 @media (min-width: 640px) {
-  .container {
+  .box .container {
     grid-template-columns: 1fr 1fr;
   }
+
   .MR {
     padding-left: 24px;
     padding-right: 24px;
@@ -148,14 +152,20 @@
     left: calc(10% + 130px);
     width: 600px;
     max-width: 600px;
+    max-height: 68vh;
     margin: 0;
     padding: 20px 20px 40px;
+    overflow-y: auto;
+    scrollbar-width: thin;
   }
+
 }
 
 @media (min-width: 1400px) {
   .box {
-    height: 620px;
+    height: auto;
+    max-height: 68vh;
     top: 15%;
   }
 }
+
