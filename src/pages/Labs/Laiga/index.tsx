@@ -52,9 +52,12 @@ export function Laiga() {
            <b className={styles.purpleText}>{t('laiga.chief')}</b>
            <span>{t('laiga.chiefName')}</span>
            
-           <div className={styles.requerimentoButton}>
+           <div className={styles.requerimentoButton} style={{ flexDirection: 'column', alignItems: 'flex-start', gap: 10 }}>
              <Link to="/labs/laiga/reservation-form" className={styles.buttonLink}>
                {t('laiga.requestButton')}
+             </Link>
+             <Link to="/labs/laiga/repositorio/login" className={styles.buttonLink}>
+               Repositório
              </Link>
            </div>
 

@@ -68,6 +68,9 @@ import { DynamicLab } from './pages/Labs/DynamicLab'
 import { RF } from './pages/Labs/Laiga/ReservationForm'
 import { LaigaReceipt } from './pages/Labs/Laiga/Receipt'
 import { LaigaSuccess } from './pages/Labs/Laiga/Success'
+import { RepositorioLogin } from './pages/Labs/Laiga/Repositorio/Login'
+import { RepositorioHome } from './pages/Labs/Laiga/Repositorio'
+import { RepositorioFolder } from './pages/Labs/Laiga/Repositorio/Folder'
 import { Lagep } from './pages/Labs/Lagep'
 import { Lamod } from './pages/Labs/Lamod'
 import { LamodRF } from './pages/Labs/Lamod/ReservationForm'
@@ -191,6 +194,9 @@ export function Router() {
          <Route path='/labs/laiga/reservation-form' element={<RF />} />
          <Route path='/labs/laiga/receipt' element={<LaigaReceipt />} />
          <Route path='/labs/laiga/success' element={<LaigaSuccess />} />
+         <Route path='/labs/laiga/repositorio/login' element={<RepositorioLogin />} />
+         <Route path='/labs/laiga/repositorio' element={<RepositorioHome />} />
+         <Route path='/labs/laiga/repositorio/pasta/:folderId' element={<RepositorioFolder />} />
          <Route path='/labs/lagep' element={<Lagep />} />
          <Route path='/labs/lamod' element={<Lamod />} />
          <Route path='/labs/lamod/reservation-form' element={<LamodRF />} />
