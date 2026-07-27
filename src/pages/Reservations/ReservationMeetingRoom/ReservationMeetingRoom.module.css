@@ -152,9 +152,13 @@
     left: calc(10% + 130px);
     width: 600px;
     max-width: 600px;
+    max-height: 68vh;
     margin: 0;
     padding: 20px 20px 40px;
+    overflow-y: auto;
+    scrollbar-width: thin;
   }
+
 }
 
 @media (min-width: 1400px) {
