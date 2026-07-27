@@ -27,8 +27,8 @@
   .repairs-page main.repairs {
     flex: 1 !important;
     overflow: hidden !important;
-    overflow-y: hidden !important;
-    padding-bottom: 0 !important;
+    overflow-y: auto !important;
+    padding-bottom: 20px !important;
     max-height: calc(100vh - 150px) !important;
   }
 
