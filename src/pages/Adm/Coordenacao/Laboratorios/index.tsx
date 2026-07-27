@@ -101,7 +101,8 @@ export function LaboratoriosAdmin() {
           name: editingLab.name,
           acronym: editingLab.acronym,
           chief_name: editingLab.chief_name,
-          chief_alternative_email: editingLab.chief_alternative_email || null
+          chief_alternative_email: editingLab.chief_alternative_email || null,
+          technician_name: editingLab.technician_name.trim() || null
         })
         .eq('id', editingLab.id)
 
@@ -116,7 +117,8 @@ export function LaboratoriosAdmin() {
                 name: editingLab.name,
                 acronym: editingLab.acronym,
                 chief_name: editingLab.chief_name,
-                chief_alternative_email: editingLab.chief_alternative_email || null
+                chief_alternative_email: editingLab.chief_alternative_email || null,
+                technician_name: editingLab.technician_name.trim() || null
               }
             : lab
         )
