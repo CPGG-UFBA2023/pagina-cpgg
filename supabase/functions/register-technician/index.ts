@@ -53,10 +53,10 @@ serve(async (req) => {
       );
     }
 
-    // Verify the laboratory exists
+    // Verify the laboratory exists and validate the technician name
     const { data: labData, error: labError } = await supabase
       .from("laboratories")
-      .select("id")
+      .select("id, technician_name")
       .eq("id", laboratory_id)
       .single();
 
@@ -64,6 +64,29 @@ serve(async (req) => {
       return new Response(
         JSON.stringify({ success: false, error: "Laboratório não encontrado" }),
         { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const registeredTechName = (labData.technician_name ?? "").trim();
+    if (!registeredTechName) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error:
+            "Este laboratório ainda não tem um técnico autorizado. Peça ao coordenador para cadastrar o nome do técnico no painel de administração.",
+        }),
+        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    if (full_name.trim() !== registeredTechName) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error:
+            "O nome informado não confere com o técnico autorizado para este laboratório. Digite o nome exatamente como cadastrado pela coordenação.",
+        }),
+        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
