@@ -11,17 +11,22 @@ export function RepositorioLogin() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  const hasRepoAccess = async (userId: string) => {
+    const [{ data: access }, { data: chief }] = await Promise.all([
+      supabase.from('laiga_repository_access').select('id').eq('user_id', userId).maybeSingle(),
+      supabase.from('laboratories').select('id').eq('chief_user_id', userId).maybeSingle(),
+    ])
+    return Boolean(access || chief)
+  }
+
   useEffect(() => {
     let mounted = true
     const check = async () => {
       const { data: { session } } = await supabase.auth.getSession()
       if (!session?.user || !mounted) return
-      const { data } = await supabase
-        .from('laiga_repository_access')
-        .select('id')
-        .eq('user_id', session.user.id)
-        .maybeSingle()
-      if (data && mounted) navigate('/labs/laiga/repositorio', { replace: true })
+      if ((await hasRepoAccess(session.user.id)) && mounted) {
+        navigate('/labs/laiga/repositorio', { replace: true })
+      }
     }
     check()
     return () => { mounted = false }
