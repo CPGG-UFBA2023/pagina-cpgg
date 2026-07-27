@@ -241,6 +241,47 @@ export function Sign() {
           return;
         }
 
+        // Validar que o nome informado bate exatamente com o técnico autorizado
+        const { data: labRow, error: labLookupError } = await supabase
+          .from("laboratories")
+          .select("technician_name")
+          .eq("id", selectedLabId)
+          .maybeSingle();
+
+        if (labLookupError || !labRow) {
+          toast({
+            title: "Erro",
+            description: "Não foi possível validar o laboratório selecionado.",
+            variant: "destructive",
+          });
+          setIsLoading(false);
+          return;
+        }
+
+        const registeredTechName = (labRow.technician_name ?? "").trim();
+        if (!registeredTechName) {
+          toast({
+            title: "Técnico não autorizado",
+            description:
+              "Este laboratório ainda não tem um técnico cadastrado pela coordenação. Solicite ao coordenador que registre o nome do técnico no painel.",
+            variant: "destructive",
+          });
+          setIsLoading(false);
+          return;
+        }
+
+        if (formData.fullName.trim() !== registeredTechName) {
+          toast({
+            title: "Nome não confere",
+            description:
+              "O nome informado não corresponde ao técnico autorizado para este laboratório. Digite-o exatamente como foi cadastrado pela coordenação.",
+            variant: "destructive",
+          });
+          setIsLoading(false);
+          return;
+        }
+
+
         const { data: authData, error: authError } = await supabase.auth.signUp({
           email: formData.email,
           password: formData.password,

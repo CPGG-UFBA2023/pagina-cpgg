@@ -14,6 +14,7 @@ interface Laboratory {
   acronym: string
   chief_name: string
   chief_alternative_email: string | null
+  technician_name: string | null
 }
 
 interface AdminUser {
@@ -28,6 +29,7 @@ interface EditingLab {
   acronym: string
   chief_name: string
   chief_alternative_email: string
+  technician_name: string
 }
 
 export function LaboratoriosAdmin() {
@@ -57,7 +59,7 @@ export function LaboratoriosAdmin() {
     try {
       const { data, error } = await supabase
         .from('laboratories')
-        .select('id, name, acronym, chief_name, chief_alternative_email')
+        .select('id, name, acronym, chief_name, chief_alternative_email, technician_name')
         .order('acronym', { ascending: true })
 
       if (error) throw error
@@ -80,7 +82,8 @@ export function LaboratoriosAdmin() {
       name: lab.name,
       acronym: lab.acronym,
       chief_name: lab.chief_name,
-      chief_alternative_email: lab.chief_alternative_email || ''
+      chief_alternative_email: lab.chief_alternative_email || '',
+      technician_name: lab.technician_name || ''
     })
   }
 
@@ -98,7 +101,8 @@ export function LaboratoriosAdmin() {
           name: editingLab.name,
           acronym: editingLab.acronym,
           chief_name: editingLab.chief_name,
-          chief_alternative_email: editingLab.chief_alternative_email || null
+          chief_alternative_email: editingLab.chief_alternative_email || null,
+          technician_name: editingLab.technician_name.trim() || null
         })
         .eq('id', editingLab.id)
 
@@ -113,7 +117,8 @@ export function LaboratoriosAdmin() {
                 name: editingLab.name,
                 acronym: editingLab.acronym,
                 chief_name: editingLab.chief_name,
-                chief_alternative_email: editingLab.chief_alternative_email || null
+                chief_alternative_email: editingLab.chief_alternative_email || null,
+                technician_name: editingLab.technician_name.trim() || null
               }
             : lab
         )
@@ -215,6 +220,7 @@ export function LaboratoriosAdmin() {
               <th>Sigla</th>
               <th>Nome do Coordenador</th>
               <th>E-mail</th>
+              <th>Nome do Técnico</th>
               <th>Ações</th>
             </tr>
           </thead>
@@ -264,6 +270,19 @@ export function LaboratoriosAdmin() {
                       />
                     </td>
                     <td>
+                      <Input
+                        value={editingLab.technician_name}
+                        onChange={(e) =>
+                          setEditingLab({
+                            ...editingLab,
+                            technician_name: e.target.value
+                          })
+                        }
+                        className={styles.editInput}
+                        placeholder="Nome exato do técnico"
+                      />
+                    </td>
+                    <td>
                       <div className="flex items-center gap-2">
                         <Button
                           onClick={handleSaveEdit}
@@ -290,6 +309,7 @@ export function LaboratoriosAdmin() {
                     <td>{lab.acronym}</td>
                     <td>{lab.chief_name}</td>
                     <td>{lab.chief_alternative_email || '-'}</td>
+                    <td>{lab.technician_name || '-'}</td>
                     <td>
                       <Button
                         onClick={() => handleEdit(lab)}
