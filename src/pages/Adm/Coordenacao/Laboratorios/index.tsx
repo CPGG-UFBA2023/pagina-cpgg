@@ -82,7 +82,8 @@ export function LaboratoriosAdmin() {
       name: lab.name,
       acronym: lab.acronym,
       chief_name: lab.chief_name,
-      chief_alternative_email: lab.chief_alternative_email || ''
+      chief_alternative_email: lab.chief_alternative_email || '',
+      technician_name: lab.technician_name || ''
     })
   }
 
