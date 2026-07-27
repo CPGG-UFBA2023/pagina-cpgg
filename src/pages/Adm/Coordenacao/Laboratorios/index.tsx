@@ -14,6 +14,7 @@ interface Laboratory {
   acronym: string
   chief_name: string
   chief_alternative_email: string | null
+  technician_name: string | null
 }
 
 interface AdminUser {
@@ -28,6 +29,7 @@ interface EditingLab {
   acronym: string
   chief_name: string
   chief_alternative_email: string
+  technician_name: string
 }
 
 export function LaboratoriosAdmin() {
