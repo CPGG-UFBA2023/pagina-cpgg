@@ -270,6 +270,19 @@ export function LaboratoriosAdmin() {
                       />
                     </td>
                     <td>
+                      <Input
+                        value={editingLab.technician_name}
+                        onChange={(e) =>
+                          setEditingLab({
+                            ...editingLab,
+                            technician_name: e.target.value
+                          })
+                        }
+                        className={styles.editInput}
+                        placeholder="Nome exato do técnico"
+                      />
+                    </td>
+                    <td>
                       <div className="flex items-center gap-2">
                         <Button
                           onClick={handleSaveEdit}
