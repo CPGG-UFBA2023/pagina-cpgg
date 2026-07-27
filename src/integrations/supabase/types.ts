@@ -392,6 +392,101 @@ export type Database = {
         }
         Relationships: []
       }
+      laiga_repository_access: {
+        Row: {
+          created_at: string
+          full_name: string
+          id: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          full_name: string
+          id?: string
+          role?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string
+          id?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      laiga_repository_folders: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      laiga_repository_items: {
+        Row: {
+          checkout_date: string
+          created_at: string
+          created_by: string | null
+          folder_id: string
+          id: string
+          notes: string | null
+          photo_urls: string[]
+          professor_name: string
+          returned_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          checkout_date: string
+          created_at?: string
+          created_by?: string | null
+          folder_id: string
+          id?: string
+          notes?: string | null
+          photo_urls?: string[]
+          professor_name: string
+          returned_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          checkout_date?: string
+          created_at?: string
+          created_by?: string | null
+          folder_id?: string
+          id?: string
+          notes?: string | null
+          photo_urls?: string[]
+          professor_name?: string
+          returned_at?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "laiga_repository_items_folder_id_fkey"
+            columns: ["folder_id"]
+            isOneToOne: false
+            referencedRelation: "laiga_repository_folders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       news: {
         Row: {
           archive_number: number
@@ -853,6 +948,7 @@ export type Database = {
       generate_public_id: { Args: never; Returns: string }
       get_admin_role: { Args: never; Returns: string }
       is_admin: { Args: never; Returns: boolean }
+      is_laiga_repo_user: { Args: never; Returns: boolean }
       list_all_user_profiles: {
         Args: never
         Returns: {
