@@ -59,7 +59,7 @@ export function LaboratoriosAdmin() {
     try {
       const { data, error } = await supabase
         .from('laboratories')
-        .select('id, name, acronym, chief_name, chief_alternative_email')
+        .select('id, name, acronym, chief_name, chief_alternative_email, technician_name')
         .order('acronym', { ascending: true })
 
       if (error) throw error
