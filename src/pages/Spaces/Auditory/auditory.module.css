@@ -74,7 +74,7 @@
   margin: 0;
 }
 
-.buttonContainer {
+.btnWrap {
   display: flex;
   justify-content: center;
   margin: 0;
@@ -83,7 +83,7 @@
   z-index: 10;
 }
 
-.buttonContainer :global(a) {
+.btnWrap :global(a) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -99,7 +99,7 @@
   text-decoration: none;
 }
 
-.buttonContainer :global(a:hover) {
+.btnWrap :global(a:hover) {
   transform: translateY(-2px);
   box-shadow: 0 10px 24px rgba(89, 44, 187, 0.5);
   filter: brightness(1.05);
