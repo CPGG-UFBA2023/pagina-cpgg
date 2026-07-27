@@ -73,10 +73,12 @@
 }
 
 .container {
-  display: grid;
+  display: grid !important;
   grid-template-columns: 1fr;
   gap: 12px;
   margin-top: 10px;
+  min-height: auto !important;
+  height: auto !important;
 }
 
 .dateField {
