@@ -26,7 +26,9 @@ export function Coordenacao() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
+    if (isLoading) return
+
     if (!captchaToken) {
       toast({
         title: "Verificação necessária",
@@ -37,11 +39,13 @@ export function Coordenacao() {
     }
 
     setIsLoading(true)
-    
+    const tokenToVerify = captchaToken
+    // Consume the token immediately so it can never be reused
+    setCaptchaToken(null)
+
     try {
-      // Verify reCAPTCHA
       const { data: captchaData, error: captchaError } = await supabase.functions.invoke('verify-recaptcha', {
-        body: { token: captchaToken }
+        body: { token: tokenToVerify }
       })
 
       if (captchaError || !captchaData?.success) {
@@ -50,12 +54,9 @@ export function Coordenacao() {
           description: "Falha na verificação do reCAPTCHA. Tente novamente.",
           variant: "destructive"
         })
-        recaptchaRef.current?.reset()
-        setCaptchaToken(null)
         return
       }
 
-      // Autenticar com Supabase Auth
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -67,18 +68,15 @@ export function Coordenacao() {
           description: "Email ou senha incorretos.",
           variant: "destructive"
         })
-        recaptchaRef.current?.reset()
-        setCaptchaToken(null)
         return
       }
 
-      // Verificar se é coordenação
       const { data: adminData, error: adminError } = await supabase
         .from('admin_users')
         .select('*')
         .eq('user_id', authData.user.id)
         .eq('role', 'coordenacao')
-        .single()
+        .maybeSingle()
 
       if (adminError || !adminData) {
         await supabase.auth.signOut()
@@ -90,7 +88,6 @@ export function Coordenacao() {
         return
       }
 
-      // Login bem-sucedido - salvar dados na sessão e navegar
       sessionStorage.setItem('admin_user', JSON.stringify({
         id: authData.user.id,
         email: authData.user.email,
@@ -108,6 +105,8 @@ export function Coordenacao() {
         variant: "destructive"
       })
     } finally {
+      // Always reset the widget so the next attempt uses a fresh token
+      recaptchaRef.current?.reset()
       setIsLoading(false)
     }
   }
