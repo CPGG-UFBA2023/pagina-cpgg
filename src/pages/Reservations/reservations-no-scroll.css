@@ -126,7 +126,7 @@ main.receipt .container {
 
   .reservationAuditoryPage,
   .reservationMeetingRoomPage {
-    overflow: hidden !important;
+    overflow-x: hidden !important;
     overflow-y: auto !important;
     height: 100vh !important;
     max-height: 100vh !important;
