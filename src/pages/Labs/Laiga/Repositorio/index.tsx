@@ -33,16 +33,8 @@ export function RepositorioHome() {
       return
     }
     setUserEmail(session.user.email ?? '')
-    const { data: profile } = await supabase
-      .from('user_profiles').select('id').eq('user_id', session.user.id).maybeSingle()
-    const [{ data: a }, { data: chiefByAuth }, { data: chiefByProfile }] = await Promise.all([
-      supabase.from('laiga_repository_access').select('id').eq('user_id', session.user.id).maybeSingle(),
-      supabase.from('laboratories').select('id').eq('chief_user_id', session.user.id).maybeSingle(),
-      profile?.id
-        ? supabase.from('laboratories').select('id').eq('chief_user_id', profile.id).maybeSingle()
-        : Promise.resolve({ data: null } as any),
-    ])
-    if (!a && !chiefByAuth && !chiefByProfile) {
+    const { data: allowed } = await supabase.rpc('is_laiga_repo_user')
+    if (!allowed) {
       await supabase.auth.signOut()
       navigate('/labs/laiga/repositorio/login', { replace: true })
       return
