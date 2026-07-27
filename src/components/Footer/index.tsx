@@ -3,13 +3,18 @@ import { Linkedin, Instagram } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { VisitorCounter } from '../VisitorCounter'
 
-export function Footer() {
+interface FooterProps {
+  hideImage?: boolean;
+}
+
+export function Footer({ hideImage = false }: FooterProps) {
   const { t } = useLanguage();
   
   return (
     <footer className={styles.footer}>
-      <div className={styles.image} />
+      {!hideImage && <div className={styles.image} />}
       <div className={styles.bar}>
+
         <VisitorCounter />
         <nav>
 
