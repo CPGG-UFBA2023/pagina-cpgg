@@ -12,7 +12,7 @@
   justify-content: center;
   align-items: flex-start;
   padding: clamp(16px, 3vw, 40px);
-  padding-top: clamp(24px, 5vw, 60px);
+  padding-top: clamp(150px, 16vh, 180px);
   padding-bottom: clamp(24px, 5vw, 60px);
   color: #fff;
   position: relative;
