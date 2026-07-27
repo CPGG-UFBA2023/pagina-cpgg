@@ -163,7 +163,9 @@
 
 @media (min-width: 1400px) {
   .box {
-    height: 620px;
+    height: auto;
+    max-height: 68vh;
     top: 15%;
   }
 }
+
