@@ -72,12 +72,15 @@
   color: #000;
 }
 
-.container {
-  display: grid;
+.box .container {
+  display: grid !important;
   grid-template-columns: 1fr;
   gap: 12px;
   margin-top: 10px;
+  min-height: auto !important;
+  height: auto !important;
 }
+
 
 .dateField {
   display: flex;
