@@ -199,7 +199,7 @@ export function RepairsServices() {
           </form>
         </main>
         
-      <Footer />
+      <Footer hideImage />
     </div>
   )
 }
