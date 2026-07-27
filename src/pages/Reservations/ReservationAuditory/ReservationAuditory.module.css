@@ -114,9 +114,10 @@
 }
 
 @media (min-width: 640px) {
-  .container {
+  .box .container {
     grid-template-columns: 1fr 1fr;
   }
+
   .RA {
     padding-left: 24px;
     padding-right: 24px;
