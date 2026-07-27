@@ -12,11 +12,16 @@ export function RepositorioLogin() {
   const [error, setError] = useState<string | null>(null)
 
   const hasRepoAccess = async (userId: string) => {
-    const [{ data: access }, { data: chief }] = await Promise.all([
+    const { data: profile } = await supabase
+      .from('user_profiles').select('id').eq('user_id', userId).maybeSingle()
+    const [{ data: access }, { data: chiefByAuth }, { data: chiefByProfile }] = await Promise.all([
       supabase.from('laiga_repository_access').select('id').eq('user_id', userId).maybeSingle(),
       supabase.from('laboratories').select('id').eq('chief_user_id', userId).maybeSingle(),
+      profile?.id
+        ? supabase.from('laboratories').select('id').eq('chief_user_id', profile.id).maybeSingle()
+        : Promise.resolve({ data: null }),
     ])
-    return Boolean(access || chief)
+    return Boolean(access || chiefByAuth || chiefByProfile)
   }
 
   useEffect(() => {
