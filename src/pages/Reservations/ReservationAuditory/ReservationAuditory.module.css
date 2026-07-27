@@ -129,8 +129,10 @@
     position: relative;
     height: 100vh;
     max-height: 100vh;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
+
   .RA {
     padding-top: 150px;
     padding-bottom: 50px;

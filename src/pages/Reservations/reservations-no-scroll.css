@@ -102,7 +102,7 @@ main.receipt .container {
   max-height: calc(100vh - 200px) !important;
 }
 
-/* Reservation Auditory / Meeting Room — No Scroll only on desktop (≥1024px) */
+/* Reservation Auditory / Meeting Room — allow scroll on desktop (≥1024px) */
 @media (min-width: 1024px) {
   body:has(.reservationAuditoryPage),
   body:has(.reservationMeetingRoomPage) {
@@ -126,7 +126,8 @@ main.receipt .container {
 
   .reservationAuditoryPage,
   .reservationMeetingRoomPage {
-    overflow: hidden !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
     height: 100vh !important;
     max-height: 100vh !important;
   }
