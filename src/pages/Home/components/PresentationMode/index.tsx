@@ -56,8 +56,7 @@ export function PresentationMode({ onClose }: Props) {
 
   useEffect(() => {
     if (slides.length <= 1) return
-    const duration = index === 0 ? 30000 : 15000
-    const timer = setTimeout(() => setIndex((p) => (p + 1) % slides.length), duration)
+    const timer = setTimeout(() => setIndex((p) => (p + 1) % slides.length), 15000)
     return () => clearTimeout(timer)
   }, [index, slides.length])
 
