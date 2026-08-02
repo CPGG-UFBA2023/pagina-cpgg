@@ -147,13 +147,15 @@ export function SeniorResearchers() {
   )
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', overflow: 'visible' }}>
+    <div className={styles.pageContainer}>
       <Header />
-      <div className={`${styles.researchers} hide-earth`} style={{ flex: 1, overflow: 'visible', position: 'relative' }}>
-        <div className={styles.Programs}>
-          <ul>Pesquisadores Seniores</ul>
-          <div className={styles.card}>
+      <main className={`${styles.researchers} researchers hide-earth`}>
+        <div className={styles.contentArea}>
+          <div className={styles.Programs}>
+            <ul>Pesquisadores Seniores</ul>
+            <div className={styles.card}>
             <p className={styles.description}>
+
               A denominação "pesquisador sênior" foi normatizada pelo Conselho Científico no ano de 2023 a partir da aprovação da Deliberação Normativa 02/2023, em que os critérios para tal classificação são definidos.
             </p>
 
