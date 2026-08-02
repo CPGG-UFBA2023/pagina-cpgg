@@ -611,3 +611,27 @@
     font-size: 1.2rem !important;
   }
 }
+
+/* Botão Modo Apresentação */
+.presentationButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 9px 20px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #592cbb 0%, #7d4ee0 100%);
+  box-shadow: 0 4px 14px rgba(89, 44, 187, 0.35);
+  transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+}
+
+.presentationButton:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+  box-shadow: 0 6px 18px rgba(89, 44, 187, 0.45);
+}
