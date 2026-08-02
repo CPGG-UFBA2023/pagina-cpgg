@@ -228,9 +228,12 @@ export function SeniorResearchers() {
                 )
               })}
             </ul>
+            </div>
           </div>
         </div>
-      </div>
+      </main>
+      <Footer />
+
 
       {/* Floating edit button */}
       <FloatingEditButton
