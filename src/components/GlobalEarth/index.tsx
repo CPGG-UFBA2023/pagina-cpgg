@@ -42,8 +42,10 @@ export function GlobalEarth() {
   const isRepairsPage = location.pathname === '/repairs-services'
   const isLabReservationPage = /\/labs\/[^/]+\/reservation-form$/i.test(location.pathname)
   const isCpggPage = location.pathname.toLowerCase() === '/cpgg'
+  const isHistoryViewPage = location.pathname.toLowerCase() === '/history/view'
 
-  const shouldHide = hideOnRoutes.includes(location.pathname) || isPhotoSubPage || isNewsPage || isLaigaRepo || isLabMainPage || isSpacePage || isRepairsPage || isLabReservationPage || isCpggPage
+  const shouldHide = hideOnRoutes.includes(location.pathname) || isPhotoSubPage || isNewsPage || isLaigaRepo || isLabMainPage || isSpacePage || isRepairsPage || isLabReservationPage || isCpggPage || isHistoryViewPage
+
   
   if (shouldHide) {
     return null
