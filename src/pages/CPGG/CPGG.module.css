@@ -61,14 +61,14 @@
   min-width: 0;
 }
 
-.photoImage {
+.figImg {
+  display: block !important;
   width: 100%;
+  height: auto;
   aspect-ratio: 1 / 1;
+  object-fit: cover;
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 16px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .legend {

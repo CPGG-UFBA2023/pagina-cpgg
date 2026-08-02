@@ -27,12 +27,7 @@ export function CPGG() {
             <aside className={styles.gallery}>
               {photos.map((p, i) => (
                 <figure className={styles.photoCard} key={i}>
-                  <div
-                    className={styles.photoImage}
-                    style={{ backgroundImage: `url(${p.img})` }}
-                    role="img"
-                    aria-label={p.legend}
-                  />
+                  <img className={styles.figImg} src={p.img} alt={p.legend} loading="lazy" />
                   <figcaption className={styles.legend}>{p.legend}</figcaption>
                 </figure>
               ))}
