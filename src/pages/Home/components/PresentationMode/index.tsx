@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { X } from 'lucide-react'
 import styles from './presentation.module.css'
@@ -33,6 +33,13 @@ interface Props {
 export function PresentationMode({ onClose }: Props) {
   const [news, setNews] = useState<NewsArticle[]>([])
   const [index, setIndex] = useState(0)
+  const imgRef = useRef<HTMLImageElement>(null)
+  const [imgBounds, setImgBounds] = useState<{
+    left: number
+    top: number
+    width: number
+    height: number
+  } | null>(null)
 
   useEffect(() => {
     supabase
@@ -76,7 +83,37 @@ export function PresentationMode({ onClose }: Props) {
     }
   }, [])
 
+  const updateBounds = () => {
+    const img = imgRef.current
+    if (!img) return
+    const naturalWidth = img.naturalWidth || 1
+    const naturalHeight = img.naturalHeight || 1
+    const containerWidth = img.clientWidth
+    const containerHeight = img.clientHeight
+    const scale = Math.min(containerWidth / naturalWidth, containerHeight / naturalHeight)
+    const width = naturalWidth * scale
+    const height = naturalHeight * scale
+    const left = (containerWidth - width) / 2
+    const top = (containerHeight - height) / 2
+    setImgBounds({ left, top, width, height })
+  }
+
+  useEffect(() => {
+    updateBounds()
+    window.addEventListener('resize', updateBounds)
+    return () => window.removeEventListener('resize', updateBounds)
+  }, [index])
+
   const slide = slides[index] ?? slides[0]
+
+  const newsOverlayStyle = imgBounds
+    ? {
+        left: `${imgBounds.left}px`,
+        top: `${imgBounds.top}px`,
+        width: `${imgBounds.width}px`,
+        height: `${imgBounds.height}px`,
+      }
+    : undefined
 
   return createPortal(
     <div className={styles.overlay}>
@@ -87,7 +124,13 @@ export function PresentationMode({ onClose }: Props) {
 
       {slide?.type === 'intro' ? (
         <div className={styles.slide}>
-          <img src={buildingAsset.url} alt="Prédio do CPGG visto de cima" className={styles.bg} />
+          <img
+            src={buildingAsset.url}
+            alt="Prédio do CPGG visto de cima"
+            className={styles.bg}
+            ref={imgRef}
+            onLoad={updateBounds}
+          />
           <div className={styles.scrim} />
           <h1 className={styles.welcome}>Bem vindo(a) ao CPGG!</h1>
         </div>
@@ -95,11 +138,19 @@ export function PresentationMode({ onClose }: Props) {
         <div className={styles.slide}>
           <div className={styles.media}>
             {coverUrl(slide.article) && (
-              <img src={coverUrl(slide.article) as string} alt={slide.article.title} className={styles.bg} />
+              <img
+                src={coverUrl(slide.article) as string}
+                alt={slide.article.title}
+                className={styles.bg}
+                ref={imgRef}
+                onLoad={updateBounds}
+              />
             )}
-            <div className={styles.newsBox}>
-              <h2 className={styles.newsTitle}>{slide.article.title}</h2>
-              <p className={styles.newsText}>{stripHtml(slide.article.content).substring(0, 420)}</p>
+            <div className={styles.newsFrame} style={newsOverlayStyle}>
+              <div className={styles.newsBox}>
+                <h2 className={styles.newsTitle}>{slide.article.title}</h2>
+                <p className={styles.newsText}>{stripHtml(slide.article.content).substring(0, 420)}</p>
+              </div>
             </div>
           </div>
         </div>
