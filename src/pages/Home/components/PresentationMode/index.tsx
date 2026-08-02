@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { X } from 'lucide-react'
 import styles from './presentation.module.css'
 import { supabase } from '@/integrations/supabase/client'
@@ -63,12 +64,25 @@ export function PresentationMode({ onClose }: Props) {
     return () => window.removeEventListener('keydown', onKey)
   }, [onClose, slides.length])
 
+  // Tela cheia real + bloqueio de scroll da página
+  useEffect(() => {
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const el = document.documentElement
+    el.requestFullscreen?.().catch(() => {})
+    return () => {
+      document.body.style.overflow = prevOverflow
+      if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {})
+    }
+  }, [])
+
   const slide = slides[index] ?? slides[0]
 
-  return (
+  return createPortal(
     <div className={styles.overlay}>
-      <button className={styles.close} onClick={onClose} aria-label="Sair do modo apresentação">
-        <X size={28} />
+      <button className={styles.close} onClick={onClose}>
+        <X size={20} />
+        <span>Sair</span>
       </button>
 
       {slide?.type === 'intro' ? (
@@ -95,6 +109,7 @@ export function PresentationMode({ onClose }: Props) {
           <span key={i} className={`${styles.dot} ${i === index ? styles.dotActive : ''}`} />
         ))}
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }
