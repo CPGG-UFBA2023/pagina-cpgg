@@ -41,8 +41,9 @@ export function GlobalEarth() {
   const isSpacePage = ['/spaces/auditory', '/spaces/meeting-room'].includes(location.pathname)
   const isRepairsPage = location.pathname === '/repairs-services'
   const isLabReservationPage = /\/labs\/[^/]+\/reservation-form$/i.test(location.pathname)
+  const isCpggPage = location.pathname.toLowerCase() === '/cpgg'
 
-  const shouldHide = hideOnRoutes.includes(location.pathname) || isPhotoSubPage || isNewsPage || isLaigaRepo || isLabMainPage || isSpacePage || isRepairsPage || isLabReservationPage
+  const shouldHide = hideOnRoutes.includes(location.pathname) || isPhotoSubPage || isNewsPage || isLaigaRepo || isLabMainPage || isSpacePage || isRepairsPage || isLabReservationPage || isCpggPage
   
   if (shouldHide) {
     return null

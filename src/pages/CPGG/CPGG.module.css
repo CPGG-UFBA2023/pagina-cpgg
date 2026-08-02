@@ -8,446 +8,122 @@
 
 .cpgg {
   flex: 1;
-  padding: 1rem;
-  padding-top: 0;
-  padding-bottom: 2rem;
-  text-align: justify;
-  font-size: 16px;
-  line-height: 30px;
+  width: 100%;
+  padding: clamp(90px, 14vh, 170px) clamp(0.75rem, 3vw, 2rem) clamp(1.5rem, 4vh, 3rem);
   color: #fff;
   overflow: visible;
-}
-
-.Title {
-  margin: 0 !important;
-  margin-top: 155px !important;
-  padding: 0 !important;
+  display: flex;
+  justify-content: center;
 }
 
 .box {
-  text-align: justify-all;
+  width: 100%;
+  max-width: 1100px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  border: 2px solid rgba(255,255,255,.2);
-  background-color: rgba(255,255,255, 0.2);
-  position: relative;
-  width: 80%;
-  max-width: 800px;
-  height: 60vh;
-  margin: 0 auto;
-  margin-left: calc(50% - 710px);
-  margin-top: 20px !important;
-  padding: 20px;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: clamp(0.9rem, 2.5vw, 2rem);
   border-radius: 20px;
-  gap: 5px;
-  overflow-y: auto;
-  margin-bottom: 0;
+  overflow: hidden;
 }
 
-.box ul {
-  font-size: 28px;
-  color: #363F5;
-  margin: 0 0 20px 0;
-  padding: 0;
-  white-space: nowrap;
+.heading {
+  margin: 0;
+  text-align: center;
   font-weight: bold;
-  line-height: 1.2;
-  text-align: center;
+  font-size: clamp(1.15rem, 2.6vw, 1.9rem);
+  line-height: 1.25;
+  overflow-wrap: anywhere;
 }
 
-.box p {
-  margin-left: 225px;
+.content {
+  display: grid;
+  grid-template-columns: minmax(150px, 22%) 1fr;
+  gap: clamp(0.75rem, 2.5vw, 2rem);
+  align-items: start;
 }
 
-.box1 {
-  text-align: center;
+.gallery {
   display: flex;
   flex-direction: column;
-  border: 2px solid rgba(255,255,255,.2);
-  background-color: rgba(255,255,255, 0.2);
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  top: 860px;
-  left: 2%;
-  padding: 10px;
-  border-radius: 20px;
-  gap: 5px;
-  background: linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)),
-  url('https://i.imgur.com/7oNBqkd.jpg') center/cover;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+  min-width: 0;
 }
 
-.legend1 {
-  font-size: 10px;
-  right: 10px;
-  left: 10px;
-  bottom: -40px;
-  position: absolute;
-  line-height: 1.2;
-}
-
-.box2 {
-  text-align: center;
+.photoCard {
+  margin: 0;
   display: flex;
   flex-direction: column;
-  border: 2px solid rgba(255,255,255,.2);
-  background-color: rgba(255,255,255, 0.2);
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  top: 320px;
-  left: 2%;
-  padding: 10px;
-  border-radius: 20px;
-  gap: 5px;
-  background: linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)),
-  url('https://i.imgur.com/fQMNk9Y.jpg') center/cover;
+  gap: 0.4rem;
+  min-width: 0;
 }
 
-.legend2 {
-  font-size: 10px;
-  right: 10px;
-  left: 10px;
-  bottom: -40px;
-  position: absolute;
-  line-height: 1.2;
-}
-
-.box3 {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  border: 2px solid rgba(255,255,255,.2);
-  background-color: rgba(255,255,255, 0.2);
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  top: 590px;
-  left: 2%;
-  padding: 10px;
-  border-radius: 20px;
-  gap: 5px;
-  background: linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)),
-  url('https://i.imgur.com/RKAvYyR.jpg') center/cover;
-}
-
-.legend3 {
-  font-size: 10px;
-  right: 10px;
-  left: 10px;
-  bottom: -40px;
-  position: absolute;
-  line-height: 1.2;
-}
-
-.box4 {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  border: 2px solid rgba(255,255,255,.2);
-  background-color: rgba(255,255,255, 0.2);
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  top: 50px;
-  left: 2%;
-  padding: 10px;
-  border-radius: 20px;
-  gap: 5px;
-  background-size: 130%;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.legend4 {
-  font-size: 10px;
-  right: 10px;
-  left: 10px;
-  bottom: -20px;
-  position: absolute;
-  line-height: 1.2;
-}
-
-.earthFixed {
-  position: fixed !important;
-  top: 120px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  z-index: 1000 !important;
-  width: 250px !important;
-  height: 250px !important;
+.figImg {
   display: block !important;
-  visibility: visible !important;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
 }
 
-.earthFixed img {
-  width: 250px !important;
-  height: 250px !important;
-  object-fit: contain !important;
-  border-radius: 50% !important;
-  margin: 0 !important;
-  padding: 0 !important;
+.legend {
+  font-size: clamp(0.6rem, 1vw, 0.8rem);
+  line-height: 1.3;
+  text-align: center;
+  margin: 0;
+  overflow-wrap: anywhere;
 }
 
-.staticFigure {
-  display: none !important;
+.text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.6rem, 1.5vw, 1rem);
+  text-align: justify;
 }
 
-.staticFigure img {
-  display: none !important;
+.text p {
+  margin: 0;
+  font-size: clamp(0.82rem, 1.15vw, 1rem);
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-  .earthFixed {
-    display: none !important;
-  }
-
-  .staticFigure {
-    display: none !important;
-  }
-
-  .box {
-    width: 90%;
-    padding: 15px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .box ul {
-    font-size: 24px;
-  }
-
-  .box1, .box2, .box3, .box4 {
-    width: 150px;
-    height: 150px;
-  }
-}
-
-@media (max-width: 768px) {
-  .staticFigure {
-    display: none;
-  }
-
+/* Tablets: galeria vira grade horizontal acima do texto */
+@media (max-width: 900px) {
   .cpgg {
-    padding: 10px;
-    padding-top: 155px;
-    font-size: 14px;
-    line-height: 24px;
+    padding-top: 200px;
   }
 
-  .box {
-    width: 95%;
-    padding: 10px;
-    height: 50vh;
-    position: relative;
-    margin-top: 2rem;
+  .content {
+    grid-template-columns: 1fr;
   }
 
-  .box ul {
-    font-size: 20px;
-    white-space: normal;
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    order: 2;
   }
 
-  .box1, .box2, .box3, .box4 {
-    position: relative;
-    width: 100%;
-    height: 120px;
-    left: 0;
-    top: 0;
-    margin: 10px 0;
-  }
-
-  .legend1, .legend2, .legend3, .legend4 {
-    font-size: 8px;
-    position: relative;
-    bottom: 0;
-    margin-top: 5px;
-  }
-}
-
-/* Layout para resoluções ≤430px - texto primeiro, fotos depois */
-@media (max-width: 430px) {
-  .pageContainer {
-    height: auto !important;
-    min-height: 100vh !important;
-    max-height: none !important;
-    overflow-y: scroll !important;
-    overflow-x: hidden !important;
-  }
-
-  .cpgg {
-    padding-left: 10px;
-    padding-right: 10px;
-    font-size: 12px;
-    line-height: 20px;
-    overflow: visible !important;
-  }
-
-  .Title {
-    margin-top: 80px !important;
-  }
-
-  .box {
-    width: 92% !important;
-    max-width: 400px !important;
-    height: auto !important;
-    max-height: none !important;
-    position: relative !important;
-    left: auto !important;
-    transform: none !important;
-    top: auto !important;
-    padding: 15px !important;
-    font-size: 11px;
-    overflow: visible !important;
-    margin: 0 auto !important;
-    display: flex !important;
-    flex-direction: column !important;
-  }
-
-  .box p {
-    font-size: 11px;
-    line-height: 2.6;
-    margin-bottom: 10px;
-    margin-left: 0 !important;
+  .text {
     order: 1;
   }
+}
 
-  .box ul {
-    font-size: 18px;
-    margin-bottom: 15px;
-    white-space: normal;
-    text-align: center;
-    order: 0;
-  }
-
-  .box br {
-    display: none;
-  }
-
-  /* Fotos aparecem após o texto */
-  .box1,
-  .box2,
-  .box3,
-  .box4 {
-    position: relative !important;
-    left: 0 !important;
-    top: 0 !important;
-    width: 100% !important;
-    height: 180px !important;
-    min-width: auto !important;
-    min-height: 180px !important;
-    max-width: 100% !important;
-    max-height: 180px !important;
-    display: block !important;
-    margin: 10px 0 !important;
-    background-size: cover !important;
-    background-position: center !important;
-    right: auto !important;
-    bottom: auto !important;
-    order: 10;
-  }
-
-  .legend1,
-  .legend2,
-  .legend3,
-  .legend4 {
-    font-size: 10px !important;
-    position: relative !important;
-    top: auto !important;
-    bottom: auto !important;
-    left: 0 !important;
-    right: 0 !important;
-    text-align: center !important;
-    margin-top: 5px !important;
+@media (max-width: 430px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 400px) {
-  .box {
-    height: auto;
-    padding: 10px;
-  }
-
-  .box ul {
-    font-size: 16px;
-  }
-
-  .box1, .box2, .box3, .box4 {
-    height: 150px !important;
-    min-height: 150px !important;
-  }
-}
-
-/* Layout específico para 390x844 e menores - fotos na base após o texto */
-@media (max-width: 390px) and (max-height: 844px) {
-  .cpgg {
-    padding-left: 10px;
-    padding-right: 10px;
-    font-size: 11px;
-    line-height: 22px;
-  }
-
-  .box {
-    width: 90% !important;
-    max-width: 350px !important;
-    height: 450px !important;
-    position: absolute !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    top: calc(18% + 50px) !important;
-    padding: 10px !important;
-    padding-bottom: 50px !important;
-    font-size: 8px;
-    overflow-y: scroll !important;
-    overflow-x: hidden !important;
-    margin-left: 0 !important;
-  }
-
-  .box p {
-    font-size: 10px;
-    line-height: 1.3;
-    margin-bottom: 8px;
-    margin-left: 0;
-  }
-
-  .box ul {
-    font-size: 18px;
-    margin-bottom: 10px;
-    white-space: normal;
-    text-align: center;
-  }
-
-  /* Fotos em grid após o texto, mesmo tamanho da página LAIGA */
-  .box1,
-  .box2,
-  .box3,
-  .box4 {
-    position: relative !important;
-    left: 0 !important;
-    top: 0 !important;
-    width: 300px !important;
-    height: 300px !important;
-    min-width: 300px !important;
-    min-height: 300px !important;
-    max-width: 300px !important;
-    max-height: 300px !important;
-    display: block !important;
-    margin: 10px auto !important;
-    background-size: cover !important;
-    background-position: center !important;
-    right: auto !important;
-    bottom: auto !important;
-  }
-
-  .legend1,
-  .legend2,
-  .legend3,
-  .legend4 {
-    font-size: 10px !important;
-    top: 300px !important;
-    text-align: center !important;
-    position: absolute !important;
-    margin-top: 0 !important;
-  }
+/* Legado — evita que regras globais escondam elementos */
+.earthFixed,
+.staticFigure {
+  display: none !important;
 }
