@@ -98,7 +98,7 @@
 /* Tablets: galeria vira grade horizontal acima do texto */
 @media (max-width: 900px) {
   .cpgg {
-    padding-top: 165px;
+    padding-top: 200px;
   }
 
   .content {
