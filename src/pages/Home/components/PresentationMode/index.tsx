@@ -93,13 +93,14 @@ export function PresentationMode({ onClose }: Props) {
         </div>
       ) : slide?.type === 'news' ? (
         <div className={styles.slide}>
-          {coverUrl(slide.article) && (
-            <img src={coverUrl(slide.article) as string} alt={slide.article.title} className={styles.bg} />
-          )}
-          <div className={styles.scrim} />
-          <div className={styles.newsBox}>
-            <h2 className={styles.newsTitle}>{slide.article.title}</h2>
-            <p className={styles.newsText}>{stripHtml(slide.article.content).substring(0, 420)}</p>
+          <div className={styles.media}>
+            {coverUrl(slide.article) && (
+              <img src={coverUrl(slide.article) as string} alt={slide.article.title} className={styles.bg} />
+            )}
+            <div className={styles.newsBox}>
+              <h2 className={styles.newsTitle}>{slide.article.title}</h2>
+              <p className={styles.newsText}>{stripHtml(slide.article.content).substring(0, 420)}</p>
+            </div>
           </div>
         </div>
       ) : null}
