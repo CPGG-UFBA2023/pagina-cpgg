@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '@/integrations/supabase/client'
-import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Pause, Play, Presentation } from 'lucide-react'
 import styles from './middle.module.css'
 import earth from '../../../../assets/earth-photos.jpg'
+import { PresentationMode } from '../PresentationMode'
 
 interface NewsArticle {
   id: string
@@ -30,6 +31,7 @@ export function Middle() {
   const [loading, setLoading] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
+  const [showPresentation, setShowPresentation] = useState(false)
 
   useEffect(() => {
     fetchNews()
@@ -196,7 +198,18 @@ export function Middle() {
         <Link to="/News/Archive" className={styles.archiveLink}>
           Ver todas as notícias →
         </Link>
+
+        <button
+          type="button"
+          className={styles.presentationButton}
+          onClick={() => setShowPresentation(true)}
+        >
+          <Presentation size={18} />
+          Modo Apresentação
+        </button>
       </div>
+
+      {showPresentation && <PresentationMode onClose={() => setShowPresentation(false)} />}
 
       {/* Earth image - desktop only */}
       <div className={styles.earthContainer}>
