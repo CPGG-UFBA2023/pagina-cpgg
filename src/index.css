@@ -533,6 +533,21 @@ All colors MUST be HSL.
       box-sizing: border-box !important;
     }
 
+    /* Nunca esticar elementos internos do cabeçalho/rodapé:
+       isso empurrava o título do header para o meio da página */
+    header [class*="Container"],
+    header [class*="container"],
+    header [class*="content"],
+    header [class*="Content"],
+    footer [class*="Container"],
+    footer [class*="container"],
+    footer [class*="content"],
+    footer [class*="Content"] {
+      min-height: 0 !important;
+      height: auto !important;
+    }
+
+
     main,
     section,
     article,
