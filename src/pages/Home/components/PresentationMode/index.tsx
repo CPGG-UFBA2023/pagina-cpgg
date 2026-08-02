@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { X } from 'lucide-react'
 import styles from './presentation.module.css'
 import { supabase } from '@/integrations/supabase/client'
