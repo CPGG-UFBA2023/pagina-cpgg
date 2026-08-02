@@ -86,8 +86,16 @@ export function PresentationMode({ onClose }: Props) {
   const updateBounds = () => {
     const img = imgRef.current
     if (!img) return
-    const r = img.getBoundingClientRect()
-    setImgBounds({ left: r.left, top: r.top, width: r.width, height: r.height })
+    const naturalWidth = img.naturalWidth || 1
+    const naturalHeight = img.naturalHeight || 1
+    const containerWidth = img.clientWidth
+    const containerHeight = img.clientHeight
+    const scale = Math.min(containerWidth / naturalWidth, containerHeight / naturalHeight)
+    const width = naturalWidth * scale
+    const height = naturalHeight * scale
+    const left = (containerWidth - width) / 2
+    const top = (containerHeight - height) / 2
+    setImgBounds({ left, top, width, height })
   }
 
   useEffect(() => {
