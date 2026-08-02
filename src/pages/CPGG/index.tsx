@@ -1,7 +1,6 @@
 import styles from './CPGG.module.css'
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
-import earth from '../../components/Figures/earth-new.jpg'
 import cpggAerial from '../../assets/Photos/CPGG/cpgg-aerial.jpg'
 import { getTotalResearchersCount } from '../../data/researchers'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -9,41 +8,41 @@ import { useLanguage } from '@/contexts/LanguageContext'
 export function CPGG() {
   const totalResearchers = getTotalResearchersCount()
   const { t } = useLanguage()
-  
+
+  const photos = [
+    { img: cpggAerial, legend: 'Sede do CPGG vista de cima' },
+    { img: 'https://i.imgur.com/fQMNk9Y.jpg', legend: t('cpgg.legend2') },
+    { img: 'https://i.imgur.com/RKAvYyR.jpg', legend: t('cpgg.legend3') },
+    { img: 'https://i.imgur.com/7oNBqkd.jpg', legend: t('cpgg.legend1') },
+  ]
+
   return (
-    <div className={`${styles.pageContainer} cpgg-page-container`} style={{ overflowY: 'auto', overflowX: 'hidden' }}>
+    <div className={`${styles.pageContainer} cpgg-page-container`}>
       <Header />
-      <main className={`${styles.cpgg} cpgg`} style={{ paddingBottom: '4rem' }}>
-        <div className={styles.Title} >
-          <div className={styles.box}>
-            <ul>{t('cpgg.title')}</ul>
-            <p>
-              {t('cpgg.description1')}
-            </p>
-            <br></br>
-            <p>
-              {t('cpgg.description2')}
-            </p>
-            <br></br>
-            <p>
-              {t('cpgg.description3')}
-           </p>
-            <br></br>
-            <p> 
-              {t('cpgg.description4').replace('{count}', totalResearchers.toString())}
-             </p>
-            
-            <div className={styles.box1}>
-              <h4 className={styles.legend1}>{t('cpgg.legend1')}</h4>
-            </div>
-            <div className={styles.box2}>
-              <h4 className={styles.legend2}>{t('cpgg.legend2')}</h4>
-            </div>
-            <div className={styles.box3}>
-              <h4 className={styles.legend3}>{t('cpgg.legend3')}</h4>
-            </div>
-            <div className={styles.box4} style={{ backgroundImage: `linear-gradient(90deg, rgba(2,0,36,0.1) 0%, rgba(63,9,121,0.1)), url(${cpggAerial})` }}>
-              <h4 className={styles.legend4}>Sede do CPGG vista de cima</h4>
+      <main className={`${styles.cpgg} cpgg`}>
+        <div className={styles.box}>
+          <h1 className={styles.heading}>{t('cpgg.title')}</h1>
+
+          <div className={styles.content}>
+            <aside className={styles.gallery}>
+              {photos.map((p, i) => (
+                <figure className={styles.photoCard} key={i}>
+                  <div
+                    className={styles.photoImage}
+                    style={{ backgroundImage: `url(${p.img})` }}
+                    role="img"
+                    aria-label={p.legend}
+                  />
+                  <figcaption className={styles.legend}>{p.legend}</figcaption>
+                </figure>
+              ))}
+            </aside>
+
+            <div className={styles.text}>
+              <p>{t('cpgg.description1')}</p>
+              <p>{t('cpgg.description2')}</p>
+              <p>{t('cpgg.description3')}</p>
+              <p>{t('cpgg.description4').replace('{count}', totalResearchers.toString())}</p>
             </div>
           </div>
         </div>
@@ -52,4 +51,3 @@ export function CPGG() {
     </div>
   )
 }
-
