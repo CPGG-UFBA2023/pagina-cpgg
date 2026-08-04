@@ -1679,7 +1679,7 @@ export function CoordenacaoDashboard() {
             })}
             <Button
               onClick={handleRegisterNews}
-              disabled={isLoading || uploadingPhotos || !newsTitle || !newsContent || !newsPosition}
+              disabled={isLoading || uploadingPhotos || !newsTitle || !newsContent}
               className={styles.submitButton}
             >
               {uploadingPhotos ? 'Enviando fotos...' : isLoading ? 'Salvando...' : editingNewsId ? 'Salvar Alterações' : 'Publicar Notícia'}
