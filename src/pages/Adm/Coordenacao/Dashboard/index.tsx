@@ -686,14 +686,14 @@ export function CoordenacaoDashboard() {
     }
   }
 
-  const handleLoadExistingNews = async (position: string) => {
-    if (!position) return
+  const handleLoadExistingNews = async (newsId: string) => {
+    if (!newsId) return
     setLoadingNews(true)
     try {
       const { data, error } = await supabase
         .from('news')
         .select('*')
-        .eq('news_position', position)
+        .eq('id', newsId)
         .maybeSingle()
 
       if (error) throw error
@@ -718,7 +718,7 @@ export function CoordenacaoDashboard() {
         toast({ title: "Notícia carregada", description: "Edite os campos desejados e salve." })
       } else {
         handleClearNewsForm()
-        toast({ title: "Nenhuma notícia", description: "Nenhuma notícia encontrada nesta posição. Preencha para criar uma nova." })
+        toast({ title: "Nenhuma notícia", description: "Notícia não encontrada." })
       }
     } catch (err: any) {
       toast({ title: "Erro", description: err.message, variant: "destructive" })
@@ -726,6 +726,7 @@ export function CoordenacaoDashboard() {
       setLoadingNews(false)
     }
   }
+
 
   const handleClearNewsForm = () => {
     setEditingNewsId(null)
