@@ -56,22 +56,25 @@ export function LabPhotosEditor({ acronym, slots, onSaved }: LabPhotosEditorProp
   }
 
   const saveUrl = async (index: number, url: string | null) => {
-    const { error } = await supabase
-      .from('laboratories')
-      .update({ [`photo${index}_url`]: url } as never)
-      .eq('acronym', acronym)
-    if (error) throw error
+    const { data, error } = await supabase.rpc('set_laboratory_photo', {
+      _acronym: acronym,
+      _index: index,
+      _url: url,
+    })
+    if (error) throw new Error(`Erro ao salvar no banco: ${error.message}`)
+    const res = data as { success: boolean; error?: string } | null
+    if (res && res.success === false) throw new Error(res.error || 'Sem permissão para editar fotos')
   }
 
   const handleFile = async (index: number, file: File) => {
     setUploading(index)
     try {
-      const ext = file.name.split('.').pop() || 'jpg'
+      const ext = (file.name.split('.').pop() || 'jpg').toLowerCase()
       const path = `${acronym.toLowerCase()}/photo${index}-${Date.now()}.${ext}`
       const { error: upError } = await supabase.storage
         .from('laboratory-photos')
         .upload(path, file, { upsert: true, contentType: file.type })
-      if (upError) throw upError
+      if (upError) throw new Error(`Erro no envio do arquivo: ${upError.message}`)
 
       const { data } = supabase.storage.from('laboratory-photos').getPublicUrl(path)
       await saveUrl(index, data.publicUrl)
@@ -85,6 +88,7 @@ export function LabPhotosEditor({ acronym, slots, onSaved }: LabPhotosEditorProp
       setUploading(null)
     }
   }
+
 
   const handleReset = async (index: number) => {
     setUploading(index)
