@@ -4,6 +4,7 @@ import { Footer } from '../../components/Footer'
 import { supabase } from '@/integrations/supabase/client'
 import { ExternalLink, FileDown } from 'lucide-react'
 import { NewsImageLightbox } from '../../components/NewsImageLightbox'
+import { NewsMediaEditor } from '../../components/NewsMediaEditor'
 import styles from './News.module.css'
 
 
@@ -130,6 +131,7 @@ export function News2() {
           )}
         </div>
       </main>
+      <NewsMediaEditor news={news} onSaved={fetchNews} />
       <Footer />
     </div>
   )
