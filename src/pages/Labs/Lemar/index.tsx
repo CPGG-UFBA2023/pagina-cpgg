@@ -29,19 +29,19 @@ export function Lemar() {
                 className={styles.photoBox1}
                 style={{ backgroundImage: `linear-gradient(180deg, rgba(2,0,36,0.05) 0%, rgba(63,9,121,0.35) 100%), url(${photos.photo1_url || lemarPhoto1})` }}
               >
-                <h4 className={styles.legend}>ICP-MS-primeiro plano</h4>
+                <h4 className={styles.legend}>{photos.photo1_legend || 'ICP-MS-primeiro plano'}</h4>
               </div>
               <div
                 className={styles.photoBox2}
                 style={{ backgroundImage: `linear-gradient(180deg, rgba(2,0,36,0.05) 0%, rgba(63,9,121,0.35) 100%), url(${photos.photo2_url || lemarPhoto2})` }}
               >
-                <h4 className={styles.legend}>ICP-MS-segundo plano</h4>
+                <h4 className={styles.legend}>{photos.photo2_legend || 'ICP-MS-segundo plano'}</h4>
               </div>
               <div
                 className={styles.photoBox3}
                 style={{ backgroundImage: `linear-gradient(180deg, rgba(2,0,36,0.05) 0%, rgba(63,9,121,0.35) 100%), url(${photos.photo3_url || lemarPhoto3})` }}
               >
-                <h4 className={styles.legend}>Laser excimer 193 nm (Teledyne)</h4>
+                <h4 className={styles.legend}>{photos.photo3_legend || 'Laser excimer 193 nm (Teledyne)'}</h4>
               </div>
             </div>
             <div className={styles.content}>

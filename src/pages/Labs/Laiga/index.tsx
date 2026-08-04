@@ -41,16 +41,16 @@ export function Laiga() {
           <div className={styles.box}>
             <div className={styles.photoGrid}>
               <div className={styles.box1} style={photoStyle(1)}>
-                <h4 className={styles.legend1}>{t('laiga.room1')}</h4>
+                <h4 className={styles.legend1}>{photos.photo1_legend || t('laiga.room1')}</h4>
               </div>
               <div className={styles.box2} style={photoStyle(2)}>
-                <h4 className={styles.legend2}>{t('laiga.room2')}</h4>
+                <h4 className={styles.legend2}>{photos.photo2_legend || t('laiga.room2')}</h4>
               </div>
               <div className={styles.box3} style={photoStyle(3)}>
-                <h4 className={styles.legend3}>{t('laiga.room3')}</h4>
+                <h4 className={styles.legend3}>{photos.photo3_legend || t('laiga.room3')}</h4>
               </div>
               <div className={styles.box4} style={photoStyle(4)}>
-                <h4 className={styles.legend4}>{t('laiga.room4')}</h4>
+                <h4 className={styles.legend4}>{photos.photo4_legend || t('laiga.room4')}</h4>
               </div>
             </div>
             <div className={styles.content}>
