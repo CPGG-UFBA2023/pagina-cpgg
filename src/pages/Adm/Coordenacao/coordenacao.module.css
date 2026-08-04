@@ -20,9 +20,9 @@
 }
 
 .logo img {
-  width: 100px;
-  height: 65px;
-  margin-top: 0.5rem;
+  width: 50px;
+  height: 35px;
+  margin-top: 0.1rem;
   margin-left: auto;
   margin-right: auto;
   display: block;
@@ -36,21 +36,22 @@
   background-color: rgba(255,255,255, 0.1);
   position: absolute;
   width: 600px;
-  height: 600px;
-  top: 12%; 
-  left:30%;
-  padding: 10px;
+  height: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 8px;
   border-radius: 20px;
-  gap: 5px;
+  gap: 0;
 }
 
 .box input {
-  padding: 12px;
-  font-size: 14px;
+  padding: 5px;
+  font-size: 13px;
   border: 1px solid #ccc;
-  margin-bottom: 10px;
-  margin-top: 3px;
-  margin-left:2.5rem;
+  margin-bottom: 3px;
+  margin-top: 1px;
+  margin-left: 2.5rem;
   border-radius: 15px;
   transition: all linear 160ms;
   outline: none;
@@ -64,7 +65,7 @@
 }
 
 .box label {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   margin-left: 2.5rem;
   text-align: left;
@@ -73,17 +74,18 @@
 
 .button {
   appearance: button;
-  padding: 12px;
-  font-size: 16px;
+  padding: 7px;
+  font-size: 14px;
   border-radius: 25px;
-  width: 300px;
-  margin-left:9rem;
+  width: 250px;
+  margin-left: 10.5rem;
   background-color: #BEB6B6;
   border: none;
   transition: 500ms linear;
   color: white;
   cursor: pointer;
-  margin-top: 0.5rem;
+  margin-top: 0.1rem;
+  margin-bottom: 0.1rem;
 }
 
 .button:hover {
@@ -96,9 +98,9 @@
   color: #936aeb;
   text-decoration: underline;
   cursor: pointer;
-  font-size: 14px;
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
+  font-size: 12px;
+  margin-top: 0.1rem;
+  margin-bottom: 0.2rem;
   transition: color 0.3s ease;
 }
 
@@ -108,9 +110,9 @@
 
 .upper p {
   position: absolute;
-  font-size: 18px;
+  font-size: 14px;
   color: rgb(0, 0, 0);
-  top:6rem;
+  top: 2.8rem;
   left:50%;
   transform: translate(-50%, -50%);
   font-weight: 600;
@@ -136,8 +138,8 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  margin-top: 5rem;
+  gap: 2px;
+  margin-top: 1.2rem;
 }
 
 .dialogContent {
@@ -173,14 +175,16 @@
 
 @media(max-width:1200px) {
   .box {
-    left: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 
 @media(max-width:900px) {
   .box {
-    left: 10%;
+    left: 50%;
     width: 400px;
+    transform: translate(-50%, -50%);
   }
   
   .box input {
@@ -195,17 +199,27 @@
 
 @media(max-width:500px) {
   .box {
-    left: 6%;
+    left: 50%;
     width: 330px;
-    height: 550px;
+    height: 275px;
+    transform: translate(-50%, -50%);
   }
 
   .box input {
     width: 250px;
+    margin-left: 1.5rem;
+  }
+
+  .box label {
+    margin-left: 1.5rem;
   }
   
   .button {
     width: 180px;
     margin-left: 4.5rem;
+  }
+
+  .form {
+    margin-top: 2rem;
   }
 }
