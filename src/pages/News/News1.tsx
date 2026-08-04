@@ -118,12 +118,13 @@ export function News1() {
             <div className={styles.sidebar}>
               {photos.map((photo, index) => (
                 <div key={index} className={styles.photoContainer}>
-                  <img 
-                    src={photo!} 
-                    alt={`Foto ${index + 1} da notícia`} 
+                  <NewsImageLightbox
+                    src={photo!}
+                    alt={`Foto ${index + 1} da notícia`}
                     className={styles.photo}
                   />
                 </div>
+
               ))}
             </div>
           )}

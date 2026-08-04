@@ -124,12 +124,13 @@ export function NewsDynamic() {
             <div className={styles.sidebar}>
               {photos.map((photo, index) => (
                 <div key={index} className={styles.photoContainer}>
-                  <img
+                  <NewsImageLightbox
                     src={photo!}
                     alt={`Foto ${index + 1} da notícia`}
                     className={styles.photo}
                   />
                 </div>
+
               ))}
             </div>
           )}
