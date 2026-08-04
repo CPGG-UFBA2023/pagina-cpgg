@@ -32,7 +32,7 @@ export function NewsArchive() {
       const { data, count, error } = await supabase
         .from('news')
         .select('id, title, archive_number, created_at', { count: 'exact' })
-        .order('archive_number', { ascending: false })
+        .order('created_at', { ascending: false })
         .range(from, to)
 
       if (!error && data) {
