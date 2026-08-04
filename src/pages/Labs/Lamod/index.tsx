@@ -13,7 +13,7 @@ export function Lamod() {
       <LabPhotosEditor
         acronym="LAMOD"
         onSaved={refetch}
-        slots={[{ index: 1, label: 'Mesa de Deformação NSB 2018' }]}
+        slots={[{ index: 1, label: 'Mesa de Deformação NSB 2018', currentLegend: 'Mesa de Deformação NSB 2018' }]}
       />
       <div className={styles.lamod}>
         <div className={styles.Title}>
