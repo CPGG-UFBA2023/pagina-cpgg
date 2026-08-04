@@ -67,7 +67,8 @@ export function CoordenacaoDashboard() {
   const [newsPhoto2, setNewsPhoto2] = useState<File | null>(null)
   const [newsPhoto3, setNewsPhoto3] = useState<File | null>(null)
   const [newsCoverPhoto, setNewsCoverPhoto] = useState<string>('1')
-  const [newsPosition, setNewsPosition] = useState<string>('')
+  const [carouselNews, setCarouselNews] = useState<{ id: string; title: string; news_position: string }[]>([])
+  const [selectedCarouselNewsId, setSelectedCarouselNewsId] = useState<string>('')
   const [newsExternalLink, setNewsExternalLink] = useState<string>('')
   const [newsPdfFile1, setNewsPdfFile1] = useState<File | null>(null)
   const [newsPdfTitle1, setNewsPdfTitle1] = useState<string>('')
@@ -686,14 +687,14 @@ export function CoordenacaoDashboard() {
     }
   }
 
-  const handleLoadExistingNews = async (position: string) => {
-    if (!position) return
+  const handleLoadExistingNews = async (newsId: string) => {
+    if (!newsId) return
     setLoadingNews(true)
     try {
       const { data, error } = await supabase
         .from('news')
         .select('*')
-        .eq('news_position', position)
+        .eq('id', newsId)
         .maybeSingle()
 
       if (error) throw error
@@ -718,7 +719,7 @@ export function CoordenacaoDashboard() {
         toast({ title: "Notícia carregada", description: "Edite os campos desejados e salve." })
       } else {
         handleClearNewsForm()
-        toast({ title: "Nenhuma notícia", description: "Nenhuma notícia encontrada nesta posição. Preencha para criar uma nova." })
+        toast({ title: "Nenhuma notícia", description: "Notícia não encontrada." })
       }
     } catch (err: any) {
       toast({ title: "Erro", description: err.message, variant: "destructive" })
@@ -726,6 +727,7 @@ export function CoordenacaoDashboard() {
       setLoadingNews(false)
     }
   }
+
 
   const handleClearNewsForm = () => {
     setEditingNewsId(null)
@@ -745,16 +747,29 @@ export function CoordenacaoDashboard() {
     setExistingPhotoUrls([null, null, null])
     setExistingPdfUrls([null, null, null])
   }
+  const loadCarouselNews = async () => {
+    const { data } = await supabase
+      .from('news')
+      .select('id, title, news_position')
+      .in('news_position', ['News1', 'News2', 'News3'])
+      .order('news_position')
+    setCarouselNews(data || [])
+  }
+
+  useEffect(() => {
+    loadCarouselNews()
+  }, [])
 
   const handleRegisterNews = async () => {
-    if (!newsTitle || !newsContent || !newsPosition) {
+    if (!newsTitle || !newsContent) {
       toast({
         title: "Erro",
-        description: "Preencha todos os campos obrigatórios (Título, Conteúdo e Posição)",
+        description: "Preencha todos os campos obrigatórios (Título e Conteúdo)",
         variant: "destructive",
       })
       return
     }
+
 
     setIsLoading(true)
     setUploadingPhotos(true)
@@ -768,7 +783,7 @@ export function CoordenacaoDashboard() {
         if (photo) {
           const originalName = photo.name || `foto-${i + 1}.jpg`
           const sanitizedName = originalName.toLowerCase().replace(/[^a-z0-9._-]/g, '_').replace(/_+/g, '_')
-          const fileName = `${newsPosition || 'news'}/${Date.now()}-${i + 1}-${sanitizedName}`
+          const fileName = `news/${Date.now()}-${i + 1}-${sanitizedName}`
           const { error: uploadError } = await supabase.storage
             .from('news-photos')
             .upload(fileName, photo, { contentType: photo.type || 'application/octet-stream', upsert: false })
@@ -783,7 +798,7 @@ export function CoordenacaoDashboard() {
       for (let i = 0; i < pdfFiles.length; i++) {
         if (pdfFiles[i]) {
           const pdfName = pdfFiles[i]!.name.toLowerCase().replace(/[^a-z0-9._-]/g, '_').replace(/_+/g, '_')
-          const pdfFileName = `${newsPosition || 'news'}/${Date.now()}-pdf${i + 1}-${pdfName}`
+          const pdfFileName = `news/${Date.now()}-pdf${i + 1}-${pdfName}`
           const { error: pdfUploadError } = await supabase.storage
             .from('news-photos')
             .upload(pdfFileName, pdfFiles[i]!, { contentType: pdfFiles[i]!.type || 'application/pdf', upsert: false })
@@ -813,28 +828,40 @@ export function CoordenacaoDashboard() {
         const { error } = await supabase.from('news').update(newsData).eq('id', editingNewsId)
         if (error) throw error
       } else {
-        // Liberar a posição (News1/News2/News3) de qualquer notícia anterior,
-        // movendo-a para o arquivo geral. Assim, sempre criamos uma nova entrada
-        // e preservamos o histórico completo no Arquivo de Notícias.
-        const { error: clearError } = await supabase
+        // Rotação do carrossel: a nova notícia entra como Notícia 1,
+        // a antiga 1 vira 2, a 2 vira 3 e a 3 sai do carrossel (fica no arquivo).
+        const { error: e3 } = await supabase
           .from('news')
           .update({ news_position: 'archive' })
-          .eq('news_position', newsPosition)
-        if (clearError) throw clearError
+          .eq('news_position', 'News3')
+        if (e3) throw e3
+
+        const { error: e2 } = await supabase
+          .from('news')
+          .update({ news_position: 'News3' })
+          .eq('news_position', 'News2')
+        if (e2) throw e2
+
+        const { error: e1 } = await supabase
+          .from('news')
+          .update({ news_position: 'News2' })
+          .eq('news_position', 'News1')
+        if (e1) throw e1
 
         const { error } = await supabase
           .from('news')
-          .insert({ ...newsData, news_position: newsPosition })
+          .insert({ ...newsData, news_position: 'News1' })
         if (error) throw error
       }
 
       toast({
         title: "Sucesso",
-        description: editingNewsId ? "Notícia atualizada com sucesso!" : "Notícia publicada com sucesso!",
+        description: editingNewsId ? "Notícia atualizada com sucesso!" : "Notícia publicada como Notícia 1 do carrossel!",
       })
 
       handleClearNewsForm()
-      setNewsPosition('')
+      setSelectedCarouselNewsId('')
+      await loadCarouselNews()
     } catch (error: any) {
       console.error('Erro ao publicar notícia:', error)
       toast({
@@ -1526,29 +1553,35 @@ export function CoordenacaoDashboard() {
                 </Button>
               </div>
             )}
+            <div style={{ background: '#f5f3ff', padding: '0.75rem 1rem', borderRadius: 8, marginBottom: '1rem', color: '#5b21b6', fontSize: '0.9rem' }}>
+              A nova notícia entra automaticamente como <strong>Notícia 1</strong> do carrossel. As anteriores descem uma posição e a 4ª sai do carrossel, permanecendo no Arquivo de Notícias com link próprio.
+            </div>
             <div className={styles.formGroup}>
-              <label htmlFor="news-position">Posição na Home:</label>
+              <label htmlFor="news-edit">Editar notícia do carrossel (opcional):</label>
               <div style={{ display: 'flex', gap: '0.5rem' }}>
-                <Select value={newsPosition} onValueChange={(val) => { setNewsPosition(val); handleClearNewsForm(); }}>
+                <Select value={selectedCarouselNewsId} onValueChange={(val) => { setSelectedCarouselNewsId(val); handleLoadExistingNews(val); }}>
                   <SelectTrigger className={styles.selectTrigger}>
-                    <SelectValue placeholder="Selecione a posição" />
+                    <SelectValue placeholder="Selecione uma notícia publicada" />
                   </SelectTrigger>
                   <SelectContent className="bg-white text-black border border-gray-300 z-[9999]">
-                    <SelectItem value="News1" className="text-black hover:bg-gray-100 cursor-pointer">Notícia 1</SelectItem>
-                    <SelectItem value="News2" className="text-black hover:bg-gray-100 cursor-pointer">Notícia 2</SelectItem>
-                    <SelectItem value="News3" className="text-black hover:bg-gray-100 cursor-pointer">Notícia 3</SelectItem>
+                    {carouselNews.map((n) => (
+                      <SelectItem key={n.id} value={n.id} className="text-black hover:bg-gray-100 cursor-pointer">
+                        {n.news_position.replace('News', 'Notícia ')} — {n.title}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <Button
                   variant="outline"
-                  onClick={() => handleLoadExistingNews(newsPosition)}
-                  disabled={!newsPosition || loadingNews}
+                  onClick={() => { handleClearNewsForm(); setSelectedCarouselNewsId('') }}
+                  disabled={loadingNews}
                   style={{ whiteSpace: 'nowrap' }}
                 >
-                  {loadingNews ? 'Carregando...' : 'Carregar existente'}
+                  Nova notícia
                 </Button>
               </div>
             </div>
+
             <div className={styles.formGroup}>
               <label htmlFor="news-title">Título:</label>
               <Input
@@ -1646,7 +1679,7 @@ export function CoordenacaoDashboard() {
             })}
             <Button
               onClick={handleRegisterNews}
-              disabled={isLoading || uploadingPhotos || !newsTitle || !newsContent || !newsPosition}
+              disabled={isLoading || uploadingPhotos || !newsTitle || !newsContent}
               className={styles.submitButton}
             >
               {uploadingPhotos ? 'Enviando fotos...' : isLoading ? 'Salvando...' : editingNewsId ? 'Salvar Alterações' : 'Publicar Notícia'}
