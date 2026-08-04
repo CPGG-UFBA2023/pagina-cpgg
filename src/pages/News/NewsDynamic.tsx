@@ -4,7 +4,9 @@ import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
 import { supabase } from '@/integrations/supabase/client'
 import { ExternalLink, FileDown } from 'lucide-react'
+import { NewsImageLightbox } from '../../components/NewsImageLightbox'
 import styles from './News.module.css'
+
 
 interface NewsArticle {
   id: string
