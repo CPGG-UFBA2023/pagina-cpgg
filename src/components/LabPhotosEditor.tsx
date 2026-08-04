@@ -101,15 +101,31 @@ export function LabPhotosEditor({ acronym, slots, onSaved }: LabPhotosEditorProp
 
   return (
     <>
-      <Button
+      <button
         type="button"
         onClick={handleClick}
-        size="sm"
-        className="fixed right-4 top-24 z-40 gap-2 rounded-full bg-gradient-to-r from-[#592cbb] to-[#7c4dff] text-primary-foreground shadow-lg hover:opacity-90"
+        style={{
+          position: 'fixed',
+          right: '16px',
+          bottom: '96px',
+          zIndex: 2147483000,
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '10px 18px',
+          borderRadius: '9999px',
+          border: 'none',
+          cursor: 'pointer',
+          fontSize: '14px',
+          fontWeight: 600,
+          color: '#ffffff',
+          background: 'linear-gradient(90deg, #592cbb 0%, #7c4dff 100%)',
+          boxShadow: '0 6px 18px rgba(0,0,0,0.35)',
+        }}
       >
         <ImagePlus size={16} />
         Editar fotos
-      </Button>
+      </button>
 
       <AdminAuthDialog
         isOpen={showLogin}
