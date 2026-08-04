@@ -747,16 +747,29 @@ export function CoordenacaoDashboard() {
     setExistingPhotoUrls([null, null, null])
     setExistingPdfUrls([null, null, null])
   }
+  const loadCarouselNews = async () => {
+    const { data } = await supabase
+      .from('news')
+      .select('id, title, news_position')
+      .in('news_position', ['News1', 'News2', 'News3'])
+      .order('news_position')
+    setCarouselNews(data || [])
+  }
+
+  useEffect(() => {
+    loadCarouselNews()
+  }, [])
 
   const handleRegisterNews = async () => {
-    if (!newsTitle || !newsContent || !newsPosition) {
+    if (!newsTitle || !newsContent) {
       toast({
         title: "Erro",
-        description: "Preencha todos os campos obrigatórios (Título, Conteúdo e Posição)",
+        description: "Preencha todos os campos obrigatórios (Título e Conteúdo)",
         variant: "destructive",
       })
       return
     }
+
 
     setIsLoading(true)
     setUploadingPhotos(true)
