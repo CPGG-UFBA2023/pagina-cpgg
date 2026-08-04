@@ -828,28 +828,40 @@ export function CoordenacaoDashboard() {
         const { error } = await supabase.from('news').update(newsData).eq('id', editingNewsId)
         if (error) throw error
       } else {
-        // Liberar a posição (News1/News2/News3) de qualquer notícia anterior,
-        // movendo-a para o arquivo geral. Assim, sempre criamos uma nova entrada
-        // e preservamos o histórico completo no Arquivo de Notícias.
-        const { error: clearError } = await supabase
+        // Rotação do carrossel: a nova notícia entra como Notícia 1,
+        // a antiga 1 vira 2, a 2 vira 3 e a 3 sai do carrossel (fica no arquivo).
+        const { error: e3 } = await supabase
           .from('news')
           .update({ news_position: 'archive' })
-          .eq('news_position', newsPosition)
-        if (clearError) throw clearError
+          .eq('news_position', 'News3')
+        if (e3) throw e3
+
+        const { error: e2 } = await supabase
+          .from('news')
+          .update({ news_position: 'News3' })
+          .eq('news_position', 'News2')
+        if (e2) throw e2
+
+        const { error: e1 } = await supabase
+          .from('news')
+          .update({ news_position: 'News2' })
+          .eq('news_position', 'News1')
+        if (e1) throw e1
 
         const { error } = await supabase
           .from('news')
-          .insert({ ...newsData, news_position: newsPosition })
+          .insert({ ...newsData, news_position: 'News1' })
         if (error) throw error
       }
 
       toast({
         title: "Sucesso",
-        description: editingNewsId ? "Notícia atualizada com sucesso!" : "Notícia publicada com sucesso!",
+        description: editingNewsId ? "Notícia atualizada com sucesso!" : "Notícia publicada como Notícia 1 do carrossel!",
       })
 
       handleClearNewsForm()
-      setNewsPosition('')
+      setSelectedCarouselNewsId('')
+      await loadCarouselNews()
     } catch (error: any) {
       console.error('Erro ao publicar notícia:', error)
       toast({
