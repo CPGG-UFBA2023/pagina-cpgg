@@ -118,7 +118,7 @@
 }
 
 .box p {
-  font-size: clamp(13px, 1.05vw, 16px);
+  font-size: clamp(15.5px, 1.25vw, 19px);
   color: #fff;
   text-align: justify;
   line-height: 1.55;
