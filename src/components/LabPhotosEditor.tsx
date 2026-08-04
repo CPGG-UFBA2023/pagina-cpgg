@@ -87,6 +87,7 @@ export function LabPhotosEditor({ acronym, slots, onSaved }: LabPhotosEditorProp
       if (error) throw new Error(`Erro ao salvar no banco: ${error.message}`)
       const res = data as { success: boolean; error?: string } | null
       if (res && res.success === false) throw new Error(res.error || 'Sem permissão para editar legendas')
+      setSavedLegends(prev => ({ ...prev, [index]: (legends[index] ?? '').trim() }))
       onSaved()
       toast({ title: 'Legenda salva', description: 'A legenda já está sendo exibida na página.' })
     } catch (e: any) {
