@@ -258,6 +258,9 @@ const translations = {
     'laiga.availability': 'To know about equipment availability and request them for use, access our request platform',
     'laiga.chief': 'LAIGA Coordinator',
     'laiga.chiefName': 'Prof. Marcos Alberto Rodrigues Vasconcelos',
+    'laiga.viceChief': 'LAIGA Vice-Coordinator',
+    'laiga.viceChiefName': 'Prof. Susana Silva Cavalcanti',
+
     'laiga.requestButton': 'Request',
     'laiga.room1': 'Room 1- Warehouse with equipment',
     'laiga.room2': 'Room 1-Data Room',
