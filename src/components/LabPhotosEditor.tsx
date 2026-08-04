@@ -242,12 +242,17 @@ export function LabPhotosEditor({ acronym, slots, onSaved }: LabPhotosEditorProp
                     </Button>
                   </div>
                 </div>
+                <p className="text-xs text-muted-foreground">
+                  Legenda atual: <span className="font-medium text-foreground">{currentLegend(slot.index)}</span>
+                  {!savedLegends[slot.index] && defaultLegend(slot.index) ? ' (padrão)' : ''}
+                </p>
                 <div className="flex items-center gap-2">
                   <Input
                     value={legends[slot.index] ?? ''}
                     placeholder="Legenda da foto (vazio = legenda padrão)"
                     onChange={e => setLegends(prev => ({ ...prev, [slot.index]: e.target.value }))}
                   />
+
                   <Button
                     size="sm"
                     disabled={savingLegend !== null}
