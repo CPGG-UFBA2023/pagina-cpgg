@@ -1,0 +1,1 @@
+ALTER TABLE public.laboratories ADD COLUMN IF NOT EXISTS photo4_url text, ADD COLUMN IF NOT EXISTS photo4_legend text;

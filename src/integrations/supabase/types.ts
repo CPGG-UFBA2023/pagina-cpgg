@@ -206,6 +206,8 @@ export type Database = {
           photo2_url: string | null
           photo3_legend: string | null
           photo3_url: string | null
+          photo4_legend: string | null
+          photo4_url: string | null
           pnipe_address: string | null
           technician_name: string | null
           updated_at: string
@@ -225,6 +227,8 @@ export type Database = {
           photo2_url?: string | null
           photo3_legend?: string | null
           photo3_url?: string | null
+          photo4_legend?: string | null
+          photo4_url?: string | null
           pnipe_address?: string | null
           technician_name?: string | null
           updated_at?: string
@@ -244,6 +248,8 @@ export type Database = {
           photo2_url?: string | null
           photo3_legend?: string | null
           photo3_url?: string | null
+          photo4_legend?: string | null
+          photo4_url?: string | null
           pnipe_address?: string | null
           technician_name?: string | null
           updated_at?: string
