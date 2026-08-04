@@ -174,14 +174,16 @@
 
 @media(max-width:1200px) {
   .box {
-    left: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 
 @media(max-width:900px) {
   .box {
-    left: 10%;
+    left: 50%;
     width: 400px;
+    transform: translate(-50%, -50%);
   }
   
   .box input {
