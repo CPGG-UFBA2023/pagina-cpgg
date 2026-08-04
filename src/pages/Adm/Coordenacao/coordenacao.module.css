@@ -137,8 +137,8 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  margin-top: 5rem;
+  gap: 4px;
+  margin-top: 2.5rem;
 }
 
 .dialogContent {
