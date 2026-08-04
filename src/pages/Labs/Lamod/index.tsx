@@ -14,7 +14,7 @@ export function Lamod() {
             <div className={styles.photoGrid}>
               <div
                 className={styles.photoBox1}
-                style={{ backgroundImage: `linear-gradient(180deg, rgba(2,0,36,0.05) 0%, rgba(63,9,121,0.35) 100%), url(${lamodPhoto1})` }}
+                style={{ backgroundImage: `linear-gradient(180deg, rgba(2,0,36,0.05) 0%, rgba(63,9,121,0.35) 100%), url(${photos.photo1_url || lamodPhoto1})` }}
               >
                 <h4 className={styles.legend1}>Mesa de Deformação NSB 2018</h4>
               </div>
