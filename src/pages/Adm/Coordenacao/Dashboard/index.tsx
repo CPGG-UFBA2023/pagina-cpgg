@@ -798,7 +798,7 @@ export function CoordenacaoDashboard() {
       for (let i = 0; i < pdfFiles.length; i++) {
         if (pdfFiles[i]) {
           const pdfName = pdfFiles[i]!.name.toLowerCase().replace(/[^a-z0-9._-]/g, '_').replace(/_+/g, '_')
-          const pdfFileName = `${newsPosition || 'news'}/${Date.now()}-pdf${i + 1}-${pdfName}`
+          const pdfFileName = `news/${Date.now()}-pdf${i + 1}-${pdfName}`
           const { error: pdfUploadError } = await supabase.storage
             .from('news-photos')
             .upload(pdfFileName, pdfFiles[i]!, { contentType: pdfFiles[i]!.type || 'application/pdf', upsert: false })
