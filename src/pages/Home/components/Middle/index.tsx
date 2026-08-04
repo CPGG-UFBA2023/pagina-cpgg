@@ -53,7 +53,7 @@ export function Middle() {
         .from('news')
         .select('*')
         .in('news_position', ['News1', 'News2', 'News3'])
-        .order('news_position')
+        .order('created_at', { ascending: false })
 
       if (error) throw error
 
