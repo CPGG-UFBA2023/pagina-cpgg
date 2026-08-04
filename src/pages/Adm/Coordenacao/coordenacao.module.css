@@ -46,11 +46,11 @@
 }
 
 .box input {
-  padding: 6px;
+  padding: 5px;
   font-size: 13px;
   border: 1px solid #ccc;
-  margin-bottom: 4px;
-  margin-top: 2px;
+  margin-bottom: 3px;
+  margin-top: 1px;
   margin-left: 2.5rem;
   border-radius: 15px;
   transition: all linear 160ms;
