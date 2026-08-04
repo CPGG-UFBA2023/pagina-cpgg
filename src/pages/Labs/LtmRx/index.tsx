@@ -18,8 +18,8 @@ export function LtmRx() {
         acronym="LTM-RX"
         onSaved={refetch}
         slots={[
-          { index: 1, label: 'Difratômetro de Raios X (DRX)' },
-          { index: 2, label: 'Espectrômetro de Fluorescência (WDX-FRX)' },
+          { index: 1, label: 'Difratômetro de Raios X (DRX)', currentLegend: 'Difratômetro de Raios X (DRX) BRUKER AXS, modelo D2 PHASER, para análise de fases em estudos de materiais. Energia: 8 Kev/ 30 KV máxima/corrente: 10mA.' },
+          { index: 2, label: 'Espectrômetro de Fluorescência (WDX-FRX)', currentLegend: 'Espectrômetro de Fluorescência (WDX-FRX) por dispersão de comprimento de onda – BRUKER AXS, modelo S8 TIGER, para análise de elementos químicos. Energia: 20,2 Kev/60KV máxima/corrente: 170mA.' },
         ]}
       />
       <div className={styles.ltmrx}>

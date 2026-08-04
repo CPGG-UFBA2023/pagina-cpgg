@@ -30,10 +30,10 @@ export function Laiga() {
         acronym="LAIGA"
         onSaved={refetch}
         slots={[
-          { index: 1, label: 'Foto 1' },
-          { index: 2, label: 'Foto 2' },
-          { index: 3, label: 'Foto 3' },
-          { index: 4, label: 'Foto 4' },
+          { index: 1, label: 'Foto 1', currentLegend: t('laiga.room1') },
+          { index: 2, label: 'Foto 2', currentLegend: t('laiga.room2') },
+          { index: 3, label: 'Foto 3', currentLegend: t('laiga.room3') },
+          { index: 4, label: 'Foto 4', currentLegend: t('laiga.room4') },
         ]}
       />
       <div className={styles.laiga}>

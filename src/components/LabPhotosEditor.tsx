@@ -29,7 +29,8 @@ export function useLabPhotos(acronym: string) {
 
 interface LabPhotosEditorProps {
   acronym: string
-  slots: { index: number; label: string }[]
+  /** currentLegend: legenda exibida hoje na página (padrão da tradução, quando não há personalizada) */
+  slots: { index: number; label: string; currentLegend?: string }[]
   onSaved: () => void
 }
 
@@ -39,9 +40,13 @@ export function LabPhotosEditor({ acronym, slots, onSaved }: LabPhotosEditorProp
   const [showPanel, setShowPanel] = useState(false)
   const [uploading, setUploading] = useState<number | null>(null)
   const [legends, setLegends] = useState<Record<number, string>>({})
+  const [savedLegends, setSavedLegends] = useState<Record<number, string>>({})
   const [savingLegend, setSavingLegend] = useState<number | null>(null)
   const inputs = useRef<Record<number, HTMLInputElement | null>>({})
   const { toast } = useToast()
+
+  const defaultLegend = (index: number) => slots.find(s => s.index === index)?.currentLegend || ''
+  const currentLegend = (index: number) => savedLegends[index] || defaultLegend(index) || '—'
 
   useEffect(() => {
     if (!showPanel) return
@@ -52,14 +57,24 @@ export function LabPhotosEditor({ acronym, slots, onSaved }: LabPhotosEditorProp
         .eq('acronym', acronym)
         .maybeSingle()
       const row = (data || {}) as Record<string, string | null>
-      setLegends({
+      const saved: Record<number, string> = {
         1: row.photo1_legend || '',
         2: row.photo2_legend || '',
         3: row.photo3_legend || '',
         4: row.photo4_legend || '',
+      }
+      setSavedLegends(saved)
+      // Preenche o campo com a legenda que está sendo exibida hoje (personalizada ou padrão)
+      setLegends({
+        1: saved[1] || defaultLegend(1),
+        2: saved[2] || defaultLegend(2),
+        3: saved[3] || defaultLegend(3),
+        4: saved[4] || defaultLegend(4),
       })
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showPanel, acronym])
+
 
   const saveLegend = async (index: number) => {
     setSavingLegend(index)
@@ -72,6 +87,7 @@ export function LabPhotosEditor({ acronym, slots, onSaved }: LabPhotosEditorProp
       if (error) throw new Error(`Erro ao salvar no banco: ${error.message}`)
       const res = data as { success: boolean; error?: string } | null
       if (res && res.success === false) throw new Error(res.error || 'Sem permissão para editar legendas')
+      setSavedLegends(prev => ({ ...prev, [index]: (legends[index] ?? '').trim() }))
       onSaved()
       toast({ title: 'Legenda salva', description: 'A legenda já está sendo exibida na página.' })
     } catch (e: any) {
@@ -226,12 +242,17 @@ export function LabPhotosEditor({ acronym, slots, onSaved }: LabPhotosEditorProp
                     </Button>
                   </div>
                 </div>
+                <p className="text-xs text-muted-foreground">
+                  Legenda atual: <span className="font-medium text-foreground">{currentLegend(slot.index)}</span>
+                  {!savedLegends[slot.index] && defaultLegend(slot.index) ? ' (padrão)' : ''}
+                </p>
                 <div className="flex items-center gap-2">
                   <Input
                     value={legends[slot.index] ?? ''}
                     placeholder="Legenda da foto (vazio = legenda padrão)"
                     onChange={e => setLegends(prev => ({ ...prev, [slot.index]: e.target.value }))}
                   />
+
                   <Button
                     size="sm"
                     disabled={savingLegend !== null}

@@ -16,9 +16,9 @@ export function Lemar() {
         acronym="LEMAR"
         onSaved={refetch}
         slots={[
-          { index: 1, label: 'ICP-MS - primeiro plano' },
-          { index: 2, label: 'ICP-MS - segundo plano' },
-          { index: 3, label: 'Laser excimer 193 nm' },
+          { index: 1, label: 'ICP-MS - primeiro plano', currentLegend: 'ICP-MS-primeiro plano' },
+          { index: 2, label: 'ICP-MS - segundo plano', currentLegend: 'ICP-MS-segundo plano' },
+          { index: 3, label: 'Laser excimer 193 nm', currentLegend: 'Laser excimer 193 nm (Teledyne)' },
         ]}
       />
       <div className={styles.laiga}>
