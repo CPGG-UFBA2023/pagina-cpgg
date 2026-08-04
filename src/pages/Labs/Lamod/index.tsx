@@ -3,11 +3,18 @@ import styles from './lamod.module.css'
 import { Header } from '../../../components/Header'
 import { Footer } from '../../../components/Footer'
 import lamodPhoto1 from '../../../assets/lamod-photo1.png'
+import { LabPhotosEditor, useLabPhotos } from '@/components/LabPhotosEditor'
 
 export function Lamod() {
+  const { photos, refetch } = useLabPhotos('LAMOD')
   return (
     <div className={styles.pageContainer}>
       <Header />
+      <LabPhotosEditor
+        acronym="LAMOD"
+        onSaved={refetch}
+        slots={[{ index: 1, label: 'Mesa de Deformação NSB 2018' }]}
+      />
       <div className={styles.lamod}>
         <div className={styles.Title}>
           <div className={styles.box}>
