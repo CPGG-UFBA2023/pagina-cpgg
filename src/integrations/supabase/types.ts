@@ -1020,6 +1020,10 @@ export type Database = {
         }
         Returns: Json
       }
+      set_laboratory_photo: {
+        Args: { _acronym: string; _index: number; _url: string }
+        Returns: Json
+      }
       set_researcher_as_chief: {
         Args: { _program: string; _researcher_id: string }
         Returns: undefined
