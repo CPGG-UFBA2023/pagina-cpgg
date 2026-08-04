@@ -182,7 +182,7 @@ export function Coordenacao() {
           />
         </div>
         
-        <div style={{ transform: 'scale(0.65)', transformOrigin: 'center', marginTop: '-18px', marginBottom: '-18px' }}>
+        <div style={{ transform: 'scale(0.6)', transformOrigin: 'center', marginTop: '-22px', marginBottom: '-22px' }}>
           <ReCAPTCHA
             ref={recaptchaRef}
             sitekey={RECAPTCHA_SITE_KEY}
