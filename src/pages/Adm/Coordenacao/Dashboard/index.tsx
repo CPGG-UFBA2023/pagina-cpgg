@@ -1553,29 +1553,35 @@ export function CoordenacaoDashboard() {
                 </Button>
               </div>
             )}
+            <div style={{ background: '#f5f3ff', padding: '0.75rem 1rem', borderRadius: 8, marginBottom: '1rem', color: '#5b21b6', fontSize: '0.9rem' }}>
+              A nova notícia entra automaticamente como <strong>Notícia 1</strong> do carrossel. As anteriores descem uma posição e a 4ª sai do carrossel, permanecendo no Arquivo de Notícias com link próprio.
+            </div>
             <div className={styles.formGroup}>
-              <label htmlFor="news-position">Posição na Home:</label>
+              <label htmlFor="news-edit">Editar notícia do carrossel (opcional):</label>
               <div style={{ display: 'flex', gap: '0.5rem' }}>
-                <Select value={newsPosition} onValueChange={(val) => { setNewsPosition(val); handleClearNewsForm(); }}>
+                <Select value={selectedCarouselNewsId} onValueChange={(val) => { setSelectedCarouselNewsId(val); handleLoadExistingNews(val); }}>
                   <SelectTrigger className={styles.selectTrigger}>
-                    <SelectValue placeholder="Selecione a posição" />
+                    <SelectValue placeholder="Selecione uma notícia publicada" />
                   </SelectTrigger>
                   <SelectContent className="bg-white text-black border border-gray-300 z-[9999]">
-                    <SelectItem value="News1" className="text-black hover:bg-gray-100 cursor-pointer">Notícia 1</SelectItem>
-                    <SelectItem value="News2" className="text-black hover:bg-gray-100 cursor-pointer">Notícia 2</SelectItem>
-                    <SelectItem value="News3" className="text-black hover:bg-gray-100 cursor-pointer">Notícia 3</SelectItem>
+                    {carouselNews.map((n) => (
+                      <SelectItem key={n.id} value={n.id} className="text-black hover:bg-gray-100 cursor-pointer">
+                        {n.news_position.replace('News', 'Notícia ')} — {n.title}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <Button
                   variant="outline"
-                  onClick={() => handleLoadExistingNews(newsPosition)}
-                  disabled={!newsPosition || loadingNews}
+                  onClick={() => { handleClearNewsForm(); setSelectedCarouselNewsId('') }}
+                  disabled={loadingNews}
                   style={{ whiteSpace: 'nowrap' }}
                 >
-                  {loadingNews ? 'Carregando...' : 'Carregar existente'}
+                  Nova notícia
                 </Button>
               </div>
             </div>
+
             <div className={styles.formGroup}>
               <label htmlFor="news-title">Título:</label>
               <Input
