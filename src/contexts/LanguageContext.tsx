@@ -110,6 +110,9 @@ const translations = {
     'laiga.availability': 'Para saber da disponibilidade dos equipamentos e solicitá-los para uso, acesse nossa plataforma de requerimento',
     'laiga.chief': 'Coordenador do LAIGA',
     'laiga.chiefName': 'Prof. Marcos Alberto Rodrigues Vasconcelos',
+    'laiga.viceChief': 'Vice-coordenadora do LAIGA',
+    'laiga.viceChiefName': 'Profa. Susana Silva Cavalcanti',
+
     'laiga.requestButton': 'Requerimento',
     'laiga.room1': 'Sala 1- Almoxarifado com equipamentos',
     'laiga.room2': 'Sala 1-Sala de Dados',
