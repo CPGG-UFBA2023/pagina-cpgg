@@ -115,7 +115,7 @@ export function LabPhotosEditor({ acronym, slots, onSaved }: LabPhotosEditorProp
       const path = `${acronym.toLowerCase()}/photo${index}-${Date.now()}.${ext}`
       const { error: upError } = await supabase.storage
         .from('laboratory-photos')
-        .upload(path, file, { upsert: true, contentType: file.type })
+        .upload(path, file, { upsert: false, contentType: file.type || 'image/jpeg' })
       if (upError) throw new Error(`Erro no envio do arquivo: ${upError.message}`)
 
       const { data } = supabase.storage.from('laboratory-photos').getPublicUrl(path)
