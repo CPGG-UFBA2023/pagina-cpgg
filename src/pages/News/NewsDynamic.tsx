@@ -4,7 +4,9 @@ import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
 import { supabase } from '@/integrations/supabase/client'
 import { ExternalLink, FileDown } from 'lucide-react'
+import { NewsImageLightbox } from '../../components/NewsImageLightbox'
 import styles from './News.module.css'
+
 
 interface NewsArticle {
   id: string
@@ -122,12 +124,13 @@ export function NewsDynamic() {
             <div className={styles.sidebar}>
               {photos.map((photo, index) => (
                 <div key={index} className={styles.photoContainer}>
-                  <img
+                  <NewsImageLightbox
                     src={photo!}
                     alt={`Foto ${index + 1} da notícia`}
                     className={styles.photo}
                   />
                 </div>
+
               ))}
             </div>
           )}
