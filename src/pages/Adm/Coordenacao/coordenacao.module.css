@@ -74,7 +74,7 @@
 
 .button {
   appearance: button;
-  padding: 8px;
+  padding: 7px;
   font-size: 14px;
   border-radius: 25px;
   width: 250px;
@@ -84,7 +84,8 @@
   transition: 500ms linear;
   color: white;
   cursor: pointer;
-  margin-top: 0.2rem;
+  margin-top: 0.1rem;
+  margin-bottom: 0.1rem;
 }
 
 .button:hover {
