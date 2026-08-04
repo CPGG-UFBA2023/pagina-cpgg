@@ -196,17 +196,27 @@
 
 @media(max-width:500px) {
   .box {
-    left: 6%;
+    left: 50%;
     width: 330px;
-    height: 550px;
+    height: 275px;
+    transform: translate(-50%, -50%);
   }
 
   .box input {
     width: 250px;
+    margin-left: 1.5rem;
+  }
+
+  .box label {
+    margin-left: 1.5rem;
   }
   
   .button {
     width: 180px;
     margin-left: 4.5rem;
+  }
+
+  .form {
+    margin-top: 2rem;
   }
 }
