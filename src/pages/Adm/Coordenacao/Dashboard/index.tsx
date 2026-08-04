@@ -783,7 +783,7 @@ export function CoordenacaoDashboard() {
         if (photo) {
           const originalName = photo.name || `foto-${i + 1}.jpg`
           const sanitizedName = originalName.toLowerCase().replace(/[^a-z0-9._-]/g, '_').replace(/_+/g, '_')
-          const fileName = `${newsPosition || 'news'}/${Date.now()}-${i + 1}-${sanitizedName}`
+          const fileName = `news/${Date.now()}-${i + 1}-${sanitizedName}`
           const { error: uploadError } = await supabase.storage
             .from('news-photos')
             .upload(fileName, photo, { contentType: photo.type || 'application/octet-stream', upsert: false })
