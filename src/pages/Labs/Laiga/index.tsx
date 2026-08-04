@@ -4,27 +4,52 @@ import { Header } from '../../../components/Header'
 import { Footer } from '../../../components/Footer'
 import earth from '../../../assets/earth-imgur.png'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { LabPhotosEditor, useLabPhotos } from '@/components/LabPhotosEditor'
+
+const GRAD = 'linear-gradient(180deg, rgba(2,0,36,0.05) 0%, rgba(63,9,121,0.35) 100%)'
 
 export function Laiga() {
   const { t } = useLanguage()
-  
+  const { photos, refetch } = useLabPhotos('LAIGA')
+
+  const photoStyle = (index: number) => {
+    const url = photos[`photo${index}_url`]
+    if (!url) return undefined
+    return {
+      backgroundImage: `${GRAD}, url(${url})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+    } as React.CSSProperties
+  }
+
   return (
     <div className={styles.pageContainer}>
       <Header />
+      <LabPhotosEditor
+        acronym="LAIGA"
+        onSaved={refetch}
+        slots={[
+          { index: 1, label: 'Foto 1' },
+          { index: 2, label: 'Foto 2' },
+          { index: 3, label: 'Foto 3' },
+          { index: 4, label: 'Foto 4' },
+        ]}
+      />
       <div className={styles.laiga}>
         <div className={styles.Title} >
           <div className={styles.box}>
             <div className={styles.photoGrid}>
-              <div className={styles.box1}>
+              <div className={styles.box1} style={photoStyle(1)}>
                 <h4 className={styles.legend1}>{t('laiga.room1')}</h4>
               </div>
-              <div className={styles.box2}>
+              <div className={styles.box2} style={photoStyle(2)}>
                 <h4 className={styles.legend2}>{t('laiga.room2')}</h4>
               </div>
-              <div className={styles.box3}>
+              <div className={styles.box3} style={photoStyle(3)}>
                 <h4 className={styles.legend3}>{t('laiga.room3')}</h4>
               </div>
-              <div className={styles.box4}>
+              <div className={styles.box4} style={photoStyle(4)}>
                 <h4 className={styles.legend4}>{t('laiga.room4')}</h4>
               </div>
             </div>

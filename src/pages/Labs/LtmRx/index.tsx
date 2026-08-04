@@ -5,13 +5,23 @@ import { Footer } from '../../../components/Footer'
 import drxPhoto from '../../../assets/Photos/ltmrx-drx.png'
 import frxPhoto from '../../../assets/Photos/ltmrx-frx.png'
 import { LtmRxRequestForm } from './LtmRxRequestForm'
+import { LabPhotosEditor, useLabPhotos } from '@/components/LabPhotosEditor'
 
 export function LtmRx() {
   const [showRequest, setShowRequest] = useState(false)
+  const { photos, refetch } = useLabPhotos('LTM-RX')
 
   return (
     <div className={styles.pageContainer}>
       <Header />
+      <LabPhotosEditor
+        acronym="LTM-RX"
+        onSaved={refetch}
+        slots={[
+          { index: 1, label: 'Difratômetro de Raios X (DRX)' },
+          { index: 2, label: 'Espectrômetro de Fluorescência (WDX-FRX)' },
+        ]}
+      />
       <div className={styles.ltmrx}>
         <div className={styles.Title}>
           <div className={`${styles.box} ${showRequest ? styles.boxFullWidth : ''}`}>
@@ -19,13 +29,13 @@ export function LtmRx() {
               <div className={styles.photoGrid}>
                 <div
                   className={styles.box1}
-                  style={{ backgroundImage: `linear-gradient(180deg, rgba(2,0,36,0.05) 0%, rgba(63,9,121,0.35) 100%), url(${drxPhoto})` }}
+                  style={{ backgroundImage: `linear-gradient(180deg, rgba(2,0,36,0.05) 0%, rgba(63,9,121,0.35) 100%), url(${photos.photo1_url || drxPhoto})` }}
                 >
                   <h4 className={styles.legend1}>Difratômetro de Raios X (DRX) BRUKER AXS, modelo D2 PHASER, para análise de fases em estudos de materiais. Energia: 8 Kev/ 30 KV máxima/corrente: 10mA.</h4>
                 </div>
                 <div
                   className={styles.box2}
-                  style={{ backgroundImage: `linear-gradient(180deg, rgba(2,0,36,0.05) 0%, rgba(63,9,121,0.35) 100%), url(${frxPhoto})` }}
+                  style={{ backgroundImage: `linear-gradient(180deg, rgba(2,0,36,0.05) 0%, rgba(63,9,121,0.35) 100%), url(${photos.photo2_url || frxPhoto})` }}
                 >
                   <h4 className={styles.legend2}>Espectrômetro de Fluorescência (WDX-FRX) por dispersão de comprimento de onda – BRUKER AXS, modelo S8 TIGER, para análise de elementos químicos. Energia: 20,2 Kev/60KV máxima/corrente: 170mA.</h4>
                 </div>
