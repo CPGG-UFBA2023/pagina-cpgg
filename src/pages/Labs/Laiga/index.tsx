@@ -74,6 +74,9 @@ export function Laiga() {
               <p>{t('laiga.availability')}</p>
               <b className={styles.purpleText}>{t('laiga.chief')}</b>
               <span>{t('laiga.chiefName')}</span>
+              <b className={styles.purpleText}>{t('laiga.viceChief')}</b>
+              <span>{t('laiga.viceChiefName')}</span>
+
               <div className={styles.requerimentoButton}>
                 <Link to="/labs/laiga/reservation-form" className={styles.buttonLink}>
                   {t('laiga.requestButton')}
