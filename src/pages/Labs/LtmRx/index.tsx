@@ -5,13 +5,23 @@ import { Footer } from '../../../components/Footer'
 import drxPhoto from '../../../assets/Photos/ltmrx-drx.png'
 import frxPhoto from '../../../assets/Photos/ltmrx-frx.png'
 import { LtmRxRequestForm } from './LtmRxRequestForm'
+import { LabPhotosEditor, useLabPhotos } from '@/components/LabPhotosEditor'
 
 export function LtmRx() {
   const [showRequest, setShowRequest] = useState(false)
+  const { photos, refetch } = useLabPhotos('LTM-RX')
 
   return (
     <div className={styles.pageContainer}>
       <Header />
+      <LabPhotosEditor
+        acronym="LTM-RX"
+        onSaved={refetch}
+        slots={[
+          { index: 1, label: 'Difratômetro de Raios X (DRX)' },
+          { index: 2, label: 'Espectrômetro de Fluorescência (WDX-FRX)' },
+        ]}
+      />
       <div className={styles.ltmrx}>
         <div className={styles.Title}>
           <div className={`${styles.box} ${showRequest ? styles.boxFullWidth : ''}`}>
