@@ -99,8 +99,8 @@
   text-decoration: underline;
   cursor: pointer;
   font-size: 12px;
-  margin-top: 0.2rem;
-  margin-bottom: 0.5rem;
+  margin-top: 0.1rem;
+  margin-bottom: 0.2rem;
   transition: color 0.3s ease;
 }
 
