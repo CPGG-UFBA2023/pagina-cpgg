@@ -3,19 +3,20 @@ import { ImagePlus, Loader2, RotateCcw } from 'lucide-react'
 import { supabase } from '@/integrations/supabase/client'
 import { useToast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { AdminAuthDialog } from '@/components/AdminAuthDialog'
 
 export type LabPhotos = Record<string, string | null>
 
-/** Busca as fotos personalizadas do laboratório (sobrescrevem as fotos padrão da página). */
+/** Busca as fotos e legendas personalizadas do laboratório (sobrescrevem as padrão da página). */
 export function useLabPhotos(acronym: string) {
   const [photos, setPhotos] = useState<LabPhotos>({})
 
   const refetch = useCallback(async () => {
     const { data } = await supabase
       .from('laboratories')
-      .select('photo1_url, photo2_url, photo3_url, photo4_url')
+      .select('photo1_url, photo2_url, photo3_url, photo4_url, photo1_legend, photo2_legend, photo3_legend, photo4_legend')
       .eq('acronym', acronym)
       .maybeSingle()
     setPhotos((data as LabPhotos) || {})
@@ -37,8 +38,49 @@ export function LabPhotosEditor({ acronym, slots, onSaved }: LabPhotosEditorProp
   const [isAdmin, setIsAdmin] = useState(false)
   const [showPanel, setShowPanel] = useState(false)
   const [uploading, setUploading] = useState<number | null>(null)
+  const [legends, setLegends] = useState<Record<number, string>>({})
+  const [savingLegend, setSavingLegend] = useState<number | null>(null)
   const inputs = useRef<Record<number, HTMLInputElement | null>>({})
   const { toast } = useToast()
+
+  useEffect(() => {
+    if (!showPanel) return
+    ;(async () => {
+      const { data } = await supabase
+        .from('laboratories')
+        .select('photo1_legend, photo2_legend, photo3_legend, photo4_legend')
+        .eq('acronym', acronym)
+        .maybeSingle()
+      const row = (data || {}) as Record<string, string | null>
+      setLegends({
+        1: row.photo1_legend || '',
+        2: row.photo2_legend || '',
+        3: row.photo3_legend || '',
+        4: row.photo4_legend || '',
+      })
+    })()
+  }, [showPanel, acronym])
+
+  const saveLegend = async (index: number) => {
+    setSavingLegend(index)
+    try {
+      const { data, error } = await supabase.rpc('set_laboratory_photo_legend', {
+        _acronym: acronym,
+        _index: index,
+        _legend: legends[index] ?? '',
+      })
+      if (error) throw new Error(`Erro ao salvar no banco: ${error.message}`)
+      const res = data as { success: boolean; error?: string } | null
+      if (res && res.success === false) throw new Error(res.error || 'Sem permissão para editar legendas')
+      onSaved()
+      toast({ title: 'Legenda salva', description: 'A legenda já está sendo exibida na página.' })
+    } catch (e: any) {
+      toast({ title: 'Erro', description: e.message || 'Não foi possível salvar a legenda.', variant: 'destructive' })
+    } finally {
+      setSavingLegend(null)
+    }
+  }
+
 
   const handleClick = () => {
     if (isAdmin) setShowPanel(true)
