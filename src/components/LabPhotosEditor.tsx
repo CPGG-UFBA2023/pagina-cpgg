@@ -184,49 +184,66 @@ export function LabPhotosEditor({ acronym, slots, onSaved }: LabPhotosEditorProp
       <Dialog open={showPanel} onOpenChange={setShowPanel}>
         <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-lg">
           <DialogHeader>
-            <DialogTitle>Fotos do {acronym}</DialogTitle>
+            <DialogTitle>Fotos e legendas do {acronym}</DialogTitle>
             <DialogDescription>
-              Escolha uma nova imagem para cada posição. A troca é imediata na página.
+              Troque a imagem de cada posição e edite a legenda exibida abaixo dela.
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-3">
             {slots.map(slot => (
-              <div key={slot.index} className="flex items-center justify-between gap-3 rounded-lg border p-3">
-                <span className="text-sm">{slot.label}</span>
-                <div className="flex shrink-0 gap-2">
-                  <input
-                    ref={el => (inputs.current[slot.index] = el)}
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={e => {
-                      const file = e.target.files?.[0]
-                      if (file) handleFile(slot.index, file)
-                      e.target.value = ''
-                    }}
+              <div key={slot.index} className="space-y-2 rounded-lg border p-3">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-sm">{slot.label}</span>
+                  <div className="flex shrink-0 gap-2">
+                    <input
+                      ref={el => (inputs.current[slot.index] = el)}
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={e => {
+                        const file = e.target.files?.[0]
+                        if (file) handleFile(slot.index, file)
+                        e.target.value = ''
+                      }}
+                    />
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      disabled={uploading !== null}
+                      onClick={() => inputs.current[slot.index]?.click()}
+                    >
+                      {uploading === slot.index ? <Loader2 className="animate-spin" size={16} /> : 'Trocar'}
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      disabled={uploading !== null}
+                      onClick={() => handleReset(slot.index)}
+                      title="Restaurar foto padrão"
+                    >
+                      <RotateCcw size={16} />
+                    </Button>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Input
+                    value={legends[slot.index] ?? ''}
+                    placeholder="Legenda da foto (vazio = legenda padrão)"
+                    onChange={e => setLegends(prev => ({ ...prev, [slot.index]: e.target.value }))}
                   />
                   <Button
                     size="sm"
-                    variant="outline"
-                    disabled={uploading !== null}
-                    onClick={() => inputs.current[slot.index]?.click()}
+                    disabled={savingLegend !== null}
+                    onClick={() => saveLegend(slot.index)}
                   >
-                    {uploading === slot.index ? <Loader2 className="animate-spin" size={16} /> : 'Trocar'}
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    disabled={uploading !== null}
-                    onClick={() => handleReset(slot.index)}
-                    title="Restaurar foto padrão"
-                  >
-                    <RotateCcw size={16} />
+                    {savingLegend === slot.index ? <Loader2 className="animate-spin" size={16} /> : 'Salvar'}
                   </Button>
                 </div>
               </div>
             ))}
           </div>
+
         </DialogContent>
       </Dialog>
     </>
