@@ -80,7 +80,7 @@ export function DynamicLab() {
           <div className={styles.box}>
             {laboratory.description && (
               <>
-                <p>{laboratory.description}</p>
+                <p style={{ whiteSpace: 'pre-line' }}>{laboratory.description}</p>
                 <br />
               </>
             )}
