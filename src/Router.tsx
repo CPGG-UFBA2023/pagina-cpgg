@@ -190,7 +190,9 @@ export function Router() {
          <Route path='/spaces' element={<Spaces />} />
          <Route path='/labs' element={<Labs />} />
          <Route path='/labs/laiga' element={<Laiga />} />
+         <Route path='/labs/labfis' element={<LabFis />} />
          <Route path='/labs/:acronym' element={<DynamicLab />} />
+
          <Route path='/labs/laiga/reservation-form' element={<RF />} />
          <Route path='/labs/laiga/receipt' element={<LaigaReceipt />} />
          <Route path='/labs/laiga/success' element={<LaigaSuccess />} />
