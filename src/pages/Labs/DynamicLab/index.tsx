@@ -36,7 +36,7 @@ export function DynamicLab() {
         const { data, error } = await supabase
           .from('laboratories')
           .select('*')
-          .eq('acronym', acronym.toUpperCase())
+          .ilike('acronym', acronym)
           .single();
 
         if (error) throw error;
