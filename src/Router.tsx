@@ -76,6 +76,7 @@ import { Lamod } from './pages/Labs/Lamod'
 import { LamodRF } from './pages/Labs/Lamod/ReservationForm'
 import { LtmRx } from './pages/Labs/LtmRx'
 import { Lemar } from './pages/Labs/Lemar'
+import { LabFis } from './pages/Labs/LabFis'
 import { LemarRF } from './pages/Labs/Lemar/ReservationForm'
 import { LemarSuccess } from './pages/Labs/Lemar/Success'
 import { Auditory } from './pages/Spaces/Auditory'
@@ -190,7 +191,9 @@ export function Router() {
          <Route path='/spaces' element={<Spaces />} />
          <Route path='/labs' element={<Labs />} />
          <Route path='/labs/laiga' element={<Laiga />} />
+         <Route path='/labs/labfis' element={<LabFis />} />
          <Route path='/labs/:acronym' element={<DynamicLab />} />
+
          <Route path='/labs/laiga/reservation-form' element={<RF />} />
          <Route path='/labs/laiga/receipt' element={<LaigaReceipt />} />
          <Route path='/labs/laiga/success' element={<LaigaSuccess />} />

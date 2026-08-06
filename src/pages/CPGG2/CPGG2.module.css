@@ -481,3 +481,35 @@
   font-size: 20px;
   margin-bottom: 4px;
 }
+.LabFis {
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  text-align: center;
+  width: 350px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  background: linear-gradient(135deg, rgba(10, 5, 35, 0.97), rgba(89, 44, 187, 0.9));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.LabFis:hover {
+  transform: translateY(-5px);
+}
+
+.LabFis h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.LabFis h2:first-child {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
