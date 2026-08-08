@@ -842,6 +842,8 @@
   }
 
   .bar nav {
+    position: static !important;
+    inset: auto !important;
     display: flex !important;
     flex-wrap: wrap !important;
     justify-content: center !important;
@@ -878,6 +880,12 @@
     width: clamp(10px, 3vw, 14px) !important;
     height: clamp(10px, 3vw, 14px) !important;
     flex: none !important;
+  }
+
+  .bar > * {
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
   }
 
   .copyright {
