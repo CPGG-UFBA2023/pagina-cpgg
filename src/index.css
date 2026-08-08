@@ -527,11 +527,18 @@ All colors MUST be HSL.
       max-width: 100vw !important;
       min-width: 0 !important;
       height: auto !important;
-      min-height: 100dvh !important;
       max-height: none !important;
       overflow-x: hidden !important;
       box-sizing: border-box !important;
     }
+
+    /* Altura mínima de tela apenas para os wrappers de página,
+       nunca para caixas internas (evita esticar cards/conteúdos). */
+    body > div,
+    #root > div {
+      min-height: 100dvh !important;
+    }
+
 
     /* Nunca esticar elementos internos do cabeçalho/rodapé:
        isso empurrava o título do header para o meio da página */
