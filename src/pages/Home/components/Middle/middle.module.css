@@ -507,3 +507,11 @@
   filter: brightness(1.08);
   box-shadow: 0 6px 18px rgba(89, 44, 187, 0.45);
 }
+
+/* Neutraliza regras globais que esticavam caixas internas em mobile */
+.carouselContainer.carouselContainer,
+.newsContent.newsContent,
+.newsCard.newsCard {
+  min-height: 0 !important;
+  height: auto !important;
+}
