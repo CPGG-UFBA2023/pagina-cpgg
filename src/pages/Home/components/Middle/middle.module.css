@@ -319,299 +319,168 @@
   }
 }
 
-/* Tablet/Mobile (≤1024px) - Order: Video, Phrase+Earth, News, Footer */
+/* Tablet/Mobile (≤1024px) - fluxo vertical, sem sobreposição */
 @media (max-width: 1024px) {
   .middleWrapper {
     flex-direction: column;
-    padding: 2rem 30px;
-    gap: 2rem;
+    align-items: center;
+    justify-content: flex-start;
+    padding: clamp(1rem, 4vw, 2rem) clamp(1rem, 5vw, 2rem);
+    gap: clamp(1.5rem, 5vw, 2.5rem);
     min-height: auto;
   }
-  
-  /* Phrase section wrapper - flex row with Earth */
+
+  /* Frase + Terra */
   .phraseSection {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     order: 1;
-    gap: 1.5rem;
+    gap: clamp(1rem, 4vw, 2rem);
   }
-  
-  /* Phrase content */
+
   .static {
     order: unset;
-    font-size: 42px;
-    text-align: left;
+    flex: 1 1 260px;
+    min-width: 0;
     width: auto;
-    flex: 1;
     padding: 0;
+    text-align: left;
+    font-size: clamp(1.4rem, 4.5vw, 2.6rem);
+    line-height: 1.1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .static > strong {
-    font-size: 84px;
+    font-size: clamp(2.6rem, 9vw, 5.2rem);
+    line-height: 1.2;
   }
-  
+
   .enjoy {
-    font-size: 30px;
-    padding-top: 20px;
+    font-size: clamp(1rem, 3.2vw, 1.75rem);
+    padding-top: clamp(0.75rem, 3vw, 1.25rem);
+    line-height: 1.3;
   }
-  
+
   .enjoy > strong {
-    font-size: 30px;
+    font-size: clamp(1rem, 3.2vw, 1.75rem);
   }
-  
-  /* Show Earth beside phrase */
+
+  /* Terra ao lado da frase */
   .earthMobile {
     display: flex;
-    flex-shrink: 0;
+    flex: 0 1 auto;
+    justify-content: center;
   }
-  
+
   .earthImageMobile {
-    height: 450px;
+    height: auto;
+    width: clamp(140px, 34vw, 340px);
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
   }
-  
-  /* News carousel - full width with 30px margins, moved up 50px */
+
+  /* Carrossel de notícias — fluxo normal, largura total */
   .carouselContainer {
     order: 2;
     width: 100%;
-    max-width: none;
+    max-width: 640px;
     margin: 0;
-    margin-top: -200px;
+    padding-bottom: 0;
   }
-  
+
   .imageWrapper {
-    height: 280px;
+    height: clamp(160px, 42vw, 300px);
   }
-  
+
+  .newsContent {
+    padding: clamp(0.75rem, 3vw, 1.25rem);
+  }
+
+  .newsTitle {
+    font-size: clamp(0.95rem, 3.4vw, 1.25rem);
+  }
+
+  .newsDescription {
+    font-size: clamp(0.8rem, 2.8vw, 0.95rem);
+  }
+
+  /* Controles deixam de ser absolutos: nunca sobrepõem nada */
   .controls {
-    position: absolute;
-    bottom: 340px;
-    left: 0;
-    right: 0;
+    position: static;
+    bottom: auto;
+    margin-top: clamp(0.75rem, 3vw, 1rem);
+    flex-wrap: wrap;
+    gap: 0.75rem;
   }
-  
-  /* Hide desktop earth container completely */
+
+  .navButton {
+    width: clamp(32px, 9vw, 44px);
+    height: clamp(32px, 9vw, 44px);
+    top: auto;
+    bottom: auto;
+    transform: none;
+  }
+
+  .navButton svg {
+    width: 60%;
+    height: 60%;
+  }
+
+  .navButtonLeft {
+    left: 6px;
+  }
+
+  .navButtonRight {
+    right: 6px;
+  }
+
+  .archiveLink,
+  .presentationButton {
+    font-size: clamp(0.8rem, 3vw, 0.95rem);
+    text-align: center;
+  }
+
+  /* Terra desktop escondida */
   .earthContainer {
     display: none !important;
     visibility: hidden !important;
   }
 }
 
-/* Smaller tablets (≤834px) */
-@media (max-width: 834px) {
-  .middleWrapper {
-    padding: 2rem 30px;
-  }
-  
-  .static {
-    font-size: 36px;
-  }
-  
-  .static > strong {
-    font-size: 72px;
-  }
-  
-  .enjoy {
-    font-size: 27px;
-  }
-  
-  .enjoy > strong {
-    font-size: 27px;
-  }
-  
-  .carouselContainer {
-    width: 100%;
-    margin-top: -200px;
-  }
-  
-  .imageWrapper {
-    height: 240px;
-  }
-  
-  .controls {
-    bottom: 340px;
-  }
-  
-  .earthImageMobile {
-    height: 375px;
+/* Posiciona as setas verticalmente centradas na imagem em mobile */
+@media (max-width: 1024px) {
+  .navButton {
+    top: clamp(80px, 21vw, 150px);
   }
 }
 
-/* Mobile (≤600px) */
+/* Celulares (≤600px) - frase e Terra empilhadas */
 @media (max-width: 600px) {
-  .middleWrapper {
-    padding: 1.5rem 30px;
-    gap: 2rem;
-  }
-  
   .phraseSection {
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
-  }
-  
-  .static {
-    font-size: 30px;
-    padding: 0;
     text-align: center;
-    align-items: center;
   }
-  
-  .static > strong {
-    font-size: 60px;
-  }
-  
-  .enjoy {
-    font-size: 23px;
-    padding-top: 15px;
-  }
-  
-  .enjoy > strong {
-    font-size: 23px;
-  }
-  
-  .carouselContainer {
-    width: 100%;
-    margin-top: -200px;
-  }
-  
-  .imageWrapper {
-    height: 220px;
-  }
-  
-  .controls {
-    bottom: 340px;
-  }
-  
-  .newsTitle {
-    font-size: 1rem;
-  }
-  
-  .newsDescription {
-    font-size: 0.85rem;
-  }
-  
-  .navButton {
-    width: 36px;
-    height: 36px;
-  }
-  
-  .earthImageMobile {
-    height: 300px;
-  }
-}
 
-/* Small phones (≤390px) */
-@media (max-width: 390px) {
-  .middleWrapper {
-    padding: 1rem 30px;
-  }
-  
   .static {
-    font-size: 24px;
+    align-items: center;
+    text-align: center;
+    flex: 0 1 auto;
   }
-  
-  .static > strong {
-    font-size: 48px;
-  }
-  
-  .enjoy {
-    font-size: 20px;
-  }
-  
-  .enjoy > strong {
-    font-size: 20px;
-  }
-  
-  .carouselContainer {
-    margin-top: -200px;
-  }
-  
-  .imageWrapper {
-    height: 200px;
-  }
-  
-  .newsContent {
-    padding: 1rem;
-  }
-  
-  .controls {
-    bottom: 340px;
-  }
-  
-  .playPauseButton {
-    padding: 4px 8px;
-    font-size: 10px;
-  }
-  
-  .dot {
-    width: 8px;
-    height: 8px;
-  }
-  
-  .dotActive {
-    width: 10px;
-    height: 10px;
-  }
-  
+
   .earthImageMobile {
-    height: 250px;
+    width: clamp(150px, 52vw, 260px);
   }
-}
 
-/* Resoluções ≤430px - Mover controles do carrossel para baixo */
-@media (max-width: 430px) {
-  .controls {
-    bottom: 140px !important;
-  }
-  
-  .newsLink {
-    display: block !important;
-    pointer-events: auto !important;
-    cursor: pointer !important;
-    touch-action: manipulation !important;
-    -webkit-tap-highlight-color: transparent !important;
-    position: relative !important;
-    z-index: 10 !important;
-  }
-  
-  .newsCard {
-    pointer-events: none !important;
-  }
-  
-  .imageWrapper,
-  .newsContent,
-  .newsImage,
-  .newsTitle,
-  .newsDescription {
-    pointer-events: none !important;
-  }
-}
-
-/* Resoluções ≤375px - Ajustes para iPhone X */
-@media (max-width: 375px) {
-  .middleWrapper {
-    padding: 0.8rem 20px !important;
-  }
-  
-  .carouselContainer {
-    margin-top: -120px !important;
-    transform: translateY(80px) !important;
-  }
-  
-  .controls {
-    bottom: -20px !important;
-    position: relative !important;
-    transform: translateY(80px) !important;
-  }
-  
-  .newsTitle {
-    font-size: 1.2rem !important;
+  .navButton {
+    top: clamp(70px, 21vw, 120px);
   }
 }
 
