@@ -8,7 +8,7 @@ const DRONE_VIDEO_URL = "https://kbxdwrvxrnfkqvpselwz.supabase.co/storage/v1/obj
 
 export function Home() {
   return (
-    <div className={styles.Container}>
+    <div className={`home-page-container ${styles.Container}`}>
       <Header />
       
       {/* Video Section - Full Screen */}
