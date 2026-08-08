@@ -2319,3 +2319,28 @@ nav ul li:hover .submenu2 ul li a {
     right: 0.5rem !important;
   }
 }
+
+/* ===== Fix final: evitar sobreposição entre logo UFBA e seletor de idioma no mobile ===== */
+@media screen and (max-width: 576px) {
+  .header .logoufba {
+    position: absolute !important;
+    top: 0.4rem !important;
+    right: 0.5rem !important;
+    left: auto !important;
+    z-index: 3 !important;
+  }
+
+  .header .languageContainer {
+    position: absolute !important;
+    top: auto !important;
+    bottom: 0.4rem !important;
+    right: 0.5rem !important;
+    left: auto !important;
+    transform: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    gap: 0.2rem !important;
+    z-index: 4 !important;
+  }
+}
