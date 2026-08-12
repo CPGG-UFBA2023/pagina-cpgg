@@ -42,7 +42,7 @@
 
 .cardContainer {
   margin: 0 auto;
-  display: grid;
+  display: grid !important;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.25rem;
   justify-content: center;
