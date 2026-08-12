@@ -215,18 +215,38 @@
 
   .cpgg {
     padding: 10px;
-    padding-top: 155px;
+    padding-top: 140px;
     font-size: 14px;
     line-height: 24px;
   }
 
+  .Title {
+    margin-top: 0 !important;
+    padding-top: 140px !important;
+    gap: 1rem;
+  }
+
   .Title ul {
-    margin-left: calc(50% - 445px) !important;
+    margin-left: 0 !important;
     font-size: 20px;
     top: 0 !important;
     position: relative !important;
     text-align: center;
     white-space: normal;
+  }
+
+  .cardContainer {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    gap: 1rem;
+    padding: 0 0.75rem;
+  }
+
+  .Laiga, .Lemar, .LtmRx, .Lamod, .LabFis {
+    width: 100%;
+    height: auto;
+    min-height: 90px;
+    padding: 0.875rem;
   }
 
   .box {
@@ -262,7 +282,7 @@
 
 @media (max-width: 480px) {
   .Title ul {
-    margin-left: calc(50% - 445px) !important;
+    margin-left: 0 !important;
     font-size: 18px;
     top: 0 !important;
     position: relative !important;
