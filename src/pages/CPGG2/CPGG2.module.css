@@ -329,20 +329,22 @@
 }
 
 .cardContainer {
-  margin-top: -200px;
-  margin-left: -600px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
+  width: 100%;
+  max-width: 760px;
+  padding: 0 1rem;
 }
 
 @media (max-width: 1024px) {
   .cardContainer {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    margin-top: -350px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 0 !important;
     justify-content: center !important;
   }
 }
