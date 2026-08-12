@@ -23,6 +23,10 @@
   margin: 0 !important;
   margin-top: 155px !important;
   padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
 }
 
 .Title ul {
