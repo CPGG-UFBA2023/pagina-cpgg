@@ -366,6 +366,7 @@
     margin: 0 auto !important;
     padding: 0 !important;
     max-height: none !important;
+    min-height: 0 !important;
     overflow: visible !important;
     transform: none !important;
   }
