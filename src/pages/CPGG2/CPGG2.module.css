@@ -436,7 +436,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   color: white;
   text-align: center;
-  width: 350px;
+  width: 100%;
   height: 100px;
   position: relative;
   overflow: hidden;
@@ -469,7 +469,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   color: white;
   text-align: center;
-  width: 350px;
+  width: 100%;
   height: 100px;
   position: relative;
   overflow: hidden;
@@ -502,7 +502,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   color: white;
   text-align: center;
-  width: 350px;
+  width: 100%;
   height: 100px;
   position: relative;
   overflow: hidden;
@@ -534,7 +534,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   color: white;
   text-align: center;
-  width: 350px;
+  width: 100%;
   height: 100px;
   position: relative;
   overflow: hidden;
