@@ -358,7 +358,7 @@
   }
 
   .container {
-    display: grid;
+    display: grid !important;
     grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
     gap: clamp(1rem, 3vw, 1.5rem);
     width: 100%;
