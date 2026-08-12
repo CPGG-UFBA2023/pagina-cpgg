@@ -306,3 +306,45 @@ button[data-radix-select-trigger] * {
     top: calc(3% + 50px) !important;
   }
 }
+/* ===== Tablets (iPad) e telas menores: permitir rolagem vertical natural ===== */
+@media (max-width: 1200px) {
+  html:has(main.middle),
+  html:has(main.spaces),
+  html:has(.labs),
+  body:has(main.middle),
+  body:has(main.spaces),
+  body:has(.labs),
+  body:has(main.middle) #root,
+  body:has(main.spaces) #root,
+  body:has(.labs) #root,
+  body:has(main.middle) > div,
+  body:has(main.spaces) > div,
+  body:has(.labs) > div {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: 100dvh !important;
+  }
+
+  body:has(main.middle) .Container,
+  body:has(main.spaces) .pageContainer,
+  body:has(.labs) .Container {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  main.middle,
+  main.spaces {
+    overflow: visible !important;
+    overflow-y: visible !important;
+    height: auto !important;
+    flex: 0 0 auto !important;
+  }
+
+  .labs {
+    overflow: visible !important;
+    height: auto !important;
+  }
+}
