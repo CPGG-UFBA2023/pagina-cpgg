@@ -204,6 +204,13 @@
     text-align: center;
   }
 
+  .cardContainer {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 0 !important;
+    justify-content: center !important;
+  }
+
   .box {
     width: 90%;
     padding: 15px;
