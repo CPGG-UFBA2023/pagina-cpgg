@@ -20,8 +20,8 @@ footer * {
 }
 
 /* Ensure all page containers use flexbox layout properly */
-[class*="Container"]:not(.sign):not(.sign *),
-[class*="container"]:not(.sign):not(.sign *) {
+[class*="Container"]:not(.sign):not(.sign *):not([class*="cardContainer"]):not([class*="CardContainer"]),
+[class*="container"]:not(.sign):not(.sign *):not([class*="cardContainer"]):not([class*="CardContainer"]) {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
