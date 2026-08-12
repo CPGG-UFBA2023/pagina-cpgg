@@ -52,7 +52,7 @@ export function GlobalEarth() {
   }
   
   // Hide on screens <= 1024px
-  const shouldHideOnSmallScreen = window.innerWidth <= 1024
+  const shouldHideOnSmallScreen = window.innerWidth <= 1200
 
   if (shouldHideOnSmallScreen) {
     return null
