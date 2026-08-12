@@ -320,7 +320,7 @@
 }
 
 /* Tablet/Mobile (≤1024px) - fluxo vertical, sem sobreposição */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .middleWrapper {
     flex-direction: column;
     align-items: center;
@@ -455,7 +455,7 @@
 }
 
 /* Posiciona as setas verticalmente centradas na imagem em mobile */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .navButton {
     top: clamp(80px, 21vw, 150px);
   }
@@ -516,7 +516,7 @@
   height: auto !important;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .middleWrapper.middleWrapper {
     padding-bottom: clamp(2rem, 8vw, 3rem);
   }

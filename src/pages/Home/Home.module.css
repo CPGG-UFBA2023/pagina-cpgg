@@ -53,7 +53,7 @@
 }
 
 /* Tablet/Mobile (≤1024px) - Three sections: Video, Phrase, News */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .Container {
     overflow-y: auto;
   }
@@ -108,7 +108,7 @@
 }
 
 /* Mobile/tablet: seções empilhadas sem encolher nem recortar conteúdo */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .Container {
     height: auto !important;
     max-height: none !important;
