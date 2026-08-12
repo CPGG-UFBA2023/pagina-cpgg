@@ -40,6 +40,18 @@
   line-height: 1.2;
 }
 
+.cardContainer {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  max-width: 760px;
+  padding: 0 1rem;
+}
+
 .box {
   text-align: justify-all;
   display: flex;
