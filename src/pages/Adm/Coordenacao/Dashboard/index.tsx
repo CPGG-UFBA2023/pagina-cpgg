@@ -286,17 +286,13 @@ export function CoordenacaoDashboard() {
     setIsLoading(true)
 
     try {
-      const { error } = await supabase
-        .from('admin_users')
-        .upsert({ 
-          email: tiEmail, 
-          full_name: tiName,
-          role: 'ti' 
-        }, {
-          onConflict: 'email'
-        })
+      const { data, error } = await supabase.functions.invoke('admin-create-staff', {
+        body: { email: tiEmail, full_name: tiName, role: 'ti' },
+      })
 
       if (error) throw error
+      if (data?.error) throw new Error(data.error)
+
 
       toast({
         title: "Sucesso!",
