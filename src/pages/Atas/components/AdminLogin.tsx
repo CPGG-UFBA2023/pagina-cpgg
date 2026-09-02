@@ -55,12 +55,12 @@ export function AdminLogin({ isOpen, onClose, onSuccess }: AdminLoginProps) {
         .from('admin_users')
         .select('role')
         .eq('user_id', authData.user.id)
-        .eq('role', 'coordenacao')
+        .in('role', ['coordenacao', 'secretaria'])
         .single()
 
       if (adminError || !adminData) {
         await supabase.auth.signOut()
-        toast({ title: 'Erro de Login', description: 'Você não tem permissão de coordenação', variant: 'destructive' })
+        toast({ title: 'Erro de Login', description: 'Acesso permitido apenas à Coordenação e à Secretaria', variant: 'destructive' })
         return
       }
 

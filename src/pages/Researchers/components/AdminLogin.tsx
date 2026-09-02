@@ -12,7 +12,7 @@ const RECAPTCHA_SITE_KEY = "6Lc_tCcsAAAAANaPjNTNCehs44DT3dPVbUJao07b"
 interface AdminLoginProps {
   isOpen: boolean
   onClose: () => void
-  onLogin: (email: string, password: string) => void
+  onLogin: () => void
 }
 
 export function AdminLogin({ isOpen, onClose, onLogin }: AdminLoginProps) {
@@ -102,7 +102,7 @@ export function AdminLogin({ isOpen, onClose, onLogin }: AdminLoginProps) {
       setPassword('')
       setCaptchaToken(null)
       recaptchaRef.current?.reset()
-      onLogin(email, password)
+      onLogin()
     } catch (error) {
       console.error('Erro no login:', error)
       toast({

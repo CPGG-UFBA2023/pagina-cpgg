@@ -14,7 +14,7 @@ export function Researchers() {
   const [dbResearchers, setDbResearchers] = useState<any[]>([])
   const [isEditMode, setIsEditMode] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
-  const [adminCreds, setAdminCreds] = useState<{ email: string; password: string } | null>(null)
+  const [hasAdminSession, setHasAdminSession] = useState(false)
   const [lastAction, setLastAction] = useState<{
     type: 'delete' | 'update'
     data: any
@@ -88,65 +88,10 @@ export function Researchers() {
 
   const { toast } = useToast()
 
-  const handleLogin = async (email: string, password: string) => {
-    console.log('=== HANDLELOGIN CHAMADO ===')
-    
-    try {
-      // Autenticar no Supabase primeiro
-      const { error: signInError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
-
-      if (signInError) {
-        toast({ 
-          title: 'Erro ao fazer login', 
-          description: signInError.message, 
-          variant: 'destructive' 
-        })
-        return
-      }
-
-      setIsEditMode(true)
-      setAdminCreds({ email, password })
-      setShowLogin(false)
-      
-      toast({ title: 'Login realizado', description: 'Modo de edição ativado.' })
-      
-      // Debug completo
-      setTimeout(() => {
-        console.log('=== DEBUG DE SCROLL ===')
-        console.log('Body overflow:', window.getComputedStyle(document.body).overflow)
-        console.log('Body position:', window.getComputedStyle(document.body).position)
-        console.log('Body height:', window.getComputedStyle(document.body).height)
-        console.log('HTML overflow:', window.getComputedStyle(document.documentElement).overflow)
-        console.log('Scroll height:', document.documentElement.scrollHeight)
-        console.log('Client height:', document.documentElement.clientHeight)
-        console.log('Pode rolar?', document.documentElement.scrollHeight > document.documentElement.clientHeight)
-        
-        // Verificar todos os elementos no caminho
-        let el = document.body
-        while (el) {
-          const computed = window.getComputedStyle(el)
-          if (computed.overflow !== 'visible' || computed.position === 'fixed') {
-            console.log('Elemento com overflow/position especial:', el.tagName, {
-              overflow: computed.overflow,
-              position: computed.position,
-              height: computed.height
-            })
-          }
-          el = el.parentElement as HTMLElement
-        }
-        
-        console.log('=== FIM DEBUG ===')
-      }, 200)
-    } catch (error: any) {
-      toast({ 
-        title: 'Erro ao fazer login', 
-        description: error.message, 
-        variant: 'destructive' 
-      })
-    }
+  const handleLogin = () => {
+    setIsEditMode(true)
+    setHasAdminSession(true)
+    setShowLogin(false)
   }
 
   const handleLogout = async () => {
@@ -154,7 +99,7 @@ export function Researchers() {
     await supabase.auth.signOut()
     
     setIsEditMode(false)
-    setAdminCreds(null)
+    setHasAdminSession(false)
     setLastAction(null)
     setShowUndo(false)
   }
@@ -165,7 +110,7 @@ export function Researchers() {
   }
 
   const handleUndo = async () => {
-    if (!lastAction || !adminCreds) return
+    if (!lastAction || !hasAdminSession) return
 
     try {
       if (lastAction.type === 'delete') {
@@ -205,7 +150,7 @@ export function Researchers() {
   }
 
   const handleDeleteResearcher = async (id: string) => {
-    if (!adminCreds) {
+    if (!hasAdminSession) {
       toast({ title: 'Acesso negado', description: 'Faça login administrativo.', variant: 'destructive' })
       return
     }
@@ -237,7 +182,7 @@ export function Researchers() {
   }
 
   const handleSetChief = async (id: string, programKey: string) => {
-    if (!adminCreds) {
+    if (!hasAdminSession) {
       toast({ title: 'Acesso negado', description: 'Faça login administrativo.', variant: 'destructive' })
       return
     }
@@ -270,7 +215,7 @@ export function Researchers() {
 
 
   const handleUpdateResearcher = async (id: string, name: string) => {
-    if (!adminCreds) {
+    if (!hasAdminSession) {
       toast({ title: 'Acesso negado', description: 'Faça login administrativo.', variant: 'destructive' })
       return
     }
