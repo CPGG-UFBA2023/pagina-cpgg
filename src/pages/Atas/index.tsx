@@ -104,7 +104,8 @@ export function Atas() {
   };
 
   const handleLoginSuccess = () => setIsEditMode(true);
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     setIsEditMode(false);
     toast({ title: "Logout", description: "Saindo do modo de edição" });
   };
