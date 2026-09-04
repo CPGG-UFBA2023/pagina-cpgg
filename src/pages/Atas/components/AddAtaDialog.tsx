@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+
 import { supabase } from '@/integrations/supabase/client'
 import { Upload } from 'lucide-react'
 
@@ -150,17 +150,18 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
             <Input type="date" value={meetingDate} onChange={(e) => setMeetingDate(e.target.value)} />
           </div>
           <div>
-            <label className="text-sm font-medium">Tipo de Reunião:</label>
-            <Select value={meetingType} onValueChange={setMeetingType}>
-              <SelectTrigger>
-                <SelectValue placeholder="Selecione o tipo" />
-              </SelectTrigger>
-              <SelectContent position="popper" className="z-[200]">
-                {MEETING_TYPES.map(t => (
-                  <SelectItem key={t} value={t}>{t}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <label className="text-sm font-medium" htmlFor="meeting-type">Tipo de Reunião:</label>
+            <select
+              id="meeting-type"
+              value={meetingType}
+              onChange={(e) => setMeetingType(e.target.value)}
+              className="mt-1 flex h-11 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            >
+              <option value="">Selecione o tipo</option>
+              {MEETING_TYPES.map(t => (
+                <option key={t} value={t}>{t}</option>
+              ))}
+            </select>
           </div>
           <div>
             <label className="text-sm font-medium">Período/Ano:</label>
