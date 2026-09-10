@@ -75,11 +75,16 @@ const handler = async (req: Request): Promise<Response> => {
     // Tipo de espaço
     const espacoNome = tipoReserva === 'auditorio' ? 'Auditório' : 'Sala de Reuniões';
 
-    console.log(`Enviando email para Secretaria: ${secretariaEmail}`);
+    // Encaminhar reservas do auditório também para o coordenador responsável
+    const destinatarios = tipoReserva === 'auditorio'
+      ? [secretariaEmail, 'milton.porsani@gmail.com']
+      : [secretariaEmail];
+
+    console.log(`Enviando email para: ${destinatarios.join(', ')}`);
 
     // Enviar email via SMTP
     const emailResult = await sendEmail({
-      to: secretariaEmail,
+      to: destinatarios,
       subject: `Nova Solicitação de Reserva - ${espacoNome}`,
       html: `
         <h2>Nova Solicitação de Reserva - ${espacoNome}</h2>
