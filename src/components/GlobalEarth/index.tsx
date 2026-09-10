@@ -41,7 +41,7 @@ export function GlobalEarth() {
   const isSpacePage = ['/spaces/auditory', '/spaces/meeting-room'].includes(location.pathname)
   const isRepairsPage = location.pathname === '/repairs-services'
   const isLabReservationPage = /\/labs\/[^/]+\/reservation-form$/i.test(location.pathname)
-  const isCpggPage = ['/cpgg', '/cpgg2'].includes(location.pathname.toLowerCase())
+  const isCpggPage = ['/cpgg', '/cpgg2', '/solicitacoes', '/solicitations'].includes(location.pathname.toLowerCase())
   const isHistoryViewPage = location.pathname.toLowerCase() === '/history/view'
 
   const shouldHide = hideOnRoutes.includes(location.pathname) || isPhotoSubPage || isNewsPage || isLaigaRepo || isLabMainPage || isSpacePage || isRepairsPage || isLabReservationPage || isCpggPage || isHistoryViewPage
