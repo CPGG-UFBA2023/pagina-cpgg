@@ -262,7 +262,7 @@
     padding: 0 0.75rem;
   }
 
-  .Laiga, .Lemar, .LtmRx, .Lamod, .LabFis {
+  .Laiga, .Lemar, .LtmRx, .Lamod, .LabFis, .Lagep {
     width: 100%;
     height: auto;
     min-height: 90px;
@@ -365,7 +365,8 @@
   .Lemar h2,
   .LtmRx h2,
   .Lamod h2,
-  .LabFis h2 {
+  .LabFis h2,
+  .Lagep h2 {
     font-size: 14px;
   }
 
@@ -373,7 +374,8 @@
   .Lemar h2:first-child,
   .LtmRx h2:first-child,
   .Lamod h2:first-child,
-  .LabFis h2:first-child {
+  .LabFis h2:first-child,
+  .Lagep h2:first-child {
     font-size: 18px;
   }
 }
@@ -557,6 +559,39 @@
 }
 
 .LabFis h2:first-child {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.Lagep {
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  text-align: center;
+  width: 100%;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  background: linear-gradient(135deg, rgba(5, 25, 45, 0.97), rgba(20, 60, 90, 0.95));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Lagep:hover {
+  transform: translateY(-5px);
+}
+
+.Lagep h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.Lagep h2:first-child {
   font-size: 20px;
   margin-bottom: 4px;
 }

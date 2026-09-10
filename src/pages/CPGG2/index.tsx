@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import styles from './CPGG2.module.css'
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
-import earth from '../../components/Figures/earth-new.jpg'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export function CPGG2() {
@@ -44,6 +43,12 @@ export function CPGG2() {
               <div className={styles.LabFis}>
                 <h2>LabFis</h2>
                 <h2>Laboratório de Propriedades Físicas das Rochas</h2>
+              </div>
+            </Link>
+            <Link to="/labs/lagep" className={styles.labCard}>
+              <div className={styles.Lagep}>
+                <h2>LAGEP</h2>
+                <h2>Laboratório de Geofísica e Exploração de Petróleo</h2>
               </div>
             </Link>
           </div>
