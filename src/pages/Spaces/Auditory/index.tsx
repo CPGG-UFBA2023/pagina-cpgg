@@ -38,11 +38,9 @@ export function Auditory() {
             <nav className={styles.btnWrap}>
                <Button
                  asChild
-                 variant="outline"
-                 size="sm"
-                 className="bg-[#BEB6B6] border-none text-white rounded-md hover:bg-[#936aeb] transition-all duration-500 flex items-center justify-center px-6"
+                 className="bg-[#592cbb] border-none text-white rounded-full hover:bg-[#7a4fd6] transition-all duration-300 flex items-center justify-center px-8 py-3 text-base font-semibold shadow-lg"
                >
-                 <Link to="/reservations/reservation-auditory" className="flex items-center justify-center">Reservar</Link>
+                 <Link to="/reservations/reservation-auditory" className="flex items-center justify-center">Reserva do Auditório</Link>
                </Button>
             </nav>
           </div>
