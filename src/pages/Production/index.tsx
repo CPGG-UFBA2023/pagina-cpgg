@@ -10,6 +10,7 @@ import { EditButtonProduction } from './components/EditButtonProduction'
 import { ScientificPublicationEditor } from './components/ScientificPublicationEditor'
 import { useToast } from '@/hooks/use-toast'
 import styles from './Production.module.css'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface ScientificPublication {
   id: string
@@ -23,6 +24,7 @@ interface ScientificPublication {
 }
 
 export function Production() {
+  const { t } = useLanguage()
   const [publications, setPublications] = useState<ScientificPublication[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -120,7 +122,7 @@ export function Production() {
   }
 
   if (isLoading) {
-    return <div className={styles.loading}>Carregando publicações...</div>
+    return <div className={styles.loading}>{t('news.loading')}</div>
   }
 
   return (
@@ -129,8 +131,8 @@ export function Production() {
       <div className={`${styles.container} scientific-publications-page production`}>
         <div className={styles.header}>
           <BookOpen size={32} color="white" />
-          <h1>Produção Científica</h1>
-          <p>Conheça os artigos publicados por nossos pesquisadores com apoio do centro</p>
+          <h1>{t('production.title')}</h1>
+          <p>{t('production.subtitle')}</p>
         </div>
 
         {isAuthenticated ? (
@@ -143,7 +145,7 @@ export function Production() {
             {publications.length === 0 ? (
               <div className={styles.emptyState}>
                 <BookOpen size={48} />
-                <p>Nenhuma publicação científica cadastrada ainda.</p>
+                <p>{t('production.empty')}</p>
               </div>
             ) : (
               <ScrollArea className={styles.scrollArea}>
@@ -152,7 +154,7 @@ export function Production() {
                     <Card key={publication.id} className={styles.publicationCard}>
                       <CardContent className="pt-6">
                         <p className={styles.publicationText}>
-                          {publication.authors} ({publication.year}) - {publication.article_title}. {publication.journal_name}, volume {publication.volume}, página {publication.pages}.
+                          {publication.authors} ({publication.year}) - {publication.article_title}. {publication.journal_name}, {t('production.volume')} {publication.volume}, {t('production.page')} {publication.pages}.
                         </p>
                       </CardContent>
                     </Card>
