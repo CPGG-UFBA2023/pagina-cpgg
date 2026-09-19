@@ -34,16 +34,10 @@
   font-size: 24px;
   color: #363F5;
   margin-top: -10px;
-}
-
-/* Desktop wide: layout autoral original */
-@media (min-width: 1400px) {
-  .Years {
-    padding-left: 700px;
-  }
-  .Years ul {
-    margin-left: -850px;
-  }
+  text-align: center;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .gallery {
