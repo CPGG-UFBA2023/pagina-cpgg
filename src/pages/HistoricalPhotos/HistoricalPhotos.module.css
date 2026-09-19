@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 130px;
+  padding-top: 180px;
   padding-left: 20px;
   padding-right: 20px;
   flex: 1;
@@ -26,6 +26,37 @@
   color: white;
 }
 
+.titleRow {
+  width: 100%;
+  max-width: 575px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.titleRow .title { margin: 0; }
+
+.cardWrapper { position: relative; }
+
+.deleteButton {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  z-index: 2;
+}
+
+.compactDialog {
+  max-width: 24rem;
+  max-height: 45vh;
+  top: calc(50% + 50px);
+  overflow-y: auto;
+}
+
 /* Desktop largo: posicionamento autoral à esquerda */
 @media (min-width: 1024px) {
   .hp {
@@ -37,7 +68,7 @@
 /* iPhone 12 mini and smaller (≤375px) */
 @media (max-width: 375px) {
   .hp {
-    padding-top: 230px !important;
+    padding-top: 280px !important;
     padding-left: 0 !important;
     align-items: center !important;
   }
@@ -135,7 +166,7 @@
 @media (max-width: 768px) {
   .hp {
     padding: 20px;
-    padding-top: 130px;
+    padding-top: 180px;
   }
 
   .title {
@@ -143,6 +174,8 @@
     text-align: center;
     font-size: 20px;
   }
+
+  .titleRow { flex-direction: column; }
 
   .container {
     grid-template-columns: 1fr !important;
@@ -166,7 +199,7 @@
 /* Samsung A33 specific (376px - 430px) - must come after 768px to override */
 @media (min-width: 376px) and (max-width: 430px) {
   .hp {
-    padding-top: 220px !important;
+    padding-top: 270px !important;
     padding-left: 0 !important;
     align-items: center !important;
   }
@@ -232,7 +265,7 @@
   }
   
   .hp {
-    padding-top: 100px !important;
+    padding-top: 150px !important;
     overflow: visible !important;
     flex: none !important;
     padding-bottom: 100px !important;

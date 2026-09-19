@@ -21,6 +21,8 @@ interface Event {
   id: string
   name: string
   event_date: string
+  category: string
+  display_date: boolean
 }
 
 export function EventPhotos() {
@@ -37,10 +39,11 @@ export function EventPhotos() {
     if (id) {
       fetchEventData()
     }
-    const savedAuth = localStorage.getItem('eventPhotosAuth') || localStorage.getItem('eventManagerAuth')
-    if (savedAuth === 'true') {
-      setIsAuthenticated(true)
-    }
+    supabase.auth.getSession().then(async ({ data }) => {
+      if (!data.session) return
+      const { data: role } = await supabase.rpc('get_admin_role')
+      setIsAuthenticated(role === 'coordenacao' || role === 'ti' || role === 'secretaria')
+    })
   }, [id])
 
   const fetchEventData = async () => {
@@ -73,7 +76,6 @@ export function EventPhotos() {
   const handleLogin = () => {
     setIsAuthenticated(true)
     setShowLoginDialog(false)
-    localStorage.setItem('eventPhotosAuth', 'true')
     setShowEditor(true)
   }
 
@@ -112,10 +114,10 @@ export function EventPhotos() {
   return (
     <div className={styles.pageContainer}>
       <Header />
-      <BackButtonPhotos />
+      <BackButtonPhotos to={event.category === 'historical' ? '/Photos/HistoricalPhotos' : '/Photos'} />
       <div className={styles.Years}>
         <ul>
-          {event.name} — {new Date(event.event_date + 'T12:00:00').toLocaleDateString('pt-BR')}
+          {event.name}{event.display_date ? ` — ${new Date(event.event_date + 'T12:00:00').toLocaleDateString('pt-BR')}` : ''}
         </ul>
         <div 
           className="absolute top-4 right-4 z-10"
@@ -166,6 +168,7 @@ export function EventPhotos() {
           onPhotosChange={setPhotos}
           onEventChange={(name, event_date) => setEvent({ ...event, name, event_date })}
           onClose={() => setShowEditor(false)}
+          albumType={event.category === 'historical' ? 'historical' : 'event'}
         />
       )}
       

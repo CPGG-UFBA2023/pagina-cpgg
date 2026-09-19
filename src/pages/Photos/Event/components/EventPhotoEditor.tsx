@@ -21,6 +21,7 @@ interface EventPhotoEditorProps {
   onPhotosChange: (photos: EventPhoto[]) => void
   onEventChange: (name: string, date: string) => void
   onClose: () => void
+  albumType?: 'event' | 'historical'
 }
 
 export function EventPhotoEditor({
@@ -31,6 +32,7 @@ export function EventPhotoEditor({
   onPhotosChange,
   onEventChange,
   onClose,
+  albumType = 'event',
 }: EventPhotoEditorProps) {
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null)
   const [isUploading, setIsUploading] = useState(false)
@@ -151,10 +153,10 @@ export function EventPhotoEditor({
   }
 
   return (
-    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[9999] p-4">
-      <div className="bg-background text-foreground rounded-lg max-w-5xl w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[9999] p-4 pt-[100px]">
+      <div className="bg-background text-foreground rounded-lg max-w-2xl w-full h-[45vh] min-h-[320px] overflow-y-auto">
         <div className="p-6 border-b flex justify-between items-center gap-4 flex-wrap">
-          <h2 className="text-xl font-semibold">Editar álbum do evento</h2>
+          <h2 className="text-xl font-semibold">Editar {albumType === 'historical' ? 'subálbum histórico' : 'álbum do evento'}</h2>
           <div className="flex items-center gap-2">
             <Button onClick={() => fileInputRef.current?.click()} disabled={isUploading}>
               <Plus className="w-4 h-4 mr-2" />

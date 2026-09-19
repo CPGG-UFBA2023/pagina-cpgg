@@ -31,10 +31,11 @@ export function Photos() {
 
   useEffect(() => {
     fetchEvents()
-    const savedAuth = localStorage.getItem('eventManagerAuth') || localStorage.getItem('eventPhotosAuth')
-    if (savedAuth === 'true') {
-      setIsAuthenticated(true)
-    }
+    supabase.auth.getSession().then(async ({ data }) => {
+      if (!data.session) return
+      const { data: role } = await supabase.rpc('get_admin_role')
+      setIsAuthenticated(role === 'coordenacao' || role === 'ti' || role === 'secretaria')
+    })
   }, [])
 
   const fetchEvents = async () => {
@@ -42,6 +43,7 @@ export function Photos() {
       const { data, error } = await supabase
         .from('events')
         .select('*')
+        .eq('category', 'event')
         .order('event_date', { ascending: false })
 
       if (error) throw error
@@ -166,7 +168,7 @@ export function Photos() {
       </main>
 
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
-        <DialogContent>
+        <DialogContent className="max-w-sm max-h-[45vh] top-[calc(50%+50px)] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{editing ? 'Editar evento' : 'Novo evento'}</DialogTitle>
           </DialogHeader>
@@ -193,7 +195,6 @@ export function Photos() {
         onLogin={() => {
           setIsAuthenticated(true)
           setShowLogin(false)
-          localStorage.setItem('eventManagerAuth', 'true')
         }}
       />
 

@@ -230,6 +230,7 @@ export function Router() {
         <Route path='/Photos/HistoricalPhotos/BlockE' element={<BlockE />} />  
         <Route path='/Photos/HistoricalPhotos/ICG' element={<ICG />} />  
         <Route path='/Photos/HistoricalPhotos/LatinAmerican' element={<Latin />} />  
+         <Route path='/Photos/HistoricalPhotos/Album/:id' element={<EventPhotos />} />
          <Route path='/Photos/Years' element={<Years />} /> 
          <Route path='/Photos/FirstMeeting' element={<FirstMeeting />} />
          <Route path='/Photos/Event/:id' element={<EventPhotos />} />
