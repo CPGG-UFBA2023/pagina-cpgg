@@ -15,6 +15,7 @@ import styles from './EventPhotos.module.css'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useToast } from '@/hooks/use-toast'
 import { schedulePhotoLibraryDeletion, undoPhotoLibraryDeletion, usePendingPhotoLibraryDeletion } from '@/lib/photoDeletionQueue'
+import { usePhotoAdminAuth } from '../usePhotoAdminAuth'
 
 interface EventPhoto {
   id: string
@@ -50,7 +51,7 @@ export function EventPhotos() {
   const [photos, setPhotos] = useState<EventPhoto[]>([])
   const [loading, setLoading] = useState(true)
   const [showLoginDialog, setShowLoginDialog] = useState(false)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const { isAuthenticated, setIsAuthenticated } = usePhotoAdminAuth()
   const [showEditor, setShowEditor] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const [subAlbums, setSubAlbums] = useState<SubAlbum[]>([])
@@ -66,17 +67,14 @@ export function EventPhotos() {
     if (id) {
       fetchEventData()
     }
-    supabase.auth.getSession().then(async ({ data }) => {
-      if (!data.session) return
-      const { data: role } = await supabase.rpc('get_admin_role')
-      const canEdit = role === 'coordenacao' || role === 'ti' || role === 'secretaria'
-      setIsAuthenticated(canEdit)
-      if (canEdit && searchParams.get('edit') === '1') {
-        setShowEditor(true)
-        setSearchParams({}, { replace: true })
-      }
-    })
-  }, [id, searchParams, setSearchParams])
+  }, [id])
+
+  useEffect(() => {
+    if (isAuthenticated && searchParams.get('edit') === '1') {
+      setShowEditor(true)
+      setSearchParams({}, { replace: true })
+    }
+  }, [isAuthenticated, searchParams, setSearchParams])
 
   const fetchEventData = async () => {
     try {
@@ -262,14 +260,17 @@ export function EventPhotos() {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <Button
-            onClick={handleEditClick}
-            size="sm"
-            variant="secondary"
-            className="w-10 h-10 p-0 bg-primary text-primary-foreground border-primary/20 hover:bg-primary/90 shadow-md"
-          >
-            <Edit3 className="w-4 h-4" />
-          </Button>
+          {isAuthenticated && (
+            <Button
+              aria-label="Editar álbum"
+              onClick={handleEditClick}
+              size="sm"
+              variant="secondary"
+              className="w-10 h-10 p-0 bg-primary text-primary-foreground border-primary/20 hover:bg-primary/90 shadow-md"
+            >
+              <Edit3 className="w-4 h-4" />
+            </Button>
+          )}
           {isAuthenticated && (
             <Button
               aria-label="Apagar álbum"
