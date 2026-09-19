@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -16,7 +16,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 interface Event {
   id: string
   name: string
-  event_date: string
+  event_date: string | null
   created_at: string
 }
 
@@ -30,6 +30,7 @@ export function Photos() {
   const [form, setForm] = useState({ name: '', event_date: '' })
   const [saving, setSaving] = useState(false)
   const { toast } = useToast()
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetchEvents()
@@ -71,14 +72,14 @@ export function Photos() {
 
   const openEdit = (event: Event) => requireAuth(() => {
     setEditing(event)
-    setForm({ name: event.name, event_date: event.event_date })
+    setForm({ name: event.name, event_date: event.event_date || '' })
     setShowDialog(true)
   })
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!form.name.trim() || !form.event_date) {
-      toast({ title: 'Erro', description: 'Informe o nome e a data do evento.', variant: 'destructive' })
+    if (!form.name.trim()) {
+      toast({ title: 'Erro', description: 'Informe o nome do evento.', variant: 'destructive' })
       return
     }
     setSaving(true)
@@ -86,16 +87,22 @@ export function Photos() {
       if (editing) {
         const { error } = await supabase
           .from('events')
-          .update({ name: form.name.trim(), event_date: form.event_date })
+          .update({ name: form.name.trim(), event_date: form.event_date || null, display_date: Boolean(form.event_date) })
           .eq('id', editing.id)
         if (error) throw error
       } else {
-        const { error } = await supabase
+        const { data: createdEvent, error } = await supabase
           .from('events')
-          .insert([{ name: form.name.trim(), event_date: form.event_date }])
+          .insert([{ name: form.name.trim(), event_date: form.event_date || null, display_date: Boolean(form.event_date) }])
+          .select('id')
+          .single()
         if (error) throw error
+        toast({ title: 'Sucesso!', description: 'Evento criado. Agora adicione as fotos.' })
+        setShowDialog(false)
+        navigate(`/Photos/Event/${createdEvent.id}?edit=1`)
+        return
       }
-      toast({ title: 'Sucesso!', description: editing ? 'Evento atualizado.' : 'Evento criado. Abra o álbum para adicionar fotos.' })
+      toast({ title: 'Sucesso!', description: 'Evento atualizado.' })
       setShowDialog(false)
       setEditing(null)
       fetchEvents()
@@ -150,7 +157,7 @@ export function Photos() {
                 <Link to={`/Photos/Event/${event.id}`} className={styles.eventCard}>
                   <div>
                     <h2>{event.name}</h2>
-                    <p>{t('photos.eventHeld')} {new Date(event.event_date + 'T12:00:00').toLocaleDateString(language === 'en' ? 'en-US' : 'pt-BR')}</p>
+                    {event.event_date && <p>{t('photos.eventHeld')} {new Date(event.event_date + 'T12:00:00').toLocaleDateString(language === 'en' ? 'en-US' : 'pt-BR')}</p>}
                   </div>
                 </Link>
                 {isAuthenticated && (
@@ -180,8 +187,8 @@ export function Photos() {
               <Input id="ev-name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
             </div>
             <div>
-              <Label htmlFor="ev-date">Data do evento</Label>
-              <Input id="ev-date" type="date" value={form.event_date} onChange={(e) => setForm({ ...form, event_date: e.target.value })} required />
+              <Label htmlFor="ev-date">Data do evento (opcional)</Label>
+              <Input id="ev-date" type="date" value={form.event_date} onChange={(e) => setForm({ ...form, event_date: e.target.value })} />
             </div>
             <div className="flex justify-end gap-2">
               <Button type="button" variant="outline" onClick={() => setShowDialog(false)}>Cancelar</Button>

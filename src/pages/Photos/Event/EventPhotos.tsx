@@ -16,12 +16,13 @@ interface EventPhoto {
   photo_url: string
   photo_order: number
   caption?: string | null
+  photo_date?: string | null
 }
 
 interface Event {
   id: string
   name: string
-  event_date: string
+  event_date: string | null
   category: string
   display_date: boolean
 }
@@ -119,7 +120,7 @@ export function EventPhotos() {
       <BackButtonPhotos to={event.category === 'historical' ? '/Photos/HistoricalPhotos' : '/Photos'} />
       <div className={styles.Years}>
         <ul>
-          {event.name}{event.display_date ? ` — ${new Date(event.event_date + 'T12:00:00').toLocaleDateString(language === 'en' ? 'en-US' : 'pt-BR')}` : ''}
+          {event.name}{event.display_date && event.event_date ? ` — ${new Date(event.event_date + 'T12:00:00').toLocaleDateString(language === 'en' ? 'en-US' : 'pt-BR')}` : ''}
         </ul>
         <div 
           className="absolute top-4 right-4 z-10"
@@ -148,7 +149,16 @@ export function EventPhotos() {
                   src={photo.photo_url} 
                   alt={photo.caption || `${t('photos.photoAlt')} ${index + 1} — ${event.name}`}
                 />
-                {photo.caption && <figcaption className={styles.caption}>{photo.caption}</figcaption>}
+                {(photo.caption || photo.photo_date) && (
+                  <figcaption className={styles.caption}>
+                    {photo.caption && <span>{photo.caption}</span>}
+                    {photo.photo_date && (
+                      <time dateTime={photo.photo_date}>
+                        {new Date(photo.photo_date + 'T12:00:00').toLocaleDateString(language === 'en' ? 'en-US' : 'pt-BR')}
+                      </time>
+                    )}
+                  </figcaption>
+                )}
               </figure>
             ))}
           </div>

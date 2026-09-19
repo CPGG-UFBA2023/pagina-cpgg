@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Plus, Trash2 } from 'lucide-react'
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
@@ -17,7 +17,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 interface HistoricalAlbum {
   id: string
   name: string
-  event_date: string
+  event_date: string | null
   display_date: boolean
 }
 
@@ -30,6 +30,7 @@ export function HP() {
   const [saving, setSaving] = useState(false)
   const [form, setForm] = useState({ name: '', event_date: '' })
   const { toast } = useToast()
+  const navigate = useNavigate()
 
   const fetchAlbums = async () => {
     const { data, error } = await supabase
@@ -56,14 +57,14 @@ export function HP() {
 
   const createAlbum = async (event: React.FormEvent) => {
     event.preventDefault()
-    if (!form.name.trim() || !form.event_date) return
+    if (!form.name.trim()) return
     setSaving(true)
-    const { error } = await supabase.from('events').insert([{
+    const { data: createdAlbum, error } = await supabase.from('events').insert([{
       name: form.name.trim(),
-      event_date: form.event_date,
+      event_date: form.event_date || null,
       category: 'historical',
-      display_date: true,
-    }])
+      display_date: Boolean(form.event_date),
+    }]).select('id').single()
     setSaving(false)
     if (error) {
       toast({ title: 'Erro', description: 'Não foi possível criar o subálbum.', variant: 'destructive' })
@@ -71,8 +72,8 @@ export function HP() {
     }
     setForm({ name: '', event_date: '' })
     setShowCreate(false)
-    fetchAlbums()
-    toast({ title: 'Subálbum criado', description: 'Abra-o para adicionar e organizar as fotos.' })
+    toast({ title: 'Subálbum criado', description: 'Agora adicione e organize as fotos.' })
+    navigate(`/Photos/HistoricalPhotos/Album/${createdAlbum.id}?edit=1`)
   }
 
   const deleteAlbum = async (album: HistoricalAlbum) => {
@@ -117,7 +118,7 @@ export function HP() {
           <DialogHeader><DialogTitle>Novo subálbum histórico</DialogTitle></DialogHeader>
           <form onSubmit={createAlbum} className="space-y-4 overflow-y-auto">
             <div><Label htmlFor="historical-name">Nome do evento</Label><Input id="historical-name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required /></div>
-            <div><Label htmlFor="historical-date">Data do evento</Label><Input id="historical-date" type="date" value={form.event_date} onChange={(e) => setForm({ ...form, event_date: e.target.value })} required /></div>
+            <div><Label htmlFor="historical-date">Data do evento (opcional)</Label><Input id="historical-date" type="date" value={form.event_date} onChange={(e) => setForm({ ...form, event_date: e.target.value })} /></div>
             <div className="flex justify-end gap-2"><Button type="button" variant="outline" onClick={() => setShowCreate(false)}>Cancelar</Button><Button type="submit" disabled={saving}>{saving ? 'Salvando...' : 'Criar'}</Button></div>
           </form>
         </DialogContent>
