@@ -93,8 +93,15 @@ export function EventPhotos() {
 
       if (photosError) throw photosError
 
+      const { data: childrenData } = await supabase
+        .from('events')
+        .select('id,name,event_date,display_date')
+        .eq('parent_id', id)
+        .order('event_date', { ascending: false })
+
       setEvent(eventData)
       setPhotos(photosData || [])
+      setSubAlbums(childrenData || [])
     } catch (error) {
       console.error('Error fetching event data:', error)
     } finally {
