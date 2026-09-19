@@ -11,6 +11,7 @@ interface EventPhoto {
   id: string
   photo_url: string
   photo_order: number
+  title?: string | null
   caption?: string | null
   photo_date?: string | null
 }
