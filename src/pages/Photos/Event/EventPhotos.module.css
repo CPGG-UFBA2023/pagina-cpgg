@@ -168,3 +168,19 @@
 }
 
 /* Onda 4: regras legadas removidas (causavam margin-left:-600px e padding:60%). */
+
+.photoItem {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.caption {
+  color: #fff;
+  font-size: clamp(0.8rem, 1.6vw, 1rem);
+  text-align: center;
+  max-width: 400px;
+  line-height: 1.3;
+}
