@@ -5,10 +5,13 @@ import { useToast } from '@/hooks/use-toast'
 import { HomeButton } from '../../components/HomeButton'
 import { z } from 'zod'
 import styles from './registration.module.css'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const logocpgg = 'https://i.imgur.com/6HRTVzo.png';
 
 export function Registration() {
+  const { language } = useLanguage()
+  const en = language === 'en'
   const navigate = useNavigate()
   const location = useLocation()
   const { toast } = useToast()
@@ -179,21 +182,21 @@ export function Registration() {
           <div className={styles.successBox}>
             <h1>Registration</h1>
             <div className={styles.successMessage}>
-              <h2>Cadastro realizado com sucesso!</h2>
+              <h2>{en ? 'Registration completed successfully!' : 'Cadastro realizado com sucesso!'}</h2>
               <p style={{ fontSize: '16px', marginBottom: '15px' }}>
-                <strong>Um email de confirmação foi enviado para o endereço cadastrado.</strong>
+                <strong>{en ? 'A confirmation email has been sent to the registered address.' : 'Um email de confirmação foi enviado para o endereço cadastrado.'}</strong>
               </p>
               <p style={{ marginBottom: '10px' }}>
-                Por favor, verifique sua caixa de entrada (e também a pasta de spam) e clique no link de confirmação.
+                {en ? 'Check your inbox and spam folder, then select the confirmation link.' : 'Por favor, verifique sua caixa de entrada (e também a pasta de spam) e clique no link de confirmação.'}
               </p>
               <p style={{ marginBottom: '20px', color: '#666' }}>
-                Após confirmar seu email, você poderá fazer login e editar suas informações pessoais na plataforma.
+                {en ? 'After confirming your email, you can sign in and edit your personal information.' : 'Após confirmar seu email, você poderá fazer login e editar suas informações pessoais na plataforma.'}
               </p>
               <button 
                 onClick={() => { window.location.href = '/sign' }}
                 className={styles.backButton}
               >
-                Ir para Login
+                {en ? 'Go to Sign In' : 'Ir para Login'}
               </button>
             </div>
           </div>
@@ -215,7 +218,7 @@ export function Registration() {
             <input
               type="text"
               name="fullName"
-              placeholder="Nome completo"
+              placeholder={en ? 'Full name' : 'Nome completo'}
               value={formData.fullName}
               onChange={handleInputChange}
               required
@@ -231,7 +234,7 @@ export function Registration() {
             <input
               type="tel"
               name="phone"
-              placeholder="Telefone"
+              placeholder={en ? 'Phone' : 'Telefone'}
               value={formData.phone}
               onChange={handleInputChange}
               required
@@ -239,7 +242,7 @@ export function Registration() {
             <input
               type="password"
               name="password"
-              placeholder="Senha (mínimo 6 caracteres)"
+              placeholder={en ? 'Password (minimum 6 characters)' : 'Senha (mínimo 6 caracteres)'}
               value={formData.password}
               onChange={handleInputChange}
               required
@@ -248,7 +251,7 @@ export function Registration() {
             <input
               type="password"
               name="confirmPassword"
-              placeholder="Confirmar senha"
+              placeholder={en ? 'Confirm password' : 'Confirmar senha'}
               value={formData.confirmPassword}
               onChange={handleInputChange}
               required
@@ -258,7 +261,7 @@ export function Registration() {
               disabled={isLoading}
               className={styles.submitButton}
             >
-              {isLoading ? 'Registrando...' : 'Registrar'}
+              {isLoading ? (en ? 'Registering...' : 'Registrando...') : (en ? 'Register' : 'Registrar')}
             </button>
           </form>
         </div>

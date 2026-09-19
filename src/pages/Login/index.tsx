@@ -10,12 +10,15 @@ import { Label } from "@/components/ui/label";
 import { HomeButton } from "../../components/HomeButton";
 import ReCAPTCHA from "react-google-recaptcha";
 import styles from "./login.module.css";
+import { useLanguage } from "@/contexts/LanguageContext";
 const logocpgg = "https://imgur.com/6HRTVzo.png";
 
 // Site key do reCAPTCHA - esta é uma chave pública
 const RECAPTCHA_SITE_KEY = "6Lc_tCcsAAAAANaPjNTNCehs44DT3dPVbUJao07b";
 
 export function Login() {
+  const { language } = useLanguage();
+  const en = language === "en";
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [signupEmail, setSignupEmail] = useState("");
@@ -275,7 +278,7 @@ export function Login() {
           {/* Formulário de Login */}
           <div className={styles.formBox}>
             <div className={styles.formTitle}>
-              <p>Fazer Login</p>
+              <p>{en ? "Sign In" : "Fazer Login"}</p>
             </div>
 
             <form onSubmit={handleLogin} className={styles.form}>
@@ -289,7 +292,7 @@ export function Login() {
               />
               <input
                 type="password"
-                placeholder="Senha"
+                placeholder={en ? "Password" : "Senha"}
                 value={loginPassword}
                 onChange={(e) => setLoginPassword(e.target.value)}
                 required
@@ -305,34 +308,34 @@ export function Login() {
                 />
               </div>
               <button type="submit" disabled={loginLoading || !captchaToken}>
-                {loginLoading ? "Carregando..." : "Entrar"}
+                {loginLoading ? (en ? "Loading..." : "Carregando...") : (en ? "Sign In" : "Entrar")}
               </button>
             </form>
 
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>
                 <button type="button" className={styles.forgotPassword}>
-                  Esqueci minha senha
+                  {en ? "Forgot my password" : "Esqueci minha senha"}
                 </button>
               </DialogTrigger>
               <DialogContent className={styles.dialogContent}>
                 <DialogHeader>
-                  <DialogTitle>Recuperar Senha</DialogTitle>
+                  <DialogTitle>{en ? "Reset Password" : "Recuperar Senha"}</DialogTitle>
                 </DialogHeader>
                 <form onSubmit={handlePasswordReset} className={styles.resetForm}>
                   <div className={styles.formGroup}>
-                    <Label htmlFor="resetEmail">Email cadastrado:</Label>
+                    <Label htmlFor="resetEmail">{en ? "Registered email:" : "Email cadastrado:"}</Label>
                     <Input
                       id="resetEmail"
                       type="email"
-                      placeholder="Digite seu email cadastrado"
+                      placeholder={en ? "Enter your registered email" : "Digite seu email cadastrado"}
                       value={resetEmail}
                       onChange={(e) => setResetEmail(e.target.value)}
                       required
                     />
                   </div>
                   <Button type="submit" className={styles.resetButton}>
-                    Enviar link de redefinição
+                    {en ? "Send reset link" : "Enviar link de redefinição"}
                   </Button>
                 </form>
               </DialogContent>
@@ -342,7 +345,7 @@ export function Login() {
           {/* Formulário de Cadastro */}
           <div className={styles.formBox}>
             <div className={styles.formTitle}>
-              <p>Criar Nova Conta</p>
+              <p>{en ? "Create New Account" : "Criar Nova Conta"}</p>
             </div>
 
             <form onSubmit={handleSignUp} className={styles.form}>
@@ -356,7 +359,7 @@ export function Login() {
               />
               <input
                 type="password"
-                placeholder="Senha (mín. 6 caracteres)"
+                placeholder={en ? "Password (min. 6 characters)" : "Senha (mín. 6 caracteres)"}
                 value={signupPassword}
                 onChange={(e) => setSignupPassword(e.target.value)}
                 required
@@ -364,7 +367,7 @@ export function Login() {
                 minLength={6}
               />
               <button type="submit" disabled={signupLoading}>
-                {signupLoading ? "Carregando..." : "Criar Conta"}
+                {signupLoading ? (en ? "Loading..." : "Carregando...") : (en ? "Create Account" : "Criar Conta")}
               </button>
             </form>
           </div>

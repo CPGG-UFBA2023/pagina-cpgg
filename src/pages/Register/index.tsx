@@ -4,9 +4,12 @@ import { supabase } from '../../integrations/supabase/client';
 import { useToast } from '../../hooks/use-toast';
 import { HomeButton } from '../../components/HomeButton';
 import styles from './register.module.css';
+import { useLanguage } from '@/contexts/LanguageContext';
 const logocpgg = 'https://imgur.com/6HRTVzo.png';
 
 export function Register() {
+  const { language } = useLanguage();
+  const en = language === 'en';
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -133,7 +136,7 @@ export function Register() {
         </div>
 
         <div className={styles.upper}>
-          <p>Registration</p>
+          <p>{en ? 'Registration' : 'Cadastro'}</p>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -141,7 +144,7 @@ export function Register() {
             <input 
               type="text" 
               name="name"
-              placeholder="Nome completo" 
+              placeholder={en ? 'Full name' : 'Nome completo'} 
               value={formData.name}
               onChange={handleInputChange}
               required 
@@ -165,7 +168,7 @@ export function Register() {
             <input 
               type="text" 
               name="institution"
-              placeholder="Instituição/Empresa" 
+              placeholder={en ? 'Institution/Company' : 'Instituição/Empresa'} 
               value={formData.institution}
               onChange={handleInputChange}
               disabled={loading}
@@ -187,7 +190,7 @@ export function Register() {
             <input 
               type="password" 
               name="password"
-              placeholder="Senha" 
+              placeholder={en ? 'Password' : 'Senha'} 
               value={formData.password}
               onChange={handleInputChange}
               required 
@@ -197,20 +200,20 @@ export function Register() {
           </div>
 
           <button type="submit" disabled={loading}>
-            {loading ? 'Criando conta...' : 'Criar conta'}
+            {loading ? (en ? 'Creating account...' : 'Criando conta...') : (en ? 'Create account' : 'Criar conta')}
           </button>
         </form>
 
         <div className={styles.loginLink}>
           <p>
-            Já tem uma conta?{' '}
+            {en ? 'Already have an account?' : 'Já tem uma conta?'}{' '}
             <button 
               type="button" 
               onClick={() => navigate('/login')}
               className={styles.linkButton}
               disabled={loading}
             >
-              Fazer login
+              {en ? 'Sign in' : 'Fazer login'}
             </button>
           </p>
         </div>

@@ -199,6 +199,7 @@ const translations = {
     'cpgg.description3': 'Além de dar suporte aos cursos de doutorado, mestrado e graduação em Geofísica e em Geologia, o CPGG, a partir de 1999, deu início a um programa de Educação Continuada a nível de especialização com dois cursos em Sistemas Petrolíferos com ênfase em bacias sedimentares brasileiras e caracterização de reservatórios, dirigida ao pessoal da indústria.',
     'cpgg.description4': 'Após uma pausa de 5 anos, o CPGG voltou a ter seu corpo de pesquisadores ativo, agora sob a coordenação dos professsores Marcos Vasconcelos e Ruy Kikuchi. Um novo credenciamento foi realizado, de maneira que no momento atual, o órgão conta com {count} pesquisadores distribuídos em cinco Programas de Pesquisa. O momento atual impele o CPGG a despertar o interesse de novos pesquisadores, com o intuito de somar esforços para construir um Centro mais forte, e proporcionando recursos para desenvolvimento de pesquisas de ponta.',
     'cpgg.legend1': 'Hall de acesso da sede do CPGG',
+    'cpgg.aerialLegend': 'Sede do CPGG vista de cima',
     'cpgg.legend2': 'Fachada da sede do CGG em primeiro ângulo',
     'cpgg.legend3': 'Fachada da sede do CGG em segundo ângulo',
     
@@ -465,6 +466,7 @@ const translations = {
     'cpgg.description3': 'In addition to supporting doctoral, master’s and undergraduate programs in Geophysics and Geology, CPGG launched a continuing education program in 1999. It offered two specialization courses in Petroleum Systems, focusing on Brazilian sedimentary basins and reservoir characterization for industry professionals.',
     'cpgg.description4': 'After a five-year pause, CPGG resumed its research activities under the coordination of Prof. Marcos Vasconcelos and Prof. Ruy Kikuchi. Following a new accreditation process, the Center now has {count} researchers across five Research Programs. CPGG seeks to attract new researchers, combine expertise and secure resources for cutting-edge research.',
     'cpgg.legend1': 'CPGG headquarters access hall',
+    'cpgg.aerialLegend': 'Aerial view of CPGG headquarters',
     'cpgg.legend2': 'CPGG headquarters façade — first view',
     'cpgg.legend3': 'CPGG headquarters façade — second view',
     
