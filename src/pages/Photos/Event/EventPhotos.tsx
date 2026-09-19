@@ -123,6 +123,76 @@ export function EventPhotos() {
     }
   }
 
+  const parentPath = event?.parent_id
+    ? `/Photos/Event/${event.parent_id}`
+    : event?.category === 'historical' ? '/Photos/HistoricalPhotos' : '/Photos'
+
+  const openSubDialog = (sub?: SubAlbum) => {
+    if (!isAuthenticated) {
+      setShowLoginDialog(true)
+      return
+    }
+    setEditingSub(sub || null)
+    setSubForm({ name: sub?.name || '', event_date: sub?.event_date || '' })
+    setShowSubDialog(true)
+  }
+
+  const handleSaveSub = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!event || !subForm.name.trim()) return
+    setSavingSub(true)
+    try {
+      if (editingSub) {
+        const { error } = await supabase
+          .from('events')
+          .update({ name: subForm.name.trim(), event_date: subForm.event_date || null, display_date: Boolean(subForm.event_date) })
+          .eq('id', editingSub.id)
+        if (error) throw error
+        setShowSubDialog(false)
+        setEditingSub(null)
+        toast({ title: 'Sub-álbum atualizado' })
+        fetchEventData()
+        return
+      }
+      const { data: created, error } = await supabase
+        .from('events')
+        .insert([{
+          name: subForm.name.trim(),
+          event_date: subForm.event_date || null,
+          display_date: Boolean(subForm.event_date),
+          category: event.category,
+          parent_id: event.id,
+        }])
+        .select('id')
+        .single()
+      if (error) throw error
+      setShowSubDialog(false)
+      toast({ title: 'Sub-álbum criado', description: 'Agora adicione as fotos deste evento.' })
+      navigate(`/Photos/Event/${created.id}?edit=1`)
+    } catch {
+      toast({ title: 'Erro', description: 'Não foi possível salvar o sub-álbum.', variant: 'destructive' })
+    } finally {
+      setSavingSub(false)
+    }
+  }
+
+  const handleDeleteSub = async (sub: SubAlbum) => {
+    if (!confirm(`Apagar o sub-álbum “${sub.name}” e todas as fotos dele?`)) return
+    const { data: subPhotos, error } = await supabase
+      .from('event_photos')
+      .select('photo_url')
+      .eq('event_id', sub.id)
+    if (error) {
+      toast({ title: 'Erro', description: 'Não foi possível apagar o sub-álbum.', variant: 'destructive' })
+      return
+    }
+    schedulePhotoLibraryDeletion(
+      { kind: 'album', id: sub.id, name: sub.name, photoUrls: (subPhotos || []).map((photo) => photo.photo_url) },
+      () => toast({ title: 'Erro', description: 'Não foi possível apagar o sub-álbum.', variant: 'destructive' }),
+    )
+    toast({ title: 'Sub-álbum retirado', description: 'Use Desfazer durante os próximos 10 segundos.' })
+  }
+
   const handleDeleteAlbum = async () => {
     if (!event || !isAuthenticated) return
     if (!confirm(`Apagar o álbum “${event.name}” e todas as fotos dele?`)) return
