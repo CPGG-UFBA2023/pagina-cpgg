@@ -41,10 +41,10 @@ export function FirstMeeting() {
           <div className={styles.box}>
           <div className={styles.gallery}>
             <div className={styles.photo1}>
-              <img src={photo1} alt='Foto1' />
+              <img src={photo1} alt={`${t('photos.photoAlt')} 1`} />
             </div>
             <div className={styles.photo2}>
-              <img src={photo2} alt='Foto2' />
+              <img src={photo2} alt={`${t('photos.photoAlt')} 2`} />
             </div>
             <div className={styles.photo3}>
               <img src={photo3} alt='Foto3' />

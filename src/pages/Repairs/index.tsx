@@ -6,8 +6,10 @@ import styles from './RepairsServices.module.css'
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
 import { supabase } from '../../integrations/supabase/client'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export function RepairsServices() {
+  const { t } = useLanguage()
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
     nome: '',
@@ -35,14 +37,14 @@ export function RepairsServices() {
     // Validar se todos os campos estão preenchidos
     if (!formData.nome || !formData.sobrenome || !formData.problemType || !formData.problemDescription || !email) {
       console.error('Campos obrigatórios não preenchidos')
-      setAuthError('Por favor, preencha todos os campos obrigatórios.')
+      setAuthError(t('repairs.requiredError'))
       return;
     }
 
     // Validar senha
     if (!password) {
       console.error('Senha não preenchida')
-      setAuthError('Por favor, insira sua senha.')
+      setAuthError(t('repairs.passwordError'))
       return;
     }
     
@@ -58,18 +60,18 @@ export function RepairsServices() {
         console.error('Erro de autenticação:', authError)
         // Verificar tipo de erro
         if (authError.message.includes('Invalid login credentials')) {
-          setAuthError('Email ou senha incorretos.')
+          setAuthError(t('repairs.credentialsError'))
         } else if (authError.message.includes('Email not confirmed')) {
-          setAuthError('Email não confirmado. Verifique sua caixa de entrada.')
+          setAuthError(t('repairs.unconfirmedError'))
         } else {
-          setAuthError('Usuário não cadastrado.')
+          setAuthError(t('repairs.userError'))
         }
         return;
       }
 
       if (!authData.user) {
         console.error('Usuário não encontrado')
-        setAuthError('Usuário não cadastrado.')
+        setAuthError(t('repairs.userError'))
         return;
       }
 
@@ -98,7 +100,7 @@ export function RepairsServices() {
       })
     } catch (error) {
       console.error('Erro ao enviar solicitação:', error);
-      setAuthError('Erro ao enviar solicitação. Tente novamente.')
+      setAuthError(t('repairs.sendError'))
     }
   }
 
@@ -107,13 +109,13 @@ export function RepairsServices() {
       <Header />
       <main className={`${styles.RS} repairs`}>
           <form className={styles.box} onSubmit={handleSubmit}>
-          <ul> Solicitação de Reparos e Serviços Técnicos </ul>
+          <ul>{t('repairs.title')}</ul>
 
           <div className={styles.form}>
-            <label>Nome *</label>
+            <label>{t('repairs.firstName')} *</label>
              <input 
                type="text" 
-               placeholder="Nome" 
+               placeholder={t('repairs.firstName')}
                value={formData.nome}
                onChange={(e) => handleInputChange('nome', e.target.value)}
                required 
@@ -121,10 +123,10 @@ export function RepairsServices() {
           </div>
 
           <div className={styles.form}> 
-            <label>Sobrenome *</label>
+            <label>{t('repairs.lastName')} *</label>
             <input 
               type="text" 
-              placeholder="Sobrenome" 
+              placeholder={t('repairs.lastName')}
               value={formData.sobrenome}
               onChange={(e) => handleInputChange('sobrenome', e.target.value)}
               required 
@@ -132,22 +134,22 @@ export function RepairsServices() {
           </div>
 
           <div className={styles.form}> 
-            <label>Tipo de Problema *</label>
+            <label>{t('repairs.problemType')} *</label>
             <select 
               value={formData.problemType}
               onChange={(e) => handleInputChange('problemType', e.target.value)}
               required 
             >
-              <option value="">Selecione o tipo de problema</option>
-              <option value="infraestrutura">1. Problema de infraestrutura</option>
-              <option value="ti">2. Problema de T.I.</option>
+              <option value="">{t('repairs.selectProblem')}</option>
+              <option value="infraestrutura">{t('repairs.infrastructure')}</option>
+              <option value="ti">{t('repairs.it')}</option>
             </select>
           </div>
 
           <div className={styles.form}> 
-            <label>Descrição do Problema *</label>
+            <label>{t('repairs.description')} *</label>
             <textarea 
-              placeholder="Descreva detalhadamente o problema..." 
+              placeholder={t('repairs.descriptionPlaceholder')}
               value={formData.problemDescription}
               onChange={(e) => handleInputChange('problemDescription', e.target.value)}
               required 
@@ -158,7 +160,7 @@ export function RepairsServices() {
             <label>E-mail *</label>
             <input 
               type="email" 
-              placeholder="Digite seu e-mail" 
+              placeholder={t('repairs.emailPlaceholder')}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required 
@@ -166,10 +168,10 @@ export function RepairsServices() {
           </div>
 
           <div className={styles.form}> 
-            <label>Senha *</label>
+            <label>{t('repairs.password')} *</label>
             <input 
               type="password" 
-              placeholder="Digite sua senha" 
+              placeholder={t('repairs.passwordPlaceholder')}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required 
@@ -193,7 +195,7 @@ export function RepairsServices() {
           )}
 
           <button type="submit">
-              Enviar Solicitação
+              {t('repairs.submit')}
           </button>
 
           </form>

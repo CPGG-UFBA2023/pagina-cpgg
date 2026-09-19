@@ -50,10 +50,10 @@ export function Years() {
               <img src={photo1} alt={`${t('photos.photoAlt')} 1`} />
             </div>
             <div className={styles.photo2}>
-              <img src={photo2} alt='Foto2' />
+              <img src={photo2} alt={`${t('photos.photoAlt')} 2`} />
             </div>
             <div className={styles.photo3}>
-              <img src={photo3} alt='Foto3' />
+              <img src={photo3} alt={`${t('photos.photoAlt')} 3`} />
             </div>
             <div className={styles.photo4}>
               <img src={photo4} alt='Foto4' />
