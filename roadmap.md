@@ -1,8 +1,6 @@
-# Plano de trabalho
+# Revisão da versão em inglês
 
-- [ ] Mapear páginas de álbuns, editores e dados existentes
-- [ ] Deslocar o conteúdo dos álbuns 50 px para baixo
-- [ ] Reduzir pela metade e deslocar 50 px as caixas de edição/criação
-- [ ] Permitir criar, editar e excluir subálbuns históricos com nome, data, fotos e legendas
-- [ ] Preservar os quatro álbuns históricos atuais
-- [ ] Verificar compilação e funcionamento visual
+- [ ] Mapear o sistema de idioma e todas as páginas acessíveis em inglês
+- [ ] Corrigir traduções incompletas, inconsistentes ou pouco naturais
+- [ ] Verificar a versão inglesa no navegador em telas desktop e móvel
+- [ ] Confirmar que a compilação permanece sem erros
