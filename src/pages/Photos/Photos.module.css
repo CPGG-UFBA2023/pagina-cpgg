@@ -50,6 +50,7 @@
 .fifthy,
 .reopen,
 .eventCard {
+  box-sizing: border-box;
   padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -64,6 +65,38 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
+}
+
+.eventCardWrapper {
+  position: relative;
+  width: 350px;
+  min-width: 0;
+}
+
+.eventCardContent,
+.eventCardContentWithActions {
+  width: 100%;
+  min-width: 0;
+}
+
+.eventCardContentWithActions {
+  padding-right: 64px;
+}
+
+.eventCardContent h2,
+.eventCardContentWithActions h2,
+.eventCardContent p,
+.eventCardContentWithActions p {
+  overflow-wrap: anywhere;
+}
+
+.eventActions {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: flex;
+  gap: 6px;
+  z-index: 2;
 }
 
 .historical h2,
@@ -150,6 +183,10 @@
     width: 100%;
   }
 
+  .eventCardWrapper {
+    width: 100%;
+  }
+
   .staticFigure img {
     height: 300px;
     width: 300px;
@@ -174,6 +211,10 @@
     min-height: 80px;
     padding: 1.5rem;
     font-size: 14px;
+  }
+
+  .eventCardWrapper {
+    width: 100%;
   }
 
   .historical h2,
@@ -249,6 +290,11 @@
     padding: 1.2rem;
   }
 
+
+  .eventCardWrapper {
+    width: 100%;
+  }
+
   .staticFigure {
     display: none;
   }
@@ -300,6 +346,11 @@
   .eventCard {
     width: 280px !important;
     margin: 0 auto !important;
+  }
+
+
+  .eventCardWrapper {
+    width: 280px !important;
   }
 }
 

@@ -154,19 +154,19 @@ export function Photos() {
             </Link>
 
             {events.map((event) => (
-              <div key={event.id} style={{ position: 'relative' }}>
+              <div key={event.id} className={styles.eventCardWrapper}>
                 <Link to={`/Photos/Event/${event.id}`} className={styles.eventCard}>
-                  <div>
+                  <div className={isAuthenticated ? styles.eventCardContentWithActions : styles.eventCardContent}>
                     <h2>{event.name}</h2>
                     {event.event_date && <p>{t('photos.eventHeld')} {new Date(event.event_date + 'T12:00:00').toLocaleDateString(language === 'en' ? 'en-US' : 'pt-BR')}</p>}
                   </div>
                 </Link>
                 {isAuthenticated && (
-                  <div style={{ position: 'absolute', top: 6, right: 6, display: 'flex', gap: 6 }}>
-                    <Button size="sm" variant="secondary" className="h-7 w-7 p-0" onClick={() => openEdit(event)}>
+                  <div className={styles.eventActions}>
+                    <Button aria-label={`Editar ${event.name}`} size="sm" variant="secondary" className="h-7 w-7 p-0" onClick={() => openEdit(event)}>
                       <Pencil className="w-3.5 h-3.5" />
                     </Button>
-                    <Button size="sm" variant="destructive" className="h-7 w-7 p-0" onClick={() => handleDelete(event)}>
+                    <Button aria-label={`Apagar ${event.name}`} size="sm" variant="destructive" className="h-7 w-7 p-0" onClick={() => handleDelete(event)}>
                       <Trash2 className="w-3.5 h-3.5" />
                     </Button>
                   </div>
