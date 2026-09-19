@@ -116,6 +116,7 @@ export type Database = {
           photo_date: string | null
           photo_order: number
           photo_url: string
+          title: string | null
         }
         Insert: {
           caption?: string | null
@@ -125,6 +126,7 @@ export type Database = {
           photo_date?: string | null
           photo_order?: number
           photo_url: string
+          title?: string | null
         }
         Update: {
           caption?: string | null
@@ -134,6 +136,7 @@ export type Database = {
           photo_date?: string | null
           photo_order?: number
           photo_url?: string
+          title?: string | null
         }
         Relationships: [
           {
