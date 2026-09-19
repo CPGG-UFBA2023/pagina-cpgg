@@ -56,13 +56,39 @@ export function HP() {
 
   const requestCreate = () => {
     if (!isAuthenticated) setShowLogin(true)
-    else setShowCreate(true)
+    else { setEditing(null); setForm({ name: '', event_date: '' }); setShowCreate(true) }
+  }
+
+  const openEdit = (album: HistoricalAlbum) => {
+    setEditing(album)
+    setForm({ name: album.name, event_date: album.event_date || '' })
+    setShowCreate(true)
   }
 
   const createAlbum = async (event: React.FormEvent) => {
     event.preventDefault()
     if (!form.name.trim()) return
     setSaving(true)
+
+    if (editing) {
+      const { error } = await supabase.from('events').update({
+        name: form.name.trim(),
+        event_date: form.event_date || null,
+        display_date: Boolean(form.event_date),
+      }).eq('id', editing.id)
+      setSaving(false)
+      if (error) {
+        toast({ title: 'Erro', description: 'Não foi possível salvar o subálbum.', variant: 'destructive' })
+        return
+      }
+      setShowCreate(false)
+      setEditing(null)
+      setForm({ name: '', event_date: '' })
+      toast({ title: 'Subálbum atualizado' })
+      fetchAlbums()
+      return
+    }
+
     const { data: createdAlbum, error } = await supabase.from('events').insert([{
       name: form.name.trim(),
       event_date: form.event_date || null,
@@ -83,6 +109,7 @@ export function HP() {
     toast({ title: 'Subálbum criado', description: 'Agora adicione e organize as fotos.' })
     navigate(`/Photos/HistoricalPhotos/Album/${createdAlbum.id}?edit=1`)
   }
+
 
   const deleteAlbum = async (album: HistoricalAlbum) => {
     if (!confirm(`Apagar o subálbum “${album.name}” e todas as fotos dele?`)) return
