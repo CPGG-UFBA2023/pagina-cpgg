@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { Plus, Pencil, Trash2 } from 'lucide-react'
+import { Plus, Pencil, Trash2, Undo2 } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import { Header } from '../../components/Header';
 import { Footer } from '../../components/Footer';
@@ -12,6 +12,7 @@ import { supabase } from '../../integrations/supabase/client'
 import { AdminLoginEvents } from './EventManager/components/AdminLoginEvents'
 import styles from './Photos.module.css'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { schedulePhotoLibraryDeletion, undoPhotoLibraryDeletion, usePendingPhotoLibraryDeletion } from '@/lib/photoDeletionQueue'
 
 interface Event {
   id: string
@@ -31,6 +32,7 @@ export function Photos() {
   const [saving, setSaving] = useState(false)
   const { toast } = useToast()
   const navigate = useNavigate()
+  const pendingDeletion = usePendingPhotoLibraryDeletion()
 
   useEffect(() => {
     fetchEvents()
@@ -117,11 +119,16 @@ export function Photos() {
   const handleDelete = (event: Event) => requireAuth(async () => {
     if (!confirm(`Apagar o evento "${event.name}" e todas as suas fotos?`)) return
     try {
-      await supabase.from('event_photos').delete().eq('event_id', event.id)
-      const { error } = await supabase.from('events').delete().eq('id', event.id)
+      const { data: eventPhotos, error } = await supabase
+        .from('event_photos')
+        .select('photo_url')
+        .eq('event_id', event.id)
       if (error) throw error
-      toast({ title: 'Sucesso!', description: 'Evento removido.' })
-      fetchEvents()
+      schedulePhotoLibraryDeletion(
+        { kind: 'album', id: event.id, name: event.name, photoUrls: (eventPhotos || []).map((photo) => photo.photo_url) },
+        () => toast({ title: 'Erro', description: 'Não foi possível apagar o álbum.', variant: 'destructive' }),
+      )
+      toast({ title: 'Álbum retirado', description: 'Use Desfazer durante os próximos 10 segundos.' })
     } catch {
       toast({ title: 'Erro', description: 'Erro ao remover o evento.', variant: 'destructive' })
     }
@@ -153,7 +160,7 @@ export function Photos() {
               <h2>{t('photos.firstMeeting')}</h2>
             </Link>
 
-            {events.map((event) => (
+            {events.filter((event) => !(pendingDeletion?.kind === 'album' && pendingDeletion.id === event.id)).map((event) => (
               <div key={event.id} className={styles.eventCardWrapper}>
                 <Link to={`/Photos/Event/${event.id}`} className={styles.eventCard}>
                   <div className={isAuthenticated ? styles.eventCardContentWithActions : styles.eventCardContent}>
@@ -176,6 +183,22 @@ export function Photos() {
           </div>
         </div>
       </main>
+
+      {pendingDeletion?.kind === 'album' && (
+        <div className="fixed bottom-4 left-4 z-50">
+          <Button
+            variant="secondary"
+            className="gap-2 shadow-lg"
+            disabled={pendingDeletion.committing}
+            onClick={() => {
+              if (undoPhotoLibraryDeletion()) toast({ title: 'Desfeito', description: `O álbum “${pendingDeletion.name}” foi restaurado.` })
+            }}
+          >
+            <Undo2 className="h-4 w-4" />
+            {pendingDeletion.committing ? 'Apagando...' : 'Desfazer exclusão'}
+          </Button>
+        </div>
+      )}
 
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogContent className="max-w-sm max-h-[45vh] top-[calc(50%+50px)] overflow-y-auto">

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Plus, Trash2 } from 'lucide-react'
+import { Plus, Trash2, Undo2 } from 'lucide-react'
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
 import { BackButtonPhotos } from '../../components/BackButtonPhotos'
@@ -13,6 +13,7 @@ import { supabase } from '@/integrations/supabase/client'
 import { useToast } from '@/hooks/use-toast'
 import styles from './HistoricalPhotos.module.css'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { schedulePhotoLibraryDeletion, undoPhotoLibraryDeletion, usePendingPhotoLibraryDeletion } from '@/lib/photoDeletionQueue'
 
 interface HistoricalAlbum {
   id: string
@@ -31,6 +32,7 @@ export function HP() {
   const [form, setForm] = useState({ name: '', event_date: '' })
   const { toast } = useToast()
   const navigate = useNavigate()
+  const pendingDeletion = usePendingPhotoLibraryDeletion()
 
   const fetchAlbums = async () => {
     const { data, error } = await supabase
@@ -82,12 +84,19 @@ export function HP() {
 
   const deleteAlbum = async (album: HistoricalAlbum) => {
     if (!confirm(`Apagar o subálbum “${album.name}” e todas as fotos dele?`)) return
-    const { error } = await supabase.from('events').delete().eq('id', album.id).eq('category', 'historical')
+    const { data: albumPhotos, error } = await supabase
+      .from('event_photos')
+      .select('photo_url')
+      .eq('event_id', album.id)
     if (error) {
       toast({ title: 'Erro', description: 'Não foi possível apagar o subálbum.', variant: 'destructive' })
       return
     }
-    fetchAlbums()
+    schedulePhotoLibraryDeletion(
+      { kind: 'album', id: album.id, name: album.name, photoUrls: (albumPhotos || []).map((photo) => photo.photo_url) },
+      () => toast({ title: 'Erro', description: 'Não foi possível apagar o subálbum.', variant: 'destructive' }),
+    )
+    toast({ title: 'Subálbum retirado', description: 'Use Desfazer durante os próximos 10 segundos.' })
   }
 
   return (
@@ -100,7 +109,7 @@ export function HP() {
           <Button size="sm" onClick={requestCreate}><Plus className="w-4 h-4 mr-1" /> Novo subálbum</Button>
         </div>
         <div className={styles.container}>
-          {albums.map((album, index) => (
+          {albums.filter((album) => !(pendingDeletion?.kind === 'album' && pendingDeletion.id === album.id)).map((album, index) => (
             <div className={styles.cardWrapper} key={album.id}>
               <Link className={styles.card} to={`/Photos/HistoricalPhotos/Album/${album.id}`}>
                 <div className={index % 2 === 0 ? styles.Latin : styles.Yeda}>
@@ -116,6 +125,22 @@ export function HP() {
           ))}
         </div>
       </main>
+
+      {pendingDeletion?.kind === 'album' && (
+        <div className="fixed bottom-4 left-4 z-50">
+          <Button
+            variant="secondary"
+            className="gap-2 shadow-lg"
+            disabled={pendingDeletion.committing}
+            onClick={() => {
+              if (undoPhotoLibraryDeletion()) toast({ title: 'Desfeito', description: `O subálbum “${pendingDeletion.name}” foi restaurado.` })
+            }}
+          >
+            <Undo2 className="h-4 w-4" />
+            {pendingDeletion.committing ? 'Apagando...' : 'Desfazer exclusão'}
+          </Button>
+        </div>
+      )}
 
       <Dialog open={showCreate} onOpenChange={setShowCreate}>
         <DialogContent className={styles.compactDialog}>

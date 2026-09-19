@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react'
-import { useParams, useSearchParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { supabase } from '@/integrations/supabase/client'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 import { AdminLoginEventPhotos } from './components/AdminLoginEventPhotos'
 import { EventPhotoEditor } from './components/EventPhotoEditor'
-import { Edit3 } from 'lucide-react'
+import { Edit3, Trash2, Undo2 } from 'lucide-react'
 import { BackButtonPhotos } from '@/components/BackButtonPhotos'
 import styles from './EventPhotos.module.css'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useToast } from '@/hooks/use-toast'
+import { schedulePhotoLibraryDeletion, undoPhotoLibraryDeletion, usePendingPhotoLibraryDeletion } from '@/lib/photoDeletionQueue'
 
 interface EventPhoto {
   id: string
@@ -38,6 +40,9 @@ export function EventPhotos() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [showEditor, setShowEditor] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
+  const pendingDeletion = usePendingPhotoLibraryDeletion()
+  const navigate = useNavigate()
+  const { toast } = useToast()
 
   useEffect(() => {
     if (id) {
@@ -96,6 +101,18 @@ export function EventPhotos() {
     }
   }
 
+  const handleDeleteAlbum = async () => {
+    if (!event || !isAuthenticated) return
+    if (!confirm(`Apagar o álbum “${event.name}” e todas as fotos dele?`)) return
+
+    schedulePhotoLibraryDeletion(
+      { kind: 'album', id: event.id, name: event.name, photoUrls: photos.map((photo) => photo.photo_url) },
+      () => toast({ title: 'Erro', description: 'Não foi possível apagar o álbum.', variant: 'destructive' }),
+    )
+    toast({ title: 'Álbum retirado', description: 'Use Desfazer durante os próximos 10 segundos.' })
+    navigate(event.category === 'historical' ? '/Photos/HistoricalPhotos' : '/Photos')
+  }
+
   if (loading) {
     return (
       <div className={styles.pageContainer}>
@@ -128,8 +145,8 @@ export function EventPhotos() {
         <ul>
           {event.name}{event.display_date && event.event_date ? ` — ${new Date(event.event_date + 'T12:00:00').toLocaleDateString(language === 'en' ? 'en-US' : 'pt-BR')}` : ''}
         </ul>
-        <div 
-          className="absolute top-4 right-4 z-10"
+        <div
+          className="absolute top-4 right-4 z-10 flex gap-2"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
@@ -141,6 +158,17 @@ export function EventPhotos() {
           >
             <Edit3 className="w-4 h-4" />
           </Button>
+          {isAuthenticated && (
+            <Button
+              aria-label="Apagar álbum"
+              onClick={handleDeleteAlbum}
+              size="sm"
+              variant="destructive"
+              className="w-10 h-10 p-0 shadow-md"
+            >
+              <Trash2 className="w-4 h-4" />
+            </Button>
+          )}
           {isHovered && (
             <div className="absolute bottom-full right-0 mb-2 bg-popover text-popover-foreground px-2 py-1 rounded text-xs whitespace-nowrap shadow-lg border">
               Editar álbum
@@ -149,7 +177,7 @@ export function EventPhotos() {
         </div>
         <div className={styles.box}>
           <div className={styles.gallery}>
-            {photos.map((photo, index) => (
+            {photos.filter((photo) => !(pendingDeletion?.kind === 'photo' && pendingDeletion.id === photo.id)).map((photo, index) => (
               <figure key={photo.id} className={styles.photoItem}>
                 <img 
                   src={photo.photo_url} 
@@ -188,6 +216,22 @@ export function EventPhotos() {
           onClose={() => setShowEditor(false)}
           albumType={event.category === 'historical' ? 'historical' : 'event'}
         />
+      )}
+
+      {pendingDeletion?.kind === 'photo' && !showEditor && (
+        <div className="fixed bottom-4 left-4 z-50">
+          <Button
+            variant="secondary"
+            className="gap-2 shadow-lg"
+            disabled={pendingDeletion.committing}
+            onClick={() => {
+              if (undoPhotoLibraryDeletion()) toast({ title: 'Desfeito', description: 'A foto foi restaurada.' })
+            }}
+          >
+            <Undo2 className="h-4 w-4" />
+            {pendingDeletion.committing ? 'Apagando...' : 'Desfazer exclusão'}
+          </Button>
+        </div>
       )}
       
       <Footer />
