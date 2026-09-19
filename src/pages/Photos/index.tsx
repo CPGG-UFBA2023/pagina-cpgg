@@ -13,6 +13,7 @@ import { AdminLoginEvents } from './EventManager/components/AdminLoginEvents'
 import styles from './Photos.module.css'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { schedulePhotoLibraryDeletion, undoPhotoLibraryDeletion, usePendingPhotoLibraryDeletion } from '@/lib/photoDeletionQueue'
+import { usePhotoAdminAuth } from './usePhotoAdminAuth'
 
 interface Event {
   id: string
@@ -24,7 +25,7 @@ interface Event {
 export function Photos() {
   const { t, language } = useLanguage()
   const [events, setEvents] = useState<Event[]>([])
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const { isAuthenticated, setIsAuthenticated } = usePhotoAdminAuth()
   const [showLogin, setShowLogin] = useState(false)
   const [showDialog, setShowDialog] = useState(false)
   const [editing, setEditing] = useState<Event | null>(null)
@@ -38,11 +39,6 @@ export function Photos() {
 
   useEffect(() => {
     fetchEvents()
-    supabase.auth.getSession().then(async ({ data }) => {
-      if (!data.session) return
-      const { data: role } = await supabase.rpc('get_admin_role')
-      setIsAuthenticated(role === 'coordenacao' || role === 'ti' || role === 'secretaria')
-    })
   }, [])
 
   const fetchEvents = async () => {
@@ -143,19 +139,21 @@ export function Photos() {
       <main className={`${styles.photos} photos`}>
         <h1 className={styles.title}>{t('photos.events')}</h1>
 
-        <div className={styles.adminBar}>
-          <Button
-            size="sm"
-            variant={manageMode ? 'default' : 'secondary'}
-            aria-label="Editar álbuns"
-            onClick={() => requireAuth(() => setManageMode((previous) => !previous))}
-          >
-            <Pencil className="w-4 h-4 mr-1" /> {manageMode ? 'Concluir edição' : 'Editar álbuns'}
-          </Button>
-          <Button size="sm" onClick={openCreate}>
-            <Plus className="w-4 h-4 mr-1" /> Novo evento
-          </Button>
-        </div>
+        {isAuthenticated && (
+          <div className={styles.adminBar}>
+            <Button
+              size="sm"
+              variant={manageMode ? 'default' : 'secondary'}
+              aria-label="Editar álbuns"
+              onClick={() => requireAuth(() => setManageMode((previous) => !previous))}
+            >
+              <Pencil className="w-4 h-4 mr-1" /> {manageMode ? 'Concluir edição' : 'Editar álbuns'}
+            </Button>
+            <Button size="sm" onClick={openCreate}>
+              <Plus className="w-4 h-4 mr-1" /> Novo evento
+            </Button>
+          </div>
+        )}
 
         <div className={styles.mainContent}>
           <div className={styles.buttonsGrid}>
