@@ -42,6 +42,7 @@ export function Photos() {
       const { data, error } = await supabase
         .from('events')
         .select('*')
+        .eq('category', 'event')
         .order('event_date', { ascending: false })
 
       if (error) throw error
@@ -166,7 +167,7 @@ export function Photos() {
       </main>
 
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
-        <DialogContent>
+        <DialogContent className="max-w-sm max-h-[45vh] top-[calc(50%+50px)] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{editing ? 'Editar evento' : 'Novo evento'}</DialogTitle>
           </DialogHeader>

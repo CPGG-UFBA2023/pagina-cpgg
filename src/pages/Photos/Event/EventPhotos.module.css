@@ -24,7 +24,7 @@
   overflow: hidden !important;
   justify-content: center;
   color: #fff;
-  padding-top: 150px;
+  padding-top: 200px;
   padding-bottom: 50px;
   padding-left: 8px;
   padding-right: 8px;
@@ -76,7 +76,7 @@
   width: 100%;
   max-width: 1400px;
   height: 500px;
-  top: 20%;
+  top: calc(20% + 50px);
   left: 50%;
   transform: translateX(-50%);
   padding: 10px;
@@ -99,7 +99,7 @@
   .Years {
     padding-left: 10px !important;
     padding-right: 10px !important;
-    padding-top: 200px !important;
+    padding-top: 250px !important;
     justify-content: center !important;
     overflow-y: auto !important;
   }
@@ -109,7 +109,7 @@
     max-width: 380px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    top: 360px !important;
+    top: 410px !important;
     height: calc(100vh - 460px) !important;
     overflow-y: auto !important;
     padding: 15px !important;
@@ -156,7 +156,7 @@
   .box {
   width: 750px;
   margin-bottom: 100px;
-  top: 15%;
+  top: calc(15% + 50px);
   left: 50%;
   transform: translateX(-50%);
   height: 700px;
