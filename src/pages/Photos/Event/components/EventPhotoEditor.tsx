@@ -112,8 +112,10 @@ export function EventPhotoEditor({
         onPhotosChange(current)
       }
       toast({ title: 'Sucesso!', description: `${images.length} foto(s) adicionada(s).` })
-    } catch {
-      toast({ title: 'Erro', description: 'Erro ao adicionar fotos.', variant: 'destructive' })
+    } catch (error) {
+      console.error('Erro ao adicionar fotos:', error)
+      const message = error instanceof Error ? error.message : 'Erro ao adicionar fotos.'
+      toast({ title: 'Erro', description: message, variant: 'destructive' })
     } finally {
       setIsUploading(false)
     }
