@@ -28,8 +28,8 @@ export function Footer({ hideImage = false }: FooterProps) {
             rel="external noopener noreferrer"
             referrerPolicy="no-referrer"
             className={styles.socialLink}
-            aria-label="Instagram do CPGG"
-            title="Instagram do CPGG"
+            aria-label={t('footer.instagramLabel')}
+            title={t('footer.instagramLabel')}
             onClick={(e) => {
               e.preventDefault();
               const url = 'https://instagram.com/cpgg.ufba/';
@@ -52,7 +52,7 @@ export function Footer({ hideImage = false }: FooterProps) {
           </a>
           <a href='http://www.pggeofisica.ufba.br/' target="_blank">{t('footer.postGradGeophysics')}</a>
           <a href='https://pggeologia.ufba.br/' target="_blank" >{t('footer.postGradGeology')}</a>
-          <a href='https://posufba-geofexpmineral.com.br/' target="_blank" rel="noopener noreferrer">Curso de Especialização</a>
+          <a href='https://posufba-geofexpmineral.com.br/' target="_blank" rel="noopener noreferrer">{t('footer.specialization')}</a>
         </nav>
         <div className={styles.copyright}>
           {t('footer.rights')}

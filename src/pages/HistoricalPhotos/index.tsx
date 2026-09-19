@@ -12,6 +12,7 @@ import { AdminLoginEvents } from '../Photos/EventManager/components/AdminLoginEv
 import { supabase } from '@/integrations/supabase/client'
 import { useToast } from '@/hooks/use-toast'
 import styles from './HistoricalPhotos.module.css'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface HistoricalAlbum {
   id: string
@@ -21,6 +22,7 @@ interface HistoricalAlbum {
 }
 
 export function HP() {
+  const { t } = useLanguage()
   const [albums, setAlbums] = useState<HistoricalAlbum[]>([])
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
@@ -89,7 +91,7 @@ export function HP() {
       <BackButtonPhotos />
       <main className={`middle ${styles.hp}`}>
         <div className={styles.titleRow}>
-          <h1 className={styles.title}>Fotos Históricas</h1>
+          <h1 className={styles.title}>{t('photos.historicalTitle')}</h1>
           <Button size="sm" onClick={requestCreate}><Plus className="w-4 h-4 mr-1" /> Novo subálbum</Button>
         </div>
         <div className={styles.container}>

@@ -10,7 +10,7 @@ export function CPGG() {
   const { t } = useLanguage()
 
   const photos = [
-    { img: cpggAerial, legend: 'Sede do CPGG vista de cima' },
+    { img: cpggAerial, legend: t('cpgg.aerialLegend') },
     { img: 'https://i.imgur.com/fQMNk9Y.jpg', legend: t('cpgg.legend2') },
     { img: 'https://i.imgur.com/RKAvYyR.jpg', legend: t('cpgg.legend3') },
     { img: 'https://i.imgur.com/7oNBqkd.jpg', legend: t('cpgg.legend1') },

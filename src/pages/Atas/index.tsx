@@ -9,6 +9,7 @@ import { AdminLogin } from './components/AdminLogin';
 import { EditableAta } from './components/EditableAta';
 import { AddAtaDialog } from './components/AddAtaDialog';
 import { Plus } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface Ata {
   id: string;
@@ -22,6 +23,7 @@ interface Ata {
 const DEFAULT_YEAR_GROUPS = ['2025'];
 
 export function Atas() {
+  const { t } = useLanguage();
   const [atas, setAtas] = useState<Ata[]>([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
@@ -131,7 +133,7 @@ export function Atas() {
     <div className={styles.pageContainer}>
       <Header />
       <main className={styles.atas}>
-        <h1 className={styles.title}>Atas</h1>
+        <h1 className={styles.title}>{t('minutes.title')}</h1>
 
         <div className={styles.yearTabs}>
           {yearGroups.map(yg => (
@@ -169,7 +171,7 @@ export function Atas() {
           )}
 
           {!isEditMode && filteredAtas.length === 0 && (
-            <p style={{ color: 'white', opacity: 0.7 }}>Nenhuma ata cadastrada para este período.</p>
+            <p style={{ color: 'white', opacity: 0.7 }}>{t('minutes.empty')}</p>
           )}
         </div>
       </main>

@@ -4,11 +4,13 @@ import styles from './auditory.module.css'
 import { Header } from '../../../components/Header'
 import { Footer } from '../../../components/Footer'
 import { Button } from '../../../components/ui/button'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 import auditory1 from '../../../assets/Photos/Auditory/Auditorio1-new.jpg'
 import auditory2 from '../../../assets/Photos/Auditory/Auditorio2-new.jpg'
 
 export function Auditory() {
+  const { t } = useLanguage()
   useEffect(() => {
     document.body.classList.add('auditory-page-body')
     return () => {
@@ -21,7 +23,7 @@ export function Auditory() {
       <Header />
       <div className={styles.Auditory}>
           <div className={styles.box}>
-            <ul> Auditório do CPGG </ul>
+            <ul>{t('spaces.auditoriumTitle')}</ul>
             <div className={styles.gallery}>
               <div className={styles.auditory1}>
                  <img src={auditory1} alt="Foto1" />
@@ -32,7 +34,7 @@ export function Auditory() {
             </div>
 
             <div className={styles.textContent}>
-              O auditório do CPGG se localiza na sede do CPGG, Bloco anexo ao Instituto de Geociências da UFBA. Conta com uma estrutura para 30 pessoas, quadro branco, datashow, caixa de som, iluminação diferenciada, ar-condicionados. É utilizado para seminários, defesas de tese, palestras e aulas. O uso prioritário é para atividades do CPGG, e para atender às necessidades de seus membros. Reservas podem ser feitas pelo link abaixo:
+               {t('spaces.auditoriumDescription')}
             </div>
 
             <nav className={styles.btnWrap}>
@@ -40,7 +42,7 @@ export function Auditory() {
                  asChild
                  className="bg-[#592cbb] border-none text-white rounded-full hover:bg-[#7a4fd6] transition-all duration-300 flex items-center justify-center px-8 py-3 text-base font-semibold shadow-lg"
                >
-                 <Link to="/reservations/reservation-auditory" className="flex items-center justify-center">Reserva do Auditório</Link>
+                 <Link to="/reservations/reservation-auditory" className="flex items-center justify-center">{t('spaces.auditoriumReserve')}</Link>
                </Button>
             </nav>
           </div>

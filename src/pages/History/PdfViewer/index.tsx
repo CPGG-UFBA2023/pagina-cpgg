@@ -4,12 +4,14 @@ import { Header } from '@/components/Header';
 import * as pdfjsLib from 'pdfjs-dist';
 import workerSrc from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 import styles from './pdfviewer.module.css';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc;
 
 const FALLBACK_PDF_URL = '/PDF_history.pdf';
 
 export function HistoryPdfViewer() {
+  const { t } = useLanguage();
   const [pdfUrl, setPdfUrl] = useState<string>(FALLBACK_PDF_URL);
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
   const containerRef = useRef<HTMLDivElement>(null);
@@ -104,25 +106,25 @@ export function HistoryPdfViewer() {
     <div className={styles.pageContainer}>
       <Header />
       <main className={styles.main}>
-        <h1 className={styles.title}>História do CPGG</h1>
+        <h1 className={styles.title}>{t('history.documentTitle')}</h1>
 
         <div
           className={styles.viewerWrapper}
           onContextMenu={(e) => e.preventDefault()}
           onCopy={(e) => e.preventDefault()}
         >
-          {status === 'loading' && <p className={styles.state}>Carregando documento…</p>}
+          {status === 'loading' && <p className={styles.state}>{t('history.documentLoading')}</p>}
           {status === 'error' && (
             <p className={styles.state}>
-              Não foi possível exibir o documento.{' '}
-              <a href={pdfUrl} target="_blank" rel="noreferrer">Abrir em nova aba</a>
+              {t('history.documentError')}{' '}
+              <a href={pdfUrl} target="_blank" rel="noreferrer">{t('history.openNewTab')}</a>
             </p>
           )}
           <div ref={containerRef} className={styles.pages} />
         </div>
 
         <p className={styles.notice}>
-          Este documento é protegido. Cópia, download e impressão estão desabilitados.
+          {t('history.protectedNotice')}
         </p>
       </main>
     </div>

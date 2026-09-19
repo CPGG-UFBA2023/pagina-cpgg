@@ -9,6 +9,7 @@ import { EventPhotoEditor } from './components/EventPhotoEditor'
 import { Edit3 } from 'lucide-react'
 import { BackButtonPhotos } from '@/components/BackButtonPhotos'
 import styles from './EventPhotos.module.css'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface EventPhoto {
   id: string
@@ -26,6 +27,7 @@ interface Event {
 }
 
 export function EventPhotos() {
+  const { t, language } = useLanguage()
   const { id } = useParams<{ id: string }>()
   const [event, setEvent] = useState<Event | null>(null)
   const [photos, setPhotos] = useState<EventPhoto[]>([])
@@ -92,7 +94,7 @@ export function EventPhotos() {
       <div className={styles.pageContainer}>
         <Header />
         <div style={{ padding: '150px 20px', textAlign: 'center' }}>
-          Carregando...
+          {t('photos.loading')}
         </div>
         <Footer />
       </div>
@@ -104,7 +106,7 @@ export function EventPhotos() {
       <div className={styles.pageContainer}>
         <Header />
         <div style={{ padding: '150px 20px', textAlign: 'center' }}>
-          Evento não encontrado
+          {t('photos.notFound')}
         </div>
         <Footer />
       </div>
@@ -117,7 +119,7 @@ export function EventPhotos() {
       <BackButtonPhotos to={event.category === 'historical' ? '/Photos/HistoricalPhotos' : '/Photos'} />
       <div className={styles.Years}>
         <ul>
-          {event.name}{event.display_date ? ` — ${new Date(event.event_date + 'T12:00:00').toLocaleDateString('pt-BR')}` : ''}
+          {event.name}{event.display_date ? ` — ${new Date(event.event_date + 'T12:00:00').toLocaleDateString(language === 'en' ? 'en-US' : 'pt-BR')}` : ''}
         </ul>
         <div 
           className="absolute top-4 right-4 z-10"
@@ -144,7 +146,7 @@ export function EventPhotos() {
               <figure key={photo.id} className={styles.photoItem}>
                 <img 
                   src={photo.photo_url} 
-                  alt={photo.caption || `Foto ${index + 1} do evento ${event.name}`}
+                  alt={photo.caption || `${t('photos.photoAlt')} ${index + 1} — ${event.name}`}
                 />
                 {photo.caption && <figcaption className={styles.caption}>{photo.caption}</figcaption>}
               </figure>

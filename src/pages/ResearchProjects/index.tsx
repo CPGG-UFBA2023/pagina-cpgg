@@ -11,6 +11,7 @@ import { EditButtonProjects } from './components/EditButtonProjects'
 import { ResearchProjectEditor } from './components/ResearchProjectEditor'
 import { useToast } from '@/hooks/use-toast'
 import styles from './ResearchProjects.module.css'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface ResearchProject {
   id: string
@@ -22,6 +23,7 @@ interface ResearchProject {
 }
 
 export function ResearchProjects() {
+  const { t } = useLanguage()
   const [projects, setProjects] = useState<ResearchProject[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -75,7 +77,7 @@ export function ResearchProjects() {
   }
 
   if (isLoading) {
-    return <div className={styles.loading}>Carregando projetos...</div>
+    return <div className={styles.loading}>{t('photos.loading')}</div>
   }
 
   return (
@@ -85,8 +87,8 @@ export function ResearchProjects() {
         <div className={`${styles.container} research-projects-page research-projects`}>
           <div className={styles.header}>
             <BookOpen size={32} />
-            <h1>Projetos de Pesquisa</h1>
-            <p>Conheça os principais projetos de pesquisa que dão suporte ao nosso centro</p>
+            <h1>{t('projects.title')}</h1>
+            <p>{t('projects.subtitle')}</p>
           </div>
 
           {isAuthenticated ? (
@@ -99,7 +101,7 @@ export function ResearchProjects() {
               {projects.length === 0 ? (
                 <div className={styles.emptyState}>
                   <BookOpen size={48} />
-                  <p>Nenhum projeto de pesquisa cadastrado ainda.</p>
+                  <p>{t('projects.empty')}</p>
                 </div>
               ) : (
                 <div className={styles.scrollArea}>
@@ -115,13 +117,13 @@ export function ResearchProjects() {
                           <div className={styles.projectInfo}>
                             <div className={styles.infoItem}>
                               <Building size={16} />
-                              <span className={styles.label}>Agência Financiadora:</span>
+                              <span className={styles.label}>{t('projects.funder')}</span>
                               <span className={styles.value}>{project.funding_agency}</span>
                             </div>
 
                             <div className={styles.infoItem}>
                               <Calendar size={16} />
-                              <span className={styles.label}>Vigência:</span>
+                              <span className={styles.label}>{t('projects.period')}</span>
                               <Badge variant="secondary" className={styles.validityBadge}>
                                 {project.validity_period}
                               </Badge>
@@ -129,7 +131,7 @@ export function ResearchProjects() {
 
                             <div className={styles.infoItem}>
                               <Users size={16} />
-                              <span className={styles.label}>Coordenador:</span>
+                              <span className={styles.label}>{t('projects.coordinator')}</span>
                               <span className={styles.value}>{project.coordinator}</span>
                             </div>
                           </div>

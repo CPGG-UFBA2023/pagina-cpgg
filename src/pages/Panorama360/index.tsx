@@ -12,6 +12,7 @@ const logoufba = "https://imgur.com/x7mquv7.png";
 const PANORAMA_URL = "https://kbxdwrvxrnfkqvpselwz.supabase.co/storage/v1/object/sign/VANT-photos/360.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80YjM3OGVhNS01NDYxLTQwNGItYTcxOS0wNDZmNTljMTY5OGEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJWQU5ULXBob3Rvcy8zNjAuanBnIiwiaWF0IjoxNzY1MjM4NjQzLCJleHAiOjE3OTY3NzQ2NDN9.U1ZNaC6PP0blmXOrTGoG99mNmZqdafon9Pj29jIDTBk";
 
 export function Panorama360() {
+  const { t, language } = useLanguage();
   const viewerRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -47,8 +48,8 @@ export function Panorama360() {
               yaw: 0,
               minHfov: 50,
               maxHfov: 120,
-              title: 'CPGG - Vista Aérea 360°',
-              author: 'Centro de Pesquisa em Geofísica e Geologia',
+              title: t('panorama.viewerTitle'),
+              author: t('header.institutionTitle1'),
             });
             
             viewer.on('load', () => {
@@ -56,20 +57,20 @@ export function Panorama360() {
             });
             
             viewer.on('error', (err: string) => {
-              setError('Erro ao carregar imagem panorâmica');
+              setError(t('panorama.imageError'));
               setIsLoading(false);
             });
           }
         };
         
         pannellumScript.onerror = () => {
-          setError('Erro ao carregar biblioteca de visualização');
+          setError(t('panorama.libraryError'));
           setIsLoading(false);
         };
         
         document.body.appendChild(pannellumScript);
       } catch (err) {
-        setError('Erro ao inicializar visualizador');
+        setError(t('panorama.viewerError'));
         setIsLoading(false);
       }
     };
@@ -81,9 +82,8 @@ export function Panorama360() {
         viewer.destroy();
       }
     };
-  }, []);
+  }, [language]);
 
-  const { t } = useLanguage();
   const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
@@ -294,7 +294,7 @@ export function Panorama360() {
                   toggleMenu('requests'); 
                 }}
               >
-                Solicitações
+                 {t('nav.requests')}
               </a>
               
               {!isMobileWidth && (
@@ -312,7 +312,7 @@ export function Panorama360() {
                     </li>
                     <li>
                       <NavLink to='/repairs-services' className={headerStyles.navLink} onClick={closeAllMenus}>
-                        Reparos e serviços<br />técnicos
+                         {t('nav.repairs')}
                       </NavLink>
                     </li>
                   </ul>
@@ -329,16 +329,16 @@ export function Panorama360() {
       </header>
       
       <main className={styles.mainContent}>
-        <h1 className={styles.title}>Vista Aérea 360° do CPGG</h1>
+         <h1 className={styles.title}>{t('panorama.title')}</h1>
         <p className={styles.subtitle}>
-          Arraste para explorar • Use o scroll para zoom • Clique no ícone para tela cheia
+           {t('panorama.instructions')}
         </p>
         
         <div className={styles.viewerContainer}>
           {isLoading && (
             <div className={styles.loadingOverlay}>
               <div className={styles.spinner}></div>
-              <p>Carregando panorama 360°...</p>
+               <p>{t('panorama.loading')}</p>
             </div>
           )}
           

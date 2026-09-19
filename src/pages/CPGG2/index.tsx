@@ -12,43 +12,43 @@ export function CPGG2() {
       <Header />
       <main className={`${styles.cpgg} cpgg`}>
         <div className={styles.Title}>
-          <ul>Laboratórios e Reservas</ul>
+          <ul>{t('labs.title')}</ul>
           
           <div className={styles.cardContainer}>
             <Link to="/labs/laiga" className={styles.labCard}>
               <div className={styles.Laiga}>
                 <h2>LAIGA</h2>
-                <h2>Laboratório Integrado de Geofísica Aplicada</h2>
+                <h2>{t('laiga.subtitle')}</h2>
               </div>
             </Link>
             <Link to="/labs/lemar" className={styles.labCard}>
               <div className={styles.Lemar}>
                 <h2>LEMAR</h2>
-                <h2>Laboratório de Espectrometria de Massas de Alta Resolução</h2>
+                <h2>{t('labs.lemar')}</h2>
               </div>
             </Link>
             <Link to="/labs/ltm-rx" className={styles.labCard}>
               <div className={styles.LtmRx}>
                 <h2>LTM-RX</h2>
-                <h2>Laboratório de Tecnologia Mineral</h2>
+                <h2>{t('labs.ltmrx')}</h2>
               </div>
             </Link>
             <Link to="/labs/lamod" className={styles.labCard}>
               <div className={styles.Lamod}>
                 <h2>LAMOD</h2>
-                <h2>Laboratório de Modelagem Física</h2>
+                <h2>{t('labs.lamod')}</h2>
               </div>
             </Link>
             <Link to="/labs/labfis" className={styles.labCard}>
               <div className={styles.LabFis}>
                 <h2>LabFis</h2>
-                <h2>Laboratório de Propriedades Físicas das Rochas</h2>
+                <h2>{t('labs.labfis')}</h2>
               </div>
             </Link>
             <Link to="/labs/lagep" className={styles.labCard}>
               <div className={styles.Lagep}>
                 <h2>LAGEP</h2>
-                <h2>Laboratório de Geofísica e Exploração de Petróleo</h2>
+                <h2>{t('labs.lagep')}</h2>
               </div>
             </Link>
           </div>

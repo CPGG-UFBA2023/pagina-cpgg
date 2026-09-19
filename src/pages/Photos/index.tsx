@@ -11,6 +11,7 @@ import { Footer } from '../../components/Footer';
 import { supabase } from '../../integrations/supabase/client'
 import { AdminLoginEvents } from './EventManager/components/AdminLoginEvents'
 import styles from './Photos.module.css'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface Event {
   id: string
@@ -20,6 +21,7 @@ interface Event {
 }
 
 export function Photos() {
+  const { t, language } = useLanguage()
   const [events, setEvents] = useState<Event[]>([])
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
@@ -121,7 +123,7 @@ export function Photos() {
     <div className={styles.pageContainer}>
       <Header/>
       <main className={`${styles.photos} photos`}>
-        <h1 className={styles.title}>Fotos de eventos</h1>
+        <h1 className={styles.title}>{t('photos.events')}</h1>
 
         <div className={styles.adminBar}>
           <Button size="sm" onClick={openCreate}>
@@ -132,15 +134,15 @@ export function Photos() {
         <div className={styles.mainContent}>
           <div className={styles.buttonsGrid}>
             <Link to="/Photos/HistoricalPhotos" className={styles.historical}>
-              <h2>Históricas</h2>
+              <h2>{t('photos.historical')}</h2>
             </Link>
 
             <Link to="/Photos/Years" className={styles.fifthy}>
-              <h2>50 anos - Pós-Graduação em Geofísica</h2>
+              <h2>{t('photos.fiftyYears')}</h2>
             </Link>
 
             <Link to="/Photos/FirstMeeting" className={styles.reopen}>
-              <h2>Primeira reunião geral- retorno das atividades do CPGG</h2>
+              <h2>{t('photos.firstMeeting')}</h2>
             </Link>
 
             {events.map((event) => (
@@ -148,7 +150,7 @@ export function Photos() {
                 <Link to={`/Photos/Event/${event.id}`} className={styles.eventCard}>
                   <div>
                     <h2>{event.name}</h2>
-                    <p>Evento realizado em {new Date(event.event_date + 'T12:00:00').toLocaleDateString('pt-BR')}</p>
+                    <p>{t('photos.eventHeld')} {new Date(event.event_date + 'T12:00:00').toLocaleDateString(language === 'en' ? 'en-US' : 'pt-BR')}</p>
                   </div>
                 </Link>
                 {isAuthenticated && (

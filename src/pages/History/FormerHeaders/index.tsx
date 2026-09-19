@@ -2,8 +2,10 @@ import { useEffect } from 'react'
 import styles from './former.module.css'
 import { Header } from '../../../components/Header'
 import { Footer } from '../../../components/Footer'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export function Former() {
+  const { t, language } = useLanguage()
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
@@ -17,7 +19,7 @@ export function Former() {
       <div className={styles.former}>
         <div className={styles.Headers}>
             <div className={styles.boxzero}>
-              <ul>Coordenadores do CPGG</ul>
+              <ul>{t('history.formerCoordinators')}</ul>
               <div className={styles.box1}>
                 <div className={styles.Header1}>
                   <h1>Prof. Carlos Alberto Dias</h1>
@@ -89,7 +91,7 @@ export function Former() {
                 <div className={styles.Header9}>
                   <h1>Prof. Marcos Alberto Rodrigues </h1>
                   <h1> Vasconcelos</h1>
-                  <a> (2023 a atual)</a>
+                  <a>{language === 'en' ? ` (2023–${t('history.present')})` : ' (2023 a atual)'}</a>
                   <div className={styles.photobox9}></div>
                 </div>
               </div>

@@ -12,6 +12,7 @@ import { Trash2, Plus, Edit, Save, X } from 'lucide-react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import styles from './SeniorResearchers.module.css'
 import { researcherData, normalize } from '@/data/researchers'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const staticResearchers = Object.values(researcherData).flat()
 
@@ -24,6 +25,7 @@ interface SeniorResearcher {
 }
 
 export function SeniorResearchers() {
+  const { t } = useLanguage()
   const { toast } = useToast()
   const [seniors, setSeniors] = useState<SeniorResearcher[]>([])
   const [allResearchers, setAllResearchers] = useState<any[]>([])
@@ -154,11 +156,11 @@ export function SeniorResearchers() {
       <main className={`${styles.researchers} researchers hide-earth`}>
         <div className={styles.contentArea}>
           <div className={styles.Programs}>
-            <ul>Pesquisadores Seniores</ul>
+            <ul>{t('senior.title')}</ul>
             <div className={styles.card}>
             <p className={styles.description}>
 
-              A denominação "pesquisador sênior" foi normatizada pelo Conselho Científico no ano de 2023 a partir da aprovação da Deliberação Normativa 02/2023, em que os critérios para tal classificação são definidos.
+              {t('senior.description')}
             </p>
 
             {/* Add new - only in edit mode */}
