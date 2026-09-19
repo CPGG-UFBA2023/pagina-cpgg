@@ -85,10 +85,6 @@ export function CoordenacaoDashboard() {
   const [regulationName, setRegulationName] = useState('')
   const [regulationPdfUrl, setRegulationPdfUrl] = useState('')
   
-  // Estados para eventos
-  const [eventName, setEventName] = useState('')
-  const [eventDate, setEventDate] = useState('')
-  const [eventPhotos, setEventPhotos] = useState<File[]>([])
   
   // Estados para atualização de credenciais
   const [currentEmail, setCurrentEmail] = useState('')
@@ -915,80 +911,6 @@ export function CoordenacaoDashboard() {
     }
   }
 
-  // Função para registrar evento
-  const handleRegisterEvent = async () => {
-    if (!eventName || !eventDate || eventPhotos.length === 0) {
-      toast({
-        title: "Erro",
-        description: "Nome, data e pelo menos uma foto são obrigatórios",
-        variant: "destructive",
-      })
-      return
-    }
-
-    try {
-      setIsLoading(true)
-      setUploadingPhotos(true)
-
-      // Criar o evento primeiro
-      const { data: eventData, error: eventError } = await supabase
-        .from('events')
-        .insert([
-          {
-            name: eventName,
-            event_date: eventDate,
-          },
-        ])
-        .select()
-        .single()
-
-      if (eventError) throw eventError
-
-      // Upload das fotos
-      const uploadPromises = eventPhotos.map(async (photo, index) => {
-        const fileExt = photo.name.split('.').pop()
-        const fileName = `${eventData.id}/${Date.now()}_${index}.${fileExt}`
-        
-        const { error: uploadError } = await supabase.storage
-          .from('event-photos')
-          .upload(fileName, photo)
-
-        if (uploadError) throw uploadError
-
-        const { data: { publicUrl } } = supabase.storage
-          .from('event-photos')
-          .getPublicUrl(fileName)
-
-        return { event_id: eventData.id, photo_url: publicUrl, photo_order: index }
-      })
-
-      const photoRecords = await Promise.all(uploadPromises)
-
-      const { error: photosError } = await supabase
-        .from('event_photos')
-        .insert(photoRecords)
-
-      if (photosError) throw photosError
-
-      toast({
-        title: "Sucesso!",
-        description: "Evento cadastrado com sucesso!",
-      })
-
-      setEventName('')
-      setEventDate('')
-      setEventPhotos([])
-    } catch (error: any) {
-      toast({
-        title: "Erro",
-        description: error.message || "Erro ao cadastrar evento",
-        variant: "destructive",
-      })
-    } finally {
-      setIsLoading(false)
-      setUploadingPhotos(false)
-    }
-  }
 
 
   if (!adminUser) {
@@ -1715,67 +1637,6 @@ export function CoordenacaoDashboard() {
               className={styles.submitButton}
             >
               {isLoading ? 'Cadastrando...' : 'Cadastrar Norma'}
-            </Button>
-          </div>
-
-
-          <div className={styles.formCard}>
-            <div className={styles.formHeader}>
-              <Image size={24} />
-              <h2>Cadastrar Fotos de Eventos</h2>
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="event-name">Nome do Evento:</label>
-              <Input
-                id="event-name"
-                type="text"
-                value={eventName}
-                onChange={(e) => setEventName(e.target.value)}
-                placeholder="Digite o nome do evento"
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="event-date">Data do Evento:</label>
-              <Input
-                id="event-date"
-                type="date"
-                value={eventDate}
-                onChange={(e) => setEventDate(e.target.value)}
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="event-photos">Fotos do Evento (máximo 30):</label>
-              <Input
-                id="event-photos"
-                type="file"
-                multiple
-                accept="image/*"
-                onChange={(e) => {
-                  const files = Array.from(e.target.files || [])
-                  if (files.length > 30) {
-                    toast({
-                      title: "Muitas fotos",
-                      description: "Máximo de 30 fotos permitido por evento.",
-                      variant: "destructive",
-                    })
-                    return
-                  }
-                  setEventPhotos(files)
-                }}
-                className={styles.photoInput}
-              />
-              {eventPhotos.length > 0 && (
-                <p className={styles.photoCount}>
-                  {eventPhotos.length} foto(s) selecionada(s)
-                </p>
-              )}
-            </div>
-            <Button
-              onClick={handleRegisterEvent}
-              disabled={isLoading || uploadingPhotos || !eventName || !eventDate || eventPhotos.length === 0}
-              className={styles.submitButton}
-            >
-              {uploadingPhotos ? 'Enviando fotos...' : isLoading ? 'Cadastrando...' : 'Cadastrar Evento'}
             </Button>
           </div>
         </div>
