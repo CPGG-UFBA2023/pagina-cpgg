@@ -109,6 +109,7 @@ export type Database = {
       }
       event_photos: {
         Row: {
+          caption: string | null
           created_at: string
           event_id: string
           id: string
@@ -116,6 +117,7 @@ export type Database = {
           photo_url: string
         }
         Insert: {
+          caption?: string | null
           created_at?: string
           event_id: string
           id?: string
@@ -123,6 +125,7 @@ export type Database = {
           photo_url: string
         }
         Update: {
+          caption?: string | null
           created_at?: string
           event_id?: string
           id?: string
