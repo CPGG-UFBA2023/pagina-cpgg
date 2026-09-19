@@ -11,15 +11,16 @@ interface EventPhoto {
   photo_url: string
   photo_order: number
   caption?: string | null
+  photo_date?: string | null
 }
 
 interface EventPhotoEditorProps {
   eventId: string
   eventName: string
-  eventDate: string
+  eventDate: string | null
   photos: EventPhoto[]
   onPhotosChange: (photos: EventPhoto[]) => void
-  onEventChange: (name: string, date: string) => void
+  onEventChange: (name: string, date: string | null) => void
   onClose: () => void
   albumType?: 'event' | 'historical'
 }
@@ -38,10 +39,13 @@ export function EventPhotoEditor({
   const [isUploading, setIsUploading] = useState(false)
   const [isDropping, setIsDropping] = useState(false)
   const [name, setName] = useState(eventName)
-  const [date, setDate] = useState(eventDate)
+  const [date, setDate] = useState(eventDate || '')
   const [savingEvent, setSavingEvent] = useState(false)
   const [captions, setCaptions] = useState<Record<string, string>>(
     Object.fromEntries(photos.map((p) => [p.id, p.caption || '']))
+  )
+  const [photoDates, setPhotoDates] = useState<Record<string, string>>(
+    Object.fromEntries(photos.map((p) => [p.id, p.photo_date || '']))
   )
   const fileInputRef = useRef<HTMLInputElement>(null)
   const { toast } = useToast()
@@ -96,6 +100,8 @@ export function EventPhotoEditor({
 
         if (dbError) throw dbError
         current = [...current, newPhoto as EventPhoto]
+        setCaptions((previous) => ({ ...previous, [newPhoto.id]: newPhoto.caption || '' }))
+        setPhotoDates((previous) => ({ ...previous, [newPhoto.id]: newPhoto.photo_date || '' }))
         onPhotosChange(current)
       }
       toast({ title: 'Sucesso!', description: `${images.length} foto(s) adicionada(s).` })
@@ -119,31 +125,35 @@ export function EventPhotoEditor({
     }
   }
 
-  const handleSaveCaption = async (photoId: string) => {
+  const handleSaveMetadata = async (photoId: string) => {
     try {
       const caption = captions[photoId] ?? ''
-      const { error } = await supabase.from('event_photos').update({ caption }).eq('id', photoId)
+      const photoDate = photoDates[photoId] || null
+      const { error } = await supabase
+        .from('event_photos')
+        .update({ caption, photo_date: photoDate })
+        .eq('id', photoId)
       if (error) throw error
-      onPhotosChange(photos.map((p) => (p.id === photoId ? { ...p, caption } : p)))
-      toast({ title: 'Sucesso!', description: 'Legenda salva.' })
+      onPhotosChange(photos.map((p) => (p.id === photoId ? { ...p, caption, photo_date: photoDate } : p)))
+      toast({ title: 'Sucesso!', description: 'Dados da foto salvos.' })
     } catch {
-      toast({ title: 'Erro', description: 'Erro ao salvar legenda.', variant: 'destructive' })
+      toast({ title: 'Erro', description: 'Erro ao salvar os dados da foto.', variant: 'destructive' })
     }
   }
 
   const handleSaveEvent = async () => {
-    if (!name.trim() || !date) {
-      toast({ title: 'Erro', description: 'Informe o nome e a data do evento.', variant: 'destructive' })
+    if (!name.trim()) {
+      toast({ title: 'Erro', description: 'Informe o nome do evento.', variant: 'destructive' })
       return
     }
     setSavingEvent(true)
     try {
       const { error } = await supabase
         .from('events')
-        .update({ name: name.trim(), event_date: date })
+        .update({ name: name.trim(), event_date: date || null, display_date: Boolean(date) })
         .eq('id', eventId)
       if (error) throw error
-      onEventChange(name.trim(), date)
+      onEventChange(name.trim(), date || null)
       toast({ title: 'Sucesso!', description: 'Dados do evento atualizados.' })
     } catch {
       toast({ title: 'Erro', description: 'Erro ao atualizar o evento.', variant: 'destructive' })
@@ -172,7 +182,7 @@ export function EventPhotoEditor({
             <Input id="ev-name" value={name} onChange={(e) => setName(e.target.value)} />
           </div>
           <div>
-            <Label htmlFor="ev-date">Data do evento</Label>
+            <Label htmlFor="ev-date">Data do evento (opcional)</Label>
             <Input id="ev-date" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
           </div>
           <Button onClick={handleSaveEvent} disabled={savingEvent}>
@@ -218,14 +228,21 @@ export function EventPhotoEditor({
                     <Trash2 className="w-4 h-4" />
                   </Button>
                 </div>
-                <div className="mt-2 flex gap-2">
+                <div className="mt-2 grid gap-2">
                   <Input
                     placeholder="Legenda da foto"
                     value={captions[photo.id] ?? photo.caption ?? ''}
-                    onChange={(e) => setCaptions({ ...captions, [photo.id]: e.target.value })}
+                    onChange={(e) => setCaptions((previous) => ({ ...previous, [photo.id]: e.target.value }))}
                   />
-                  <Button size="sm" variant="outline" onClick={() => handleSaveCaption(photo.id)}>
-                    <Save className="w-4 h-4" />
+                  <Input
+                    aria-label="Data da foto"
+                    type="date"
+                    value={photoDates[photo.id] ?? photo.photo_date ?? ''}
+                    onChange={(e) => setPhotoDates((previous) => ({ ...previous, [photo.id]: e.target.value }))}
+                  />
+                  <Button size="sm" variant="outline" onClick={() => handleSaveMetadata(photo.id)}>
+                    <Save className="w-4 h-4 mr-2" />
+                    Salvar dados
                   </Button>
                 </div>
               </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 import { supabase } from '@/integrations/supabase/client'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
@@ -16,12 +16,13 @@ interface EventPhoto {
   photo_url: string
   photo_order: number
   caption?: string | null
+  photo_date?: string | null
 }
 
 interface Event {
   id: string
   name: string
-  event_date: string
+  event_date: string | null
   category: string
   display_date: boolean
 }
@@ -29,6 +30,7 @@ interface Event {
 export function EventPhotos() {
   const { t, language } = useLanguage()
   const { id } = useParams<{ id: string }>()
+  const [searchParams, setSearchParams] = useSearchParams()
   const [event, setEvent] = useState<Event | null>(null)
   const [photos, setPhotos] = useState<EventPhoto[]>([])
   const [loading, setLoading] = useState(true)
@@ -44,9 +46,14 @@ export function EventPhotos() {
     supabase.auth.getSession().then(async ({ data }) => {
       if (!data.session) return
       const { data: role } = await supabase.rpc('get_admin_role')
-      setIsAuthenticated(role === 'coordenacao' || role === 'ti' || role === 'secretaria')
+      const canEdit = role === 'coordenacao' || role === 'ti' || role === 'secretaria'
+      setIsAuthenticated(canEdit)
+      if (canEdit && searchParams.get('edit') === '1') {
+        setShowEditor(true)
+        setSearchParams({}, { replace: true })
+      }
     })
-  }, [id])
+  }, [id, searchParams, setSearchParams])
 
   const fetchEventData = async () => {
     try {
@@ -119,7 +126,7 @@ export function EventPhotos() {
       <BackButtonPhotos to={event.category === 'historical' ? '/Photos/HistoricalPhotos' : '/Photos'} />
       <div className={styles.Years}>
         <ul>
-          {event.name}{event.display_date ? ` — ${new Date(event.event_date + 'T12:00:00').toLocaleDateString(language === 'en' ? 'en-US' : 'pt-BR')}` : ''}
+          {event.name}{event.display_date && event.event_date ? ` — ${new Date(event.event_date + 'T12:00:00').toLocaleDateString(language === 'en' ? 'en-US' : 'pt-BR')}` : ''}
         </ul>
         <div 
           className="absolute top-4 right-4 z-10"
@@ -148,7 +155,16 @@ export function EventPhotos() {
                   src={photo.photo_url} 
                   alt={photo.caption || `${t('photos.photoAlt')} ${index + 1} — ${event.name}`}
                 />
-                {photo.caption && <figcaption className={styles.caption}>{photo.caption}</figcaption>}
+                {(photo.caption || photo.photo_date) && (
+                  <figcaption className={styles.caption}>
+                    {photo.caption && <span>{photo.caption}</span>}
+                    {photo.photo_date && (
+                      <time dateTime={photo.photo_date}>
+                        {new Date(photo.photo_date + 'T12:00:00').toLocaleDateString(language === 'en' ? 'en-US' : 'pt-BR')}
+                      </time>
+                    )}
+                  </figcaption>
+                )}
               </figure>
             ))}
           </div>
