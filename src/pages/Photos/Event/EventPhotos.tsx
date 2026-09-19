@@ -355,6 +355,44 @@ export function EventPhotos() {
         />
       )}
 
+      <Dialog open={showSubDialog} onOpenChange={setShowSubDialog}>
+        <DialogContent className="max-w-sm max-h-[45vh] top-[calc(50%+50px)] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>{editingSub ? 'Editar sub-álbum' : 'Novo sub-álbum'}</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleSaveSub} className="space-y-4">
+            <div>
+              <Label htmlFor="sub-name">Nome do evento</Label>
+              <Input id="sub-name" value={subForm.name} onChange={(e) => setSubForm({ ...subForm, name: e.target.value })} required />
+            </div>
+            <div>
+              <Label htmlFor="sub-date">Data do evento (opcional)</Label>
+              <Input id="sub-date" type="date" value={subForm.event_date} onChange={(e) => setSubForm({ ...subForm, event_date: e.target.value })} />
+            </div>
+            <div className="flex justify-end gap-2">
+              <Button type="button" variant="outline" onClick={() => { setShowSubDialog(false); setEditingSub(null) }}>Cancelar</Button>
+              <Button type="submit" disabled={savingSub}>{savingSub ? 'Salvando...' : 'Salvar'}</Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {pendingDeletion?.kind === 'album' && (
+        <div className="fixed bottom-4 left-4 z-50">
+          <Button
+            variant="secondary"
+            className="gap-2 shadow-lg"
+            disabled={pendingDeletion.committing}
+            onClick={() => {
+              if (undoPhotoLibraryDeletion()) toast({ title: 'Desfeito', description: `O sub-álbum “${pendingDeletion.name}” foi restaurado.` })
+            }}
+          >
+            <Undo2 className="h-4 w-4" />
+            {pendingDeletion.committing ? 'Apagando...' : 'Desfazer exclusão'}
+          </Button>
+        </div>
+      )}
+
       {pendingDeletion?.kind === 'photo' && !showEditor && (
         <div className="fixed bottom-4 left-4 z-50">
           <Button
