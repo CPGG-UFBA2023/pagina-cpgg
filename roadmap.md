@@ -12,3 +12,5 @@
 - [x] Permitir legenda e data opcional em cada foto
 - [x] Validar tipos, compilação e exibição pública no navegador
 - [ ] Validar criação e edição autenticadas — bloqueado porque este Supabase externo não fornece sessão de teste
+- [x] Permitir apagar álbuns e fotos com prazo de 10 segundos para desfazer
+- [ ] Validar exclusão e desfazer autenticados — bloqueado porque este Supabase externo não fornece sessão de teste

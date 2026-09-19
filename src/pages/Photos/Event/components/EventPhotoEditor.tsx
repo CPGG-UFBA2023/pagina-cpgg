@@ -4,7 +4,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { supabase } from '@/integrations/supabase/client'
 import { useToast } from '@/hooks/use-toast'
-import { Trash2, Plus, GripVertical, Save } from 'lucide-react'
+import { Trash2, Plus, GripVertical, Save, Undo2 } from 'lucide-react'
+import { schedulePhotoLibraryDeletion, undoPhotoLibraryDeletion, usePendingPhotoLibraryDeletion } from '@/lib/photoDeletionQueue'
 
 interface EventPhoto {
   id: string
@@ -49,6 +50,7 @@ export function EventPhotoEditor({
   )
   const fileInputRef = useRef<HTMLInputElement>(null)
   const { toast } = useToast()
+  const pendingDeletion = usePendingPhotoLibraryDeletion()
 
   const persistOrder = async (ordered: EventPhoto[]) => {
     const updated = ordered.map((photo, index) => ({ ...photo, photo_order: index + 1 }))
@@ -112,17 +114,12 @@ export function EventPhotoEditor({
     }
   }
 
-  const handleDeletePhoto = async (photoId: string, photoUrl: string) => {
-    try {
-      const marker = '/event-photos/'
-      const path = photoUrl.includes(marker) ? photoUrl.split(marker)[1] : null
-      if (path) await supabase.storage.from('event-photos').remove([decodeURIComponent(path)])
-      await supabase.from('event_photos').delete().eq('id', photoId)
-      onPhotosChange(photos.filter((p) => p.id !== photoId))
-      toast({ title: 'Sucesso!', description: 'Foto removida.' })
-    } catch {
-      toast({ title: 'Erro', description: 'Erro ao remover foto.', variant: 'destructive' })
-    }
+  const handleDeletePhoto = (photoId: string, photoUrl: string) => {
+    schedulePhotoLibraryDeletion(
+      { kind: 'photo', id: photoId, name: 'foto', photoUrl },
+      () => toast({ title: 'Erro', description: 'Não foi possível apagar a foto.', variant: 'destructive' }),
+    )
+    toast({ title: 'Foto retirada', description: 'Use Desfazer durante os próximos 10 segundos.' })
   }
 
   const handleSaveMetadata = async (photoId: string) => {
@@ -207,7 +204,7 @@ export function EventPhotoEditor({
 
         <div className="p-6 pt-0">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {photos.map((photo, index) => (
+            {photos.filter((photo) => !(pendingDeletion?.kind === 'photo' && pendingDeletion.id === photo.id)).map((photo, index) => (
               <div
                 key={photo.id}
                 draggable
@@ -262,6 +259,21 @@ export function EventPhotoEditor({
             e.target.value = ''
           }}
         />
+        {pendingDeletion?.kind === 'photo' && (
+          <div className="sticky bottom-4 ml-6 mt-4 w-fit z-10">
+            <Button
+              variant="secondary"
+              className="gap-2 shadow-lg"
+              disabled={pendingDeletion.committing}
+              onClick={() => {
+                if (undoPhotoLibraryDeletion()) toast({ title: 'Desfeito', description: 'A foto foi restaurada.' })
+              }}
+            >
+              <Undo2 className="h-4 w-4" />
+              {pendingDeletion.committing ? 'Apagando...' : 'Desfazer exclusão'}
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   )
