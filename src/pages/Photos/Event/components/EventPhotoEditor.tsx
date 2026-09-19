@@ -46,6 +46,9 @@ export function EventPhotoEditor({
   const [captions, setCaptions] = useState<Record<string, string>>(
     Object.fromEntries(photos.map((p) => [p.id, p.caption || '']))
   )
+  const [titles, setTitles] = useState<Record<string, string>>(
+    Object.fromEntries(photos.map((p) => [p.id, p.title || '']))
+  )
   const [photoDates, setPhotoDates] = useState<Record<string, string>>(
     Object.fromEntries(photos.map((p) => [p.id, p.photo_date || '']))
   )
