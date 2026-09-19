@@ -85,10 +85,6 @@ export function CoordenacaoDashboard() {
   const [regulationName, setRegulationName] = useState('')
   const [regulationPdfUrl, setRegulationPdfUrl] = useState('')
   
-  // Estados para eventos
-  const [eventName, setEventName] = useState('')
-  const [eventDate, setEventDate] = useState('')
-  const [eventPhotos, setEventPhotos] = useState<File[]>([])
   
   // Estados para atualização de credenciais
   const [currentEmail, setCurrentEmail] = useState('')
@@ -915,80 +911,6 @@ export function CoordenacaoDashboard() {
     }
   }
 
-  // Função para registrar evento
-  const handleRegisterEvent = async () => {
-    if (!eventName || !eventDate || eventPhotos.length === 0) {
-      toast({
-        title: "Erro",
-        description: "Nome, data e pelo menos uma foto são obrigatórios",
-        variant: "destructive",
-      })
-      return
-    }
-
-    try {
-      setIsLoading(true)
-      setUploadingPhotos(true)
-
-      // Criar o evento primeiro
-      const { data: eventData, error: eventError } = await supabase
-        .from('events')
-        .insert([
-          {
-            name: eventName,
-            event_date: eventDate,
-          },
-        ])
-        .select()
-        .single()
-
-      if (eventError) throw eventError
-
-      // Upload das fotos
-      const uploadPromises = eventPhotos.map(async (photo, index) => {
-        const fileExt = photo.name.split('.').pop()
-        const fileName = `${eventData.id}/${Date.now()}_${index}.${fileExt}`
-        
-        const { error: uploadError } = await supabase.storage
-          .from('event-photos')
-          .upload(fileName, photo)
-
-        if (uploadError) throw uploadError
-
-        const { data: { publicUrl } } = supabase.storage
-          .from('event-photos')
-          .getPublicUrl(fileName)
-
-        return { event_id: eventData.id, photo_url: publicUrl, photo_order: index }
-      })
-
-      const photoRecords = await Promise.all(uploadPromises)
-
-      const { error: photosError } = await supabase
-        .from('event_photos')
-        .insert(photoRecords)
-
-      if (photosError) throw photosError
-
-      toast({
-        title: "Sucesso!",
-        description: "Evento cadastrado com sucesso!",
-      })
-
-      setEventName('')
-      setEventDate('')
-      setEventPhotos([])
-    } catch (error: any) {
-      toast({
-        title: "Erro",
-        description: error.message || "Erro ao cadastrar evento",
-        variant: "destructive",
-      })
-    } finally {
-      setIsLoading(false)
-      setUploadingPhotos(false)
-    }
-  }
 
 
   if (!adminUser) {
