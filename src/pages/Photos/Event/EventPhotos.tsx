@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { supabase } from '@/integrations/supabase/client'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 import { AdminLoginEventPhotos } from './components/AdminLoginEventPhotos'
 import { EventPhotoEditor } from './components/EventPhotoEditor'
-import { Edit3, Trash2, Undo2 } from 'lucide-react'
+import { Edit3, Plus, Trash2, Undo2 } from 'lucide-react'
 import { BackButtonPhotos } from '@/components/BackButtonPhotos'
 import styles from './EventPhotos.module.css'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -267,6 +270,45 @@ export function EventPhotos() {
             </div>
           )}
         </div>
+        {(visibleSubAlbums.length > 0 || isAuthenticated) && (
+          <div className="max-w-5xl mx-auto px-4 mb-6">
+            <div className="flex items-center justify-between gap-3 mb-3">
+              <h2 className="text-lg font-semibold text-white">Sub-álbuns</h2>
+              {isAuthenticated && (
+                <Button size="sm" onClick={() => openSubDialog()}>
+                  <Plus className="w-4 h-4 mr-1" /> Novo sub-álbum
+                </Button>
+              )}
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {visibleSubAlbums.map((sub) => (
+                <div key={sub.id} className="rounded-lg border border-white/20 bg-white/10 p-4">
+                  <Link to={`/Photos/Event/${sub.id}`} className="block text-white font-medium hover:underline">
+                    {sub.name}
+                  </Link>
+                  {sub.display_date && sub.event_date && (
+                    <p className="text-white/80 text-sm mt-1">
+                      {new Date(sub.event_date + 'T12:00:00').toLocaleDateString(language === 'en' ? 'en-US' : 'pt-BR')}
+                    </p>
+                  )}
+                  {isAuthenticated && (
+                    <div className="flex gap-2 mt-3">
+                      <Button size="sm" variant="secondary" onClick={() => openSubDialog(sub)}>Nome e data</Button>
+                      <Button size="sm" variant="outline" onClick={() => navigate(`/Photos/Event/${sub.id}?edit=1`)}>Fotos</Button>
+                      <Button aria-label={`Apagar ${sub.name}`} size="sm" variant="destructive" onClick={() => handleDeleteSub(sub)}>
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              ))}
+              {visibleSubAlbums.length === 0 && (
+                <p className="text-white/80 text-sm">Nenhum sub-álbum ainda.</p>
+              )}
+            </div>
+          </div>
+        )}
+
         <div className={styles.box}>
           <div className={styles.gallery}>
             {photos.filter((photo) => !(pendingDeletion?.kind === 'photo' && pendingDeletion.id === photo.id)).map((photo, index) => (
