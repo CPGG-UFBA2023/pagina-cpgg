@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Plus, Trash2, Undo2 } from 'lucide-react'
+import { Pencil, Plus, Trash2, Undo2 } from 'lucide-react'
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
 import { BackButtonPhotos } from '../../components/BackButtonPhotos'
@@ -30,6 +30,8 @@ export function HP() {
   const [showCreate, setShowCreate] = useState(false)
   const [saving, setSaving] = useState(false)
   const [form, setForm] = useState({ name: '', event_date: '' })
+  const [editing, setEditing] = useState<HistoricalAlbum | null>(null)
+  const [manageMode, setManageMode] = useState(false)
   const { toast } = useToast()
   const navigate = useNavigate()
   const pendingDeletion = usePendingPhotoLibraryDeletion()
