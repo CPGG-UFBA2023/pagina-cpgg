@@ -102,9 +102,24 @@ export function EventPhotos() {
         .eq('parent_id', id)
         .order('event_date', { ascending: false })
 
+      let children: SubAlbum[] = childrenData || []
+      if (children.length > 0) {
+        const { data: coverData } = await supabase
+          .from('event_photos')
+          .select('event_id,photo_url,photo_order')
+          .in('event_id', children.map((c) => c.id))
+          .order('photo_order')
+
+        const coverMap = new Map<string, string>()
+        for (const row of coverData || []) {
+          if (!coverMap.has(row.event_id)) coverMap.set(row.event_id, row.photo_url)
+        }
+        children = children.map((c) => ({ ...c, cover: coverMap.get(c.id) ?? null }))
+      }
+
       setEvent(eventData)
       setPhotos(photosData || [])
-      setSubAlbums(childrenData || [])
+      setSubAlbums(children)
     } catch (error) {
       console.error('Error fetching event data:', error)
     } finally {
