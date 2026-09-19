@@ -130,13 +130,14 @@ export function EventPhotoEditor({
   const handleSaveMetadata = async (photoId: string) => {
     try {
       const caption = captions[photoId] ?? ''
+      const title = titles[photoId] ?? ''
       const photoDate = photoDates[photoId] || null
       const { error } = await supabase
         .from('event_photos')
-        .update({ caption, photo_date: photoDate })
+        .update({ caption, title, photo_date: photoDate })
         .eq('id', photoId)
       if (error) throw error
-      onPhotosChange(photos.map((p) => (p.id === photoId ? { ...p, caption, photo_date: photoDate } : p)))
+      onPhotosChange(photos.map((p) => (p.id === photoId ? { ...p, caption, title, photo_date: photoDate } : p)))
       toast({ title: 'Sucesso!', description: 'Dados da foto salvos.' })
     } catch {
       toast({ title: 'Erro', description: 'Erro ao salvar os dados da foto.', variant: 'destructive' })
@@ -232,7 +233,12 @@ export function EventPhotoEditor({
                 </div>
                 <div className="mt-2 grid gap-2">
                   <Input
-                    placeholder="Legenda da foto"
+                    placeholder="Título da foto (opcional)"
+                    value={titles[photo.id] ?? photo.title ?? ''}
+                    onChange={(e) => setTitles((previous) => ({ ...previous, [photo.id]: e.target.value }))}
+                  />
+                  <Input
+                    placeholder="Legenda da foto (opcional)"
                     value={captions[photo.id] ?? photo.caption ?? ''}
                     onChange={(e) => setCaptions((previous) => ({ ...previous, [photo.id]: e.target.value }))}
                   />
