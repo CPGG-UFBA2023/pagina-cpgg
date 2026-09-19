@@ -186,6 +186,12 @@ export function EventPhotoEditor({
               <Plus className="w-4 h-4 mr-2" />
               {isUploading ? 'Enviando...' : 'Adicionar fotos'}
             </Button>
+            {onDeleteAlbum && (
+              <Button variant="destructive" onClick={onDeleteAlbum}>
+                <Trash2 className="w-4 h-4 mr-2" />
+                Apagar álbum
+              </Button>
+            )}
             <Button variant="outline" onClick={onClose}>Fechar</Button>
           </div>
         </div>
