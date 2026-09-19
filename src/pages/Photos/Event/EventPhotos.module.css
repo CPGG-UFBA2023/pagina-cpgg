@@ -163,6 +163,66 @@
 
 /* Onda 4: regras legadas removidas (causavam margin-left:-600px e padding:60%). */
 
+.subAlbumsSection {
+  width: 100%;
+  padding: 0 20px;
+}
+
+.subAlbumsHeader {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.subAlbumsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+.subAlbumCard {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 14px;
+  text-align: left;
+}
+
+.subAlbumLink {
+  color: #fff;
+  font-weight: 500;
+  display: block;
+}
+
+.subAlbumLink:hover {
+  text-decoration: underline;
+}
+
+.subAlbumDate {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.875rem;
+  margin-top: 4px;
+}
+
+.subAlbumActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.subAlbumEmpty {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.875rem;
+}
+
+@media (max-width: 1024px) {
+  .subAlbumsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .photoItem {
   margin: 0;
   display: flex;
