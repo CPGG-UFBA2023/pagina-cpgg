@@ -351,6 +351,7 @@ export function EventPhotos() {
           onPhotosChange={setPhotos}
           onEventChange={(name, event_date) => setEvent({ ...event, name, event_date })}
           onClose={() => setShowEditor(false)}
+          onDeleteAlbum={() => { setShowEditor(false); handleDeleteAlbum() }}
           albumType={event.category === 'historical' ? 'historical' : 'event'}
         />
       )}

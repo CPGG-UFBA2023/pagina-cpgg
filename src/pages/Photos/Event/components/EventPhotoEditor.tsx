@@ -24,6 +24,7 @@ interface EventPhotoEditorProps {
   onPhotosChange: (photos: EventPhoto[]) => void
   onEventChange: (name: string, date: string | null) => void
   onClose: () => void
+  onDeleteAlbum?: () => void
   albumType?: 'event' | 'historical'
 }
 
@@ -35,6 +36,7 @@ export function EventPhotoEditor({
   onPhotosChange,
   onEventChange,
   onClose,
+  onDeleteAlbum,
   albumType = 'event',
 }: EventPhotoEditorProps) {
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null)
@@ -184,6 +186,12 @@ export function EventPhotoEditor({
               <Plus className="w-4 h-4 mr-2" />
               {isUploading ? 'Enviando...' : 'Adicionar fotos'}
             </Button>
+            {onDeleteAlbum && (
+              <Button variant="destructive" onClick={onDeleteAlbum}>
+                <Trash2 className="w-4 h-4 mr-2" />
+                Apagar álbum
+              </Button>
+            )}
             <Button variant="outline" onClick={onClose}>Fechar</Button>
           </div>
         </div>
