@@ -156,6 +156,7 @@ export type Database = {
           event_date: string | null
           id: string
           name: string
+          parent_id: string | null
           updated_at: string
         }
         Insert: {
@@ -165,6 +166,7 @@ export type Database = {
           event_date?: string | null
           id?: string
           name: string
+          parent_id?: string | null
           updated_at?: string
         }
         Update: {
@@ -174,9 +176,18 @@ export type Database = {
           event_date?: string | null
           id?: string
           name?: string
+          parent_id?: string | null
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "events_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       history_documents: {
         Row: {
