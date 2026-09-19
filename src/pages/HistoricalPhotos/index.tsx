@@ -206,12 +206,12 @@ export function HP() {
           <form onSubmit={createAlbum} className="space-y-4 overflow-y-auto">
             <div><Label htmlFor="historical-name">Nome do evento</Label><Input id="historical-name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required /></div>
             <div><Label htmlFor="historical-date">Data do evento (opcional)</Label><Input id="historical-date" type="date" value={form.event_date} onChange={(e) => setForm({ ...form, event_date: e.target.value })} /></div>
-            <div className="flex justify-end gap-2"><Button type="button" variant="outline" onClick={() => setShowCreate(false)}>Cancelar</Button><Button type="submit" disabled={saving}>{saving ? 'Salvando...' : 'Criar'}</Button></div>
+            <div className="flex justify-end gap-2"><Button type="button" variant="outline" onClick={() => { setShowCreate(false); setEditing(null) }}>Cancelar</Button><Button type="submit" disabled={saving}>{saving ? 'Salvando...' : editing ? 'Salvar' : 'Criar'}</Button></div>
           </form>
         </DialogContent>
       </Dialog>
 
-      <AdminLoginEvents isOpen={showLogin} onClose={() => setShowLogin(false)} onLogin={() => { setIsAuthenticated(true); setShowLogin(false); setShowCreate(true) }} />
+      <AdminLoginEvents isOpen={showLogin} onClose={() => setShowLogin(false)} onLogin={() => { setIsAuthenticated(true); setShowLogin(false); setManageMode(true) }} />
       <Footer />
     </div>
   )
