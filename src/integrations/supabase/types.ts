@@ -144,21 +144,27 @@ export type Database = {
       }
       events: {
         Row: {
+          category: string
           created_at: string
+          display_date: boolean
           event_date: string
           id: string
           name: string
           updated_at: string
         }
         Insert: {
+          category?: string
           created_at?: string
+          display_date?: boolean
           event_date: string
           id?: string
           name: string
           updated_at?: string
         }
         Update: {
+          category?: string
           created_at?: string
+          display_date?: boolean
           event_date?: string
           id?: string
           name?: string
