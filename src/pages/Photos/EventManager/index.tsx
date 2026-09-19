@@ -11,6 +11,7 @@ import { useToast } from '@/hooks/use-toast'
 import { supabase } from '@/integrations/supabase/client'
 import { Edit3, Trash2, Plus, Calendar } from 'lucide-react'
 import { AdminLoginEvents } from './components/AdminLoginEvents'
+import { usePhotoAdminAuth } from '../usePhotoAdminAuth'
 import styles from './EventManager.module.css'
 
 interface Event {
@@ -24,7 +25,7 @@ export function EventManager() {
   const [events, setEvents] = useState<Event[]>([])
   const [loading, setLoading] = useState(true)
   const [showLoginDialog, setShowLoginDialog] = useState(false)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const { isAuthenticated, setIsAuthenticated } = usePhotoAdminAuth()
   const [showCreateDialog, setShowCreateDialog] = useState(false)
   const [editingEvent, setEditingEvent] = useState<Event | null>(null)
   const [formData, setFormData] = useState({
@@ -37,11 +38,6 @@ export function EventManager() {
 
   useEffect(() => {
     fetchEvents()
-    // Check for persisted authentication
-    const savedAuth = localStorage.getItem('eventManagerAuth')
-    if (savedAuth === 'true') {
-      setIsAuthenticated(true)
-    }
   }, [])
 
   const fetchEvents = async () => {
@@ -63,7 +59,6 @@ export function EventManager() {
   const handleLogin = () => {
     setIsAuthenticated(true)
     setShowLoginDialog(false)
-    localStorage.setItem('eventManagerAuth', 'true')
   }
 
   const handleCreateEvent = () => {
