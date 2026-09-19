@@ -202,7 +202,7 @@ export function EventPhotos() {
       () => toast({ title: 'Erro', description: 'Não foi possível apagar o álbum.', variant: 'destructive' }),
     )
     toast({ title: 'Álbum retirado', description: 'Use Desfazer durante os próximos 10 segundos.' })
-    navigate(event.category === 'historical' ? '/Photos/HistoricalPhotos' : '/Photos')
+    navigate(parentPath)
   }
 
   if (loading) {
@@ -232,7 +232,7 @@ export function EventPhotos() {
   return (
     <div className={styles.pageContainer}>
       <Header />
-      <BackButtonPhotos to={event.category === 'historical' ? '/Photos/HistoricalPhotos' : '/Photos'} />
+      <BackButtonPhotos to={parentPath} />
       <div className={styles.Years}>
         <ul>
           {event.name}{event.display_date && event.event_date ? ` — ${new Date(event.event_date + 'T12:00:00').toLocaleDateString(language === 'en' ? 'en-US' : 'pt-BR')}` : ''}
