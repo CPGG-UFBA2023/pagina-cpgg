@@ -33,6 +33,8 @@ export function Photos() {
   const { toast } = useToast()
   const navigate = useNavigate()
   const pendingDeletion = usePendingPhotoLibraryDeletion()
+  const [manageMode, setManageMode] = useState(false)
+  const visibleEvents = events.filter((event) => !(pendingDeletion?.kind === 'album' && pendingDeletion.id === event.id))
 
   useEffect(() => {
     fetchEvents()
@@ -141,6 +143,14 @@ export function Photos() {
         <h1 className={styles.title}>{t('photos.events')}</h1>
 
         <div className={styles.adminBar}>
+          <Button
+            size="sm"
+            variant={manageMode ? 'default' : 'secondary'}
+            aria-label="Editar álbuns"
+            onClick={() => requireAuth(() => setManageMode((previous) => !previous))}
+          >
+            <Pencil className="w-4 h-4 mr-1" /> {manageMode ? 'Concluir edição' : 'Editar álbuns'}
+          </Button>
           <Button size="sm" onClick={openCreate}>
             <Plus className="w-4 h-4 mr-1" /> Novo evento
           </Button>
@@ -160,27 +170,40 @@ export function Photos() {
               <h2>{t('photos.firstMeeting')}</h2>
             </Link>
 
-            {events.filter((event) => !(pendingDeletion?.kind === 'album' && pendingDeletion.id === event.id)).map((event) => (
+            {visibleEvents.map((event) => (
               <div key={event.id} className={styles.eventCardWrapper}>
                 <Link to={`/Photos/Event/${event.id}`} className={styles.eventCard}>
-                  <div className={isAuthenticated ? styles.eventCardContentWithActions : styles.eventCardContent}>
+                  <div className={styles.eventCardContent}>
                     <h2>{event.name}</h2>
                     {event.event_date && <p>{t('photos.eventHeld')} {new Date(event.event_date + 'T12:00:00').toLocaleDateString(language === 'en' ? 'en-US' : 'pt-BR')}</p>}
                   </div>
                 </Link>
-                {isAuthenticated && (
-                  <div className={styles.eventActions}>
-                    <Button aria-label={`Editar ${event.name}`} size="sm" variant="secondary" className="h-7 w-7 p-0" onClick={() => openEdit(event)}>
-                      <Pencil className="w-3.5 h-3.5" />
-                    </Button>
-                    <Button aria-label={`Apagar ${event.name}`} size="sm" variant="destructive" className="h-7 w-7 p-0" onClick={() => handleDelete(event)}>
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </Button>
-                  </div>
-                )}
               </div>
             ))}
           </div>
+
+          {isAuthenticated && manageMode && (
+            <div className={styles.managePanel}>
+              <h3>Editar álbuns</h3>
+              {visibleEvents.length === 0 && <p>Nenhum álbum de evento cadastrado.</p>}
+              {visibleEvents.map((event) => (
+                <div key={event.id} className={styles.manageRow}>
+                  <span>{event.name}</span>
+                  <div className={styles.manageRowActions}>
+                    <Button aria-label={`Editar dados de ${event.name}`} size="sm" variant="secondary" onClick={() => openEdit(event)}>
+                      <Pencil className="w-3.5 h-3.5 mr-1" /> Nome e data
+                    </Button>
+                    <Button aria-label={`Editar fotos de ${event.name}`} size="sm" variant="outline" onClick={() => navigate(`/Photos/Event/${event.id}?edit=1`)}>
+                      Fotos
+                    </Button>
+                    <Button aria-label={`Apagar ${event.name}`} size="sm" variant="destructive" onClick={() => handleDelete(event)}>
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </main>
 

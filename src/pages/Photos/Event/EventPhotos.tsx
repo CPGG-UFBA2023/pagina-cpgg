@@ -17,6 +17,7 @@ interface EventPhoto {
   id: string
   photo_url: string
   photo_order: number
+  title?: string | null
   caption?: string | null
   photo_date?: string | null
 }
@@ -181,10 +182,11 @@ export function EventPhotos() {
               <figure key={photo.id} className={styles.photoItem}>
                 <img 
                   src={photo.photo_url} 
-                  alt={photo.caption || `${t('photos.photoAlt')} ${index + 1} — ${event.name}`}
+                  alt={photo.title || photo.caption || `${t('photos.photoAlt')} ${index + 1} — ${event.name}`}
                 />
-                {(photo.caption || photo.photo_date) && (
+                {(photo.title || photo.caption || photo.photo_date) && (
                   <figcaption className={styles.caption}>
+                    {photo.title && <strong>{photo.title}</strong>}
                     {photo.caption && <span>{photo.caption}</span>}
                     {photo.photo_date && (
                       <time dateTime={photo.photo_date}>

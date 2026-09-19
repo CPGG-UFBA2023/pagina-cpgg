@@ -11,6 +11,7 @@ interface EventPhoto {
   id: string
   photo_url: string
   photo_order: number
+  title?: string | null
   caption?: string | null
   photo_date?: string | null
 }
@@ -44,6 +45,9 @@ export function EventPhotoEditor({
   const [savingEvent, setSavingEvent] = useState(false)
   const [captions, setCaptions] = useState<Record<string, string>>(
     Object.fromEntries(photos.map((p) => [p.id, p.caption || '']))
+  )
+  const [titles, setTitles] = useState<Record<string, string>>(
+    Object.fromEntries(photos.map((p) => [p.id, p.title || '']))
   )
   const [photoDates, setPhotoDates] = useState<Record<string, string>>(
     Object.fromEntries(photos.map((p) => [p.id, p.photo_date || '']))
@@ -103,6 +107,7 @@ export function EventPhotoEditor({
         if (dbError) throw dbError
         current = [...current, newPhoto as EventPhoto]
         setCaptions((previous) => ({ ...previous, [newPhoto.id]: newPhoto.caption || '' }))
+        setTitles((previous) => ({ ...previous, [newPhoto.id]: (newPhoto as EventPhoto).title || '' }))
         setPhotoDates((previous) => ({ ...previous, [newPhoto.id]: newPhoto.photo_date || '' }))
         onPhotosChange(current)
       }
@@ -125,13 +130,14 @@ export function EventPhotoEditor({
   const handleSaveMetadata = async (photoId: string) => {
     try {
       const caption = captions[photoId] ?? ''
+      const title = titles[photoId] ?? ''
       const photoDate = photoDates[photoId] || null
       const { error } = await supabase
         .from('event_photos')
-        .update({ caption, photo_date: photoDate })
+        .update({ caption, title, photo_date: photoDate })
         .eq('id', photoId)
       if (error) throw error
-      onPhotosChange(photos.map((p) => (p.id === photoId ? { ...p, caption, photo_date: photoDate } : p)))
+      onPhotosChange(photos.map((p) => (p.id === photoId ? { ...p, caption, title, photo_date: photoDate } : p)))
       toast({ title: 'Sucesso!', description: 'Dados da foto salvos.' })
     } catch {
       toast({ title: 'Erro', description: 'Erro ao salvar os dados da foto.', variant: 'destructive' })
@@ -227,7 +233,12 @@ export function EventPhotoEditor({
                 </div>
                 <div className="mt-2 grid gap-2">
                   <Input
-                    placeholder="Legenda da foto"
+                    placeholder="Título da foto (opcional)"
+                    value={titles[photo.id] ?? photo.title ?? ''}
+                    onChange={(e) => setTitles((previous) => ({ ...previous, [photo.id]: e.target.value }))}
+                  />
+                  <Input
+                    placeholder="Legenda da foto (opcional)"
                     value={captions[photo.id] ?? photo.caption ?? ''}
                     onChange={(e) => setCaptions((previous) => ({ ...previous, [photo.id]: e.target.value }))}
                   />
