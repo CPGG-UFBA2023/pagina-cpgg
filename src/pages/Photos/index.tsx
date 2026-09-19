@@ -33,6 +33,8 @@ export function Photos() {
   const { toast } = useToast()
   const navigate = useNavigate()
   const pendingDeletion = usePendingPhotoLibraryDeletion()
+  const [manageMode, setManageMode] = useState(false)
+  const visibleEvents = events.filter((event) => !(pendingDeletion?.kind === 'album' && pendingDeletion.id === event.id))
 
   useEffect(() => {
     fetchEvents()
