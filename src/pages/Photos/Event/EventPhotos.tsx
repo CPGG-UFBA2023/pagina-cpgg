@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { supabase } from '@/integrations/supabase/client'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 import { AdminLoginEventPhotos } from './components/AdminLoginEventPhotos'
 import { EventPhotoEditor } from './components/EventPhotoEditor'
-import { Edit3, Trash2, Undo2 } from 'lucide-react'
+import { Edit3, Plus, Trash2, Undo2 } from 'lucide-react'
 import { BackButtonPhotos } from '@/components/BackButtonPhotos'
 import styles from './EventPhotos.module.css'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -28,6 +31,15 @@ interface Event {
   event_date: string | null
   category: string
   display_date: boolean
+  parent_id?: string | null
+}
+
+interface SubAlbum {
+  id: string
+  name: string
+  event_date: string | null
+  display_date: boolean
+  cover?: string | null
 }
 
 export function EventPhotos() {
@@ -41,6 +53,11 @@ export function EventPhotos() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [showEditor, setShowEditor] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
+  const [subAlbums, setSubAlbums] = useState<SubAlbum[]>([])
+  const [showSubDialog, setShowSubDialog] = useState(false)
+  const [subForm, setSubForm] = useState({ name: '', event_date: '' })
+  const [editingSub, setEditingSub] = useState<SubAlbum | null>(null)
+  const [savingSub, setSavingSub] = useState(false)
   const pendingDeletion = usePendingPhotoLibraryDeletion()
   const navigate = useNavigate()
   const { toast } = useToast()
@@ -79,8 +96,15 @@ export function EventPhotos() {
 
       if (photosError) throw photosError
 
+      const { data: childrenData } = await supabase
+        .from('events')
+        .select('id,name,event_date,display_date')
+        .eq('parent_id', id)
+        .order('event_date', { ascending: false })
+
       setEvent(eventData)
       setPhotos(photosData || [])
+      setSubAlbums(childrenData || [])
     } catch (error) {
       console.error('Error fetching event data:', error)
     } finally {
@@ -102,6 +126,78 @@ export function EventPhotos() {
     }
   }
 
+  const visibleSubAlbums = subAlbums.filter((sub) => !(pendingDeletion?.kind === 'album' && pendingDeletion.id === sub.id))
+
+  const parentPath = event?.parent_id
+    ? `/Photos/Event/${event.parent_id}`
+    : event?.category === 'historical' ? '/Photos/HistoricalPhotos' : '/Photos'
+
+  const openSubDialog = (sub?: SubAlbum) => {
+    if (!isAuthenticated) {
+      setShowLoginDialog(true)
+      return
+    }
+    setEditingSub(sub || null)
+    setSubForm({ name: sub?.name || '', event_date: sub?.event_date || '' })
+    setShowSubDialog(true)
+  }
+
+  const handleSaveSub = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!event || !subForm.name.trim()) return
+    setSavingSub(true)
+    try {
+      if (editingSub) {
+        const { error } = await supabase
+          .from('events')
+          .update({ name: subForm.name.trim(), event_date: subForm.event_date || null, display_date: Boolean(subForm.event_date) })
+          .eq('id', editingSub.id)
+        if (error) throw error
+        setShowSubDialog(false)
+        setEditingSub(null)
+        toast({ title: 'Sub-álbum atualizado' })
+        fetchEventData()
+        return
+      }
+      const { data: created, error } = await supabase
+        .from('events')
+        .insert([{
+          name: subForm.name.trim(),
+          event_date: subForm.event_date || null,
+          display_date: Boolean(subForm.event_date),
+          category: event.category,
+          parent_id: event.id,
+        }])
+        .select('id')
+        .single()
+      if (error) throw error
+      setShowSubDialog(false)
+      toast({ title: 'Sub-álbum criado', description: 'Agora adicione as fotos deste evento.' })
+      navigate(`/Photos/Event/${created.id}?edit=1`)
+    } catch {
+      toast({ title: 'Erro', description: 'Não foi possível salvar o sub-álbum.', variant: 'destructive' })
+    } finally {
+      setSavingSub(false)
+    }
+  }
+
+  const handleDeleteSub = async (sub: SubAlbum) => {
+    if (!confirm(`Apagar o sub-álbum “${sub.name}” e todas as fotos dele?`)) return
+    const { data: subPhotos, error } = await supabase
+      .from('event_photos')
+      .select('photo_url')
+      .eq('event_id', sub.id)
+    if (error) {
+      toast({ title: 'Erro', description: 'Não foi possível apagar o sub-álbum.', variant: 'destructive' })
+      return
+    }
+    schedulePhotoLibraryDeletion(
+      { kind: 'album', id: sub.id, name: sub.name, photoUrls: (subPhotos || []).map((photo) => photo.photo_url) },
+      () => toast({ title: 'Erro', description: 'Não foi possível apagar o sub-álbum.', variant: 'destructive' }),
+    )
+    toast({ title: 'Sub-álbum retirado', description: 'Use Desfazer durante os próximos 10 segundos.' })
+  }
+
   const handleDeleteAlbum = async () => {
     if (!event || !isAuthenticated) return
     if (!confirm(`Apagar o álbum “${event.name}” e todas as fotos dele?`)) return
@@ -111,7 +207,7 @@ export function EventPhotos() {
       () => toast({ title: 'Erro', description: 'Não foi possível apagar o álbum.', variant: 'destructive' }),
     )
     toast({ title: 'Álbum retirado', description: 'Use Desfazer durante os próximos 10 segundos.' })
-    navigate(event.category === 'historical' ? '/Photos/HistoricalPhotos' : '/Photos')
+    navigate(parentPath)
   }
 
   if (loading) {
@@ -141,7 +237,7 @@ export function EventPhotos() {
   return (
     <div className={styles.pageContainer}>
       <Header />
-      <BackButtonPhotos to={event.category === 'historical' ? '/Photos/HistoricalPhotos' : '/Photos'} />
+      <BackButtonPhotos to={parentPath} />
       <div className={styles.Years}>
         <ul>
           {event.name}{event.display_date && event.event_date ? ` — ${new Date(event.event_date + 'T12:00:00').toLocaleDateString(language === 'en' ? 'en-US' : 'pt-BR')}` : ''}
@@ -176,6 +272,45 @@ export function EventPhotos() {
             </div>
           )}
         </div>
+        {(visibleSubAlbums.length > 0 || isAuthenticated) && (
+          <div className="max-w-5xl mx-auto px-4 mb-6">
+            <div className="flex items-center justify-between gap-3 mb-3">
+              <h2 className="text-lg font-semibold text-white">Sub-álbuns</h2>
+              {isAuthenticated && (
+                <Button size="sm" onClick={() => openSubDialog()}>
+                  <Plus className="w-4 h-4 mr-1" /> Novo sub-álbum
+                </Button>
+              )}
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {visibleSubAlbums.map((sub) => (
+                <div key={sub.id} className="rounded-lg border border-white/20 bg-white/10 p-4">
+                  <Link to={`/Photos/Event/${sub.id}`} className="block text-white font-medium hover:underline">
+                    {sub.name}
+                  </Link>
+                  {sub.display_date && sub.event_date && (
+                    <p className="text-white/80 text-sm mt-1">
+                      {new Date(sub.event_date + 'T12:00:00').toLocaleDateString(language === 'en' ? 'en-US' : 'pt-BR')}
+                    </p>
+                  )}
+                  {isAuthenticated && (
+                    <div className="flex gap-2 mt-3">
+                      <Button size="sm" variant="secondary" onClick={() => openSubDialog(sub)}>Nome e data</Button>
+                      <Button size="sm" variant="outline" onClick={() => navigate(`/Photos/Event/${sub.id}?edit=1`)}>Fotos</Button>
+                      <Button aria-label={`Apagar ${sub.name}`} size="sm" variant="destructive" onClick={() => handleDeleteSub(sub)}>
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              ))}
+              {visibleSubAlbums.length === 0 && (
+                <p className="text-white/80 text-sm">Nenhum sub-álbum ainda.</p>
+              )}
+            </div>
+          </div>
+        )}
+
         <div className={styles.box}>
           <div className={styles.gallery}>
             {photos.filter((photo) => !(pendingDeletion?.kind === 'photo' && pendingDeletion.id === photo.id)).map((photo, index) => (
@@ -218,6 +353,44 @@ export function EventPhotos() {
           onClose={() => setShowEditor(false)}
           albumType={event.category === 'historical' ? 'historical' : 'event'}
         />
+      )}
+
+      <Dialog open={showSubDialog} onOpenChange={setShowSubDialog}>
+        <DialogContent className="max-w-sm max-h-[45vh] top-[calc(50%+50px)] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>{editingSub ? 'Editar sub-álbum' : 'Novo sub-álbum'}</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleSaveSub} className="space-y-4">
+            <div>
+              <Label htmlFor="sub-name">Nome do evento</Label>
+              <Input id="sub-name" value={subForm.name} onChange={(e) => setSubForm({ ...subForm, name: e.target.value })} required />
+            </div>
+            <div>
+              <Label htmlFor="sub-date">Data do evento (opcional)</Label>
+              <Input id="sub-date" type="date" value={subForm.event_date} onChange={(e) => setSubForm({ ...subForm, event_date: e.target.value })} />
+            </div>
+            <div className="flex justify-end gap-2">
+              <Button type="button" variant="outline" onClick={() => { setShowSubDialog(false); setEditingSub(null) }}>Cancelar</Button>
+              <Button type="submit" disabled={savingSub}>{savingSub ? 'Salvando...' : 'Salvar'}</Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {pendingDeletion?.kind === 'album' && (
+        <div className="fixed bottom-4 left-4 z-50">
+          <Button
+            variant="secondary"
+            className="gap-2 shadow-lg"
+            disabled={pendingDeletion.committing}
+            onClick={() => {
+              if (undoPhotoLibraryDeletion()) toast({ title: 'Desfeito', description: `O sub-álbum “${pendingDeletion.name}” foi restaurado.` })
+            }}
+          >
+            <Undo2 className="h-4 w-4" />
+            {pendingDeletion.committing ? 'Apagando...' : 'Desfazer exclusão'}
+          </Button>
+        </div>
       )}
 
       {pendingDeletion?.kind === 'photo' && !showEditor && (
