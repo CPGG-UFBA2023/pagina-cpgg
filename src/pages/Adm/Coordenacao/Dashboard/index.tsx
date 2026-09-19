@@ -1717,67 +1717,6 @@ export function CoordenacaoDashboard() {
               {isLoading ? 'Cadastrando...' : 'Cadastrar Norma'}
             </Button>
           </div>
-
-
-          <div className={styles.formCard}>
-            <div className={styles.formHeader}>
-              <Image size={24} />
-              <h2>Cadastrar Fotos de Eventos</h2>
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="event-name">Nome do Evento:</label>
-              <Input
-                id="event-name"
-                type="text"
-                value={eventName}
-                onChange={(e) => setEventName(e.target.value)}
-                placeholder="Digite o nome do evento"
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="event-date">Data do Evento:</label>
-              <Input
-                id="event-date"
-                type="date"
-                value={eventDate}
-                onChange={(e) => setEventDate(e.target.value)}
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="event-photos">Fotos do Evento (máximo 30):</label>
-              <Input
-                id="event-photos"
-                type="file"
-                multiple
-                accept="image/*"
-                onChange={(e) => {
-                  const files = Array.from(e.target.files || [])
-                  if (files.length > 30) {
-                    toast({
-                      title: "Muitas fotos",
-                      description: "Máximo de 30 fotos permitido por evento.",
-                      variant: "destructive",
-                    })
-                    return
-                  }
-                  setEventPhotos(files)
-                }}
-                className={styles.photoInput}
-              />
-              {eventPhotos.length > 0 && (
-                <p className={styles.photoCount}>
-                  {eventPhotos.length} foto(s) selecionada(s)
-                </p>
-              )}
-            </div>
-            <Button
-              onClick={handleRegisterEvent}
-              disabled={isLoading || uploadingPhotos || !eventName || !eventDate || eventPhotos.length === 0}
-              className={styles.submitButton}
-            >
-              {uploadingPhotos ? 'Enviando fotos...' : isLoading ? 'Cadastrando...' : 'Cadastrar Evento'}
-            </Button>
-          </div>
         </div>
       </div>
     </div>
