@@ -135,6 +135,14 @@ export function HP() {
       <main className={`middle ${styles.hp}`}>
         <div className={styles.titleRow}>
           <h1 className={styles.title}>{t('photos.historicalTitle')}</h1>
+          <Button
+            size="sm"
+            variant={manageMode ? 'default' : 'secondary'}
+            aria-label="Editar subálbuns"
+            onClick={() => (isAuthenticated ? setManageMode((previous) => !previous) : setShowLogin(true))}
+          >
+            <Pencil className="w-4 h-4 mr-1" /> {manageMode ? 'Concluir edição' : 'Editar subálbuns'}
+          </Button>
           <Button size="sm" onClick={requestCreate}><Plus className="w-4 h-4 mr-1" /> Novo subálbum</Button>
         </div>
         <div className={styles.container}>
@@ -145,15 +153,36 @@ export function HP() {
                   <h2>{album.name}</h2>
                 </div>
               </Link>
-              {isAuthenticated && (
-                <Button aria-label={`Apagar ${album.name}`} className={styles.deleteButton} size="sm" variant="destructive" onClick={() => deleteAlbum(album)}>
-                  <Trash2 className="w-3.5 h-3.5" />
-                </Button>
-              )}
             </div>
           ))}
         </div>
+
+        {isAuthenticated && manageMode && (
+          <div className={styles.managePanel}>
+            <h3>Editar subálbuns</h3>
+            {albums.length === 0 && <p>Nenhum subálbum cadastrado.</p>}
+            {albums
+              .filter((album) => !(pendingDeletion?.kind === 'album' && pendingDeletion.id === album.id))
+              .map((album) => (
+                <div key={album.id} className={styles.manageRow}>
+                  <span>{album.name}</span>
+                  <div className={styles.manageRowActions}>
+                    <Button aria-label={`Editar dados de ${album.name}`} size="sm" variant="secondary" onClick={() => openEdit(album)}>
+                      <Pencil className="w-3.5 h-3.5 mr-1" /> Nome e data
+                    </Button>
+                    <Button aria-label={`Editar fotos de ${album.name}`} size="sm" variant="outline" onClick={() => navigate(`/Photos/HistoricalPhotos/Album/${album.id}?edit=1`)}>
+                      Fotos
+                    </Button>
+                    <Button aria-label={`Apagar ${album.name}`} size="sm" variant="destructive" onClick={() => deleteAlbum(album)}>
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </Button>
+                  </div>
+                </div>
+              ))}
+          </div>
+        )}
       </main>
+
 
       {pendingDeletion?.kind === 'album' && (
         <div className="fixed bottom-4 left-4 z-50">
