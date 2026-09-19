@@ -202,7 +202,7 @@ export function HP() {
 
       <Dialog open={showCreate} onOpenChange={setShowCreate}>
         <DialogContent className={styles.compactDialog}>
-          <DialogHeader><DialogTitle>Novo subálbum histórico</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle>{editing ? 'Editar subálbum histórico' : 'Novo subálbum histórico'}</DialogTitle></DialogHeader>
           <form onSubmit={createAlbum} className="space-y-4 overflow-y-auto">
             <div><Label htmlFor="historical-name">Nome do evento</Label><Input id="historical-name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required /></div>
             <div><Label htmlFor="historical-date">Data do evento (opcional)</Label><Input id="historical-date" type="date" value={form.event_date} onChange={(e) => setForm({ ...form, event_date: e.target.value })} /></div>
