@@ -37,6 +37,11 @@ const translations = {
     'nav.researchProjects': 'Projetos de Pesquisa',
     'nav.scientificProduction': 'Produção Científica',
     'nav.recipes': 'Receitas',
+    'nav.minutes': 'Atas',
+    'nav.seniorResearchers': 'Pesquisadores Seniores',
+    'nav.requests': 'Solicitações',
+    'nav.repairs': 'Reparos e serviços técnicos',
+    'nav.map': 'Mapa',
     // Header Institution Names
     'header.institutionTitle1': 'Centro de Pesquisa em Geofísica e Geologia',
     'header.institutionTitle2': 'Instituto de Geociências/Instituto de Física',
@@ -48,6 +53,8 @@ const translations = {
     'footer.instagram': 'Instagram',
     'footer.postGradGeophysics': 'Pós-Graduação em Geofísica',
     'footer.postGradGeology': 'Pós-Graduação em Geologia',
+    'footer.specialization': 'Curso de Especialização',
+    'footer.instagramLabel': 'Instagram do CPGG',
     'footer.rights': '© Todos os direitos reservados',
     
     // Contact
@@ -55,6 +62,9 @@ const translations = {
     'contact.copyLink': 'Copiar link',
     'contact.address': 'Av. Anita Garibaldi, s/n -Acesso Portão 2. Ondina, Salvador - BA, 40170-290',
     'contact.building': 'Bloco anexo ao Instituto de Geociências',
+    'contact.copyError': 'Não foi possível copiar automaticamente. Copie manualmente:',
+    'contact.whatsappLabel': 'Copiar link do WhatsApp',
+    'contact.whatsappIcon': 'Ícone do WhatsApp',
     
     // Toast messages
     'toast.linkCopied': 'Link copiado',
@@ -64,6 +74,33 @@ const translations = {
     'spaces.title': 'Espaços e Reservas',
     'spaces.auditory': 'Auditório',
     'spaces.meetingRoom': 'Sala de reuniões',
+
+    // Public navigation pages
+    'requests.title': 'Solicitações',
+    'requests.repairs': 'Reparos e Serviços Técnicos',
+    'labs.title': 'Laboratórios e Reservas',
+    'labs.lemar': 'Laboratório de Espectrometria de Massas de Alta Resolução',
+    'labs.ltmrx': 'Laboratório de Tecnologia Mineral',
+    'labs.lamod': 'Laboratório de Modelagem Física',
+    'labs.labfis': 'Laboratório de Propriedades Físicas das Rochas',
+    'labs.lagep': 'Laboratório de Geofísica e Exploração de Petróleo',
+    'panorama.title': 'Vista Aérea 360° do CPGG',
+    'panorama.instructions': 'Arraste para explorar • Use o scroll para zoom • Clique no ícone para tela cheia',
+    'panorama.loading': 'Carregando panorama 360°...',
+    'panorama.imageError': 'Erro ao carregar imagem panorâmica',
+    'panorama.libraryError': 'Erro ao carregar biblioteca de visualização',
+    'panorama.viewerError': 'Erro ao inicializar visualizador',
+    'panorama.viewerTitle': 'CPGG - Vista Aérea 360°',
+    'news.loading': 'Carregando notícias...',
+    'news.previous': 'Notícia anterior',
+    'news.next': 'Próxima notícia',
+    'news.goTo': 'Ir para notícia',
+    'news.pause': 'Pausar',
+    'news.play': 'Reproduzir',
+    'news.stop': 'PARAR',
+    'news.start': 'INICIAR',
+    'news.viewAll': 'Ver todas as notícias →',
+    'news.presentationMode': 'Modo Apresentação',
     
     // Production
     'production.title': 'Produção',
@@ -184,6 +221,11 @@ const translations = {
     'nav.researchProjects': 'Research Projects',
     'nav.scientificProduction': 'Scientific Production',
     'nav.recipes': 'Recipes',
+    'nav.minutes': 'Minutes',
+    'nav.seniorResearchers': 'Senior Researchers',
+    'nav.requests': 'Requests',
+    'nav.repairs': 'Repairs and Technical Services',
+    'nav.map': 'Map',
     
     // Header Institution Names
     'header.institutionTitle1': 'Center for Research in Geophysics and Geology',
@@ -191,18 +233,23 @@ const translations = {
     'header.institutionTitle3': 'Federal University of Bahia',
     
     // Footer
-    'footer.oldPage': 'Old Page-CPGG',
+    'footer.oldPage': 'Old CPGG Website',
     'footer.linkedin': 'Linkedin',
     'footer.instagram': 'Instagram',
     'footer.postGradGeophysics': 'Graduate Program in Geophysics',
     'footer.postGradGeology': 'Graduate Program in Geology',
+    'footer.specialization': 'Specialization Program',
+    'footer.instagramLabel': 'CPGG Instagram',
     'footer.rights': '© All rights reserved',
     
     // Contact
-    'contact.emailUs': 'E-mail us at',
+    'contact.emailUs': 'Email us at:',
     'contact.copyLink': 'Copy link',
-    'contact.address': 'Av. Anita Garibaldi, s/n -Access Gate 2. Ondina, Salvador - BA, 40170-290',
-    'contact.building': 'Annex block to the Institute of Geosciences',
+    'contact.address': 'Av. Anita Garibaldi, s/n — Gate 2, Ondina, Salvador, BA 40170-290, Brazil',
+    'contact.building': 'Annex to the Institute of Geosciences',
+    'contact.copyError': 'The link could not be copied automatically. Please copy it manually:',
+    'contact.whatsappLabel': 'Copy WhatsApp link',
+    'contact.whatsappIcon': 'WhatsApp icon',
     
     // Toast messages
     'toast.linkCopied': 'Link copied',
@@ -212,6 +259,33 @@ const translations = {
     'spaces.title': 'Spaces and Reservations',
     'spaces.auditory': 'Auditorium',
     'spaces.meetingRoom': 'Meeting Room',
+
+    // Public navigation pages
+    'requests.title': 'Requests',
+    'requests.repairs': 'Repairs and Technical Services',
+    'labs.title': 'Laboratories and Reservations',
+    'labs.lemar': 'High-Resolution Mass Spectrometry Laboratory',
+    'labs.ltmrx': 'Mineral Technology Laboratory',
+    'labs.lamod': 'Physical Modeling Laboratory',
+    'labs.labfis': 'Rock Physics Laboratory',
+    'labs.lagep': 'Geophysics and Petroleum Exploration Laboratory',
+    'panorama.title': '360° Aerial View of CPGG',
+    'panorama.instructions': 'Drag to explore • Scroll to zoom • Select the icon for full screen',
+    'panorama.loading': 'Loading 360° panorama...',
+    'panorama.imageError': 'Unable to load the panoramic image',
+    'panorama.libraryError': 'Unable to load the panorama viewer',
+    'panorama.viewerError': 'Unable to initialize the panorama viewer',
+    'panorama.viewerTitle': 'CPGG — 360° Aerial View',
+    'news.loading': 'Loading news...',
+    'news.previous': 'Previous article',
+    'news.next': 'Next article',
+    'news.goTo': 'Go to article',
+    'news.pause': 'Pause',
+    'news.play': 'Play',
+    'news.stop': 'PAUSE',
+    'news.start': 'PLAY',
+    'news.viewAll': 'View all news →',
+    'news.presentationMode': 'Presentation Mode',
     
     // Production
     'production.title': 'Production',
@@ -224,13 +298,13 @@ const translations = {
     
     // CPGG
     'cpgg.title': 'The CPGG',
-    'cpgg.description1': 'The Research Center for Geophysics and Geology (CPGG/UFBA) is a complementary body of UFBA linked to the Institutes of Geosciences and Physics through Resolution No. 02/2011 of the University Council. It was restructured in March 1997 aiming, above all, to institutionalize and succeed the Research and Graduate Program in Geophysics of the Federal University of Bahia (PPPG/UFBA), created in 1969 by Prof. Carlos Alberto Dias. Its philosophy is to develop interdisciplinary scientific research programs, as well as to foster personal qualification development.',
-    'cpgg.description2': 'The objective of CPGG is also to continue acting as an interface between the industrial sector, governmental organizations and the Federal University of Bahia, through its specific research areas with a view to generating educational opportunities at the postgraduate level, and scientific initiation for undergraduate studies; the dissemination of knowledge through technology transfer to society; having for this an adequate administrative structure to support new areas of research.',
-    'cpgg.description3': 'In addition to supporting doctoral, master and undergraduate courses in Geophysics and Geology, CPGG, from 1999 onwards, started a Continuing Education program at specialization level with two courses in Petroleum Systems with emphasis on Brazilian sedimentary basins and reservoir characterization, aimed at industry personnel.',
-    'cpgg.description4': 'After a 5-year pause, CPGG has once again active its body of researchers, now under the coordination of professors Marcos Vasconcelos and Ruy Kikuchi. A new accreditation was carried out, so that at the present time, the body has {count} researchers distributed in five Research Programs. The current moment impels CPGG to awaken the interest of new researchers, with the aim of joining efforts to build a stronger Center, and providing resources for the development of cutting-edge research.',
+    'cpgg.description1': 'The Center for Research in Geophysics and Geology (CPGG/UFBA) is a complementary unit of UFBA linked to the Institutes of Geosciences and Physics under University Council Resolution No. 02/2011. It was restructured in March 1997, primarily to institutionalize and succeed the Research and Graduate Program in Geophysics at the Federal University of Bahia (PPPG/UFBA), founded in 1969 by Prof. Carlos Alberto Dias. Its mission is to develop interdisciplinary scientific research programs and foster professional development.',
+    'cpgg.description2': 'CPGG also serves as a bridge between industry, government organizations and the Federal University of Bahia. Through its research areas, it creates graduate and undergraduate research opportunities, shares knowledge with society through technology transfer, and provides the administrative structure needed to support emerging fields of research.',
+    'cpgg.description3': 'In addition to supporting doctoral, master’s and undergraduate programs in Geophysics and Geology, CPGG launched a continuing education program in 1999. It offered two specialization courses in Petroleum Systems, focusing on Brazilian sedimentary basins and reservoir characterization for industry professionals.',
+    'cpgg.description4': 'After a five-year pause, CPGG resumed its research activities under the coordination of Prof. Marcos Vasconcelos and Prof. Ruy Kikuchi. Following a new accreditation process, the Center now has {count} researchers across five Research Programs. CPGG seeks to attract new researchers, combine expertise and secure resources for cutting-edge research.',
     'cpgg.legend1': 'CPGG headquarters access hall',
-    'cpgg.legend2': 'CGG headquarters facade from first angle',
-    'cpgg.legend3': 'CGG headquarters facade from second angle',
+    'cpgg.legend2': 'CPGG headquarters façade — first view',
+    'cpgg.legend3': 'CPGG headquarters façade — second view',
     
     // Regulations
     'regulations.title': 'Regulations and Standards',
@@ -239,7 +313,7 @@ const translations = {
     'regulations.senior': 'Normative Deliberation for senior researchers',
     
     // Researchers
-    'researchers.title': 'Research Programs and Scientific Body',
+    'researchers.title': 'Research Programs and Research Staff',
     'researchers.oil': 'Oil Exploration and Production',
     'researchers.environment': 'Water Resources and Environmental Problems',
     'researchers.mineral': 'Petrology, Metallogeny and Mineral Exploration',
@@ -249,22 +323,22 @@ const translations = {
     // LAIGA
     'laiga.title': 'LAIGA',
     'laiga.subtitle': 'Integrated Laboratory of Applied Geophysics',
-    'laiga.description1': 'The Integrated Laboratory of Applied Geophysics -LAIGA- was created in 2023 with the gathering of equipment acquired throughout CPGG history. It is located in room 112 of Block D of the Institute of Geosciences. It is currently one of the most complete Geophysics Laboratories in Brazil in terms of variety of equipment gathered in the same physical space, having a wide collection of equipment and associated peripherals available for use.',
+    'laiga.description1': 'The Integrated Laboratory of Applied Geophysics (LAIGA) was established in 2023 by bringing together equipment acquired throughout CPGG’s history. Located in Room 112, Block D, at the Institute of Geosciences, it is one of Brazil’s most comprehensive geophysics laboratories in terms of the variety of equipment available in a single facility.',
     'laiga.description2': 'LAIGA has a structure of about 70 m² with three integrated rooms: (i) warehouse; (ii) data room; and (iii) electronics. In addition, it has a support room of about 35 m² where support materials for fieldwork are stored.',
-    'laiga.description3': 'The main objectives of LAIGA are (i) to support the internal research of CPGG researchers at all levels: undergraduate, graduate and their research projects; and (ii) to strengthen research in Applied Geophysics of partner institutions of public and private capital through Agreements and Service Provision Contracts.',
+    'laiga.description3': 'LAIGA’s main objectives are: (i) to support CPGG research at undergraduate and graduate levels and across its research projects; and (ii) to strengthen Applied Geophysics research at public- and private-sector partner institutions through cooperation agreements and service contracts.',
     'laiga.description4': 'LAIGA is among the CPGG laboratories that are part of the Institutional Development Project -PDI- created to raise funds from other public bodies and private companies. The laboratory coordination was approved at a meeting of the CPGG Scientific Council in 2024.',
-    'laiga.description5': 'Access the National Research Infrastructure Platform-PNIPE website, and see photos and more details about the available equipment.',
+    'laiga.description5': 'Visit the National Research Infrastructure Platform (PNIPE) to view photos and further details about the available equipment.',
     'laiga.pnipeSite': 'PNIPE Site',
-    'laiga.availability': 'To know about equipment availability and request them for use, access our request platform',
+    'laiga.availability': 'To check equipment availability or submit a request, visit our request platform.',
     'laiga.chief': 'LAIGA Coordinator',
     'laiga.chiefName': 'Prof. Marcos Alberto Rodrigues Vasconcelos',
     'laiga.viceChief': 'LAIGA Vice-Coordinator',
     'laiga.viceChiefName': 'Prof. Susana Silva Cavalcanti',
 
     'laiga.requestButton': 'Request',
-    'laiga.room1': 'Room 1- Warehouse with equipment',
-    'laiga.room2': 'Room 1-Data Room',
-    'laiga.room3': 'Room 3- Electronics',
+    'laiga.room1': 'Room 1 — Equipment Storage',
+    'laiga.room2': 'Room 2 — Data Room',
+    'laiga.room3': 'Room 3 — Electronics',
     'laiga.room4': 'LAIGA support room',
     
     // Admin

@@ -11,24 +11,24 @@ export function Solicitacoes() {
     <div className={`${styles.pageContainer} solicitacoes-page`}>
       <Header/>
       <main className={styles.solicitacoes}>
-        <h1 className={styles.title}>Solicitações</h1>
+        <h1 className={styles.title}>{t('requests.title')}</h1>
 
         <div className={styles.container}>
           <Link className={styles.card} to="/spaces">
             <div className={styles.spacesButton}>
-              <h2>Espaços e Reservas</h2>
+              <h2>{t('nav.spacesReservations')}</h2>
             </div>
           </Link>
 
           <Link className={styles.card} to="/cpgg2">
             <div className={styles.labsButton}>
-              <h2>Laboratórios e Reservas</h2>
+              <h2>{t('nav.labsReservations')}</h2>
             </div>
           </Link>
 
           <Link className={styles.card} to="/repairs-services">
             <div className={styles.repairsButton}>
-              <h2>Reparos e Serviços Técnicos</h2>
+              <h2>{t('requests.repairs')}</h2>
             </div>
           </Link>
         </div>

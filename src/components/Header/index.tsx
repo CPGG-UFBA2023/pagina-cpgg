@@ -173,7 +173,7 @@ export function Header() {
                         </li>
                         <li>
                           <NavLink to='/atas' className={styles.navLink} onClick={closeAllMenus}>
-                            Atas
+                            {t('nav.minutes')}
                           </NavLink>
                         </li>
                       </ul>
@@ -207,7 +207,7 @@ export function Header() {
                         </li>
                         <li>
                           <NavLink to='/senior-researchers' className={styles.navLink} onClick={closeAllMenus}>
-                            Pesquisadores Seniores
+                            {t('nav.seniorResearchers')}
                           </NavLink>
                         </li>
                         <li>
@@ -235,7 +235,7 @@ export function Header() {
                   </li>
                   <li>
                     <NavLink to='/Map' className={styles.navLink} onClick={closeAllMenus}>
-                      Map
+                      {t('nav.map')}
                     </NavLink>
                   </li>
                 </ul>
@@ -267,7 +267,7 @@ export function Header() {
                 setOpenMenu(prev => prev === 'requests' ? null : 'requests');
               }}
             >
-              Solicitações
+              {t('nav.requests')}
             </a>
             
             {/* Só renderizar submenu em desktop (largura > 430px) */}
@@ -283,12 +283,12 @@ export function Header() {
                   </li>
                   <li>
                     <NavLink to='/cpgg2' className={styles.navLink} onClick={closeAllMenus}>
-                      Laboratórios e<br />reservas
+                      {t('nav.labsReservations')}
                     </NavLink>
                   </li>
                   <li>
                     <NavLink to='/repairs-services' className={styles.navLink} onClick={closeAllMenus}>
-                      Reparos e serviços<br />técnicos
+                      {t('nav.repairs')}
                     </NavLink>
                   </li>
                 </ul>

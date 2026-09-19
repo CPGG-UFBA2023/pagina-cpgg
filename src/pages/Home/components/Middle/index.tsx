@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight, Pause, Play, Presentation } from 'lucide-rea
 import styles from './middle.module.css'
 import earth from '../../../../assets/earth-photos.jpg'
 import { PresentationMode } from '../PresentationMode'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface NewsArticle {
   id: string
@@ -27,6 +28,7 @@ const stripHtml = (html: string): string => {
 }
 
 export function Middle() {
+  const { t } = useLanguage()
   const [newsArticles, setNewsArticles] = useState<NewsArticle[]>([])
   const [loading, setLoading] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -103,7 +105,7 @@ export function Middle() {
   ]
 
   if (loading) {
-    return <div className={styles.loading}>Carregando notícias...</div>
+    return <div className={styles.loading}>{t('news.loading')}</div>
   }
 
   const displayArticles = newsArticles.length > 0 ? newsArticles : []
@@ -159,7 +161,7 @@ export function Middle() {
             <button 
               onClick={handlePrevious} 
               className={`${styles.navButton} ${styles.navButtonLeft}`}
-              aria-label="Notícia anterior"
+              aria-label={t('news.previous')}
             >
               <ChevronLeft size={32} />
             </button>
@@ -167,7 +169,7 @@ export function Middle() {
             <button 
               onClick={handleNext} 
               className={`${styles.navButton} ${styles.navButtonRight}`}
-              aria-label="Próxima notícia"
+              aria-label={t('news.next')}
             >
               <ChevronRight size={32} />
             </button>
@@ -179,24 +181,24 @@ export function Middle() {
                     key={index}
                     onClick={() => handleDotClick(index)}
                     className={`${styles.dot} ${index === currentIndex ? styles.dotActive : ''}`}
-                    aria-label={`Ir para notícia ${index + 1}`}
+                    aria-label={`${t('news.goTo')} ${index + 1}`}
                   />
                 ))}
               </div>
               <button 
                 onClick={togglePlayPause} 
                 className={styles.playPauseButton}
-                aria-label={isPlaying ? 'Pausar' : 'Reproduzir'}
+                aria-label={isPlaying ? t('news.pause') : t('news.play')}
               >
                 {isPlaying ? <Pause size={16} /> : <Play size={16} />}
-                <span>{isPlaying ? 'PARAR' : 'INICIAR'}</span>
+                <span>{isPlaying ? t('news.stop') : t('news.start')}</span>
               </button>
             </div>
           </>
         )}
 
         <Link to="/News/Archive" className={styles.archiveLink}>
-          Ver todas as notícias →
+          {t('news.viewAll')}
         </Link>
 
         <button
@@ -205,7 +207,7 @@ export function Middle() {
           onClick={() => setShowPresentation(true)}
         >
           <Presentation size={18} />
-          Modo Apresentação
+          {t('news.presentationMode')}
         </button>
       </div>
 

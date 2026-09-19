@@ -11,42 +11,42 @@ export function SobreNos() {
     <div className={`${styles.pageContainer} sobrenos-page`}>
       <Header/>
       <main className={styles.sobreNos}>
-        <h1 className={styles.title}>Sobre Nós</h1>
+        <h1 className={styles.title}>{t('nav.about')}</h1>
 
         <div className={styles.container}>
           <Link className={styles.card} to="/instituicao-mobile">
             <div className={styles.institutionButton}>
-              <h2>Instituição</h2>
+              <h2>{t('nav.institution')}</h2>
             </div>
           </Link>
 
           <Link className={styles.card} to="/pessoal-mobile">
             <div className={styles.personnelButton}>
-              <h2>Pessoal</h2>
+              <h2>{t('nav.personnel')}</h2>
             </div>
           </Link>
 
           <Link className={styles.card} to="/research-projects">
             <div className={styles.projectsButton}>
-              <h2>Projetos de Pesquisa</h2>
+              <h2>{t('nav.researchProjects')}</h2>
             </div>
           </Link>
 
           <Link className={styles.card} to="/production">
             <div className={styles.productionButton}>
-              <h2>Produção Científica</h2>
+              <h2>{t('nav.scientificProduction')}</h2>
             </div>
           </Link>
 
           <Link className={styles.card} to="/Recipes">
             <div className={styles.recipesButton}>
-              <h2>Receitas</h2>
+              <h2>{t('nav.recipes')}</h2>
             </div>
           </Link>
 
           <Link className={styles.card} to="/Map">
             <div className={styles.mapButton}>
-              <h2>Map</h2>
+              <h2>{t('nav.map')}</h2>
             </div>
           </Link>
         </div>

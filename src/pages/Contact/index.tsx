@@ -22,7 +22,7 @@ export function Contact() {
         description: t('toast.linkCopiedDesc'),
       })
     } catch (_) {
-      alert('Não foi possível copiar automaticamente. Copie manualmente: ' + whatsappHref)
+      alert(`${t('contact.copyError')} ${whatsappHref}`)
     }
   }
 
@@ -34,8 +34,8 @@ export function Contact() {
         <p> secretaria.cpgg.ufba@gmail.com</p>
 
         <div className={styles.whatsappSection}>
-          <button type="button" className={styles.whatsappLink} onClick={copyWhatsAppLink} aria-label="Copiar link do WhatsApp">
-            <img src={Whats} alt="WhatsApp ícone" className={styles.whatsappIcon} />
+          <button type="button" className={styles.whatsappLink} onClick={copyWhatsAppLink} aria-label={t('contact.whatsappLabel')}>
+            <img src={Whats} alt={t('contact.whatsappIcon')} className={styles.whatsappIcon} />
             <span>{t('contact.copyLink')}</span>
           </button>
         </div>
