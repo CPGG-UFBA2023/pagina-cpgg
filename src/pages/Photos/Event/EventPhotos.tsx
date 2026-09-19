@@ -274,8 +274,7 @@ export function EventPhotos() {
         </div>
         {(visibleSubAlbums.length > 0 || isAuthenticated) && (
           <div className="max-w-5xl mx-auto px-4 mb-6">
-            <div className="flex items-center justify-between gap-3 mb-3">
-              <h2 className="text-lg font-semibold text-white">Sub-álbuns</h2>
+            <div className="flex items-center justify-end gap-3 mb-3">
               {isAuthenticated && (
                 <Button size="sm" onClick={() => openSubDialog()}>
                   <Plus className="w-4 h-4 mr-1" /> Novo sub-álbum
