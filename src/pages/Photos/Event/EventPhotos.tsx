@@ -301,6 +301,9 @@ export function EventPhotos() {
                 {visibleSubAlbums.map((sub) => (
                   <div key={sub.id} className={styles.subAlbumCard}>
                     <Link to={`/Photos/Event/${sub.id}`} className={styles.subAlbumLink}>
+                      {sub.cover && (
+                        <img src={sub.cover} alt={sub.name} className={styles.subAlbumCover} loading="lazy" />
+                      )}
                       {sub.name}
                     </Link>
                     {sub.display_date && sub.event_date && (
