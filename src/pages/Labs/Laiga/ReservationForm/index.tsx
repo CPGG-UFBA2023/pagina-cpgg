@@ -5,8 +5,11 @@ import { supabase } from "../../../../integrations/supabase/client";
 import { LaigaEquipmentEditor } from "../../../../components/LaigaEquipmentEditor";
 import styles from "./LaigaReservation.module.css";
 import { toast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function RF() {
+  const { language } = useLanguage();
+  const en = language === "en";
   const navigate = useNavigate();
   const [equipments, setEquipments] = useState<string[]>([]);
   const [formData, setFormData] = useState({
@@ -231,10 +234,10 @@ export function RF() {
         <LaigaEquipmentEditor onEquipmentChange={setEquipments} />
 
         <div className={styles.formContainer}>
-          <h1 className={styles.title}>Formulário de Reserva de Equipamentos - LAIGA</h1>
+          <h1 className={styles.title}>{en ? "LAIGA Equipment Reservation Form" : "Formulário de Reserva de Equipamentos - LAIGA"}</h1>
           <form onSubmit={handleSubmit}>
             <div className={styles.form}>
-              <label>Equipamentos Disponíveis:</label>
+              <label>{en ? "Available Equipment:" : "Equipamentos Disponíveis:"}</label>
               <div className={styles.equipmentList}>
                 {equipments.map((equipment) => (
                   <div key={equipment} className={styles.equipmentItem}>
@@ -251,44 +254,44 @@ export function RF() {
             </div>
 
             <div className={styles.form}>
-              <label htmlFor="otherEquipment">Outro equipamento não listado acima?</label>
+              <label htmlFor="otherEquipment">{en ? "Other equipment not listed above?" : "Outro equipamento não listado acima?"}</label>
               <input
                 type="text"
                 id="otherEquipment"
                 value={formData.otherEquipment}
                 onChange={(e) => handleInputChange("otherEquipment", e.target.value)}
-                placeholder="Digite outros equipamentos necessários"
+                placeholder={en ? "Enter other required equipment" : "Digite outros equipamentos necessários"}
               />
             </div>
 
             <div className={styles.form}>
               <label htmlFor="peripherals">
-                Algum periférico adicional? (ex: rolo de cabos, tenda, garra d'água, eletrodos, etc)
+                {en ? "Any additional accessories? (e.g. cable reel, tent, water clamp, electrodes)" : "Algum periférico adicional? (ex: rolo de cabos, tenda, garra d'água, eletrodos, etc)"}
               </label>
               <textarea
                 id="peripherals"
                 value={formData.peripherals}
                 onChange={(e) => handleInputChange("peripherals", e.target.value)}
-                placeholder="Descreva os periféricos necessários"
+                placeholder={en ? "Describe the required accessories" : "Descreva os periféricos necessários"}
                 rows={3}
               />
             </div>
 
             <div className={styles.form}>
-              <label htmlFor="applicantName">Nome do Solicitante *</label>
+              <label htmlFor="applicantName">{en ? "Applicant Name *" : "Nome do Solicitante *"}</label>
               <input
                 type="text"
                 id="applicantName"
                 value={formData.applicantName}
                 onChange={(e) => handleInputChange("applicantName", e.target.value)}
-                placeholder="Digite seu nome completo"
+                placeholder={en ? "Enter your full name" : "Digite seu nome completo"}
                 required
               />
             </div>
 
             <div className={styles.dateContainer}>
               <div className={styles.form}>
-                <label htmlFor="withdrawalDate">Data de Retirada *</label>
+                <label htmlFor="withdrawalDate">{en ? "Pickup Date *" : "Data de Retirada *"}</label>
                 <input
                   type="date"
                   id="withdrawalDate"
@@ -299,7 +302,7 @@ export function RF() {
               </div>
 
               <div className={styles.form}>
-                <label htmlFor="returnDate">Data de Devolução *</label>
+                <label htmlFor="returnDate">{en ? "Return Date *" : "Data de Devolução *"}</label>
                 <input
                   type="date"
                   id="returnDate"
@@ -311,52 +314,51 @@ export function RF() {
             </div>
 
             <div className={styles.form}>
-              <label htmlFor="applicantEmail">Email do Solicitante *</label>
+              <label htmlFor="applicantEmail">{en ? "Applicant Email *" : "Email do Solicitante *"}</label>
               <input
                 type="email"
                 id="applicantEmail"
                 value={formData.applicantEmail}
                 onChange={(e) => handleInputChange("applicantEmail", e.target.value)}
-                placeholder="Digite seu email"
+                placeholder={en ? "Enter your email" : "Digite seu email"}
                 required
               />
             </div>
 
             <div className={styles.form}>
-              <label htmlFor="applicantPassword">Senha *</label>
+              <label htmlFor="applicantPassword">{en ? "Password *" : "Senha *"}</label>
               <input
                 type="password"
                 id="applicantPassword"
                 value={formData.applicantPassword}
                 onChange={(e) => handleInputChange("applicantPassword", e.target.value)}
-                placeholder="Digite sua senha"
+                placeholder={en ? "Enter your password" : "Digite sua senha"}
                 required
               />
             </div>
 
             <div className={styles.form}>
-              <label htmlFor="purpose">Utilidade *</label>
+              <label htmlFor="purpose">{en ? "Purpose *" : "Utilidade *"}</label>
               <select
                 id="purpose"
                 value={formData.purpose}
                 onChange={(e) => handleInputChange("purpose", e.target.value)}
                 required
               >
-                <option value="">Selecione a finalidade</option>
+                <option value="">{en ? "Select the purpose" : "Selecione a finalidade"}</option>
                 <option value="TCC">TCC</option>
-                <option value="Pós-Graduação">Pós-Graduação</option>
-                <option value="Projeto de Pesquisa">Projeto de Pesquisa</option>
-                <option value="Uso em disciplina">Uso em disciplina</option>
-                <option value="Consultoria/Serviços">Consultoria/Serviços</option>
-                <option value="Curso">Curso</option>
+                <option value="Pós-Graduação">{en ? "Graduate Studies" : "Pós-Graduação"}</option>
+                <option value="Projeto de Pesquisa">{en ? "Research Project" : "Projeto de Pesquisa"}</option>
+                <option value="Uso em disciplina">{en ? "Course Use" : "Uso em disciplina"}</option>
+                <option value="Consultoria/Serviços">{en ? "Consulting/Services" : "Consultoria/Serviços"}</option>
+                <option value="Curso">{en ? "Course" : "Curso"}</option>
               </select>
             </div>
 
             <div className={styles.agreementText}>
               <p>
                 <strong>
-                  Estou de acordo em expressar agradecimentos ao LAIGA/CPGG pelo uso do(s) equipamento(s) utilizado(s)
-                  nos trabalhos apresentados
+                   {en ? "I agree to acknowledge LAIGA/CPGG for the use of its equipment in any resulting work." : "Estou de acordo em expressar agradecimentos ao LAIGA/CPGG pelo uso do(s) equipamento(s) utilizado(s) nos trabalhos apresentados"}
                 </strong>
               </p>
             </div>
@@ -364,14 +366,13 @@ export function RF() {
             <div className={styles.agreementText}>
               <p>
                 <strong>
-                  Estou de acordo em reportar no ato da entrega de possíveis problemas ou avarias que o(s)
-                  equipamento(s) tenham sofridos durante o uso
+                   {en ? "I agree to report any problems or damage to the equipment when it is returned." : "Estou de acordo em reportar no ato da entrega de possíveis problemas ou avarias que o(s) equipamento(s) tenham sofridos durante o uso"}
                 </strong>
               </p>
             </div>
 
             <button type="submit" className={styles.submitButton} disabled={isSubmitting}>
-              {isSubmitting ? "Enviando..." : "Enviar Solicitação"}
+              {isSubmitting ? (en ? "Submitting..." : "Enviando...") : (en ? "Submit Request" : "Enviar Solicitação")}
             </button>
           </form>
         </div>
