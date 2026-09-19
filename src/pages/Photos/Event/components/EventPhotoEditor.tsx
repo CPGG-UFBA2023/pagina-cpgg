@@ -107,6 +107,7 @@ export function EventPhotoEditor({
         if (dbError) throw dbError
         current = [...current, newPhoto as EventPhoto]
         setCaptions((previous) => ({ ...previous, [newPhoto.id]: newPhoto.caption || '' }))
+        setTitles((previous) => ({ ...previous, [newPhoto.id]: (newPhoto as EventPhoto).title || '' }))
         setPhotoDates((previous) => ({ ...previous, [newPhoto.id]: newPhoto.photo_date || '' }))
         onPhotosChange(current)
       }
