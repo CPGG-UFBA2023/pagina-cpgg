@@ -214,10 +214,16 @@ export function EventManager() {
       <div className={styles.container}>
         <div className={styles.header}>
           <h1 className={styles.title}>Gerenciamento de Eventos</h1>
-          <Button onClick={handleCreateEvent} className="flex items-center gap-2">
-            <Plus className="w-4 h-4" />
-            Criar Novo Evento
-          </Button>
+          {isAuthenticated ? (
+            <Button onClick={handleCreateEvent} className="flex items-center gap-2">
+              <Plus className="w-4 h-4" />
+              Criar Novo Evento
+            </Button>
+          ) : (
+            <Button variant="secondary" onClick={() => setShowLoginDialog(true)}>
+              Entrar como administrador
+            </Button>
+          )}
         </div>
 
         <div className={styles.eventsGrid}>
@@ -226,22 +232,24 @@ export function EventManager() {
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
                   <span>{event.name}</span>
-                  <div className="flex gap-2">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => handleEditEvent(event)}
-                    >
-                      <Edit3 className="w-4 h-4" />
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="destructive"
-                      onClick={() => handleDeleteEvent(event.id, event.name)}
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
-                  </div>
+                  {isAuthenticated && (
+                    <div className="flex gap-2">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleEditEvent(event)}
+                      >
+                        <Edit3 className="w-4 h-4" />
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        onClick={() => handleDeleteEvent(event.id, event.name)}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  )}
                 </CardTitle>
               </CardHeader>
               <CardContent>
