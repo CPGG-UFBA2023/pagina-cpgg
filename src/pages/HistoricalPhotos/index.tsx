@@ -41,6 +41,7 @@ export function HP() {
       .from('events')
       .select('id,name,event_date,display_date')
       .eq('category', 'historical')
+      .is('parent_id', null)
       .order('event_date', { ascending: true })
     if (!error) setAlbums(data || [])
   }

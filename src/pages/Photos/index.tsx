@@ -51,6 +51,7 @@ export function Photos() {
         .from('events')
         .select('*')
         .eq('category', 'event')
+        .is('parent_id', null)
         .order('event_date', { ascending: false })
 
       if (error) throw error
