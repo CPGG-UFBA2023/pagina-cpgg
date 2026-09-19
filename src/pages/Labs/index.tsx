@@ -10,6 +10,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import earth from '../../assets/earth-labs.png'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface Laboratory {
   id: string
@@ -28,6 +29,7 @@ type LastAction =
   | { type: 'update'; previous: Laboratory; current: Laboratory }
 
 export  function Labs() {
+  const { t } = useLanguage()
   const [laboratories, setLaboratories] = useState<Laboratory[]>([])
   const [isEditing, setIsEditing] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
@@ -117,7 +119,7 @@ export  function Labs() {
       <Header/>
           <div className={`${styles.labs} labs`}>
             <div className={styles.titleContainer}>
-              <h1 className={styles.title}>Laboratórios e Reservas</h1>
+              <h1 className={styles.title}>{t('labs.title')}</h1>
               <EditButton 
                 onClick={handleLogin}
                 isEditMode={isEditing}

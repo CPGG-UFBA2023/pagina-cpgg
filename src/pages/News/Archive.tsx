@@ -5,6 +5,7 @@ import { Footer } from '../../components/Footer'
 import { supabase } from '@/integrations/supabase/client'
 import { Newspaper, ChevronLeft, ChevronRight } from 'lucide-react'
 import styles from './Archive.module.css'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface NewsItem {
   id: string
@@ -16,6 +17,7 @@ interface NewsItem {
 const PAGE_SIZE = 10
 
 export function NewsArchive() {
+  const { t, language } = useLanguage()
   const [items, setItems] = useState<NewsItem[]>([])
   const [totalCount, setTotalCount] = useState(0)
   const [page, setPage] = useState(1)
@@ -47,7 +49,7 @@ export function NewsArchive() {
 
   const formatDate = (iso: string) => {
     const d = new Date(iso)
-    return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })
+    return d.toLocaleDateString(language === 'en' ? 'en-US' : 'pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })
   }
 
   const goTo = (p: number) => {
@@ -77,16 +79,16 @@ export function NewsArchive() {
       <Header />
       <main className={styles.main}>
         <div className={styles.card}>
-          <h1 className={styles.title}>Arquivo de Notícias</h1>
+          <h1 className={styles.title}>{t('archive.title')}</h1>
           <p className={styles.subtitle}>
-            Todas as notícias publicadas no CPGG
-            {totalCount > 0 && ` — ${totalCount} no total`}
+            {t('archive.subtitle')}
+            {totalCount > 0 && ` — ${totalCount} ${t('archive.total')}`}
           </p>
 
           {loading ? (
-            <div className={styles.loading}>Carregando...</div>
+            <div className={styles.loading}>{t('photos.loading')}</div>
           ) : items.length === 0 ? (
-            <div className={styles.empty}>Nenhuma notícia encontrada.</div>
+            <div className={styles.empty}>{t('archive.empty')}</div>
           ) : (
             <>
               <ul className={styles.list}>
@@ -102,12 +104,12 @@ export function NewsArchive() {
               </ul>
 
               {totalPages > 1 && (
-                <nav className={styles.pagination} aria-label="Paginação de notícias">
+                <nav className={styles.pagination} aria-label={t('archive.pagination')}>
                   <button
                     className={styles.pageBtn}
                     onClick={() => goTo(page - 1)}
                     disabled={page === 1}
-                    aria-label="Página anterior"
+                    aria-label={t('archive.previous')}
                   >
                     <ChevronLeft size={18} />
                   </button>
@@ -131,7 +133,7 @@ export function NewsArchive() {
                     className={styles.pageBtn}
                     onClick={() => goTo(page + 1)}
                     disabled={page === totalPages}
-                    aria-label="Próxima página"
+                    aria-label={t('archive.next')}
                   >
                     <ChevronRight size={18} />
                   </button>

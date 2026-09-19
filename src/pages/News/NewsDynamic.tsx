@@ -7,6 +7,7 @@ import { ExternalLink, FileDown } from 'lucide-react'
 import { NewsImageLightbox } from '../../components/NewsImageLightbox'
 import { NewsMediaEditor } from '../../components/NewsMediaEditor'
 import styles from './News.module.css'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 
 interface NewsArticle {
@@ -28,6 +29,7 @@ interface NewsArticle {
 }
 
 export function NewsDynamic() {
+  const { t } = useLanguage()
   const { archiveNumber } = useParams<{ archiveNumber: string }>()
   const [news, setNews] = useState<NewsArticle | null>(null)
   const [loading, setLoading] = useState(true)
@@ -64,7 +66,7 @@ export function NewsDynamic() {
     return (
       <div className={styles.container}>
         <Header />
-        <div className={styles.loading}>Carregando notícia...</div>
+        <div className={styles.loading}>{t('news.loading')}</div>
         <Footer />
       </div>
     )
@@ -76,9 +78,9 @@ export function NewsDynamic() {
         <Header />
         <div className={styles.main}>
           <div className={styles.error}>
-            <h1 className={styles.errorTitle}>Notícia não encontrada</h1>
+            <h1 className={styles.errorTitle}>{t('news.notFound')}</h1>
             <p className={styles.errorMessage}>
-              Esta notícia não existe ou foi removida.
+              {t('news.notFoundMessage')}
             </p>
           </div>
         </div>
@@ -108,13 +110,13 @@ export function NewsDynamic() {
                 {news.external_link && (
                   <a href={news.external_link} target="_blank" rel="noopener noreferrer" className={styles.attachmentLink}>
                     <ExternalLink size={18} />
-                    <span>Acessar link externo</span>
+                    <span>{t('news.externalLink')}</span>
                   </a>
                 )}
                 {pdfs.map((pdf, index) => (
                   <a key={index} href={pdf.url!} target="_blank" rel="noopener noreferrer" className={styles.attachmentLink}>
                     <FileDown size={18} />
-                    <span>{pdf.title || `Baixar PDF ${index + 1}`}</span>
+                    <span>{pdf.title || `${t('news.downloadPdf')} ${index + 1}`}</span>
                   </a>
                 ))}
               </div>
@@ -127,7 +129,7 @@ export function NewsDynamic() {
                 <div key={index} className={styles.photoContainer}>
                   <NewsImageLightbox
                     src={photo!}
-                    alt={`Foto ${index + 1} da notícia`}
+                    alt={`${t('photos.photoAlt')} ${index + 1}`}
                     className={styles.photo}
                   />
                 </div>
