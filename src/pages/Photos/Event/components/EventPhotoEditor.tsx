@@ -91,7 +91,14 @@ export function EventPhotoEditor({
     let current = [...photos]
     try {
       for (const file of images) {
-        const fileName = `${eventId}/${Date.now()}_${Math.random().toString(36).slice(2)}_${file.name}`
+        const safeName = file.name
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .replace(/[^a-zA-Z0-9._-]+/g, '-')
+          .replace(/-+/g, '-')
+          .replace(/^-|-$/g, '')
+          .slice(-80) || 'foto.jpg'
+        const fileName = `${eventId}/${Date.now()}_${Math.random().toString(36).slice(2)}_${safeName}`
         const { error: storageError } = await supabase.storage.from('event-photos').upload(fileName, file)
         if (storageError) throw storageError
 
