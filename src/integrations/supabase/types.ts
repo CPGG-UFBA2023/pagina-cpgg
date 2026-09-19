@@ -113,6 +113,7 @@ export type Database = {
           created_at: string
           event_id: string
           id: string
+          photo_date: string | null
           photo_order: number
           photo_url: string
         }
@@ -121,6 +122,7 @@ export type Database = {
           created_at?: string
           event_id: string
           id?: string
+          photo_date?: string | null
           photo_order?: number
           photo_url: string
         }
@@ -129,6 +131,7 @@ export type Database = {
           created_at?: string
           event_id?: string
           id?: string
+          photo_date?: string | null
           photo_order?: number
           photo_url?: string
         }
@@ -147,7 +150,7 @@ export type Database = {
           category: string
           created_at: string
           display_date: boolean
-          event_date: string
+          event_date: string | null
           id: string
           name: string
           updated_at: string
@@ -156,7 +159,7 @@ export type Database = {
           category?: string
           created_at?: string
           display_date?: boolean
-          event_date: string
+          event_date?: string | null
           id?: string
           name: string
           updated_at?: string
@@ -165,7 +168,7 @@ export type Database = {
           category?: string
           created_at?: string
           display_date?: boolean
-          event_date?: string
+          event_date?: string | null
           id?: string
           name?: string
           updated_at?: string
