@@ -14,6 +14,7 @@ interface EventPhoto {
   id: string
   photo_url: string
   photo_order: number
+  caption?: string | null
 }
 
 interface Event {
@@ -36,17 +37,14 @@ export function EventPhotos() {
     if (id) {
       fetchEventData()
     }
-    // Check for persisted authentication
-    const savedAuth = localStorage.getItem('eventPhotosAuth')
+    const savedAuth = localStorage.getItem('eventPhotosAuth') || localStorage.getItem('eventManagerAuth')
     if (savedAuth === 'true') {
-      console.log('Found persisted authentication, setting isAuthenticated to true')
       setIsAuthenticated(true)
     }
   }, [id])
 
   const fetchEventData = async () => {
     try {
-      // Fetch event details
       const { data: eventData, error: eventError } = await supabase
         .from('events')
         .select('*')
@@ -55,7 +53,6 @@ export function EventPhotos() {
 
       if (eventError) throw eventError
 
-      // Fetch event photos
       const { data: photosData, error: photosError } = await supabase
         .from('event_photos')
         .select('*')
@@ -74,26 +71,18 @@ export function EventPhotos() {
   }
 
   const handleLogin = () => {
-    console.log('Login successful, setting isAuthenticated to true')
     setIsAuthenticated(true)
     setShowLoginDialog(false)
-    // Persist authentication in localStorage
     localStorage.setItem('eventPhotosAuth', 'true')
+    setShowEditor(true)
   }
 
   const handleEditClick = () => {
-    console.log('Edit button clicked, isAuthenticated:', isAuthenticated)
     if (isAuthenticated) {
-      console.log('User is authenticated, showing editor')
       setShowEditor(true)
     } else {
-      console.log('User not authenticated, showing login dialog')
       setShowLoginDialog(true)
     }
-  }
-
-  const handlePhotosChange = (updatedPhotos: EventPhoto[]) => {
-    setPhotos(updatedPhotos)
   }
 
   if (loading) {
@@ -125,7 +114,9 @@ export function EventPhotos() {
       <Header />
       <BackButtonPhotos />
       <div className={styles.Years}>
-        <ul>{event.name}</ul>
+        <ul>
+          {event.name} — {new Date(event.event_date + 'T12:00:00').toLocaleDateString('pt-BR')}
+        </ul>
         <div 
           className="absolute top-4 right-4 z-10"
           onMouseEnter={() => setIsHovered(true)}
@@ -141,18 +132,20 @@ export function EventPhotos() {
           </Button>
           {isHovered && (
             <div className="absolute bottom-full right-0 mb-2 bg-popover text-popover-foreground px-2 py-1 rounded text-xs whitespace-nowrap shadow-lg border">
-              Editar Fotos
+              Editar álbum
             </div>
           )}
         </div>
         <div className={styles.box}>
           <div className={styles.gallery}>
             {photos.map((photo, index) => (
-              <img 
-                key={photo.id}
-                src={photo.photo_url} 
-                alt={`Foto ${index + 1} do evento ${event.name}`}
-              />
+              <figure key={photo.id} className={styles.photoItem}>
+                <img 
+                  src={photo.photo_url} 
+                  alt={photo.caption || `Foto ${index + 1} do evento ${event.name}`}
+                />
+                {photo.caption && <figcaption className={styles.caption}>{photo.caption}</figcaption>}
+              </figure>
             ))}
           </div>
         </div>
@@ -167,8 +160,11 @@ export function EventPhotos() {
       {showEditor && id && (
         <EventPhotoEditor
           eventId={id}
+          eventName={event.name}
+          eventDate={event.event_date}
           photos={photos}
-          onPhotosChange={handlePhotosChange}
+          onPhotosChange={setPhotos}
+          onEventChange={(name, event_date) => setEvent({ ...event, name, event_date })}
           onClose={() => setShowEditor(false)}
         />
       )}
