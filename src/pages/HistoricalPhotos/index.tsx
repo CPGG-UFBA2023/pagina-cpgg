@@ -14,6 +14,7 @@ import { useToast } from '@/hooks/use-toast'
 import styles from './HistoricalPhotos.module.css'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { schedulePhotoLibraryDeletion, undoPhotoLibraryDeletion, usePendingPhotoLibraryDeletion } from '@/lib/photoDeletionQueue'
+import { usePhotoAdminAuth } from '../Photos/usePhotoAdminAuth'
 
 interface HistoricalAlbum {
   id: string
@@ -25,7 +26,7 @@ interface HistoricalAlbum {
 export function HP() {
   const { t } = useLanguage()
   const [albums, setAlbums] = useState<HistoricalAlbum[]>([])
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const { isAuthenticated, setIsAuthenticated } = usePhotoAdminAuth()
   const [showLogin, setShowLogin] = useState(false)
   const [showCreate, setShowCreate] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -48,11 +49,6 @@ export function HP() {
 
   useEffect(() => {
     fetchAlbums()
-    supabase.auth.getSession().then(async ({ data }) => {
-      if (!data.session) return
-      const { data: role } = await supabase.rpc('get_admin_role')
-      setIsAuthenticated(role === 'coordenacao' || role === 'ti' || role === 'secretaria')
-    })
   }, [])
 
   const requestCreate = () => {
@@ -136,15 +132,19 @@ export function HP() {
       <main className={`middle ${styles.hp}`}>
         <div className={styles.titleRow}>
           <h1 className={styles.title}>{t('photos.historicalTitle')}</h1>
-          <Button
-            size="sm"
-            variant={manageMode ? 'default' : 'secondary'}
-            aria-label="Editar subálbuns"
-            onClick={() => (isAuthenticated ? setManageMode((previous) => !previous) : setShowLogin(true))}
-          >
-            <Pencil className="w-4 h-4 mr-1" /> {manageMode ? 'Concluir edição' : 'Editar subálbuns'}
-          </Button>
-          <Button size="sm" onClick={requestCreate}><Plus className="w-4 h-4 mr-1" /> Novo subálbum</Button>
+          {isAuthenticated && (
+            <>
+              <Button
+                size="sm"
+                variant={manageMode ? 'default' : 'secondary'}
+                aria-label="Editar subálbuns"
+                onClick={() => setManageMode((previous) => !previous)}
+              >
+                <Pencil className="w-4 h-4 mr-1" /> {manageMode ? 'Concluir edição' : 'Editar subálbuns'}
+              </Button>
+              <Button size="sm" onClick={requestCreate}><Plus className="w-4 h-4 mr-1" /> Novo subálbum</Button>
+            </>
+          )}
         </div>
         <div className={styles.container}>
           {albums.filter((album) => !(pendingDeletion?.kind === 'album' && pendingDeletion.id === album.id)).map((album, index) => (
