@@ -12,6 +12,7 @@ const logoufba = "https://imgur.com/x7mquv7.png";
 const PANORAMA_URL = "https://kbxdwrvxrnfkqvpselwz.supabase.co/storage/v1/object/sign/VANT-photos/360.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80YjM3OGVhNS01NDYxLTQwNGItYTcxOS0wNDZmNTljMTY5OGEiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJWQU5ULXBob3Rvcy8zNjAuanBnIiwiaWF0IjoxNzY1MjM4NjQzLCJleHAiOjE3OTY3NzQ2NDN9.U1ZNaC6PP0blmXOrTGoG99mNmZqdafon9Pj29jIDTBk";
 
 export function Panorama360() {
+  const { t } = useLanguage();
   const viewerRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -83,7 +84,6 @@ export function Panorama360() {
     };
   }, [t]);
 
-  const { t } = useLanguage();
   const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);

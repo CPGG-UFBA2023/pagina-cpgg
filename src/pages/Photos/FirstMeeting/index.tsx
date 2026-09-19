@@ -2,6 +2,7 @@ import styles from './firstmeeting.module.css'
 import { Header } from '../../../components/Header'
 import { Footer } from '../../../components/Footer'
 import { BackButtonPhotos } from '../../../components/BackButtonPhotos'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const photo1 = 'https://imgur.com/lvESJHN.jpg'
 const photo2 = 'https://imgur.com/QaTS5bR.jpg'
@@ -30,12 +31,13 @@ const photo22 = 'https://imgur.com/DbgG0FT.jpg'
 
 
 export function FirstMeeting() {
+  const { t } = useLanguage()
   return (
     <div className={styles.pageContainer}>
       <Header />
       <BackButtonPhotos />
       <div className={styles.FirstMeeting}>
-          <ul> Primeira reunião geral de retorno do CPGG (março de 2024)</ul>
+          <ul>{t('photos.firstMeetingTitle')}</ul>
           <div className={styles.box}>
           <div className={styles.gallery}>
             <div className={styles.photo1}>

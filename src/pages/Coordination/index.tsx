@@ -7,6 +7,7 @@ import { EditableCoordinationMember } from './components/EditableCoordinationMem
 import { AddCoordinationMember } from './components/AddCoordinationMember'
 import { useToast } from '@/hooks/use-toast'
 import { supabase } from '@/integrations/supabase/client'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface CoordinationMember {
   name: string
@@ -15,6 +16,7 @@ interface CoordinationMember {
 }
 
 export function Coordination() {
+  const { t, language } = useLanguage()
   const [isEditMode, setIsEditMode] = useState(false)
   const [showLogin, setShowLogin] = useState(false)
   const [members, setMembers] = useState<CoordinationMember[]>([
@@ -190,13 +192,13 @@ export function Coordination() {
       <div className={`${styles.heads} coordination ${isEditMode ? styles.editMode : ''} hide-earth`} style={{ flex: 1, paddingBottom: '4rem' }}>
         <div className={styles.box1}>
           <div className={styles.coordination}>
-            <ul>Coordenação</ul>
+            <ul>{t('coordination.title')}</ul>
             <div className={styles.chief}>
               {getMembersBySection('coordination').map((member, index) => (
                 <EditableCoordinationMember
                   key={`coordination-${index}`}
                   name={member.name}
-                  title={member.title}
+                  title={language === 'en' && member.title === 'Coordenador' ? 'Coordinator' : language === 'en' && member.title === 'Coordenadora Adjunta' ? 'Deputy Coordinator' : member.title}
                   onUpdate={handleUpdateMember}
                   onDelete={handleDeleteMember}
                   isEditMode={isEditMode}
@@ -212,7 +214,7 @@ export function Coordination() {
           </div>
           
           <div className={styles.box2}>
-            <h1>Conselho Científico</h1>
+            <h1>{t('coordination.scientificCouncil')}</h1>
             <div className={styles.scientific}>
               {getMembersBySection('scientific').map((member, index) => (
                 <EditableCoordinationMember
@@ -232,7 +234,7 @@ export function Coordination() {
           </div>
           
           <div className={styles.box3}>
-            <h1>Conselho Deliberativo</h1>
+            <h1>{t('coordination.deliberativeCouncil')}</h1>
             <div className={styles.deliberative}>
               {getMembersBySection('deliberative').map((member, index) => (
                 <EditableCoordinationMember

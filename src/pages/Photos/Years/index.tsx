@@ -2,6 +2,7 @@ import styles from './fiftiethyears.module.css'
 import { Header } from '../../../components/Header'
 import { Footer } from '../../../components/Footer'
 import { BackButtonPhotos } from '../../../components/BackButtonPhotos'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 import photo1 from '../../../assets/Photos/Years/Foto1.png'
 import photo2 from '../../../assets/Photos/Years/Foto2.png'
@@ -36,16 +37,17 @@ import photo30 from '../../../assets/Photos/Years/Foto30.png'
 
 
 export function Years() {
+  const { t } = useLanguage()
   return (
     <div className={styles.pageContainer}>
       <Header />
       <BackButtonPhotos />
       <div className={styles.Years}>
-          <ul> 50 anos do Programa de Pós-Graduação em Geofísica (2019) </ul>
+          <ul>{t('photos.fiftyYearsTitle')}</ul>
           <div className={styles.box}>
           <div className={styles.gallery}>
             <div className={styles.photo1}>
-              <img src={photo1} alt='Foto1' />
+              <img src={photo1} alt={`${t('photos.photoAlt')} 1`} />
             </div>
             <div className={styles.photo2}>
               <img src={photo2} alt='Foto2' />
