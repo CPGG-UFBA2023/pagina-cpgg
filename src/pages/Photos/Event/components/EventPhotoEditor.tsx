@@ -24,6 +24,7 @@ interface EventPhotoEditorProps {
   onPhotosChange: (photos: EventPhoto[]) => void
   onEventChange: (name: string, date: string | null) => void
   onClose: () => void
+  onDeleteAlbum?: () => void
   albumType?: 'event' | 'historical'
 }
 
@@ -35,6 +36,7 @@ export function EventPhotoEditor({
   onPhotosChange,
   onEventChange,
   onClose,
+  onDeleteAlbum,
   albumType = 'event',
 }: EventPhotoEditorProps) {
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null)
