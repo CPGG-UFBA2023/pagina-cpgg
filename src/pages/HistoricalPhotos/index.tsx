@@ -70,6 +70,10 @@ export function HP() {
       toast({ title: 'Erro', description: 'Não foi possível criar o subálbum.', variant: 'destructive' })
       return
     }
+    if (!createdAlbum) {
+      toast({ title: 'Erro', description: 'O subálbum foi criado, mas não pôde ser aberto.', variant: 'destructive' })
+      return
+    }
     setForm({ name: '', event_date: '' })
     setShowCreate(false)
     toast({ title: 'Subálbum criado', description: 'Agora adicione e organize as fotos.' })

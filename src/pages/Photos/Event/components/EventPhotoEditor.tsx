@@ -39,7 +39,7 @@ export function EventPhotoEditor({
   const [isUploading, setIsUploading] = useState(false)
   const [isDropping, setIsDropping] = useState(false)
   const [name, setName] = useState(eventName)
-  const [date, setDate] = useState(eventDate)
+  const [date, setDate] = useState(eventDate || '')
   const [savingEvent, setSavingEvent] = useState(false)
   const [captions, setCaptions] = useState<Record<string, string>>(
     Object.fromEntries(photos.map((p) => [p.id, p.caption || '']))

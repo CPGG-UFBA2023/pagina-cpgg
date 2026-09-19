@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 import { supabase } from '@/integrations/supabase/client'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
@@ -30,6 +30,7 @@ interface Event {
 export function EventPhotos() {
   const { t, language } = useLanguage()
   const { id } = useParams<{ id: string }>()
+  const [searchParams, setSearchParams] = useSearchParams()
   const [event, setEvent] = useState<Event | null>(null)
   const [photos, setPhotos] = useState<EventPhoto[]>([])
   const [loading, setLoading] = useState(true)
@@ -45,9 +46,14 @@ export function EventPhotos() {
     supabase.auth.getSession().then(async ({ data }) => {
       if (!data.session) return
       const { data: role } = await supabase.rpc('get_admin_role')
-      setIsAuthenticated(role === 'coordenacao' || role === 'ti' || role === 'secretaria')
+      const canEdit = role === 'coordenacao' || role === 'ti' || role === 'secretaria'
+      setIsAuthenticated(canEdit)
+      if (canEdit && searchParams.get('edit') === '1') {
+        setShowEditor(true)
+        setSearchParams({}, { replace: true })
+      }
     })
-  }, [id])
+  }, [id, searchParams, setSearchParams])
 
   const fetchEventData = async () => {
     try {

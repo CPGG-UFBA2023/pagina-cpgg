@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { Button } from '@/components/ui/button'
@@ -15,7 +16,7 @@ import styles from './EventManager.module.css'
 interface Event {
   id: string
   name: string
-  event_date: string
+  event_date: string | null
   created_at: string
 }
 
@@ -32,6 +33,7 @@ export function EventManager() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast()
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetchEvents()
@@ -82,17 +84,17 @@ export function EventManager() {
     setEditingEvent(event)
     setFormData({
       name: event.name,
-      event_date: event.event_date
+      event_date: event.event_date || ''
     })
     setShowCreateDialog(true)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!formData.name.trim() || !formData.event_date) {
+    if (!formData.name.trim()) {
       toast({
         title: "Erro",
-        description: "Por favor, preencha todos os campos.",
+        description: "Por favor, informe o nome do evento.",
         variant: "destructive",
       })
       return
@@ -107,7 +109,8 @@ export function EventManager() {
           .from('events')
           .update({
             name: formData.name.trim(),
-            event_date: formData.event_date
+            event_date: formData.event_date || null,
+            display_date: Boolean(formData.event_date)
           })
           .eq('id', editingEvent.id)
 
@@ -119,19 +122,26 @@ export function EventManager() {
         })
       } else {
         // Create new event
-        const { error } = await supabase
+        const { data: createdEvent, error } = await supabase
           .from('events')
           .insert([{
             name: formData.name.trim(),
-            event_date: formData.event_date
+            event_date: formData.event_date || null,
+            display_date: Boolean(formData.event_date)
           }])
+          .select('id')
+          .single()
 
         if (error) throw error
+        if (!createdEvent) throw new Error('Evento não retornado após a criação.')
 
         toast({
           title: "Sucesso!",
-          description: "Evento criado com sucesso.",
+          description: "Evento criado. Agora adicione as fotos.",
         })
+        setShowCreateDialog(false)
+        navigate(`/Photos/Event/${createdEvent.id}?edit=1`)
+        return
       }
 
       setShowCreateDialog(false)
@@ -242,7 +252,7 @@ export function EventManager() {
               <CardContent>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
                   <Calendar className="w-4 h-4" />
-                  {new Date(event.event_date).toLocaleDateString('pt-BR')}
+                  {event.event_date ? new Date(event.event_date + 'T12:00:00').toLocaleDateString('pt-BR') : 'Evento sem data definida'}
                 </div>
                 <Button
                   variant="outline"
@@ -286,13 +296,12 @@ export function EventManager() {
               />
             </div>
             <div>
-              <Label htmlFor="event_date">Data do Evento</Label>
+              <Label htmlFor="event_date">Data do Evento (opcional)</Label>
               <Input
                 id="event_date"
                 type="date"
                 value={formData.event_date}
                 onChange={(e) => setFormData({ ...formData, event_date: e.target.value })}
-                required
               />
             </div>
             <div className="flex justify-end gap-2">

@@ -97,6 +97,7 @@ export function Photos() {
           .select('id')
           .single()
         if (error) throw error
+        if (!createdEvent) throw new Error('Evento não retornado após a criação.')
         toast({ title: 'Sucesso!', description: 'Evento criado. Agora adicione as fotos.' })
         setShowDialog(false)
         navigate(`/Photos/Event/${createdEvent.id}?edit=1`)
