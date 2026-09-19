@@ -28,6 +28,15 @@ interface Event {
   event_date: string | null
   category: string
   display_date: boolean
+  parent_id?: string | null
+}
+
+interface SubAlbum {
+  id: string
+  name: string
+  event_date: string | null
+  display_date: boolean
+  cover?: string | null
 }
 
 export function EventPhotos() {
