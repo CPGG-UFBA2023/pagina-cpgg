@@ -27,10 +27,8 @@ export function GlobalEarth() {
     '/News/Archive'
   ]
   
-  // Also hide on photo subpages (but not /Photos root or /Photos/HistoricalPhotos root)
-  const isPhotoSubPage = (location.pathname.includes('/Photos/') || 
-                         location.pathname.includes('/photos/')) &&
-                         location.pathname !== '/Photos/HistoricalPhotos'
+  // Also hide on all photo pages (including /Photos root and /Photos/HistoricalPhotos)
+  const isPhotoSubPage = location.pathname.toLowerCase().startsWith('/photos')
   
   // Hide on any /News/* route (including dynamic /News/:archiveNumber)
   const isNewsPage = location.pathname.startsWith('/News/') || location.pathname.startsWith('/news/')
