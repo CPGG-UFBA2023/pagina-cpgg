@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Plus, Trash2, Undo2 } from 'lucide-react'
+import { Pencil, Plus, Trash2, Undo2 } from 'lucide-react'
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
 import { BackButtonPhotos } from '../../components/BackButtonPhotos'
@@ -30,6 +30,8 @@ export function HP() {
   const [showCreate, setShowCreate] = useState(false)
   const [saving, setSaving] = useState(false)
   const [form, setForm] = useState({ name: '', event_date: '' })
+  const [editing, setEditing] = useState<HistoricalAlbum | null>(null)
+  const [manageMode, setManageMode] = useState(false)
   const { toast } = useToast()
   const navigate = useNavigate()
   const pendingDeletion = usePendingPhotoLibraryDeletion()
@@ -54,13 +56,39 @@ export function HP() {
 
   const requestCreate = () => {
     if (!isAuthenticated) setShowLogin(true)
-    else setShowCreate(true)
+    else { setEditing(null); setForm({ name: '', event_date: '' }); setShowCreate(true) }
+  }
+
+  const openEdit = (album: HistoricalAlbum) => {
+    setEditing(album)
+    setForm({ name: album.name, event_date: album.event_date || '' })
+    setShowCreate(true)
   }
 
   const createAlbum = async (event: React.FormEvent) => {
     event.preventDefault()
     if (!form.name.trim()) return
     setSaving(true)
+
+    if (editing) {
+      const { error } = await supabase.from('events').update({
+        name: form.name.trim(),
+        event_date: form.event_date || null,
+        display_date: Boolean(form.event_date),
+      }).eq('id', editing.id)
+      setSaving(false)
+      if (error) {
+        toast({ title: 'Erro', description: 'Não foi possível salvar o subálbum.', variant: 'destructive' })
+        return
+      }
+      setShowCreate(false)
+      setEditing(null)
+      setForm({ name: '', event_date: '' })
+      toast({ title: 'Subálbum atualizado' })
+      fetchAlbums()
+      return
+    }
+
     const { data: createdAlbum, error } = await supabase.from('events').insert([{
       name: form.name.trim(),
       event_date: form.event_date || null,
@@ -81,6 +109,7 @@ export function HP() {
     toast({ title: 'Subálbum criado', description: 'Agora adicione e organize as fotos.' })
     navigate(`/Photos/HistoricalPhotos/Album/${createdAlbum.id}?edit=1`)
   }
+
 
   const deleteAlbum = async (album: HistoricalAlbum) => {
     if (!confirm(`Apagar o subálbum “${album.name}” e todas as fotos dele?`)) return
@@ -106,6 +135,14 @@ export function HP() {
       <main className={`middle ${styles.hp}`}>
         <div className={styles.titleRow}>
           <h1 className={styles.title}>{t('photos.historicalTitle')}</h1>
+          <Button
+            size="sm"
+            variant={manageMode ? 'default' : 'secondary'}
+            aria-label="Editar subálbuns"
+            onClick={() => (isAuthenticated ? setManageMode((previous) => !previous) : setShowLogin(true))}
+          >
+            <Pencil className="w-4 h-4 mr-1" /> {manageMode ? 'Concluir edição' : 'Editar subálbuns'}
+          </Button>
           <Button size="sm" onClick={requestCreate}><Plus className="w-4 h-4 mr-1" /> Novo subálbum</Button>
         </div>
         <div className={styles.container}>
@@ -116,15 +153,36 @@ export function HP() {
                   <h2>{album.name}</h2>
                 </div>
               </Link>
-              {isAuthenticated && (
-                <Button aria-label={`Apagar ${album.name}`} className={styles.deleteButton} size="sm" variant="destructive" onClick={() => deleteAlbum(album)}>
-                  <Trash2 className="w-3.5 h-3.5" />
-                </Button>
-              )}
             </div>
           ))}
         </div>
+
+        {isAuthenticated && manageMode && (
+          <div className={styles.managePanel}>
+            <h3>Editar subálbuns</h3>
+            {albums.length === 0 && <p>Nenhum subálbum cadastrado.</p>}
+            {albums
+              .filter((album) => !(pendingDeletion?.kind === 'album' && pendingDeletion.id === album.id))
+              .map((album) => (
+                <div key={album.id} className={styles.manageRow}>
+                  <span>{album.name}</span>
+                  <div className={styles.manageRowActions}>
+                    <Button aria-label={`Editar dados de ${album.name}`} size="sm" variant="secondary" onClick={() => openEdit(album)}>
+                      <Pencil className="w-3.5 h-3.5 mr-1" /> Nome e data
+                    </Button>
+                    <Button aria-label={`Editar fotos de ${album.name}`} size="sm" variant="outline" onClick={() => navigate(`/Photos/HistoricalPhotos/Album/${album.id}?edit=1`)}>
+                      Fotos
+                    </Button>
+                    <Button aria-label={`Apagar ${album.name}`} size="sm" variant="destructive" onClick={() => deleteAlbum(album)}>
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </Button>
+                  </div>
+                </div>
+              ))}
+          </div>
+        )}
       </main>
+
 
       {pendingDeletion?.kind === 'album' && (
         <div className="fixed bottom-4 left-4 z-50">
@@ -144,16 +202,16 @@ export function HP() {
 
       <Dialog open={showCreate} onOpenChange={setShowCreate}>
         <DialogContent className={styles.compactDialog}>
-          <DialogHeader><DialogTitle>Novo subálbum histórico</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle>{editing ? 'Editar subálbum histórico' : 'Novo subálbum histórico'}</DialogTitle></DialogHeader>
           <form onSubmit={createAlbum} className="space-y-4 overflow-y-auto">
             <div><Label htmlFor="historical-name">Nome do evento</Label><Input id="historical-name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required /></div>
             <div><Label htmlFor="historical-date">Data do evento (opcional)</Label><Input id="historical-date" type="date" value={form.event_date} onChange={(e) => setForm({ ...form, event_date: e.target.value })} /></div>
-            <div className="flex justify-end gap-2"><Button type="button" variant="outline" onClick={() => setShowCreate(false)}>Cancelar</Button><Button type="submit" disabled={saving}>{saving ? 'Salvando...' : 'Criar'}</Button></div>
+            <div className="flex justify-end gap-2"><Button type="button" variant="outline" onClick={() => { setShowCreate(false); setEditing(null) }}>Cancelar</Button><Button type="submit" disabled={saving}>{saving ? 'Salvando...' : editing ? 'Salvar' : 'Criar'}</Button></div>
           </form>
         </DialogContent>
       </Dialog>
 
-      <AdminLoginEvents isOpen={showLogin} onClose={() => setShowLogin(false)} onLogin={() => { setIsAuthenticated(true); setShowLogin(false); setShowCreate(true) }} />
+      <AdminLoginEvents isOpen={showLogin} onClose={() => setShowLogin(false)} onLogin={() => { setIsAuthenticated(true); setShowLogin(false); setManageMode(true) }} />
       <Footer />
     </div>
   )
