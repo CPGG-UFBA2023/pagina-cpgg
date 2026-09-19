@@ -10,4 +10,5 @@
 - [x] Permitir criar eventos e subálbuns sem data
 - [x] Abrir o álbum recém-criado para inclusão imediata de fotos
 - [x] Permitir legenda e data opcional em cada foto
-- [ ] Validar criação, edição e exibição no navegador
+- [x] Validar tipos, compilação e exibição pública no navegador
+- [ ] Validar criação e edição autenticadas — bloqueado porque este Supabase externo não fornece sessão de teste
