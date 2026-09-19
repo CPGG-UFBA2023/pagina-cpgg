@@ -131,7 +131,7 @@ export function Production() {
       <div className={`${styles.container} scientific-publications-page production`}>
         <div className={styles.header}>
           <BookOpen size={32} color="white" />
-          <h1>{t('production.title')}</h1>
+          <h1>{t('production.heading')}</h1>
           <p>{t('production.subtitle')}</p>
         </div>
 
