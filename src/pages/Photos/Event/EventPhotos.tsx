@@ -126,6 +126,8 @@ export function EventPhotos() {
     }
   }
 
+  const visibleSubAlbums = subAlbums.filter((sub) => !(pendingDeletion?.kind === 'album' && pendingDeletion.id === sub.id))
+
   const parentPath = event?.parent_id
     ? `/Photos/Event/${event.parent_id}`
     : event?.category === 'historical' ? '/Photos/HistoricalPhotos' : '/Photos'
