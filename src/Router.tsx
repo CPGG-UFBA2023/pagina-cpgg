@@ -13,6 +13,7 @@ import { History } from './pages/History'
 import { Former } from './pages/History/FormerHeaders'
 import { HistoryPdfViewer } from './pages/History/PdfViewer'
 import { Instituto } from './pages/History/Instituto'
+import { DocumentosSede } from './pages/History/DocumentosSede'
 import { Institution } from './pages/Institution'
 
 import { Researchers } from './pages/Researchers'
