@@ -42,7 +42,7 @@ export function DocumentosSede() {
               </a>
             ))}
           </div>
-          <Link className={styles.backLink} to="/history">
+          <Link className={styles.backLink} to="/history" style={{ color: '#592cbb' }}>
             {t('button.back')}
           </Link>
         </div>
