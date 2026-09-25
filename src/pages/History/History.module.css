@@ -37,6 +37,8 @@
   margin-bottom: 4rem;
   padding-top: 0 !important;
   position: relative;
+  min-height: 0 !important;
+  height: auto !important;
 }
 
 .card {
