@@ -30,7 +30,6 @@
   display: grid;
   grid-template-columns: repeat(2, 350px);
   justify-content: center;
-  justify-items: center;
   gap: 30px;
   margin: 0 auto 4rem;
   padding-top: 0 !important;
@@ -42,8 +41,13 @@
 
 .card {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   text-decoration: none;
+  width: 100%;
+}
+
+.card > div {
+  width: 100%;
 }
 
 .headers {
