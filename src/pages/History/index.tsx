@@ -81,6 +81,12 @@ export function History() {
               <h2>{t('history.instituteCard')}</h2>
             </div>
           </Link>
+
+          <Link className={styles.card} to="/history/DocumentosSede">
+            <div className={styles.institute}>
+              <h2>{t('history.docsSedeCard')}</h2>
+            </div>
+          </Link>
         </div>
       </main>
 
