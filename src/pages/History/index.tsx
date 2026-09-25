@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import styles from './History.module.css';
 import { Header } from '../../components/Header';
 import { Footer } from '../../components/Footer';
-import earth from '../../components/Figures/earth-new.jpg';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { supabase } from '@/integrations/supabase/client';
 import { AdminLogin } from '../Atas/components/AdminLogin';
@@ -125,9 +124,6 @@ export function History() {
         onSuccess={() => setIsAdmin(true)}
       />
 
-      <div className={styles.staticFigure}>
-        <img src={earth} alt="Terra" className={styles.earthImage} />
-      </div>
 
       <Footer />
     </div>
