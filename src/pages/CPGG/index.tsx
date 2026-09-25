@@ -38,6 +38,7 @@ export function CPGG() {
               <p>{t('cpgg.description2')}</p>
               <p>{t('cpgg.description3')}</p>
               <p>{t('cpgg.description4').replace('{count}', totalResearchers.toString())}</p>
+              <h3 className={styles.sectionTitle}>{t('cpgg.historyTitle')}</h3>
               <p>{t('cpgg.description5')}</p>
               <p>{t('cpgg.description6')}</p>
               <p>{t('cpgg.description7')}</p>
