@@ -204,7 +204,8 @@
   }
   
   .headers,
-  .document {
+  .document,
+  .institute {
     width: 320px;
   }
 }
@@ -222,7 +223,8 @@
   }
   
   .headers,
-  .document {
+  .document,
+  .institute {
     width: 100%;
     max-width: 350px;
   }
@@ -242,7 +244,8 @@
 
 @media (max-width: 480px) {
   .headers,
-  .document {
+  .document,
+  .institute {
     min-height: 90px;
     padding: 1rem;
   }
