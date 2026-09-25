@@ -27,18 +27,18 @@
   line-height: 1.2;
 }
 
-.container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 350px);
+  justify-content: center;
+  justify-items: center;
   gap: 30px;
-  margin-left: calc(50% - 820px) !important;
-  margin-top: 0 !important;
-  margin-bottom: 4rem;
+  margin: 0 auto 4rem;
   padding-top: 0 !important;
   position: relative;
   min-height: 0 !important;
   height: auto !important;
+  max-width: 800px;
 }
 
 .card {
