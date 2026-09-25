@@ -12,6 +12,7 @@ import { CPGG2 } from './pages/CPGG2'
 import { History } from './pages/History'
 import { Former } from './pages/History/FormerHeaders'
 import { HistoryPdfViewer } from './pages/History/PdfViewer'
+import { Instituto } from './pages/History/Instituto'
 import { Institution } from './pages/Institution'
 
 import { Researchers } from './pages/Researchers'
