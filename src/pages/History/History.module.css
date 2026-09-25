@@ -15,36 +15,39 @@
 }
 
 .title {
-  text-align: left;
-  margin: 0 !important;
+  text-align: center;
+  margin: 0 auto 10px !important;
   margin-top: 155px !important;
-  margin-left: calc(50% - 380px) !important;
-  margin-bottom: 10px !important;
   padding: 0 !important;
   font-size: 28px;
   font-weight: bold;
   color: white;
   line-height: 1.2;
+  max-width: 800px;
 }
 
-.container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 350px);
+  justify-content: center;
   gap: 30px;
-  margin-left: calc(50% - 820px) !important;
-  margin-top: 0 !important;
-  margin-bottom: 4rem;
+  margin: 0 auto 4rem;
   padding-top: 0 !important;
   position: relative;
   min-height: 0 !important;
   height: auto !important;
+  max-width: 800px;
 }
 
 .card {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   text-decoration: none;
+  width: 100%;
+}
+
+.card > div {
+  width: 100%;
 }
 
 .headers {
@@ -63,7 +66,6 @@
   transition: transform 0.3s ease;
   background: linear-gradient(90deg, rgba(2,0,36,0.85) 0%, rgba(63,9,121,0.85)),
     url('/src/components/Figures/headers.png') center/cover;
-  margin-left: -620px;
 }
 
 .headers:hover {
@@ -86,8 +88,6 @@
   transition: transform 0.3s ease;
   background: linear-gradient(135deg, rgba(2,0,36,0.85), rgba(9,94,121,0.85)),
     url('/src/components/Figures/history-bg.jpg') center/cover;
-  margin-top: -145px !important;
-  margin-left: -65px !important;
 }
 
 .document:hover {
@@ -110,14 +110,6 @@
   transition: transform 0.3s ease;
   background: linear-gradient(135deg, rgba(2,0,36,0.85), rgba(89,44,187,0.85)),
     url('/src/components/Figures/laws.jpg') center/cover;
-}
-
-.instituteRow {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  margin-top: 1rem;
 }
 
 .institute:hover {
@@ -168,49 +160,17 @@
   }
 }
 
-@media (max-width: 1024px) {
-  .staticFigure {
-    display: none !important;
-  }
-  
-  .title {
-    text-align: center;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-  
-  .container {
-    flex-direction: column;
-    align-items: center;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    justify-content: center;
-    margin-top: 0 !important;
-  }
-  
-  .headers {
-    margin-left: 0 !important;
-    margin-top: 0 !important;
-  }
-  
-  .document,
-  .institute {
-    margin-left: 0 !important;
-    margin-top: 0 !important;
-  }
-}
-
 @media (max-width: 1200px) {
   .staticFigure img,
   .earthImage {
     height: 30rem;
   }
-  
-  .container {
-    flex-direction: row;
+
+  .cardsGrid {
+    grid-template-columns: repeat(2, 320px);
     gap: 20px;
   }
-  
+
   .headers,
   .document,
   .institute {
@@ -218,35 +178,28 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .staticFigure {
-    display: none;
+    display: none !important;
   }
-  
-  .container {
-    flex-direction: column;
-    max-width: 350px;
-    margin-left: auto !important;
-    margin-right: auto !important;
+}
+
+@media (max-width: 760px) {
+  .cardsGrid {
+    grid-template-columns: minmax(0, 350px);
+    gap: 20px;
+    padding: 0 1rem;
   }
-  
+
   .headers,
   .document,
   .institute {
     width: 100%;
     max-width: 350px;
   }
-  
-  .headers {
-    margin-left: 0 !important;
-  }
-  
+
   .title {
     font-size: 24px;
-    margin-top: 155px;
-    text-align: center;
-    margin-left: auto !important;
-    margin-right: auto !important;
   }
 }
 
@@ -255,29 +208,17 @@
   .document,
   .institute {
     min-height: 90px;
+    height: auto;
     padding: 1rem;
   }
-  
+
   .title {
     font-size: 20px;
-    margin-top: 155px;
   }
 }
 
 @media (max-width: 430px) {
   .title {
     margin-top: 205px !important;
-  }
-  
-  .container {
-    margin-top: 0 !important;
-  }
-  
-  .headers,
-  .document,
-  .institute {
-    width: 100% !important;
-    max-width: 350px !important;
-    min-width: 350px !important;
   }
 }

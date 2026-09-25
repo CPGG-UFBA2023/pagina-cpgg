@@ -61,7 +61,7 @@ export function History() {
       <main className={`${styles.history} history`}>
         <h1 className={styles.title}>{t('history.title')}</h1>
 
-        <div className={styles.container}>
+        <div className={styles.cardsGrid}>
           <Link className={styles.card} to="/history/Former">
             <div className={styles.headers}>
               <h2>{t('history.coordinators')}</h2>
@@ -73,9 +73,7 @@ export function History() {
               <h2>{t('history.cpggHistory')}</h2>
             </div>
           </Link>
-        </div>
 
-        <div className={styles.instituteRow}>
           <Link className={styles.card} to="/history/Instituto">
             <div className={styles.institute}>
               <h2>{t('history.instituteCard')}</h2>
