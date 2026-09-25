@@ -183,7 +183,7 @@
     margin-left: auto !important;
     margin-right: auto !important;
     justify-content: center;
-    margin-top: -450px !important;
+    margin-top: 0 !important;
   }
   
   .headers {
