@@ -185,7 +185,8 @@
     margin-top: 0 !important;
   }
   
-  .document {
+  .document,
+  .institute {
     margin-left: 0 !important;
     margin-top: 0 !important;
   }
@@ -262,7 +263,8 @@
   }
   
   .headers,
-  .document {
+  .document,
+  .institute {
     width: 100% !important;
     max-width: 350px !important;
     min-width: 350px !important;
