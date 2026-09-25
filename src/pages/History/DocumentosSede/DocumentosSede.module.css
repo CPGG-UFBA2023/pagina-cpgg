@@ -73,13 +73,14 @@
   padding: 0.6rem 1.5rem;
   border-radius: 999px;
   background: #fff;
-  color: var(--primary, #592cbb);
+  color: #592cbb !important;
   font-weight: 600;
   text-decoration: none;
 }
 
 .backLink:hover {
   background: rgba(255, 255, 255, 0.85);
+  color: #592cbb !important;
 }
 
 @media (max-width: 430px) {
