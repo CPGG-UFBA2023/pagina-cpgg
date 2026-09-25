@@ -73,7 +73,9 @@ export function History() {
               <h2>{t('history.cpggHistory')}</h2>
             </div>
           </Link>
+        </div>
 
+        <div className={styles.instituteRow}>
           <Link className={styles.card} to="/history/Instituto">
             <div className={styles.institute}>
               <h2>{t('history.instituteCard')}</h2>

@@ -1,3 +1,11 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 .inst {
   flex: 1;
   padding: 200px 2rem 40px;

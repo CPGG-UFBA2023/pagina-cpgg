@@ -8,9 +8,9 @@ export function Instituto() {
   const { t } = useLanguage()
 
   return (
-    <div className={styles.pageContainer}>
+    <div className={`${styles.pageContainer} cpgg-page-container`}>
       <Header />
-      <main className={styles.inst}>
+      <main className={`${styles.inst} cpgg`}>
         <div className={styles.box}>
           <h1 className={styles.heading}>{t('history.instituteTitle')}</h1>
           <div className={styles.text}>
