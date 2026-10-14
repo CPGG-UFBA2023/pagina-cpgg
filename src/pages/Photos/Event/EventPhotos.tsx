@@ -14,7 +14,7 @@ import { BackButtonPhotos } from '@/components/BackButtonPhotos'
 import styles from './EventPhotos.module.css'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useToast } from '@/hooks/use-toast'
-import { schedulePhotoLibraryDeletion, undoPhotoLibraryDeletion, usePendingPhotoLibraryDeletion } from '@/lib/photoDeletionQueue'
+import { schedulePhotoLibraryDeletion, undoPhotoLibraryDeletion, usePendingPhotoLibraryDeletion, isPhotoLibraryItemDeleted } from '@/lib/photoDeletionQueue'
 import { usePhotoAdminAuth } from '../usePhotoAdminAuth'
 
 interface EventPhoto {
@@ -139,7 +139,7 @@ export function EventPhotos() {
     }
   }
 
-  const visibleSubAlbums = subAlbums.filter((sub) => !(pendingDeletion?.kind === 'album' && pendingDeletion.id === sub.id))
+  const visibleSubAlbums = subAlbums.filter((sub) => !(pendingDeletion?.kind === 'album' && pendingDeletion.id === sub.id) && !isPhotoLibraryItemDeleted(sub.id))
 
   const parentPath = event?.parent_id
     ? `/Photos/Event/${event.parent_id}`
@@ -330,7 +330,7 @@ export function EventPhotos() {
             </div>
           )}
           <div className={styles.gallery}>
-            {photos.filter((photo) => !(pendingDeletion?.kind === 'photo' && pendingDeletion.id === photo.id)).map((photo, index) => (
+            {photos.filter((photo) => !(pendingDeletion?.kind === 'photo' && pendingDeletion.id === photo.id) && !isPhotoLibraryItemDeleted(photo.id)).map((photo, index) => (
               <figure key={photo.id} className={styles.photoItem}>
                 <img 
                   src={photo.photo_url} 

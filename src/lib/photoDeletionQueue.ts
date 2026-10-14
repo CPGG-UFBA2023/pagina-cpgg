@@ -24,6 +24,8 @@ type QueueEntry = PendingPhotoLibraryDeletion & {
 
 const listeners = new Set<() => void>()
 let pending: QueueEntry | null = null
+const deletedIds = new Set<string>()
+export const isPhotoLibraryItemDeleted = (id: string) => deletedIds.has(id)
 let deletionTimer: ReturnType<typeof setTimeout> | null = null
 
 const emit = () => listeners.forEach((listener) => listener())
@@ -50,10 +52,12 @@ const commitPendingDeletion = async () => {
     if (entry.kind === 'album') {
       const { error } = await supabase.from('events').delete().eq('id', entry.id)
       if (error) throw error
+      deletedIds.add(entry.id)
       await removeStoredPhotos(entry.photoUrls)
     } else {
       const { error } = await supabase.from('event_photos').delete().eq('id', entry.id)
       if (error) throw error
+      deletedIds.add(entry.id)
       await removeStoredPhotos([entry.photoUrl])
     }
   } catch (error) {

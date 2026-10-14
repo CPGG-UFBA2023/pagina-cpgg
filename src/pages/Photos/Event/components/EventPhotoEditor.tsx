@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label'
 import { supabase } from '@/integrations/supabase/client'
 import { useToast } from '@/hooks/use-toast'
 import { Trash2, Plus, GripVertical, Save, Undo2 } from 'lucide-react'
-import { schedulePhotoLibraryDeletion, undoPhotoLibraryDeletion, usePendingPhotoLibraryDeletion } from '@/lib/photoDeletionQueue'
+import { schedulePhotoLibraryDeletion, undoPhotoLibraryDeletion, usePendingPhotoLibraryDeletion, isPhotoLibraryItemDeleted } from '@/lib/photoDeletionQueue'
 
 interface EventPhoto {
   id: string
@@ -227,7 +227,7 @@ export function EventPhotoEditor({
 
         <div className="p-6 pt-0">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {photos.filter((photo) => !(pendingDeletion?.kind === 'photo' && pendingDeletion.id === photo.id)).map((photo, index) => (
+            {photos.filter((photo) => !(pendingDeletion?.kind === 'photo' && pendingDeletion.id === photo.id) && !isPhotoLibraryItemDeleted(photo.id)).map((photo, index) => (
               <div
                 key={photo.id}
                 draggable
