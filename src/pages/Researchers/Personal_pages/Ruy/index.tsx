@@ -27,7 +27,7 @@ export function Ruy() {
              <a href="http://lattes.cnpq.br/8391627429679768" target="_blank" rel="noopener noreferrer">Currículo</a>
            </nav>
            <b> e-mail</b>
-           <p>ruy@ufba.br</p> 
+           <p>kikuchi@ufba.br</p> 
             <div className={styles.box2}>
             </div>
           </div>
