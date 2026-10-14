@@ -13,7 +13,7 @@ import { supabase } from '@/integrations/supabase/client'
 import { useToast } from '@/hooks/use-toast'
 import styles from './HistoricalPhotos.module.css'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { schedulePhotoLibraryDeletion, undoPhotoLibraryDeletion, usePendingPhotoLibraryDeletion } from '@/lib/photoDeletionQueue'
+import { schedulePhotoLibraryDeletion, undoPhotoLibraryDeletion, usePendingPhotoLibraryDeletion, isPhotoLibraryItemDeleted } from '@/lib/photoDeletionQueue'
 import { usePhotoAdminAuth } from '../Photos/usePhotoAdminAuth'
 
 interface HistoricalAlbum {
@@ -147,7 +147,7 @@ export function HP() {
           )}
         </div>
         <div className={styles.container}>
-          {albums.filter((album) => !(pendingDeletion?.kind === 'album' && pendingDeletion.id === album.id)).map((album, index) => (
+          {albums.filter((album) => !(pendingDeletion?.kind === 'album' && pendingDeletion.id === album.id) && !isPhotoLibraryItemDeleted(album.id)).map((album, index) => (
             <div className={styles.cardWrapper} key={album.id}>
               <Link className={styles.card} to={`/Photos/HistoricalPhotos/Album/${album.id}`}>
                 <div className={index % 2 === 0 ? styles.Latin : styles.Yeda}>
@@ -163,7 +163,7 @@ export function HP() {
             <h3>Editar subálbuns</h3>
             {albums.length === 0 && <p>Nenhum subálbum cadastrado.</p>}
             {albums
-              .filter((album) => !(pendingDeletion?.kind === 'album' && pendingDeletion.id === album.id))
+              .filter((album) => !(pendingDeletion?.kind === 'album' && pendingDeletion.id === album.id) && !isPhotoLibraryItemDeleted(album.id))
               .map((album) => (
                 <div key={album.id} className={styles.manageRow}>
                   <span>{album.name}</span>

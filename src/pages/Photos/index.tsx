@@ -12,7 +12,7 @@ import { supabase } from '../../integrations/supabase/client'
 import { AdminLoginEvents } from './EventManager/components/AdminLoginEvents'
 import styles from './Photos.module.css'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { schedulePhotoLibraryDeletion, undoPhotoLibraryDeletion, usePendingPhotoLibraryDeletion } from '@/lib/photoDeletionQueue'
+import { schedulePhotoLibraryDeletion, undoPhotoLibraryDeletion, usePendingPhotoLibraryDeletion, isPhotoLibraryItemDeleted } from '@/lib/photoDeletionQueue'
 import { usePhotoAdminAuth } from './usePhotoAdminAuth'
 
 interface Event {
@@ -35,7 +35,7 @@ export function Photos() {
   const navigate = useNavigate()
   const pendingDeletion = usePendingPhotoLibraryDeletion()
   const [manageMode, setManageMode] = useState(false)
-  const visibleEvents = events.filter((event) => !(pendingDeletion?.kind === 'album' && pendingDeletion.id === event.id))
+  const visibleEvents = events.filter((event) => !(pendingDeletion?.kind === 'album' && pendingDeletion.id === event.id) && !isPhotoLibraryItemDeleted(event.id))
 
   useEffect(() => {
     fetchEvents()
