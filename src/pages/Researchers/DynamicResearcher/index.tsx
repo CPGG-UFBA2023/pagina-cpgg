@@ -3,11 +3,8 @@ import { useParams } from 'react-router-dom'
 import { Header } from '../../../components/Header'
 import { Footer } from '../../../components/Footer'
 import { supabase } from '@/integrations/supabase/client'
-import { DynamicResearcherProfile } from '../../../components/DynamicResearcherProfile'
-import { ResearcherEditButton } from '../../../components/ResearcherEditButton'
-import { BackButton } from '../../../components/BackButton'
-import { getResearcherPhoto } from '../../../data/researcher-photos'
-import styles from '../Personal_pages/Landim/Landim.module.css'
+import { ResearcherProfilePage } from '../../../components/ResearcherProfilePage'
+const styles: Record<string, string> = {}
 
 
 interface Researcher {
@@ -139,72 +136,14 @@ export function DynamicResearcher() {
     )
   }
 
-  const photoUrl = userPhotoUrl || getResearcherPhoto(researcher.name)
-
-  // Detectar se é tela pequena no momento do render
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 820
-
   return (
-    <div className={styles.Container}>
-      {/* CSS crítico inline para esconder foto em mobile */}
-      <style>{`
-        @media screen and (max-width: 820px) {
-          .researcher-photo-box {
-            display: none !important;
-            visibility: hidden !important;
-            width: 0 !important;
-            height: 0 !important;
-            opacity: 0 !important;
-            position: absolute !important;
-            left: -9999px !important;
-          }
-        }
-      `}</style>
-      <Header />
-      <main className={styles.Professor}>
-        <BackButton />
-        <div className={styles.box1}>
-          <h1 className={styles.researcherName} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}>
-            <span>{researcher.name}</span>
-            <ResearcherEditButton researcherName={researcher.name} inline onSave={handleRefreshProfile} />
-          </h1>
-          {/* Foto - NÃO renderiza em mobile */}
-          {photoUrl && !isMobile && (
-            <div 
-              className={`${styles.box2} researcher-photo-box`}
-            >
-              <img 
-                src={photoUrl} 
-                alt={`Foto de ${researcher.name}`}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  borderRadius: '10px'
-                }}
-              />
-            </div>
-          )}
-          <DynamicResearcherProfile 
-            key={refreshKey}
-            researcherName={researcher.name}
-            staticDescription={researcher.description}
-          />
-          {researcher.lattes_link && (
-            <>
-              <ul>Link para Currículo Lattes</ul>
-              <nav>
-                <a href={researcher.lattes_link} target="_blank" rel="noopener noreferrer">
-                  Currículo
-                </a>
-              </nav>
-            </>
-          )}
-          <b>e-mail</b>
-          <p>{userEmail || researcher.email}</p>
-        </div>
-      </main>
-      <Footer />
-    </div>
+    <ResearcherProfilePage
+      key={refreshKey}
+      name={researcher.name}
+      description={researcher.description || ''}
+      email={userEmail || researcher.email}
+      lattes={researcher.lattes_link}
+      staticPhotoUrl={userPhotoUrl || undefined}
+    />
   )
 }
