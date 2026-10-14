@@ -1,0 +1,1 @@
+- Researcher pages render through the shared ResearcherProfilePage component — one place to restyle all ~32 profiles.
