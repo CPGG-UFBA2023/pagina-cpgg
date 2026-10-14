@@ -1,0 +1,174 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.main {
+  flex: 1 0 auto;
+  padding: 165px 1.5rem 3rem;
+  color: #fff;
+  overflow: visible;
+}
+
+.shell {
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.back {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff !important;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.back:hover { background: rgba(255, 255, 255, 0.18); }
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(89, 44, 187, 0.55), transparent 60%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.portrait {
+  flex-shrink: 0;
+  width: 168px;
+  height: 168px;
+  border-radius: 50%;
+  padding: 5px;
+  background: linear-gradient(135deg, #8b5cf6, #592cbb 60%, #2b1466);
+  box-shadow: 0 10px 30px -10px rgba(89, 44, 187, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid rgba(15, 10, 40, 0.9);
+}
+.portrait span {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(15, 10, 40, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.identity { min-width: 0; flex: 1; }
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #c4b5fd;
+  margin-bottom: 0.4rem;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 1rem !important;
+  font-size: clamp(1.4rem, 3vw, 2.1rem) !important;
+  font-weight: 700;
+  line-height: 1.2 !important;
+  color: #fff !important;
+  text-align: left !important;
+}
+
+.actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #fff !important;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: transform 0.2s, background 0.2s;
+  word-break: break-all;
+}
+.pill:hover { transform: translateY(-2px); background: rgba(255, 255, 255, 0.2); }
+.pillPrimary { background: #592cbb; border-color: #7c4ddb; }
+.pillPrimary:hover { background: #6d3bd6; }
+
+.about {
+  padding: 2rem 2.25rem;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.about h2 {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #c4b5fd;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.about h2::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(196, 181, 253, 0.5), transparent);
+}
+.about p {
+  margin: 0 !important;
+  font-size: 1rem !important;
+  line-height: 1.8 !important;
+  text-align: justify !important;
+  hyphens: auto;
+  color: rgba(255, 255, 255, 0.92) !important;
+  white-space: pre-line;
+}
+
+@media (max-width: 760px) {
+  .main { padding: 150px 1rem 2rem; }
+  .hero { flex-direction: column; text-align: center; padding: 1.5rem; gap: 1.25rem; }
+  .portrait { width: 130px; height: 130px; }
+  .name { justify-content: center; text-align: center !important; }
+  .actions { justify-content: center; }
+  .about { padding: 1.5rem 1.25rem; }
+  .about p { font-size: 0.95rem !important; line-height: 1.9 !important; }
+}
