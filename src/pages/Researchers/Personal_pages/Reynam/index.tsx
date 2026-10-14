@@ -1,38 +1,12 @@
-import styles from './Reynam.module.css'
-import { Header } from '../../../../components/Header'
-import { Footer } from '../../../../components/Footer'
-import { ResearcherEditButton } from '../../../../components/ResearcherEditButton'
-import { DynamicResearcherProfile } from '../../../../components/DynamicResearcherProfile'
-import { ResearcherPhoto } from '../../../../components/ResearcherPhoto'
-import { BackButton } from '../../../../components/BackButton'
+import { ResearcherProfilePage } from '../../../../components/ResearcherProfilePage'
 
 export function Reynam() {
   return (
-    <div className={styles.Container}>
-      <Header />
-      <div>
-        <div className={styles.Professor} >
-          <BackButton />
-          <ResearcherPhoto researcherName="Reynam da Cruz Pestana" />
-          <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}><span>Reynam da Cruz Pestana</span><ResearcherEditButton researcherName="Reynam da Cruz Pestana" inline /></p>
-          <div className={styles.box1}>
-          <DynamicResearcherProfile 
-            researcherName="Reynam da Cruz Pestana"
-            staticDescription="Possui graduação em Geofísica pela Universidade Federal da Bahia (1987), mestrado em Geofísica pela Universidade Federal da Bahia (1994) e doutorado em Geofísica pela Universidade Federal da Bahia (2000). Atualmente é professor associado da Universidade Federal da Bahia. Tem experiência na área de Geociências, com ênfase em Geofísica, atuando principalmente nos seguintes temas: processamento sísmico, migração sísmica, inversão geofísica e exploração petrolífera."
-          />
-            <ul> Link para Currículo Lattes</ul>
-
-            <nav>
-             <a href="http://lattes.cnpq.br/7927685281122435" target="_blank" rel="noopener noreferrer">Currículo</a>
-           </nav>
-           <b> e-mail</b>
-           <p>reynam@ufba.br</p> 
-            <div className={styles.box2}>
-            </div>
-          </div>
-        </div>
-      </div>
-      <Footer />
-    </div>
+    <ResearcherProfilePage
+      name="Reynam da Cruz Pestana"
+      description={`Possui graduação em Geofísica pela Universidade Federal da Bahia (1987), mestrado em Geofísica pela Universidade Federal da Bahia (1994) e doutorado em Geofísica pela Universidade Federal da Bahia (2000). Atualmente é professor associado da Universidade Federal da Bahia. Tem experiência na área de Geociências, com ênfase em Geofísica, atuando principalmente nos seguintes temas: processamento sísmico, migração sísmica, inversão geofísica e exploração petrolífera.`}
+      email="reynam@ufba.br"
+      lattes="http://lattes.cnpq.br/7927685281122435"
+    />
   )
 }

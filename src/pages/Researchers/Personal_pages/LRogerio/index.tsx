@@ -1,34 +1,12 @@
-import styles from './LRogerio.module.css'
-import { Header } from '../../../../components/Header'
-import { Footer } from '../../../../components/Footer'
-import { ResearcherEditButton } from '../../../../components/ResearcherEditButton'
-import { DynamicResearcherProfile } from '../../../../components/DynamicResearcherProfile'
-import { BackButton } from '../../../../components/BackButton'
+import { ResearcherProfilePage } from '../../../../components/ResearcherProfilePage'
 
 export function LRogerio() {
   return (
-    <div className={styles.Container}>
-      <Header />
-      <div>
-        <div className={styles.Professor} >
-          <BackButton />
-          <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}><span>Luiz Rogério Bastos Leal</span><ResearcherEditButton researcherName="Luiz Rogério Bastos Leal" inline /></p>
-          <div className={styles.box1}>
-          <DynamicResearcherProfile 
-            researcherName="Luiz Rogério Bastos Leal"
-            staticDescription="Possui graduação em Geologia pela Universidade Federal da Bahia (1986), mestrado em Geoquímica pela Universidade Federal Fluminense (1990) e doutorado em Geoquímica pela Universidade Federal Fluminense (1995). Atualmente é professor titular da Universidade Federal da Bahia. Tem experiência na área de Geociências, com ênfase em Geoquímica e Geocronologia, atuando principalmente nos seguintes temas: geoquímica isotópica, geocronologia, evolução crustal e recursos hídricos."
-          />
-            <nav>
-             <a href="http://lattes.cnpq.br/6409332830031336" target="_blank" rel="noopener noreferrer">Currículo</a>
-           </nav>
-           <b> e-mail</b>
-           <p>lrogerio@ufba.br</p> 
-            <div className={styles.box2}>
-            </div>
-          </div>
-        </div>
-      </div>
-      <Footer />
-    </div>
+    <ResearcherProfilePage
+      name="Luiz Rogério Bastos Leal"
+      description={`Possui graduação em Geologia pela Universidade Federal da Bahia (1986), mestrado em Geoquímica pela Universidade Federal Fluminense (1990) e doutorado em Geoquímica pela Universidade Federal Fluminense (1995). Atualmente é professor titular da Universidade Federal da Bahia. Tem experiência na área de Geociências, com ênfase em Geoquímica e Geocronologia, atuando principalmente nos seguintes temas: geoquímica isotópica, geocronologia, evolução crustal e recursos hídricos.`}
+      email="lrogerio@ufba.br"
+      lattes="http://lattes.cnpq.br/6409332830031336"
+    />
   )
 }

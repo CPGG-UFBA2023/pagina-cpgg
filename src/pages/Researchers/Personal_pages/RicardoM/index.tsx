@@ -1,36 +1,12 @@
-import styles from './RicardoM.module.css'
-import { Header } from '../../../../components/Header'
-import { Footer } from '../../../../components/Footer'
-import { ResearcherEditButton } from '../../../../components/ResearcherEditButton'
-import { DynamicResearcherProfile } from '../../../../components/DynamicResearcherProfile'
-import { ResearcherPhoto } from '../../../../components/ResearcherPhoto'
-import { BackButton } from '../../../../components/BackButton'
+import { ResearcherProfilePage } from '../../../../components/ResearcherProfilePage'
 
 export function RicardoM() {
   return (
-    <div className={styles.Container}>
-      <Header />
-      <div>
-        <div className={styles.Professor} >
-          <BackButton />
-          <ResearcherPhoto researcherName="Ricardo Piazza Meireles" />
-          <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}><span>Ricardo Piazza Meireles</span><ResearcherEditButton researcherName="Ricardo Piazza Meireles" inline /></p>
-          <div className={styles.box1}>
-          <DynamicResearcherProfile 
-            researcherName="Ricardo Piazza Meireles"
-            staticDescription="Professor e pesquisador especializado em Geologia Marinha e Costeira. Possui experiência em sedimentologia marinha, evolução costeira e oceanografia geológica. Atua principalmente em pesquisas relacionadas à dinâmica sedimentar, mudanças do nível do mar e processos costeiros."
-          />
-            <nav>
-             <a href="http://lattes.cnpq.br/9317836039988664" target="_blank" rel="noopener noreferrer">Currículo</a>
-           </nav>
-           <b> e-mail</b>
-           <p>ricardo@ufba.br</p> 
-            <div className={styles.box2}>
-            </div>
-          </div>
-        </div>
-      </div>
-      <Footer />
-    </div>
+    <ResearcherProfilePage
+      name="Ricardo Piazza Meireles"
+      description={`Professor e pesquisador especializado em Geologia Marinha e Costeira. Possui experiência em sedimentologia marinha, evolução costeira e oceanografia geológica. Atua principalmente em pesquisas relacionadas à dinâmica sedimentar, mudanças do nível do mar e processos costeiros.`}
+      email="ricardo@ufba.br"
+      lattes="http://lattes.cnpq.br/9317836039988664"
+    />
   )
 }
