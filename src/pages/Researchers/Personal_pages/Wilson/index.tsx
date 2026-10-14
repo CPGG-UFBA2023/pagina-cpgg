@@ -14,12 +14,11 @@ export function Wilson() {
         <div className={styles.Professor} >
           <BackButton />
           <ResearcherPhoto researcherName="Wilson Mouzer Figueiró" />
-          <p> Wilson Mouzer Figueiró </p>
+          <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}><span>Wilson Mouzer Figueiró</span><ResearcherEditButton researcherName="Wilson Mouzer Figueiró" inline /></p>
           <div className={styles.box1}>
           <DynamicResearcherProfile 
             researcherName="Wilson Mouzer Figueiró"
             staticDescription="Possui Graduação em Matemática pela Universidade Federal do Rio de Janeiro (1983) e Doutorado em Geofísica pela UFBA, Universidade Federal da Bahia, (1994). Realizou Pesquisa a nível de Pós-Doutorado no Departamento Terra-Atmosfera-Oceano da Escola Normal Superior de Paris na França (1997-1999). Atualmente é Professor Associado da UFBA e Pesquisador do Centro de Pesquisa em Geofísica e Geologia da UFBA. Tem experiência na área de Geociências, com ênfase em Inversão Geofísica, atuando principalmente nos seguintes temas: Inversão Sísmica, Modelagem Sísmica, Traçamento de Raios Sísmicos, e Matemática Aplicada à Geofísica."
-            belowPhoto={<ResearcherEditButton researcherName="Wilson Mouzer Figueiró" inline />}
           />
             <ul> Link para Currículo Lattes</ul>
 
