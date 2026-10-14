@@ -14,12 +14,11 @@ export function Jailma() {
         <div className={styles.Professor} >
           <BackButton />
           <ResearcherPhoto researcherName="Jailma Santos de Souza de Oliveira" />
-          <p> Jailma Santos de Souza de Oliveira </p>
+          <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}><span>Jailma Santos de Souza de Oliveira</span><ResearcherEditButton researcherName="Jailma Santos de Souza de Oliveira" inline /></p>
           <div className={styles.box1}>
           <DynamicResearcherProfile 
             researcherName="Jailma Santos de Souza de Oliveira"
             staticDescription="Possui graduação em Geologia pela Universidade Federal da Bahia (1995), mestrado em Geologia pela Universidade Federal da Bahia (1998) e doutorado em Geologia pela Universidade Federal da Bahia (2002). Atualmente é professora associada da Universidade Federal da Bahia. Tem experiência na área de Geociências, com ênfase em Geologia, atuando principalmente nos seguintes temas: geoquímica, petrologia metamórfica, geocronologia e evolução crustal."
-            belowPhoto={<ResearcherEditButton researcherName="Jailma Santos de Souza de Oliveira" inline />}
           />
             <ul> Link para Currículo Lattes</ul>
 

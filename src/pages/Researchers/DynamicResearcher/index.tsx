@@ -164,7 +164,10 @@ export function DynamicResearcher() {
       <main className={styles.Professor}>
         <BackButton />
         <div className={styles.box1}>
-          <h1 className={styles.researcherName}>{researcher.name}</h1>
+          <h1 className={styles.researcherName} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}>
+            <span>{researcher.name}</span>
+            <ResearcherEditButton researcherName={researcher.name} inline onSave={handleRefreshProfile} />
+          </h1>
           {/* Foto - NÃO renderiza em mobile */}
           {photoUrl && !isMobile && (
             <div 
@@ -187,13 +190,6 @@ export function DynamicResearcher() {
             researcherName={researcher.name}
             staticDescription={researcher.description}
           />
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px', marginBottom: '20px' }}>
-            <ResearcherEditButton 
-              researcherName={researcher.name} 
-              inline 
-              onSave={handleRefreshProfile}
-            />
-          </div>
           {researcher.lattes_link && (
             <>
               <ul>Link para Currículo Lattes</ul>

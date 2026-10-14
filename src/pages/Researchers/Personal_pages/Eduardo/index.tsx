@@ -13,12 +13,11 @@ export function Eduardo() {
       <div>
         <div className={styles.Professor} >
           <BackButton />
-          <p> Eduardo Reis Viana Rocha Junior </p>
+          <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}><span>Eduardo Reis Viana Rocha Junior</span><ResearcherEditButton researcherName="Eduardo Reis Viana Rocha Junior" inline /></p>
           <div className={styles.box1}>
           <DynamicResearcherProfile 
             researcherName="Eduardo Reis Viana Rocha Junior"
             staticDescription="Possui graduação em Geologia pela Universidade Federal da Bahia (2003), mestrado em Geologia pela Universidade Federal da Bahia (2006) e doutorado em Geologia pela Universidade Federal da Bahia (2011). Atualmente é professor adjunto da Universidade Federal da Bahia. Tem experiência na área de Geociências, com ênfase em Recursos Hídricos e Ambientais, atuando principalmente nos seguintes temas: hidrogeologia, geofísica aplicada, geologia ambiental e gestão de recursos hídricos."
-            belowPhoto={<ResearcherEditButton researcherName="Eduardo Reis Viana Rocha Junior" inline />}
           />
             <ul> Link para Currículo Lattes</ul>
 

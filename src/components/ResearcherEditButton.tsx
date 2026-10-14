@@ -326,7 +326,7 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave, s
         variant="ghost"
         size="sm"
         onClick={() => setIsLoginOpen(true)}
-        className={inline ? "mt-2 self-start opacity-70 hover:opacity-100 transition-opacity" : "fixed top-20 right-4 opacity-70 hover:opacity-100 transition-opacity z-50 bg-background/80 backdrop-blur-sm border"}
+        className={inline ? "self-center opacity-70 hover:opacity-100 transition-opacity" : "fixed top-20 right-4 opacity-70 hover:opacity-100 transition-opacity z-50 bg-background/80 backdrop-blur-sm border"}
         title="Editar perfil"
       >
         <Edit3 className="w-4 h-4" />

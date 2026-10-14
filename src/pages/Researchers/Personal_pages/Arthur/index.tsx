@@ -14,12 +14,11 @@ export function Arthur() {
         <div className={styles.Professor} >
           <BackButton />
           <ResearcherPhoto researcherName="Arthur Antônio Machado" />
-          <p> Arthur Antônio Machado</p>
+          <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}><span>Arthur Antônio Machado</span><ResearcherEditButton researcherName="Arthur Antônio Machado" inline /></p>
           <div className={styles.box1}>
           <DynamicResearcherProfile 
             researcherName="Arthur Antônio Machado"
             staticDescription={`Possui graduação em Oceanologia pela Universidade Federal do Rio Grande (2005), mestrado em Ecologia pela Universidade Federal do Rio Grande do Norte (2007) e doutorado em Oceanografia Física, Química e Geológica pela Universidade Federal do Rio Grande (2014). Professor Adjunto na UFBA. Atualmente coordenador do curso de Oceanografia da UFBA. Tem experiência na área de Oceanografia, com ênfase em Oceanografia Geológica, atuando principalmente nos seguintes temas: Sismoestratigrafia, Estratigrafia de Sequências, Morfodinâmica Costeira e Oceânica, Interação Oceano-Atmosfera, Geofísica Marinha, Ilhas Oceânicas e Mergulho Científico.`}
-            belowPhoto={<ResearcherEditButton researcherName="Arthur Antônio Machado" inline />}
           />
             <ul> Link para Currículo Lattes</ul>
 

@@ -14,12 +14,11 @@ export function RicardoM() {
         <div className={styles.Professor} >
           <BackButton />
           <ResearcherPhoto researcherName="Ricardo Piazza Meireles" />
-          <p> Ricardo Piazza Meireles </p>
+          <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}><span>Ricardo Piazza Meireles</span><ResearcherEditButton researcherName="Ricardo Piazza Meireles" inline /></p>
           <div className={styles.box1}>
           <DynamicResearcherProfile 
             researcherName="Ricardo Piazza Meireles"
             staticDescription="Professor e pesquisador especializado em Geologia Marinha e Costeira. Possui experiência em sedimentologia marinha, evolução costeira e oceanografia geológica. Atua principalmente em pesquisas relacionadas à dinâmica sedimentar, mudanças do nível do mar e processos costeiros."
-            belowPhoto={<ResearcherEditButton researcherName="Ricardo Piazza Meireles" inline />}
           />
             <nav>
              <a href="http://lattes.cnpq.br/9317836039988664" target="_blank" rel="noopener noreferrer">Currículo</a>

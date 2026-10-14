@@ -12,12 +12,11 @@ export function LRogerio() {
       <div>
         <div className={styles.Professor} >
           <BackButton />
-          <p> Luiz Rogério Bastos Leal </p>
+          <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}><span>Luiz Rogério Bastos Leal</span><ResearcherEditButton researcherName="Luiz Rogério Bastos Leal" inline /></p>
           <div className={styles.box1}>
           <DynamicResearcherProfile 
             researcherName="Luiz Rogério Bastos Leal"
             staticDescription="Possui graduação em Geologia pela Universidade Federal da Bahia (1986), mestrado em Geoquímica pela Universidade Federal Fluminense (1990) e doutorado em Geoquímica pela Universidade Federal Fluminense (1995). Atualmente é professor titular da Universidade Federal da Bahia. Tem experiência na área de Geociências, com ênfase em Geoquímica e Geocronologia, atuando principalmente nos seguintes temas: geoquímica isotópica, geocronologia, evolução crustal e recursos hídricos."
-            belowPhoto={<ResearcherEditButton researcherName="Luiz Rogério Bastos Leal" inline />}
           />
             <nav>
              <a href="http://lattes.cnpq.br/6409332830031336" target="_blank" rel="noopener noreferrer">Currículo</a>

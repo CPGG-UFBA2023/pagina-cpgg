@@ -14,12 +14,11 @@ export function Haroldo() {
         <div className={styles.Professor} >
           <BackButton />
           <ResearcherPhoto researcherName="José Haroldo da Silva Sá" />
-          <p> José Haroldo da Silva Sá </p>
+          <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}><span>José Haroldo da Silva Sá</span><ResearcherEditButton researcherName="José Haroldo da Silva Sá" inline /></p>
           <div className={styles.box1}>
           <DynamicResearcherProfile 
             researcherName="José Haroldo da Silva Sá"
             staticDescription="Possui graduação em Geologia pela Universidade Federal da Bahia (1975), mestrado em Geologia pela Universidade Federal da Bahia (1980) e doutorado em Geologia pela Universidade Federal da Bahia (1993). Atualmente é professor titular da Universidade Federal da Bahia. Tem experiência na área de Geociências, com ênfase em Petrologia, atuando principalmente nos seguintes temas: petrologia metamórfica, evolução crustal, geocronologia e geoquímica isotópica."
-            belowPhoto={<ResearcherEditButton researcherName="José Haroldo da Silva Sá" inline />}
           />
             <ul> Link para Currículo Lattes</ul>
 

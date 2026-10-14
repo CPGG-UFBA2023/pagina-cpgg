@@ -18,12 +18,11 @@ export function Alanna() {
         <div className={styles.Professor} >
           <BackButton />
           <ResearcherPhoto researcherName="Alanna Costa Dutra" />
-          <p> Alanna Costa Dutra </p>
+          <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}><span>Alanna Costa Dutra</span><ResearcherEditButton researcherName="Alanna Costa Dutra" inline /></p>
           <div className={styles.box1}>
             <DynamicResearcherProfile 
               researcherName="Alanna Costa Dutra"
               staticDescription={staticDescription}
-              belowPhoto={<ResearcherEditButton researcherName="Alanna Costa Dutra" inline />}
             />
             <ul> Link para Currículo Lattes</ul>
 

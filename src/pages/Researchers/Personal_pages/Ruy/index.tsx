@@ -14,12 +14,11 @@ export function Ruy() {
         <div className={styles.Professor} >
           <BackButton />
           <ResearcherPhoto researcherName="Ruy Kenji Papa de Kikuchi" />
-          <p> Ruy Kenji Papa de Kikuchi </p>
+          <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}><span>Ruy Kenji Papa de Kikuchi</span><ResearcherEditButton researcherName="Ruy Kenji Papa de Kikuchi" inline /></p>
           <div className={styles.box1}>
           <DynamicResearcherProfile 
             researcherName="Ruy Kenji Papa de Kikuchi"
             staticDescription="Professor Titular aposentado do Instituto de Geociências da Universidade Federal da Bahia. Possui graduação em Geologia pela Universidade Federal da Bahia (1978), mestrado em Geologia pela Universidade Federal da Bahia (1982) e doutorado em Geologia Marinha pela Universidade de São Paulo (1989). Tem experiência na área de Geociências, com ênfase em Geologia e Geoquímica Marinha, atuando principalmente nos seguintes temas: geoquímica dos sedimentos, sedimentologia, oceanografia geológica, recifes de coral e corais."
-            belowPhoto={<ResearcherEditButton researcherName="Ruy Kenji Papa de Kikuchi" inline />}
           />
             <ul> Link para Currículo Lattes</ul>
 

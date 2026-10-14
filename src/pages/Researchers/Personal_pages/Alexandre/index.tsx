@@ -15,12 +15,11 @@ export function Alexandre() {
         <div className={styles.Professor} >
           <BackButton />
           <ResearcherPhoto researcherName="Alexandre Barreto Costa" />
-          <p> Alexandre Barreto Costa </p>
+          <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}><span>Alexandre Barreto Costa</span><ResearcherEditButton researcherName="Alexandre Barreto Costa" inline /></p>
           <div className={styles.box1}>
           <DynamicResearcherProfile 
             researcherName="Alexandre Barreto Costa"
             staticDescription="Possui graduação em Bacharelado Em Física pela Universidade Federal da Bahia (1997), mestrado em Geofísica pela Universidade Federal da Bahia (2001) e doutorado em Geofísica pela Universidade Federal da Bahia (2006). Atualmente é pesquisador do Centro de Pesquisa em Geofísica e Geologia da UFBA e professor associado IV da Universidade Federal da Bahia. Tem experiência na área de Geociências, atuando principalmente nos seguintes temas: Geotermia e Fluxo Térmico, espectrometria gama, análise de isótopos estáveis, datação por Carbono-14 e Chumbo-210 e dados de levantamentos aerogeofísicos."
-            belowPhoto={<ResearcherEditButton researcherName="Alexandre Barreto Costa" inline />}
           />
             <ul> Link para Currículo Lattes</ul>
 
