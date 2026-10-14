@@ -9,4 +9,4 @@ export function Ruy() {
       lattes="http://lattes.cnpq.br/8391627429679768"
     />
   )
-}}
+}

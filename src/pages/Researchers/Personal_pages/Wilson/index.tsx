@@ -9,4 +9,4 @@ export function Wilson() {
       lattes="https://lattes.cnpq.br/4503597230743925"
     />
   )
-}}
+}

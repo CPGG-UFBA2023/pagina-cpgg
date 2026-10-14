@@ -9,4 +9,4 @@ export function AnaV() {
       lattes="http://lattes.cnpq.br/4935400114001309"
     />
   )
-}}
+}

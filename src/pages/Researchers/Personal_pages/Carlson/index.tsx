@@ -9,4 +9,4 @@ export function Carlson() {
       lattes="https://lattes.cnpq.br/9331382619641585"
     />
   )
-}}
+}

@@ -9,4 +9,4 @@ export function MZucchi() {
       lattes="http://lattes.cnpq.br/8882959656170754"
     />
   )
-}}
+}

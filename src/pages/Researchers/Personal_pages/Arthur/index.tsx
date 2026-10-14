@@ -9,4 +9,4 @@ export function Arthur() {
       lattes="http://lattes.cnpq.br/0995930862317550"
     />
   )
-}}
+}

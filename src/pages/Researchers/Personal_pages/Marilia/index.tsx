@@ -9,4 +9,4 @@ export function Marilia() {
       lattes="https://lattes.cnpq.br/2945071439166054"
     />
   )
-}}
+}

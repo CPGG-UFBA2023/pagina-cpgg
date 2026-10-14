@@ -8,4 +8,4 @@ export function Angela() {
       email="angelab@ufba.br"
     />
   )
-}}
+}

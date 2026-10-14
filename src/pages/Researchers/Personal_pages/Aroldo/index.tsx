@@ -10,4 +10,4 @@ export function Aroldo() {
       staticPhotoUrl="https://i.imgur.com/YQM1hAL.jpg"
     />
   )
-}}
+}

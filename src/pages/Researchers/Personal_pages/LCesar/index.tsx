@@ -9,4 +9,4 @@ export function LCesar() {
       lattes="https://lattes.cnpq.br/9902635897527204"
     />
   )
-}}
+}

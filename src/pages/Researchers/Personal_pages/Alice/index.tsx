@@ -9,4 +9,4 @@ export function Alice() {
       lattes="https://lattes.cnpq.br/8498244876614542"
     />
   )
-}}
+}

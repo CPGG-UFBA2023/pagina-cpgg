@@ -9,4 +9,4 @@ export function Susana() {
       lattes="https://lattes.cnpq.br/3712697556346790"
     />
   )
-}}
+}

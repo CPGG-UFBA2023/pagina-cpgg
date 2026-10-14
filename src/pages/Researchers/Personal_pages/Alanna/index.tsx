@@ -9,4 +9,4 @@ export function Alanna() {
       lattes="https://lattes.cnpq.br/9954455880450271"
     />
   )
-}}
+}

@@ -9,4 +9,4 @@ export function Haroldo() {
       lattes="http://lattes.cnpq.br/9442263243312377"
     />
   )
-}}
+}

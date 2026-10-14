@@ -9,4 +9,4 @@ export function Johildo() {
       lattes="http://lattes.cnpq.br/1670809981583072"
     />
   )
-}}
+}

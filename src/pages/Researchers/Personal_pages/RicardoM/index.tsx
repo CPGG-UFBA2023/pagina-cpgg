@@ -9,4 +9,4 @@ export function RicardoM() {
       lattes="http://lattes.cnpq.br/9317836039988664"
     />
   )
-}}
+}

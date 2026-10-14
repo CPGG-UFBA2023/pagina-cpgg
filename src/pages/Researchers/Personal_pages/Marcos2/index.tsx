@@ -9,4 +9,4 @@ export function Marcos2() {
       lattes="https://lattes.cnpq.br/4567890123456789"
     />
   )
-}}
+}

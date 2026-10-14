@@ -9,4 +9,4 @@ export function Jailma() {
       lattes="http://lattes.cnpq.br/4320432653750589"
     />
   )
-}}
+}

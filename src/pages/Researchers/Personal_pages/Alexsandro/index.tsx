@@ -9,4 +9,4 @@ export function Alexsandro() {
       lattes="https://lattes.cnpq.br/4993793853330521"
     />
   )
-}}
+}

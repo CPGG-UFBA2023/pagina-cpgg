@@ -9,4 +9,4 @@ export function Camila() {
       lattes="https://lattes.cnpq.br/1170306174154163"
     />
   )
-}}
+}

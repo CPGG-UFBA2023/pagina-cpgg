@@ -9,4 +9,4 @@ export function LRogerio() {
       lattes="http://lattes.cnpq.br/6409332830031336"
     />
   )
-}}
+}

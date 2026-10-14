@@ -9,4 +9,4 @@ export function Edson() {
       lattes="http://lattes.cnpq.br/2916849932837997"
     />
   )
-}}
+}

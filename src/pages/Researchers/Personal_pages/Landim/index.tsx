@@ -9,4 +9,4 @@ export function Landim() {
       lattes="http://lattes.cnpq.br/0345959348124698"
     />
   )
-}}
+}

@@ -9,4 +9,4 @@ export function Simone() {
       lattes="https://lattes.cnpq.br/8624206151398922"
     />
   )
-}}
+}

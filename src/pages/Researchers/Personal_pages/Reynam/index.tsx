@@ -9,4 +9,4 @@ export function Reynam() {
       lattes="http://lattes.cnpq.br/7927685281122435"
     />
   )
-}}
+}

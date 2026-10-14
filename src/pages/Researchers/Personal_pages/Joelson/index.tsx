@@ -9,4 +9,4 @@ export function Joelson() {
       lattes="https://lattes.cnpq.br/8901234567890123"
     />
   )
-}}
+}

@@ -9,4 +9,4 @@ export function Alexandre() {
       lattes="http://lattes.cnpq.br/5484149216615431"
     />
   )
-}}
+}
