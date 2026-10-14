@@ -38,7 +38,7 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave, s
   const loginRecaptchaRef = useRef<ReCAPTCHA>(null)
   const editRecaptchaRef = useRef<ReCAPTCHA>(null)
   const { toast } = useToast()
-  const { staticDescription: contextStaticDescription } = useResearcherProfile()
+  const { staticDescription: contextStaticDescription, photoUrl: contextPhotoUrl } = useResearcherProfile()
   const staticDescription = staticDescriptionProp || contextStaticDescription
 
   // Função para extrair primeiro nome do nome completo
@@ -160,16 +160,11 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave, s
       }
 
       setUserProfile(profile)
-      // Preserve existing description if it was already loaded
-      if (!description && profile.description) {
-        setDescription(profile.description)
-      }
-      if (!description && !profile.description && staticDescription) {
-        setDescription(staticDescription)
-      }
-      if (!currentPhotoUrl && profile.photo_url) {
-        setCurrentPhotoUrl(profile.photo_url)
-      }
+      // Pré-preenche com os dados que já aparecem na página
+      const pageDesc = (document.querySelector('.researcher-description')?.textContent || '').trim()
+      const shownDesc = (profile.description?.trim?.() || '') || (pageDesc !== 'Descrição não disponível' ? pageDesc : '') || staticDescription || ''
+      setDescription(shownDesc)
+      setCurrentPhotoUrl(profile.photo_url || contextPhotoUrl || currentPhotoUrl || null)
       setIsAuthenticated(true)
       setIsLoginOpen(false)
       setIsEditOpen(true)
@@ -442,7 +437,7 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave, s
 
       {/* Dialog de Edição */}
       <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
-        <DialogContent className="max-w-2xl max-h-[calc(50vh-100px)] overflow-y-auto !translate-x-[calc(-50%-150px)] !translate-y-[calc(-50%-130px)] !bg-white z-[100]">
+        <DialogContent className="max-w-2xl w-[95vw] max-h-[85vh] overflow-y-auto overscroll-contain !bg-white z-[100]" style={{ touchAction: 'pan-y' }} onWheel={(e) => e.stopPropagation()}>
           <DialogHeader>
             <DialogTitle>Editar Perfil - {researcherName}</DialogTitle>
           </DialogHeader>
@@ -456,7 +451,7 @@ export function ResearcherEditButton({ researcherName, inline = false, onSave, s
                 id="description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                rows={6}
+                rows={10}
                 placeholder="Digite sua descrição profissional..."
               />
             </div>
