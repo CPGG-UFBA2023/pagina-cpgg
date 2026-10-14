@@ -3,7 +3,9 @@
   flex-direction: column;
   height: 100vh !important;
   max-height: 100vh !important;
-  overflow: hidden !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
 }
 
 .history {
@@ -11,7 +13,8 @@
   padding: 2rem;
   padding-top: 0;
   margin-bottom: 40px;
-  overflow: hidden !important;
+  flex: 1 0 auto;
+  overflow: visible !important;
 }
 
 .title {
