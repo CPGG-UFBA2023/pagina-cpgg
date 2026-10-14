@@ -26,7 +26,7 @@ export function Jailma() {
              <a href="http://lattes.cnpq.br/4320432653750589" target="_blank" rel="noopener noreferrer">Currículo</a>
            </nav>
            <b> e-mail</b>
-           <p>jailma@ufba.br</p> 
+           <p>jailma.souza@ufba.br</p> 
             <div className={styles.box2}>
             </div>
           </div>
