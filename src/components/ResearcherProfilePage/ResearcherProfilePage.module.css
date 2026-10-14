@@ -164,7 +164,7 @@
 }
 
 @media (max-width: 760px) {
-  .main { padding: 150px 1rem 2rem; }
+  .main { padding: 175px 1rem 2rem; }
   .hero { flex-direction: column; text-align: center; padding: 1.5rem; gap: 1.25rem; }
   .portrait { width: 130px; height: 130px; }
   .name { justify-content: center; text-align: center !important; }
