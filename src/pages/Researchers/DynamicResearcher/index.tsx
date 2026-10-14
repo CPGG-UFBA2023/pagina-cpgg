@@ -87,23 +87,17 @@ export function DynamicResearcher() {
 
   const loadUserProfileData = async (researcherName: string) => {
     try {
-      const firstName = researcherName.split(' ')[0].toLowerCase()
-      const { data: userProfile } = await supabase
+      const { data: rows } = await supabase
         .from('user_profiles')
-        .select('email, photo_url, user_id')
-        .ilike('first_name', firstName)
-        .maybeSingle()
+        .select('email, photo_url, user_id, full_name')
+        .ilike('full_name', researcherName.trim())
+        .limit(1)
+      const userProfile = rows?.[0]
+      const isRealEmail = (e?: string | null) =>
+        !!e && !/provisorio|temporario|aguardando|a_definir|a-definir/i.test(e)
 
-      if (userProfile?.user_id) {
-        const { data: { user } } = await supabase.auth.getUser()
-        
-        if (user?.id === userProfile.user_id && user?.email) {
-          setUserEmail(user.email)
-        } else {
-          setUserEmail(userProfile.email || 'Email não disponível')
-        }
-      } else if (userProfile?.email) {
-        setUserEmail(userProfile.email)
+      if (isRealEmail(userProfile?.email)) {
+        setUserEmail(userProfile!.email)
       }
 
       if (userProfile?.photo_url) {
