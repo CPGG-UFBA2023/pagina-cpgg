@@ -1,9 +1,10 @@
 # Revisão da versão em inglês
 # Adaptação da página de atas
 
-- [ ] Ajustar grade, abas e rolagem para telas pequenas e grandes
-- [ ] Ajustar janelas de login, cadastro e edição sem cortes
-- [ ] Verificar a página em celulares, tablets e computadores
+- [x] Ajustar grade, abas e rolagem para telas pequenas e grandes
+- [x] Ajustar janelas de login, cadastro e edição sem cortes
+- [x] Verificar página pública e login em seis tamanhos de tela
+- [ ] Verificar cadastro e edição autenticados — bloqueado porque este Supabase externo não fornece sessão de teste
 
 # E-mails de reservas de espaços
 
