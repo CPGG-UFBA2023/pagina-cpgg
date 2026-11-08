@@ -1,4 +1,11 @@
 # Revisão da versão em inglês
+# Velocidade do login
+
+- [x] Antecipar o carregamento dos recursos do reCAPTCHA sem mudar a verificação
+- [x] Remover a pausa artificial e o recarregamento no login principal
+- [x] Verificar carregamento e bloqueio do formulário sem reCAPTCHA
+- [ ] Medir login completo — bloqueado porque este Supabase externo não fornece sessão de teste
+
 # Adaptação da página de atas
 
 - [x] Ajustar grade, abas e rolagem para telas pequenas e grandes

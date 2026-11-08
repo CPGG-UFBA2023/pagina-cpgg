@@ -5,8 +5,14 @@ import { BrowserRouter } from 'react-router-dom'
 import { Toaster } from '@/components/ui/toaster'
 import { LanguageProvider } from '@/contexts/LanguageContext'
 import { VisitorTracker } from '@/components/VisitorTracker'
+import { useEffect } from 'react'
+import { prepareLoginResources } from '@/lib/loginResources'
 
 export function App() {
+  useEffect(() => {
+    prepareLoginResources()
+  }, [])
+
   return (
     <BrowserRouter>
       <LanguageProvider>
