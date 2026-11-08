@@ -1,4 +1,11 @@
 # Revisão da versão em inglês
+# Controle de acessos
+
+- [ ] Criar lista administrativa de pessoas e permissões por área
+- [ ] Aplicar concessões e bloqueios no servidor e nas páginas
+- [ ] Proteger administração de acessos e evitar bloqueio do último administrador
+- [ ] Testar regras de autorização e verificar telas
+
 # Velocidade do login
 
 - [x] Antecipar o carregamento dos recursos do reCAPTCHA sem mudar a verificação
