@@ -1,3 +1,4 @@
+import { resolveAdminSession, useAccessPermissions } from '@/hooks/useAccessPermissions'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
@@ -96,6 +97,7 @@ export function CoordenacaoDashboard() {
   const [uploadingPhotos, setUploadingPhotos] = useState(false)
   const { toast } = useToast()
   const navigate = useNavigate()
+  const { permissions } = useAccessPermissions()
 
   // Mapeamento dos programas
   const programMapping = {
@@ -107,12 +109,10 @@ export function CoordenacaoDashboard() {
   }
 
   useEffect(() => {
-    const userData = sessionStorage.getItem('admin_user')
-    if (userData) {
-      setAdminUser(JSON.parse(userData))
-    } else {
-      navigate('/adm/coordenacao')
-    }
+    void resolveAdminSession().then(user => {
+      if (user) setAdminUser(user)
+      else navigate('/adm/coordenacao')
+    })
 
     // Sobrescrever background do body
     document.body.style.backgroundImage = 'url("https://i.imgur.com/ZwnmRF6.png")'
@@ -131,7 +131,8 @@ export function CoordenacaoDashboard() {
     }
   }, [navigate])
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
     sessionStorage.removeItem('admin_user')
     toast({
       title: "Logout realizado",
@@ -939,9 +940,11 @@ export function CoordenacaoDashboard() {
         </div>
 
         <div className={styles.quickActions}>
+          <Button variant="outline" onClick={() => navigate('/adm/painel')}>Painel administrativo</Button>
+          {permissions.access && <Button onClick={() => navigate('/adm/acessos')}>Acessos e privilégios</Button>}
           <div className="flex items-center gap-2">
             <Button
-              onClick={() => navigate('/adm/coordenacao/pesquisadores')}
+              disabled={permissions.people !== true} onClick={() => navigate('/adm/coordenacao/pesquisadores')}
               className={styles.actionButton}
               variant="outline"
             >
@@ -962,7 +965,7 @@ export function CoordenacaoDashboard() {
           
           <div className="flex items-center gap-2">
             <Button
-              onClick={() => navigate('/adm/coordenacao/usuarios')}
+              disabled={permissions.people !== true} onClick={() => navigate('/adm/coordenacao/usuarios')}
               className={styles.actionButton}
               variant="outline"
             >
@@ -982,7 +985,7 @@ export function CoordenacaoDashboard() {
           </div>
           
           <Button
-            onClick={() => navigate('/adm/coordenacao/laboratorios')}
+            disabled={permissions.laboratories !== true} onClick={() => navigate('/adm/coordenacao/laboratorios')}
             className={styles.actionButton}
             variant="outline"
           >
@@ -991,7 +994,7 @@ export function CoordenacaoDashboard() {
           </Button>
           
           <Button
-            onClick={() => navigate('/adm/coordenacao/reservas')}
+            disabled={permissions.reservations !== true} onClick={() => navigate('/adm/coordenacao/reservas')}
             className={styles.actionButton}
             variant="outline"
           >
@@ -1000,7 +1003,7 @@ export function CoordenacaoDashboard() {
           </Button>
           
           <Button
-            onClick={() => navigate('/adm/coordenacao/equipamentos-laiga')}
+            disabled={permissions.equipment !== true} onClick={() => navigate('/adm/coordenacao/equipamentos-laiga')}
             className={styles.actionButton}
             variant="outline"
           >
@@ -1009,7 +1012,7 @@ export function CoordenacaoDashboard() {
           </Button>
 
           <Button
-            onClick={() => navigate('/adm/coordenacao/equipamentos-labs')}
+            disabled={permissions.equipment !== true} onClick={() => navigate('/adm/coordenacao/equipamentos-labs')}
             className={styles.actionButton}
             variant="outline"
           >
@@ -1018,7 +1021,7 @@ export function CoordenacaoDashboard() {
           </Button>
           
           <Button
-            onClick={() => navigate('/adm/repair-stats')}
+            disabled={permissions.reservations !== true} onClick={() => navigate('/adm/repair-stats')}
             className={styles.actionButton}
             variant="outline"
           >
@@ -1028,6 +1031,7 @@ export function CoordenacaoDashboard() {
         </div>
 
         <div className={styles.formsContainer}>
+          {permissions.access && <>
           <div className={styles.formCard}>
             <div className={styles.formHeader}>
               <UserCheck size={24} />
@@ -1062,6 +1066,8 @@ export function CoordenacaoDashboard() {
             </Button>
           </div>
 
+          </>}}
+          {permissions.access && <>
           <div className={styles.formCard}>
             <div className={styles.formHeader}>
               <Settings size={24} />
@@ -1116,6 +1122,8 @@ export function CoordenacaoDashboard() {
             </Button>
           </div>
 
+          </>}}
+          {permissions.access && <>
           <div className={styles.formCard}>
             <div className={styles.formHeader}>
               <Settings size={24} />
@@ -1170,6 +1178,8 @@ export function CoordenacaoDashboard() {
             </Button>
           </div>
 
+          </>}}
+          {permissions.access && <>
           <div className={styles.formCard}>
             <div className={styles.formHeader}>
               <Settings size={24} />
@@ -1204,6 +1214,8 @@ export function CoordenacaoDashboard() {
             </Button>
           </div>
 
+          </>}}
+          {permissions.access && <>
           <div className={styles.formCard}>
             <div className={styles.formHeader}>
               <Settings size={24} />
@@ -1248,6 +1260,8 @@ export function CoordenacaoDashboard() {
             </Button>
           </div>
 
+          </>}}
+          {permissions.people && <>
           <div className={styles.formCard}>
             <div className={styles.formHeader}>
               <Users size={24} />
@@ -1335,6 +1349,8 @@ export function CoordenacaoDashboard() {
             </Button>
           </div>
 
+          </>}}
+          {permissions.laboratories && <>
           <div className={styles.formCard}>
             <div className={styles.formHeader}>
               <FlaskConical size={24} />
@@ -1460,6 +1476,8 @@ export function CoordenacaoDashboard() {
             </Button>
           </div>
 
+          </>}}
+          {permissions.news && <>
           <div className={styles.formCard}>
             <div className={styles.formHeader}>
               <Newspaper size={24} />
@@ -1606,6 +1624,8 @@ export function CoordenacaoDashboard() {
             </Button>
           </div>
 
+          </>}}
+          {permissions.regulations && <>
           <div className={styles.formCard}>
             <div className={styles.formHeader}>
               <FileText size={24} />
@@ -1639,6 +1659,7 @@ export function CoordenacaoDashboard() {
               {isLoading ? 'Cadastrando...' : 'Cadastrar Norma'}
             </Button>
           </div>
+          </>}}
         </div>
       </div>
     </div>

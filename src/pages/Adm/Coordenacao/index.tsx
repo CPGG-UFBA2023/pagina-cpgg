@@ -1,3 +1,4 @@
+import { resolveAdminSession } from '@/hooks/useAccessPermissions'
 import { useState, useRef } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
@@ -71,33 +72,17 @@ export function Coordenacao() {
         return
       }
 
-      const { data: adminData, error: adminError } = await supabase
-        .from('admin_users')
-        .select('*')
-        .eq('user_id', authData.user.id)
-        .eq('role', 'coordenacao')
-        .maybeSingle()
-
-      if (adminError || !adminData) {
+      const adminData = await resolveAdminSession()
+      if (!adminData) {
         await supabase.auth.signOut()
-        toast({
-          title: "Acesso negado",
-          description: "Você não tem permissão de coordenação.",
-          variant: "destructive"
-        })
+        toast({ title: 'Acesso negado', description: 'Você não possui privilégios administrativos.', variant: 'destructive' })
         return
       }
-
-      sessionStorage.setItem('admin_user', JSON.stringify({
-        id: authData.user.id,
-        email: authData.user.email,
-        role: adminData.role
-      }))
       toast({
         title: "Login realizado!",
         description: "Bem-vindo à área administrativa.",
       })
-      navigate('/adm/coordenacao/dashboard')
+      navigate('/adm/painel')
     } catch (error) {
       toast({
         title: "Erro",

@@ -61,12 +61,7 @@ export function Calendars() {
         return
       }
 
-      const { data, error } = await supabase
-        .from('admin_users')
-        .select('id, role')
-        .eq('user_id', authData.user.id)
-        .in('role', ['coordenacao', 'secretaria'])
-        .maybeSingle()
+      const { data, error } = await supabase.rpc('can_access', { _permission: 'calendars' })
 
       if (error) throw error
 

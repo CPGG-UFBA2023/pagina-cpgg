@@ -52,12 +52,7 @@ export function AdminLogin({ isOpen, onClose, onSuccess }: AdminLoginProps) {
         return
       }
 
-      const { data: adminData, error: adminError } = await supabase
-        .from('admin_users')
-        .select('role')
-        .eq('user_id', authData.user.id)
-        .in('role', ['coordenacao', 'secretaria'])
-        .single()
+      const { data: adminData, error: adminError } = await supabase.rpc('can_access', { _permission: 'atas' })
 
       if (adminError || !adminData) {
         await supabase.auth.signOut()

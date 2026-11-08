@@ -1,3 +1,4 @@
+import { resolveAdminSession } from '@/hooks/useAccessPermissions'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Trash2, Star, ArrowLeft, Plus } from 'lucide-react'
@@ -56,13 +57,11 @@ export function PesquisadoresAdmin() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const userData = sessionStorage.getItem('admin_user')
-    if (userData) {
-      setAdminUser(JSON.parse(userData))
+    void resolveAdminSession('people').then(user => {
+      if (!user) { navigate('/adm/coordenacao'); return }
+      setAdminUser(user)
       loadResearchers()
-    } else {
-      navigate('/adm/coordenacao')
-    }
+    })
   }, [navigate])
 
   const loadResearchers = async () => {

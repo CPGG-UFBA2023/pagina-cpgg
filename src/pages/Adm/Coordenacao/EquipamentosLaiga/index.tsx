@@ -1,3 +1,4 @@
+import { resolveAdminSession } from '@/hooks/useAccessPermissions'
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -48,11 +49,11 @@ export function EquipamentosLaiga() {
   const { toast } = useToast();
 
   useEffect(() => {
-    const adminData = localStorage.getItem('adminUser');
-    if (adminData) {
-      setAdminUser(JSON.parse(adminData));
-    }
-    fetchEquipments();
+    void resolveAdminSession('equipment').then(user => {
+      if (!user) return;
+      setAdminUser(user);
+      fetchEquipments();
+    });
   }, []);
 
   useEffect(() => {

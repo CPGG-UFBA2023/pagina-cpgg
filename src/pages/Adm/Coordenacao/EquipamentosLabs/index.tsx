@@ -1,3 +1,4 @@
+import { resolveAdminSession } from '@/hooks/useAccessPermissions'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, Plus, Trash2, Edit, Save, X, FlaskConical } from 'lucide-react'
@@ -63,17 +64,10 @@ export function EquipamentosLabs() {
   const [editData, setEditData] = useState<Partial<Equipment>>({})
 
   useEffect(() => {
-    const userData = sessionStorage.getItem('admin_user')
-    if (!userData) {
-      navigate('/adm/coordenacao')
-      return
-    }
-    const parsed = JSON.parse(userData)
-    if (parsed.role !== 'coordenacao' && parsed.role !== 'secretaria') {
-      navigate('/adm/coordenacao')
-      return
-    }
-    fetchAll()
+    void resolveAdminSession('equipment').then(user => {
+      if (!user) { navigate('/adm/coordenacao'); return }
+      fetchAll()
+    })
   }, [navigate])
 
   const fetchAll = async () => {

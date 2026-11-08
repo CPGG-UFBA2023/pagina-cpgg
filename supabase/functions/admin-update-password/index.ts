@@ -37,14 +37,9 @@ serve(async (req) => {
 
     // Check caller is coordenacao
     const supabase = createClient(SUPABASE_URL, SERVICE_ROLE_KEY);
-    const { data: admin } = await supabase
-      .from("admin_users")
-      .select("role")
-      .eq("user_id", user.id)
-      .eq("role", "coordenacao")
-      .maybeSingle();
+    const { data: allowed, error: permissionError } = await supabase.rpc('has_access_permission', { _user_id: user.id, _permission: 'access' });
 
-    if (!admin) {
+    if (permissionError || allowed !== true) {
       return new Response(JSON.stringify({ error: "Unauthorized" }), {
         status: 403,
         headers: { ...corsHeaders, "content-type": "application/json" },

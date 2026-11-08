@@ -1,3 +1,4 @@
+import { resolveAdminSession } from '@/hooks/useAccessPermissions'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Trash2, Undo, ArrowLeft, KeyRound } from 'lucide-react'
@@ -48,15 +49,11 @@ export function UsuariosAdmin() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const userData = sessionStorage.getItem('admin_user')
-    if (userData) {
-      setAdminUser(JSON.parse(userData))
-      // Carregar usuários sem sincronizar automaticamente
+    void resolveAdminSession('people').then(user => {
+      if (!user) { navigate('/adm/coordenacao'); return }
+      setAdminUser(user)
       loadUsers()
-    } else {
-      navigate('/adm/coordenacao')
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    })
   }, [])
 
   const loadUsers = async () => {
