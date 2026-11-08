@@ -55,7 +55,7 @@ export function EditableAta({ ata, isEditMode, onUpdate, onDelete }: EditableAta
     return (
       <a href={ata.pdf_url} download className={styles.card}>
         <div className={styles.ataCard}>
-          <h2 style={{ fontSize: '16px', margin: 0 }}>{ata.name}</h2>
+          <h2>{ata.name}</h2>
           <p className={styles.ataSubtitle}>{ata.meeting_type} — {formattedDate}</p>
         </div>
       </a>
@@ -70,13 +70,13 @@ export function EditableAta({ ata, isEditMode, onUpdate, onDelete }: EditableAta
             <h2 className="text-sm font-semibold">{ata.name}</h2>
             <p className="text-xs opacity-70">{ata.meeting_type} — {formattedDate}</p>
             <div className="flex gap-2">
-              <Button size="sm" variant="secondary" className="h-8 w-8 p-0 bg-primary text-primary-foreground hover:bg-primary/90" onClick={() => setShowEditDialog(true)} disabled={isLoading}>
+              <Button size="sm" variant="secondary" aria-label="Editar ata" title="Editar ata" className="h-10 w-10 p-0 bg-primary text-primary-foreground hover:bg-primary/90" onClick={() => setShowEditDialog(true)} disabled={isLoading}>
                 <Edit className="w-3 h-3" />
               </Button>
-              <Button size="sm" variant="secondary" className="h-8 w-8 p-0 bg-secondary text-secondary-foreground hover:bg-secondary/90" onClick={() => window.open(ata.pdf_url, '_blank')} disabled={isLoading}>
+              <Button size="sm" variant="secondary" aria-label="Abrir PDF" title="Abrir PDF" className="h-10 w-10 p-0 bg-secondary text-secondary-foreground hover:bg-secondary/90" onClick={() => window.open(ata.pdf_url, '_blank')} disabled={isLoading}>
                 <ExternalLink className="w-3 h-3" />
               </Button>
-              <Button size="sm" variant="destructive" className="h-8 w-8 p-0 bg-destructive text-destructive-foreground hover:bg-destructive/90" onClick={() => setShowDeleteConfirm(true)} disabled={isLoading}>
+              <Button size="sm" variant="destructive" aria-label="Excluir ata" title="Excluir ata" className="h-10 w-10 p-0 bg-destructive text-destructive-foreground hover:bg-destructive/90" onClick={() => setShowDeleteConfirm(true)} disabled={isLoading}>
                 <Minus className="w-3 h-3" />
               </Button>
             </div>
@@ -85,7 +85,7 @@ export function EditableAta({ ata, isEditMode, onUpdate, onDelete }: EditableAta
       </div>
 
       <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className={styles.dialog}>
           <DialogHeader>
             <DialogTitle>Editar Ata</DialogTitle>
             <DialogDescription>Altere os dados da ata abaixo.</DialogDescription>
@@ -108,7 +108,7 @@ export function EditableAta({ ata, isEditMode, onUpdate, onDelete }: EditableAta
       </Dialog>
 
       <Dialog open={showDeleteConfirm} onOpenChange={setShowDeleteConfirm}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className={styles.dialog}>
           <DialogHeader>
             <DialogTitle>Confirmar Exclusão</DialogTitle>
             <DialogDescription>

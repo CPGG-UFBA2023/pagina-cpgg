@@ -10,6 +10,7 @@ import { EditableAta } from './components/EditableAta';
 import { AddAtaDialog } from './components/AddAtaDialog';
 import { Plus } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Button } from '@/components/ui/button';
 
 interface Ata {
   id: string;
@@ -137,13 +138,15 @@ export function Atas() {
 
         <div className={styles.yearTabs}>
           {yearGroups.map(yg => (
-            <button
+            <Button
               key={yg}
+              variant="outline"
+              aria-pressed={selectedYearGroup === yg}
               className={`${styles.yearTab} ${selectedYearGroup === yg ? styles.yearTabActive : ''}`}
               onClick={() => setSelectedYearGroup(yg)}
             >
               {yg}
-            </button>
+            </Button>
           ))}
         </div>
 
@@ -159,19 +162,19 @@ export function Atas() {
           ))}
 
           {isEditMode && (
-            <button
+            <Button
               type="button"
               className={styles.addButton}
               onClick={() => setShowAddDialog(true)}
               aria-label="Adicionar nova ata"
             >
               <Plus size={32} />
-              <span style={{ marginLeft: 8, fontSize: 16, fontWeight: 600 }}>Adicionar Ata</span>
-            </button>
+              <span>Adicionar Ata</span>
+            </Button>
           )}
 
           {!isEditMode && filteredAtas.length === 0 && (
-            <p style={{ color: 'white', opacity: 0.7 }}>{t('minutes.empty')}</p>
+            <p className={styles.emptyState}>{t('minutes.empty')}</p>
           )}
         </div>
       </main>
