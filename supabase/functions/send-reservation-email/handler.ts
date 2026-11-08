@@ -1,5 +1,5 @@
 import { z } from 'npm:zod@3.25.76';
-import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors';
+import { corsHeaders } from 'npm:@supabase/supabase-js@2.119.0/cors';
 
 const schema = z.object({
   nome: z.string().trim().min(1).max(255),
