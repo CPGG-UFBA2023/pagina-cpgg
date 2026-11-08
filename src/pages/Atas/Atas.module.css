@@ -254,3 +254,9 @@
 .dialog.dialog[data-ata-add] {
   max-height: min(85dvh, calc(100dvh - 104px)) !important;
 }
+
+:global(body) > .dialog.dialog[role='dialog'] {
+  display: grid !important;
+  height: fit-content !important;
+  min-height: 0 !important;
+}
