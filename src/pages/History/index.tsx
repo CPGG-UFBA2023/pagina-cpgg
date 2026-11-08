@@ -114,6 +114,7 @@ export function History() {
       )}
 
       <AdminLogin
+        permission="history"
         isOpen={showLogin}
         onClose={() => setShowLogin(false)}
         onSuccess={() => setIsAdmin(true)}

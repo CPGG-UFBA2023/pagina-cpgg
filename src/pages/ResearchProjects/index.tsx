@@ -12,6 +12,7 @@ import { ResearchProjectEditor } from './components/ResearchProjectEditor'
 import { useToast } from '@/hooks/use-toast'
 import styles from './ResearchProjects.module.css'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useAccessPermissions } from '@/hooks/useAccessPermissions'
 
 interface ResearchProject {
   id: string
@@ -29,14 +30,10 @@ export function ResearchProjects() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [showLoginDialog, setShowLoginDialog] = useState(false)
   const { toast } = useToast()
+  const { permissions } = useAccessPermissions()
 
   useEffect(() => {
     fetchProjects()
-    // Check if user is already authenticated
-    const savedAuth = localStorage.getItem('researchProjectsAuth')
-    if (savedAuth === 'true') {
-      setIsAuthenticated(true)
-    }
   }, [])
 
   const fetchProjects = async () => {
@@ -60,7 +57,6 @@ export function ResearchProjects() {
     console.log('✅ HANDLE LOGIN CHAMADO - Projetos')
     setIsAuthenticated(true)
     setShowLoginDialog(false)
-    localStorage.setItem('researchProjectsAuth', 'true')
     toast({
       title: "Login realizado com sucesso",
       description: "Agora você pode gerenciar os projetos de pesquisa."
@@ -91,7 +87,7 @@ export function ResearchProjects() {
             <p>{t('projects.subtitle')}</p>
           </div>
 
-          {isAuthenticated ? (
+          {isAuthenticated && permissions.projects ? (
             <ResearchProjectEditor 
               projects={projects} 
               onProjectsUpdate={fetchProjects}
