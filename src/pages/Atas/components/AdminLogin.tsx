@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input'
 import { supabase } from '@/integrations/supabase/client'
 import { useToast } from '@/hooks/use-toast'
 import ReCAPTCHA from 'react-google-recaptcha'
+import styles from '../Atas.module.css'
 
 const RECAPTCHA_SITE_KEY = "6Lc_tCcsAAAAANaPjNTNCehs44DT3dPVbUJao07b"
 
@@ -90,7 +91,7 @@ export function AdminLogin({ isOpen, onClose, onSuccess }: AdminLoginProps) {
     <Dialog open={isOpen} onOpenChange={(open) => {
       if (!open) handleClose()
     }}>
-      <DialogContent className="sm:max-w-md max-h-[85vh]">
+      <DialogContent className={styles.dialog} aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle>Login Administrativo</DialogTitle>
         </DialogHeader>

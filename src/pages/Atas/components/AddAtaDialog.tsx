@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input'
 
 import { supabase } from '@/integrations/supabase/client'
 import { Upload } from 'lucide-react'
+import styles from '../Atas.module.css'
 
 interface AddAtaDialogProps {
   isOpen: boolean
@@ -135,7 +136,7 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
     <Dialog open={isOpen} onOpenChange={(open) => {
       if (!open) handleClose()
     }}>
-      <DialogContent className="sm:max-w-md max-h-[85vh]" style={{ marginTop: '80px', overflowY: 'auto', overflowX: 'hidden' }}>
+      <DialogContent className={styles.dialog} data-ata-add>
         <DialogHeader>
           <DialogTitle>Adicionar Nova Ata</DialogTitle>
           <DialogDescription>Preencha os campos abaixo para adicionar uma nova ata.</DialogDescription>
@@ -178,7 +179,7 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
             >
               <Upload className="mx-auto h-6 w-6 mb-2 opacity-60" />
               {selectedFile ? (
-                <p className="text-sm font-medium">{selectedFile.name}</p>
+                <p className="text-sm font-medium break-all">{selectedFile.name}</p>
               ) : (
                 <p className="text-sm opacity-60">Clique para selecionar o PDF</p>
               )}
@@ -197,7 +198,7 @@ export function AddAtaDialog({ isOpen, onClose, onAdd, defaultYearGroup }: AddAt
           <p className="text-sm text-destructive">{submitError}</p>
         )}
 
-        <DialogFooter className="gap-2">
+        <DialogFooter className={`gap-2 ${styles.dialogActions}`}>
           <Button type="button" variant="outline" onClick={handleClose} disabled={isLoading}>Cancelar</Button>
           <Button type="button" onClick={handleSubmit} disabled={isLoading || !canSubmit}>
             {isLoading ? 'Enviando...' : 'Adicionar'}
