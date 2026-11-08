@@ -95,7 +95,7 @@ export function AdminLogin({ isOpen, onClose, onSuccess }: AdminLoginProps) {
         <DialogHeader>
           <DialogTitle>Login Administrativo</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleLogin} className="space-y-3">
+        <form onSubmit={handleLogin} className="grid gap-4">
           <div className="space-y-1">
             <label className="text-sm font-medium">Email:</label>
             <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Digite seu email" required />
@@ -104,7 +104,7 @@ export function AdminLogin({ isOpen, onClose, onSuccess }: AdminLoginProps) {
             <label className="text-sm font-medium">Senha:</label>
             <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Digite sua senha" required />
           </div>
-          <div style={{ transform: 'scale(0.85)', transformOrigin: 'left', marginTop: '8px', marginBottom: '-8px' }}>
+          <div className="h-[78px] min-w-0 overflow-hidden">
             <ReCAPTCHA ref={recaptchaRef} sitekey={RECAPTCHA_SITE_KEY} onChange={(token) => setCaptchaToken(token)} onExpired={() => setCaptchaToken(null)} />
           </div>
           <div className="flex gap-2">
