@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      access_permission_audit: {
+        Row: {
+          allowed: boolean
+          changed_by: string
+          created_at: string
+          id: string
+          permission: string
+          previous_allowed: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          allowed: boolean
+          changed_by: string
+          created_at?: string
+          id?: string
+          permission: string
+          previous_allowed: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          allowed?: boolean
+          changed_by?: string
+          created_at?: string
+          id?: string
+          permission?: string
+          previous_allowed?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       admin_users: {
         Row: {
           created_at: string
@@ -895,6 +928,33 @@ export type Database = {
           },
         ]
       }
+      user_access_permissions: {
+        Row: {
+          allowed: boolean
+          changed_by: string | null
+          created_at: string
+          permission: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          allowed?: boolean
+          changed_by?: string | null
+          created_at?: string
+          permission: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          allowed?: boolean
+          changed_by?: string | null
+          created_at?: string
+          permission?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_profiles: {
         Row: {
           created_at: string
@@ -984,6 +1044,8 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      access_permission_keys: { Args: never; Returns: string[] }
+      can_access: { Args: { _permission: string }; Returns: boolean }
       check_user_profile_duplicates: {
         Args: { _email: string; _full_name: string }
         Returns: Json
@@ -1017,8 +1079,13 @@ export type Database = {
       }
       generate_public_id: { Args: never; Returns: string }
       get_admin_role: { Args: never; Returns: string }
+      has_access_permission: {
+        Args: { _permission: string; _user_id: string }
+        Returns: boolean
+      }
       is_admin: { Args: never; Returns: boolean }
       is_laiga_repo_user: { Args: never; Returns: boolean }
+      list_access_people: { Args: never; Returns: Json }
       list_all_user_profiles: {
         Args: never
         Returns: {
@@ -1032,6 +1099,7 @@ export type Database = {
           user_id: string
         }[]
       }
+      my_access_permissions: { Args: never; Returns: Json }
       reset_user_keep_profile_data: {
         Args: { _user_profile_id: string }
         Returns: Json
@@ -1048,6 +1116,10 @@ export type Database = {
           _user_id: string
         }
         Returns: Json
+      }
+      set_access_permission: {
+        Args: { _allowed: boolean; _permission: string; _user_id: string }
+        Returns: undefined
       }
       set_laboratory_photo: {
         Args: { _acronym: string; _index: number; _url: string }
