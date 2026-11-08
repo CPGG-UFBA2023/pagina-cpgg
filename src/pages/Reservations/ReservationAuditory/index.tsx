@@ -1,13 +1,16 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styles from './ReservationAuditory.module.css'
 import '../reservations-no-scroll.css'
 import { Header } from '../../../components/Header'
 import { Footer } from '../../../components/Footer'
 import { supabase } from '../../../integrations/supabase/client'
+import { Button } from '../../../components/ui/button'
 
 export function RA() {
   const navigate = useNavigate()
+  const submitting = useRef(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState({
     nome: '',
     sobrenome: '',
@@ -23,6 +26,7 @@ export function RA() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (submitting.current) return
     
     // Validar se todos os campos estão preenchidos
     if (!formData.nome || !formData.sobrenome || !formData.email || !formData.uso || !formData.inicio || !formData.termino) {
@@ -30,6 +34,8 @@ export function RA() {
       return;
     }
     
+    submitting.current = true
+    setIsSubmitting(true)
     try {
       const { data, error } = await supabase.functions.invoke('send-reservation-email', {
         body: {
@@ -38,14 +44,21 @@ export function RA() {
         }
       });
 
-      if (error) throw error;
+      if (error) {
+        const result = await error.context?.json?.().catch(() => null)
+        throw new Error(result?.error || 'Erro ao enviar reserva. Tente novamente.')
+      }
+      if (!data?.success) throw new Error(data?.error || 'Erro ao enviar reserva.')
 
       console.log('Reserva enviada com sucesso:', data);
       // Redirecionar para página de sucesso usando React Router
       navigate('/reservations/success')
     } catch (error) {
       console.error('Erro ao enviar reserva:', error);
-      alert('Erro ao enviar reserva. Tente novamente.');
+      alert(error instanceof Error ? error.message : 'Erro ao enviar reserva. Tente novamente.');
+    } finally {
+      submitting.current = false
+      setIsSubmitting(false)
     }
   }
 
@@ -117,9 +130,9 @@ export function RA() {
             </div>
           </div>
 
-          <button type="submit" className={styles.button}>
-              Enviar   
-          </button> 
+          <Button type="submit" className={styles.button} disabled={isSubmitting} aria-busy={isSubmitting}>
+              {isSubmitting ? 'Enviando...' : 'Enviar'}
+          </Button>
 
           </form>
         </div>

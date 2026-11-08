@@ -1,1 +1,2 @@
 - Researcher pages render through the shared ResearcherProfilePage component — one place to restyle all ~32 profiles.
+- Physical-space notifications claim a deterministic reservation primary key before SMTP and persist notification state; this prevents concurrent requests, older forms, and uncertain retries from sending duplicate emails.
