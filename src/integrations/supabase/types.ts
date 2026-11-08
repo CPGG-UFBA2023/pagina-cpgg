@@ -731,6 +731,7 @@ export type Database = {
           id: string
           inicio: string
           nome: string
+          notification_status: string | null
           sobrenome: string
           status: string
           termino: string
@@ -745,6 +746,7 @@ export type Database = {
           id?: string
           inicio: string
           nome: string
+          notification_status?: string | null
           sobrenome: string
           status?: string
           termino: string
@@ -759,6 +761,7 @@ export type Database = {
           id?: string
           inicio?: string
           nome?: string
+          notification_status?: string | null
           sobrenome?: string
           status?: string
           termino?: string
