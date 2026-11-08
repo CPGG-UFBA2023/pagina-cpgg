@@ -68,7 +68,7 @@ export function Adm() {
         
         <div className={styles.optionsContainer}>
           {hasAnyPermission(permissions) && <Button asChild variant="outline"><NavLink to="/adm/painel">Painel administrativo</NavLink></Button>}
-          {permissions.access && <Button asChild><NavLink to="/adm/acessos"><ShieldCheck size={18} className="mr-2" />Acessos e privilégios</NavLink></Button>}
+          {permissions.access && <Button asChild variant="outline"><NavLink to="/adm/acessos"><ShieldCheck size={18} className="mr-2" />Acessos e privilégios</NavLink></Button>}
           <div className={styles.topRow}>
             <NavLink to="/adm/ti" className={styles.optionCard}>
               <div className={styles.cardContent}>
