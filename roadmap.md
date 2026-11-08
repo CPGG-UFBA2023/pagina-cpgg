@@ -1,4 +1,9 @@
 # Revisão da versão em inglês
+# E-mails de reservas de espaços
+
+- [ ] Impedir envios repetidos no auditório e na sala de reuniões
+- [ ] Proteger o envio contra solicitações duplicadas e testar
+
 
 - [x] Mapear o sistema de idioma e todas as páginas acessíveis em inglês
 - [x] Corrigir traduções incompletas, inconsistentes ou pouco naturais
