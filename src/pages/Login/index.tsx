@@ -31,6 +31,7 @@ export function Login() {
   const [session, setSession] = useState<Session | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const loginInProgress = useRef(false);
 
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -62,7 +63,7 @@ export function Login() {
       setUser(session?.user ?? null);
 
       // Redirect to home if user is logged in
-      if (session?.user) {
+      if (session?.user && !loginInProgress.current) {
         navigate("/");
       }
     });
@@ -83,6 +84,8 @@ export function Login() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loginInProgress.current) return;
+    loginInProgress.current = true;
     setLoginLoading(true);
 
     try {
@@ -146,25 +149,19 @@ export function Login() {
             title: "Login realizado",
             description: "Bem-vindo de volta!",
           });
-          setTimeout(() => {
-            window.location.href = "/";
-          }, 1000);
+          navigate("/", { replace: true });
         } else if (profile.researcher_route) {
           toast({
             title: "Login realizado",
             description: "Redirecionando para sua página...",
           });
-          setTimeout(() => {
-            window.location.href = profile.researcher_route;
-          }, 1000);
+          navigate(profile.researcher_route, { replace: true });
         } else {
           toast({
             title: "Login realizado",
             description: "Bem-vindo de volta!",
           });
-          setTimeout(() => {
-            window.location.href = "/";
-          }, 1000);
+          navigate("/", { replace: true });
         }
       }
     } catch (error) {
@@ -176,6 +173,7 @@ export function Login() {
       recaptchaRef.current?.reset();
       setCaptchaToken(null);
     } finally {
+      loginInProgress.current = false;
       setLoginLoading(false);
     }
   };
