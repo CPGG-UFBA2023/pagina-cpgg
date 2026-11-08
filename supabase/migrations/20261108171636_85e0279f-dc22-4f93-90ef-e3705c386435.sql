@@ -1,0 +1,2 @@
+ALTER TABLE public.reservations ADD COLUMN IF NOT EXISTS notification_status text;
+COMMENT ON COLUMN public.reservations.notification_status IS 'Space reservation notification state: sending, sent, or uncertain. Null for legacy and laboratory requests. Duplicate requests must never resend automatically.';
