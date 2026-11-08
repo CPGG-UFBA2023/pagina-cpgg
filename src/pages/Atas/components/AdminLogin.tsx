@@ -6,6 +6,7 @@ import { supabase } from '@/integrations/supabase/client'
 import { useToast } from '@/hooks/use-toast'
 import ReCAPTCHA from 'react-google-recaptcha'
 import styles from '../Atas.module.css'
+import type { PermissionKey } from '@/lib/accessPermissions'
 
 const RECAPTCHA_SITE_KEY = "6Lc_tCcsAAAAANaPjNTNCehs44DT3dPVbUJao07b"
 
@@ -13,9 +14,10 @@ interface AdminLoginProps {
   isOpen: boolean
   onClose: () => void
   onSuccess: () => void
+  permission?: PermissionKey
 }
 
-export function AdminLogin({ isOpen, onClose, onSuccess }: AdminLoginProps) {
+export function AdminLogin({ isOpen, onClose, onSuccess, permission = 'atas' }: AdminLoginProps) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -52,7 +54,7 @@ export function AdminLogin({ isOpen, onClose, onSuccess }: AdminLoginProps) {
         return
       }
 
-      const { data: adminData, error: adminError } = await supabase.rpc('can_access', { _permission: 'atas' })
+      const { data: adminData, error: adminError } = await supabase.rpc('can_access', { _permission: permission })
 
       if (adminError || !adminData) {
         await supabase.auth.signOut()

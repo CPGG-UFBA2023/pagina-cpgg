@@ -33,19 +33,14 @@ export function History() {
     const checkAdmin = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) { if (mounted) setIsAdmin(false); return; }
-      const { data } = await supabase
-        .from('admin_users')
-        .select('role')
-        .eq('user_id', user.id)
-        .eq('role', 'coordenacao')
-        .maybeSingle();
+      const { data } = await supabase.rpc('can_access', { _permission: 'history' });
       if (mounted) setIsAdmin(!!data);
     };
 
     loadPdf();
     checkAdmin();
 
-    const { data: sub } = supabase.auth.onAuthStateChange(() => checkAdmin());
+    const { data: sub } = supabase.auth.onAuthStateChange(() => { setTimeout(checkAdmin, 0); });
     return () => { mounted = false; sub.subscription.unsubscribe(); };
   }, []);
 
