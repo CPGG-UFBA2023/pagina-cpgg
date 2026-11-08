@@ -1,4 +1,6 @@
-export const permissionGroups = [
+export type PermissionKey = 'atas' | 'news' | 'photos' | 'calendars' | 'publications' | 'projects' | 'regulations' | 'history' | 'tcc' | 'laboratories' | 'equipment' | 'repository' | 'reservations' | 'people' | 'access'
+type PermissionItem = readonly [PermissionKey, string, string]
+export const permissionGroups: ReadonlyArray<{ label: string; items: ReadonlyArray<PermissionItem> }> = [
   { label: 'Conteúdo do site', items: [
     ['atas', 'Atas', '/atas'], ['news', 'Notícias', '/adm/coordenacao/dashboard'],
     ['photos', 'Fotos e álbuns', '/Photos'], ['calendars', 'Calendários', '/recipes/calendars'],
@@ -15,9 +17,8 @@ export const permissionGroups = [
     ['people', 'Pesquisadores e usuários', '/adm/coordenacao/usuarios'],
     ['access', 'Administrar acessos', '/adm/acessos'],
   ] },
-] as const
+]
 
-export type PermissionKey = typeof permissionGroups[number]['items'][number][0]
 export type Permissions = Partial<Record<PermissionKey, boolean>>
 export function hasAnyPermission(permissions: Permissions) {
   return Object.values(permissions).some(value => value === true)
