@@ -1066,7 +1066,7 @@ export function CoordenacaoDashboard() {
             </Button>
           </div>
 
-          </>}}
+          </>}
           {permissions.access && <>
           <div className={styles.formCard}>
             <div className={styles.formHeader}>
@@ -1122,7 +1122,7 @@ export function CoordenacaoDashboard() {
             </Button>
           </div>
 
-          </>}}
+          </>}
           {permissions.access && <>
           <div className={styles.formCard}>
             <div className={styles.formHeader}>
@@ -1178,7 +1178,7 @@ export function CoordenacaoDashboard() {
             </Button>
           </div>
 
-          </>}}
+          </>}
           {permissions.access && <>
           <div className={styles.formCard}>
             <div className={styles.formHeader}>
@@ -1214,7 +1214,7 @@ export function CoordenacaoDashboard() {
             </Button>
           </div>
 
-          </>}}
+          </>}
           {permissions.access && <>
           <div className={styles.formCard}>
             <div className={styles.formHeader}>
@@ -1260,7 +1260,7 @@ export function CoordenacaoDashboard() {
             </Button>
           </div>
 
-          </>}}
+          </>}
           {permissions.people && <>
           <div className={styles.formCard}>
             <div className={styles.formHeader}>
@@ -1349,7 +1349,7 @@ export function CoordenacaoDashboard() {
             </Button>
           </div>
 
-          </>}}
+          </>}
           {permissions.laboratories && <>
           <div className={styles.formCard}>
             <div className={styles.formHeader}>
@@ -1476,7 +1476,7 @@ export function CoordenacaoDashboard() {
             </Button>
           </div>
 
-          </>}}
+          </>}
           {permissions.news && <>
           <div className={styles.formCard}>
             <div className={styles.formHeader}>
@@ -1624,7 +1624,7 @@ export function CoordenacaoDashboard() {
             </Button>
           </div>
 
-          </>}}
+          </>}
           {permissions.regulations && <>
           <div className={styles.formCard}>
             <div className={styles.formHeader}>
@@ -1659,7 +1659,7 @@ export function CoordenacaoDashboard() {
               {isLoading ? 'Cadastrando...' : 'Cadastrar Norma'}
             </Button>
           </div>
-          </>}}
+          </>}
         </div>
       </div>
     </div>
