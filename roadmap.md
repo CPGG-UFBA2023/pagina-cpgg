@@ -1,4 +1,10 @@
 # Revisão da versão em inglês
+# Adaptação da página de atas
+
+- [ ] Ajustar grade, abas e rolagem para telas pequenas e grandes
+- [ ] Ajustar janelas de login, cadastro e edição sem cortes
+- [ ] Verificar a página em celulares, tablets e computadores
+
 # E-mails de reservas de espaços
 
 - [x] Impedir envios repetidos no auditório e na sala de reuniões
