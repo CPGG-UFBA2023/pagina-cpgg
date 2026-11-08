@@ -228,3 +228,29 @@
     font-size: 16px;
   }
 }
+
+/* Keep local controls ahead of shared component and mobile safety-net rules. */
+.yearTab.yearTab {
+  background: transparent !important;
+  color: hsl(var(--primary-foreground)) !important;
+  border-color: hsl(var(--glass-border)) !important;
+}
+
+.yearTab.yearTab:hover,
+.yearTabActive.yearTabActive {
+  background: hsl(var(--glass-bg)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+  border-color: hsl(var(--primary-foreground)) !important;
+}
+
+.dialog.dialog {
+  display: grid !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: calc(100dvh - 24px) !important;
+  align-content: start;
+}
+
+.dialog.dialog[data-ata-add] {
+  max-height: min(85dvh, calc(100dvh - 104px)) !important;
+}
