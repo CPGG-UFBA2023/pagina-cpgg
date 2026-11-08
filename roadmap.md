@@ -1,10 +1,11 @@
 # Revisão da versão em inglês
 # Controle de acessos
 
-- [ ] Criar lista administrativa de pessoas e permissões por área
-- [ ] Aplicar concessões e bloqueios no servidor e nas páginas
-- [ ] Proteger administração de acessos e evitar bloqueio do último administrador
-- [ ] Testar regras de autorização e verificar telas
+- [x] Criar lista administrativa de pessoas e permissões por área
+- [x] Aplicar concessões e bloqueios no servidor e nas páginas
+- [x] Proteger administração de acessos e impedir remoção da própria administração
+- [x] Testar regras de autorização no banco e bloquear visitantes sem login
+- [ ] Verificar concessão e leitura após login real — Supabase externo não fornece sessão de teste
 
 # Velocidade do login
 
