@@ -3,10 +3,15 @@ import { HomeButton } from '../../components/HomeButton'
 import styles from './adm.module.css'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useEffect } from 'react'
+import { useAccessPermissions } from '@/hooks/useAccessPermissions'
+import { hasAnyPermission } from '@/lib/accessPermissions'
+import { Button } from '@/components/ui/button'
+import { ShieldCheck } from 'lucide-react'
 const logocpgg = 'https://i.imgur.com/6HRTVzo.png';
 
 export function Adm() {
   const { t } = useLanguage();
+  const { permissions } = useAccessPermissions();
 
   useEffect(() => {
     // Sobrescrever background do body
@@ -62,6 +67,8 @@ export function Adm() {
         </div>
         
         <div className={styles.optionsContainer}>
+          {hasAnyPermission(permissions) && <Button asChild variant="outline"><NavLink to="/adm/painel">Painel administrativo</NavLink></Button>}
+          {permissions.access && <Button asChild><NavLink to="/adm/acessos"><ShieldCheck size={18} className="mr-2" />Acessos e privilégios</NavLink></Button>}
           <div className={styles.topRow}>
             <NavLink to="/adm/ti" className={styles.optionCard}>
               <div className={styles.cardContent}>

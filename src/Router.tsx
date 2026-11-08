@@ -123,6 +123,9 @@ import { PessoalMobile } from './pages/Pessoal/PessoalMobile'
 import { TCCGeofisica } from './pages/TCCGeofisica'
 import { Atas } from './pages/Atas'
 import { SeniorResearchers } from './pages/SeniorResearchers'
+import { AccessGuard } from './components/AccessGuard'
+import { AccessManagement } from './pages/Adm/Acessos'
+import { AdminWorkspace } from './pages/Adm/Acessos/Workspace'
 
 export function Router() {
   return (
@@ -243,14 +246,16 @@ export function Router() {
          <Route path='/adm' element={<Adm />} />
          <Route path='/adm/ti' element={<TI />} />
          <Route path='/adm/coordenacao' element={<Coordenacao />} />
-         <Route path='/adm/coordenacao/dashboard' element={<CoordenacaoDashboard />} />
-         <Route path='/adm/coordenacao/usuarios' element={<UsuariosAdmin />} />
-         <Route path='/adm/coordenacao/pesquisadores' element={<PesquisadoresAdmin />} />
-         <Route path='/adm/coordenacao/laboratorios' element={<LaboratoriosAdmin />} />
-         <Route path='/adm/coordenacao/reservas' element={<ReservasAdmin />} />
-         <Route path='/adm/coordenacao/equipamentos-laiga' element={<EquipamentosLaiga />} />
-         <Route path='/adm/coordenacao/equipamentos-labs' element={<EquipamentosLabs />} />
-         <Route path='/adm/repair-stats' element={<RepairStats />} />
+         <Route path='/adm/painel' element={<AccessGuard><AdminWorkspace /></AccessGuard>} />
+         <Route path='/adm/acessos' element={<AccessGuard permission="access"><AccessManagement /></AccessGuard>} />
+         <Route path='/adm/coordenacao/dashboard' element={<AccessGuard><CoordenacaoDashboard /></AccessGuard>} />
+         <Route path='/adm/coordenacao/usuarios' element={<AccessGuard permission="people"><UsuariosAdmin /></AccessGuard>} />
+         <Route path='/adm/coordenacao/pesquisadores' element={<AccessGuard permission="people"><PesquisadoresAdmin /></AccessGuard>} />
+         <Route path='/adm/coordenacao/laboratorios' element={<AccessGuard permission="laboratories"><LaboratoriosAdmin /></AccessGuard>} />
+         <Route path='/adm/coordenacao/reservas' element={<AccessGuard permission="reservations"><ReservasAdmin /></AccessGuard>} />
+         <Route path='/adm/coordenacao/equipamentos-laiga' element={<AccessGuard permission="equipment"><EquipamentosLaiga /></AccessGuard>} />
+         <Route path='/adm/coordenacao/equipamentos-labs' element={<AccessGuard permission="equipment"><EquipamentosLabs /></AccessGuard>} />
+         <Route path='/adm/repair-stats' element={<AccessGuard permission="reservations"><RepairStats /></AccessGuard>} />
          <Route path='/adm/secretaria' element={<Secretaria />} />
 
         <Route path='*' element={<NotFound />} />
