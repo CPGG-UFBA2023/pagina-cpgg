@@ -6,6 +6,8 @@ import { Label } from '@/components/ui/label'
 import { supabase } from '@/integrations/supabase/client'
 import { useToast } from '@/hooks/use-toast'
 import ReCAPTCHA from 'react-google-recaptcha'
+import { resolveAdminSession } from '@/hooks/useAccessPermissions'
+import type { PermissionKey } from '@/lib/accessPermissions'
 
 const RECAPTCHA_SITE_KEY = "6Lc_tCcsAAAAANaPjNTNCehs44DT3dPVbUJao07b"
 
@@ -15,6 +17,7 @@ interface AdminAuthDialogProps {
   onSuccess: (role: string) => void
   requiredRole?: 'coordenacao' | 'secretaria' | 'ti' | 'any'
   title?: string
+  permission?: PermissionKey
 }
 
 export function AdminAuthDialog({ 
@@ -22,7 +25,8 @@ export function AdminAuthDialog({
   onClose, 
   onSuccess,
   requiredRole = 'coordenacao',
-  title = 'Login Administrativo'
+  title = 'Login Administrativo',
+  permission
 }: AdminAuthDialogProps) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -97,14 +101,9 @@ export function AdminAuthDialog({
         return
       }
 
-      // Verificar se o usuário é admin e obter sua role
-      const { data: adminData, error: adminError } = await supabase
-        .from('admin_users')
-        .select('role')
-        .eq('user_id', authData.user.id)
-        .single()
+      const adminData = await resolveAdminSession(permission)
 
-      if (adminError || !adminData) {
+      if (!adminData) {
         await supabase.auth.signOut()
         toast({
           title: "Acesso Negado",
@@ -115,7 +114,7 @@ export function AdminAuthDialog({
       }
 
       // Verificar se a role é adequada
-      if (requiredRole !== 'any' && adminData.role !== requiredRole) {
+      if (!permission && requiredRole !== 'any' && adminData.role !== requiredRole) {
         await supabase.auth.signOut()
         toast({
           title: "Acesso Negado",
@@ -137,7 +136,7 @@ export function AdminAuthDialog({
         description: "Bem-vindo ao modo administrativo!",
       })
 
-      onSuccess(adminData.role)
+      onSuccess(permission ? 'delegado' : adminData.role)
       onClose()
       setEmail('')
       setPassword('')

@@ -53,13 +53,9 @@ export function AdminLoginTCC({ isOpen, onClose, onSuccess }: AdminLoginTCCProps
       }
 
       // Check if user is coordenacao
-      const { data: adminData, error: adminError } = await supabase
-        .from('admin_users')
-        .select('role')
-        .eq('user_id', data.user.id)
-        .single()
+      const { data: adminData, error: adminError } = await supabase.rpc('can_access', { _permission: 'tcc' })
 
-      if (adminError || adminData?.role !== 'coordenacao') {
+      if (adminError || !adminData) {
         toast.error('Acesso restrito à coordenação')
         await supabase.auth.signOut()
         setLoading(false)

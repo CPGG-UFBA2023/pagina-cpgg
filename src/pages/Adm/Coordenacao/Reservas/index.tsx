@@ -1,3 +1,4 @@
+import { resolveAdminSession } from '@/hooks/useAccessPermissions'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
@@ -55,12 +56,10 @@ export function ReservasAdmin() {
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82CA9D']
 
   useEffect(() => {
-    const userData = sessionStorage.getItem('admin_user')
-    if (userData) {
-      setAdminUser(JSON.parse(userData))
-    } else {
-      navigate('/adm/coordenacao')
-    }
+    void resolveAdminSession('reservations').then(user => {
+      if (!user) { navigate('/adm/coordenacao'); return }
+      setAdminUser(user)
+    })
   }, [navigate])
 
   useEffect(() => {

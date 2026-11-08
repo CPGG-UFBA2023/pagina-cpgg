@@ -1,3 +1,4 @@
+import { resolveAdminSession } from '@/hooks/useAccessPermissions'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, AlertCircle, CheckCircle, Clock, XCircle, Trash2 } from 'lucide-react'
@@ -44,13 +45,11 @@ export function RepairStats() {
   }
 
   useEffect(() => {
-    const userData = sessionStorage.getItem('admin_user')
-    if (userData) {
-      setAdminUser(JSON.parse(userData))
+    void resolveAdminSession('reservations').then(user => {
+      if (!user) { navigate('/adm/coordenacao'); return }
+      setAdminUser(user)
       loadRequests()
-    } else {
-      navigate('/adm')
-    }
+    })
   }, [navigate])
 
   const loadRequests = async () => {

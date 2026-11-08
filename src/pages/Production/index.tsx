@@ -11,6 +11,7 @@ import { ScientificPublicationEditor } from './components/ScientificPublicationE
 import { useToast } from '@/hooks/use-toast'
 import styles from './Production.module.css'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useAccessPermissions } from '@/hooks/useAccessPermissions'
 
 interface ScientificPublication {
   id: string
@@ -31,13 +32,10 @@ export function Production() {
   const [showLoginDialog, setShowLoginDialog] = useState(false)
   const [loginLoading, setLoginLoading] = useState(false)
   const { toast } = useToast()
+  const { permissions } = useAccessPermissions()
 
   useEffect(() => {
     fetchPublications()
-    const savedAuth = localStorage.getItem('scientificPublicationsAuth')
-    if (savedAuth === 'true') {
-      setIsAuthenticated(true)
-    }
   }, [])
 
   const fetchPublications = async () => {
@@ -76,12 +74,7 @@ export function Production() {
       }
 
       // Verificar se é coordenação ou secretaria
-      const { data, error } = await supabase
-        .from('admin_users')
-        .select('*')
-        .eq('user_id', authData.user.id)
-        .in('role', ['secretaria', 'coordenacao'])
-        .single()
+      const { data, error } = await supabase.rpc('can_access', { _permission: 'publications' })
 
       if (error || !data) {
         await supabase.auth.signOut()
@@ -95,7 +88,6 @@ export function Production() {
 
       setIsAuthenticated(true)
       setShowLoginDialog(false)
-      localStorage.setItem('scientificPublicationsAuth', 'true')
       toast({
         title: "Login realizado com sucesso",
         description: "Agora você pode gerenciar as publicações científicas."
@@ -135,7 +127,7 @@ export function Production() {
           <p>{t('production.subtitle')}</p>
         </div>
 
-        {isAuthenticated ? (
+        {isAuthenticated && permissions.publications ? (
           <ScientificPublicationEditor 
             publications={publications} 
             onPublicationsUpdate={fetchPublications}

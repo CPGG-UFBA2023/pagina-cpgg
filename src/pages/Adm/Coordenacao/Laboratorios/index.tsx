@@ -1,3 +1,4 @@
+import { resolveAdminSession } from '@/hooks/useAccessPermissions'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, Save, X } from 'lucide-react'
@@ -41,18 +42,11 @@ export function LaboratoriosAdmin() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const userData = sessionStorage.getItem('admin_user')
-    if (userData) {
-      const parsed = JSON.parse(userData)
-      if (parsed.role === 'coordenacao' || parsed.role === 'secretaria') {
-        setAdminUser(parsed)
-        loadLaboratories()
-      } else {
-        navigate('/adm/coordenacao')
-      }
-    } else {
-      navigate('/adm/coordenacao')
-    }
+    void resolveAdminSession('laboratories').then(user => {
+      if (!user) { navigate('/adm/coordenacao'); return }
+      setAdminUser(user)
+      loadLaboratories()
+    })
   }, [navigate])
 
   const loadLaboratories = async () => {

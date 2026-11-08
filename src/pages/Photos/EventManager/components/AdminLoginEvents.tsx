@@ -7,11 +7,7 @@ interface AdminLoginEventsProps {
 }
 
 export function AdminLoginEvents({ isOpen, onClose, onLogin }: AdminLoginEventsProps) {
-  const handleSuccess = (role: string) => {
-    if (role === 'coordenacao' || role === 'ti') {
-      onLogin()
-    }
-  }
+  const handleSuccess = () => onLogin()
 
   return (
     <AdminAuthDialog
@@ -19,6 +15,7 @@ export function AdminLoginEvents({ isOpen, onClose, onLogin }: AdminLoginEventsP
       onClose={onClose}
       onSuccess={handleSuccess}
       requiredRole="any"
+      permission="photos"
       title="Login Administrativo - Eventos"
     />
   )

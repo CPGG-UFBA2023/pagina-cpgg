@@ -46,14 +46,9 @@ serve(async (req) => {
     }
 
     // Check if user is admin with coordenacao role
-    const { data: admin, error: adminErr } = await supabase
-      .from("admin_users")
-      .select("id, role")
-      .eq("user_id", user.id)
-      .in("role", ["secretaria", "coordenacao"])
-      .maybeSingle();
+    const { data: allowed, error: permissionError } = await supabase.rpc('has_access_permission', { _user_id: user.id, _permission: 'people' });
 
-    if (adminErr || !admin) {
+    if (permissionError || allowed !== true) {
       return json({ error: "Não autorizado - apenas coordenação e secretaria" }, { status: 401 });
     }
 

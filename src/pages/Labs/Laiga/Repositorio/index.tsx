@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { supabase } from '@/integrations/supabase/client'
 import styles from './repo.module.css'
 import { HomeButton } from '@/components/HomeButton'
+import { useAccessPermissions } from '@/hooks/useAccessPermissions'
+import { Button } from '@/components/ui/button'
 
 type Folder = {
   id: string
@@ -15,6 +17,7 @@ type AccessRow = { id: string; user_id: string; full_name: string; role: string 
 
 export function RepositorioHome() {
   const navigate = useNavigate()
+  const { permissions } = useAccessPermissions()
   const [loading, setLoading] = useState(true)
   const [userEmail, setUserEmail] = useState<string>('')
   const [folders, setFolders] = useState<Folder[]>([])
@@ -141,7 +144,7 @@ export function RepositorioHome() {
         <div className={styles.actions}>
           <span className={styles.userChip}>{userEmail}</span>
           <button className={styles.btn} onClick={() => setShowNew(true)}>+ Nova pasta</button>
-          <button className={`${styles.btn} ${styles.ghost}`} onClick={openManage}>Usuários</button>
+          {permissions.access && <Button variant="outline" onClick={() => navigate('/adm/acessos')}>Acessos e privilégios</Button>}
           <button className={`${styles.btn} ${styles.ghost}`} onClick={logout}>Sair</button>
         </div>
       </div>

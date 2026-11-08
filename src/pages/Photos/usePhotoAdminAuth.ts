@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '@/integrations/supabase/client'
 
-const ADMIN_ROLES = ['coordenacao', 'ti', 'secretaria']
 
 /**
  * Tracks whether the current visitor is a logged-in photo admin.
@@ -20,8 +19,8 @@ export function usePhotoAdminAuth() {
         if (active) setIsAuthenticated(false)
         return
       }
-      const { data: role } = await supabase.rpc('get_admin_role')
-      if (active) setIsAuthenticated(ADMIN_ROLES.includes(role ?? ''))
+      const { data: allowed } = await supabase.rpc('can_access', { _permission: 'photos' })
+      if (active) setIsAuthenticated(allowed === true)
     }
 
     resolve()

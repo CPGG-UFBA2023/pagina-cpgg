@@ -32,14 +32,9 @@ serve(async (req) => {
     );
     if (authError || !user) return json({ error: "Não autenticado" }, { status: 401 });
 
-    const { data: caller } = await admin
-      .from("admin_users")
-      .select("role")
-      .eq("user_id", user.id)
-      .eq("role", "coordenacao")
-      .maybeSingle();
+    const { data: allowed, error: permissionError } = await admin.rpc('has_access_permission', { _user_id: user.id, _permission: 'access' });
 
-    if (!caller) return json({ error: "Não autorizado - apenas coordenação" }, { status: 403 });
+    if (permissionError || allowed !== true) return json({ error: "Não autorizado - apenas coordenação" }, { status: 403 });
 
     const body = await req.json().catch(() => ({}));
     const email = String(body.email || "").trim().toLowerCase();

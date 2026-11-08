@@ -76,12 +76,7 @@ export function AdminLogin({ isOpen, onClose, onLogin }: AdminLoginProps) {
       }
 
       // Verificar se é coordenação ou secretaria
-      const { data, error } = await supabase
-        .from('admin_users')
-        .select('*')
-        .eq('user_id', authData.user.id)
-        .in('role', ['secretaria', 'coordenacao'])
-        .single()
+      const { data, error } = await supabase.rpc('can_access', { _permission: 'people' })
 
       if (error || !data) {
         await supabase.auth.signOut()

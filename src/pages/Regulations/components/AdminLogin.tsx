@@ -80,12 +80,7 @@ export function AdminLogin({ isOpen, onClose, onSuccess }: AdminLoginProps) {
       }
 
       // Verificar se o usuário é admin coordenação
-      const { data: adminData, error: adminError } = await supabase
-        .from('admin_users')
-        .select('role')
-        .eq('user_id', authData.user.id)
-        .eq('role', 'coordenacao')
-        .single()
+      const { data: adminData, error: adminError } = await supabase.rpc('can_access', { _permission: 'regulations' })
 
       if (adminError || !adminData) {
         await supabase.auth.signOut()

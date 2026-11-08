@@ -20,9 +20,7 @@ const AUTH_KEY = 'tccGeofisicaAuth'
 export function TCCGeofisica() {
   const [tccs, setTccs] = useState<TCC[]>([])
   const [loading, setLoading] = useState(true)
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return localStorage.getItem(AUTH_KEY) === 'true'
-  })
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [showUploadModal, setShowUploadModal] = useState(false)
 
@@ -62,13 +60,9 @@ export function TCCGeofisica() {
             return
           }
 
-          const { data: adminData } = await supabase
-            .from('admin_users')
-            .select('role')
-            .eq('user_id', user.id)
-            .single()
+          const { data: adminData } = await supabase.rpc('can_access', { _permission: 'tcc' })
 
-          if (adminData?.role !== 'coordenacao') {
+          if (adminData !== true) {
             setIsAuthenticated(false)
             localStorage.removeItem(AUTH_KEY)
           }
