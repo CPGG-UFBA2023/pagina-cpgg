@@ -5,6 +5,7 @@ import styles from './repo.module.css'
 import { HomeButton } from '@/components/HomeButton'
 import { useAccessPermissions } from '@/hooks/useAccessPermissions'
 import { Button } from '@/components/ui/button'
+import { hasLaigaRepositoryAccess } from '@/lib/laigaRepositoryAccess'
 
 type Folder = {
   id: string
@@ -36,9 +37,8 @@ export function RepositorioHome() {
       return
     }
     setUserEmail(session.user.email ?? '')
-    const { data: allowed } = await supabase.rpc('is_laiga_repo_user')
+    const allowed = await hasLaigaRepositoryAccess(() => supabase.rpc('is_laiga_repo_user'))
     if (!allowed) {
-      await supabase.auth.signOut()
       navigate('/labs/laiga/repositorio/login', { replace: true })
       return
     }

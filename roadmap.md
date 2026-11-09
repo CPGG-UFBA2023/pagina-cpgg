@@ -1,6 +1,13 @@
 # Revisão da versão em inglês
 # Controle de acessos
 
+# Acesso às pastas do LAIGA
+
+- [x] Confirmar a divergência entre a autorização das pastas e do repositório
+- [x] Usar a autorização do repositório sem encerrar a sessão do site
+- [ ] Validar regras e navegação das pastas
+- [ ] Verificar com conta real — Supabase externo não fornece sessão de teste
+
 - [x] Criar lista administrativa de pessoas e permissões por área
 - [x] Aplicar concessões e bloqueios no servidor e nas páginas
 - [x] Proteger administração de acessos e impedir remoção da própria administração
