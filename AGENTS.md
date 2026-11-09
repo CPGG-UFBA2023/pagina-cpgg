@@ -1,5 +1,6 @@
 - Researcher pages render through the shared ResearcherProfilePage component — one place to restyle all ~32 profiles.
 - Central administrative privileges use explicit per-user overrides with legacy role defaults; can_access enforces them in RLS/RPCs and authenticated route guards, never browser storage. Access management is separate from people management to prevent privilege escalation.
+- LAIGA repository home and folder guards share the server membership RPC; denying repository access must not sign the user out of the entire site or read the protected access-management list.
 - Preload login CAPTCHA resources through the app shell using the widget's exact script URL; keep server token verification before authentication and never pre-verify or reuse tokens.
 - Atas uses page-scoped responsive grid and dialog styles to override legacy global fixed-height layout rules without changing other pages.
 - Physical-space notifications claim a deterministic reservation primary key before SMTP and persist notification state; this prevents concurrent requests, older forms, and uncertain retries from sending duplicate emails.

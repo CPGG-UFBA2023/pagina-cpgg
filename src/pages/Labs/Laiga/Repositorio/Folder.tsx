@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { supabase } from '@/integrations/supabase/client'
 import styles from './repo.module.css'
 import { HomeButton } from '@/components/HomeButton'
+import { hasLaigaRepositoryAccess } from '@/lib/laigaRepositoryAccess'
 
 type Item = {
   id: string
@@ -33,8 +34,8 @@ export function RepositorioFolder() {
   const guard = async () => {
     const { data: { session } } = await supabase.auth.getSession()
     if (!session?.user) { navigate('/labs/laiga/repositorio/login', { replace: true }); return false }
-    const { data: a } = await supabase.from('laiga_repository_access').select('id').eq('user_id', session.user.id).maybeSingle()
-    if (!a) { await supabase.auth.signOut(); navigate('/labs/laiga/repositorio/login', { replace: true }); return false }
+    const allowed = await hasLaigaRepositoryAccess(() => supabase.rpc('is_laiga_repo_user'))
+    if (!allowed) { navigate('/labs/laiga/repositorio/login', { replace: true }); return false }
     return true
   }
 
@@ -76,7 +77,8 @@ export function RepositorioFolder() {
     setSaving(true)
     try {
       const { data: { session } } = await supabase.auth.getSession()
-      const uid = session!.user.id
+      if (!session?.user) { navigate('/labs/laiga/repositorio/login', { replace: true }); return }
+      const uid = session.user.id
       const paths: string[] = []
       if (files) {
         for (const file of Array.from(files)) {
