@@ -3,7 +3,8 @@
 
 - [x] Substituir recriação de conta por envio seguro do link de recuperação
 - [x] Testar prevenção de envios repetidos e tratamento de falhas
-- [ ] Corrigir entrega real — credenciais SMTP do Supabase externo rejeitadas; exige atualização pelo responsável
+- [x] Atualizar com segurança a senha de envio informada pelo responsável
+- [ ] Confirmar entrega real — teste em 11/11/2026 às 20:50 UTC parou no limite temporário de envios; repetir após 21:37 UTC (18:37 na Bahia)
 
 # Controle de acessos
 
