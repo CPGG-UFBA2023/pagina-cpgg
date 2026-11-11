@@ -207,6 +207,7 @@ export function Sign() {
       }
 
       // Verificar se o email já está em uso
+      let preRegisteredTechProfileId: string | null = null;
       const { data: emailCheck } = await supabase.rpc("check_user_profile_duplicates", {
         _email: formData.email,
         _full_name: "",
@@ -219,7 +220,17 @@ export function Sign() {
           name_exists: boolean;
         };
 
-        if (email_in_auth || email_exists) {
+        // Técnico pré-cadastrado pela coordenação: o e-mail já consta no perfil sem conta vinculada
+        let techPreProfile: { id: string; user_id: string | null; email: string } | null = null;
+        if (isTechnician && email_exists && !email_in_auth) {
+          const found = await checkPreRegisteredName(formData.fullName);
+          if (found && !found.user_id && found.email?.trim().toLowerCase() === formData.email.trim().toLowerCase()) {
+            techPreProfile = found;
+          }
+        }
+        preRegisteredTechProfileId = techPreProfile?.id ?? null;
+
+        if (email_in_auth || (email_exists && !techPreProfile)) {
           toast({
             title: "Email já cadastrado",
             description: "Este email já está sendo utilizado.",
@@ -294,6 +305,7 @@ export function Sign() {
               phone: formData.phone,
               is_technician: true,
               laboratory_id: selectedLabId,
+              ...(preRegisteredTechProfileId ? { profile_id: preRegisteredTechProfileId } : {}),
             },
           },
         });
