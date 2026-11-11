@@ -7,6 +7,8 @@ import { HomeButton } from "../../components/HomeButton";
 import { z } from "zod";
 import ReCAPTCHA from "react-google-recaptcha";
 import styles from "./sign.module.css";
+import { Button } from "@/components/ui/button";
+import { createRecoveryRequest, recoveryErrorMessage } from "@/lib/passwordRecovery";
 const logocpgg = "https://i.imgur.com/6HRTVzo.png";
 
 // Site key do reCAPTCHA - esta é uma chave pública
@@ -41,16 +43,15 @@ export function Sign() {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
-  const [showPasswordResetForm, setShowPasswordResetForm] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
-  const [resetProfileId, setResetProfileId] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [isTechnician, setIsTechnician] = useState(false);
   const [labs, setLabs] = useState<{ id: string; name: string; acronym: string }[]>([]);
   const [selectedLabId, setSelectedLabId] = useState<string>("");
   const [isLoadingLabs, setIsLoadingLabs] = useState(false);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
-  const recaptchaResetRef = useRef<ReCAPTCHA>(null);
+  const [recoverySent, setRecoverySent] = useState(false);
+  const recoveryRequest = useRef(createRecoveryRequest((email, options) => supabase.auth.resetPasswordForEmail(email, options)));
 
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -459,227 +460,24 @@ export function Sign() {
 
   const handleVerifyEmail = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    console.log("handleVerifyEmail - iniciando verificação de email:", resetEmail);
-
-    try {
-      // Validar email
-      const emailSchema = z.string().trim().email("Email inválido");
-      const validationResult = emailSchema.safeParse(resetEmail);
-
-      if (!validationResult.success) {
-        toast({
-          title: "Email inválido",
-          description: "Por favor, insira um email válido.",
-          variant: "destructive",
-        });
-        setIsLoading(false);
-        return;
-      }
-
-      // Buscar perfil pelo email
-      const { data: profiles, error: profileError } = await supabase
-        .from("user_profiles")
-        .select("*")
-        .eq("email", resetEmail)
-        .limit(1);
-
-      if (profileError || !profiles || profiles.length === 0) {
-        toast({
-          title: "Email não encontrado",
-          description: "Este email não está cadastrado no sistema.",
-          variant: "destructive",
-        });
-        setIsLoading(false);
-        return;
-      }
-
-      const profile = profiles[0];
-
-      console.log("Perfil ANTES do reset:", {
-        id: profile.id,
-        full_name: profile.full_name,
-        has_description: !!profile.description,
-        description_preview: profile.description?.substring(0, 50),
-        has_photo: !!profile.photo_url,
-        photo_url: profile.photo_url,
-        email: profile.email,
-        phone: profile.phone,
-      });
-
-      // Salvar o profile_id para usar depois
-      setResetProfileId(profile.id);
-
-      // Se o perfil tem user_id, resetar apenas os dados de autenticação (preservando description e photo_url)
-      if (profile.user_id) {
-        const { data: resetResult, error: resetError } = await supabase.rpc("reset_user_keep_profile_data", {
-          _user_profile_id: profile.id,
-        });
-
-        console.log("Resultado do reset:", resetResult, resetError);
-
-        if (resetError || (resetResult && !(resetResult as any).success)) {
-          toast({
-            title: "Erro",
-            description: "Não foi possível limpar o registro anterior.",
-            variant: "destructive",
-          });
-          setIsLoading(false);
-          return;
-        }
-
-        // Verificar estado do perfil após reset
-        const { data: updatedProfile } = await supabase.from("user_profiles").select("*").eq("id", profile.id).single();
-
-        console.log("Perfil DEPOIS do reset:", {
-          id: updatedProfile?.id,
-          full_name: updatedProfile?.full_name,
-          has_description: !!updatedProfile?.description,
-          description_preview: updatedProfile?.description?.substring(0, 50),
-          has_photo: !!updatedProfile?.photo_url,
-          photo_url: updatedProfile?.photo_url,
-          email: updatedProfile?.email,
-          phone: updatedProfile?.phone,
-          user_id: updatedProfile?.user_id,
-        });
-      } else {
-        // Se não tem user_id, apenas salvar o profile_id
-        console.log("Perfil não tem user_id, apenas salvando profile_id");
-      }
-
-      // Preencher apenas o nome completo - email e telefone devem ser preenchidos novamente
-      setFormData((prev) => ({
-        ...prev,
-        fullName: profile.full_name,
-        email: "",
-        phone: "",
-      }));
-
-      toast({
-        title: "Email verificado!",
-        description:
-          "Agora preencha seus novos dados para redefinir sua senha. Sua descrição e foto de perfil serão mantidas.",
-      });
-
-      console.log("Email verificado, mudando para formulário de redefinição");
-      // Ir para o formulário de redefinição
-      setShowPasswordResetForm(true);
-      setShowForgotPassword(false);
-    } catch (error: any) {
-      toast({
-        title: "Erro",
-        description: "Não foi possível verificar o email. Tente novamente.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
+    if (isLoading || recoverySent) return;
+    const result = z.string().trim().email("Email inválido").safeParse(resetEmail);
+    if (!result.success) {
+      toast({ title: "Email inválido", description: "Por favor, insira um email válido.", variant: "destructive" });
+      return;
     }
-  };
-
-  const handlePasswordReset = async (e: React.FormEvent) => {
-    e.preventDefault();
     setIsLoading(true);
-
     try {
-      // Verificar reCAPTCHA
-      if (!captchaToken) {
-        toast({
-          title: "Verificação necessária",
-          description: 'Por favor, complete a verificação "Não sou um robô".',
-          variant: "destructive",
-        });
-        setIsLoading(false);
+      const { skipped, error } = await recoveryRequest.current(result.data, window.location.origin);
+      if (skipped) return;
+      if (error) {
+        toast({ title: "Erro ao enviar recuperação", description: recoveryErrorMessage(error), variant: "destructive" });
         return;
       }
-
-      // Verificar token no servidor
-      const isValidCaptcha = await verifyCaptcha(captchaToken);
-      if (!isValidCaptcha) {
-        toast({
-          title: "Verificação falhou",
-          description: "A verificação de segurança falhou. Tente novamente.",
-          variant: "destructive",
-        });
-        recaptchaResetRef.current?.reset();
-        setCaptchaToken(null);
-        setIsLoading(false);
-        return;
-      }
-
-      // Validar dados do formulário
-      const validationResult = registrationSchema.safeParse(formData);
-
-      if (!validationResult.success) {
-        const firstError = validationResult.error.errors[0];
-        toast({
-          title: "Erro de validação",
-          description: firstError.message,
-          variant: "destructive",
-        });
-        setIsLoading(false);
-        return;
-      }
-
-      // Verificar se o nome foi pré-cadastrado pelo administrador
-      const preRegisteredProfile = await checkPreRegisteredName(formData.fullName);
-
-      if (!preRegisteredProfile) {
-        toast({
-          title: "Acesso não autorizado",
-          description: "Seu nome não foi encontrado no sistema. Entre em contato com o administrador.",
-          variant: "destructive",
-        });
-        setIsLoading(false);
-        return;
-      }
-
-      // Usar o profile_id salvo do reset, se disponível
-      let profileIdToUse = resetProfileId || preRegisteredProfile.id;
-
-      console.log("Criando nova conta com profile_id:", profileIdToUse);
-
-      // Criar nova conta no Supabase Auth
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email: formData.email,
-        password: formData.password,
-        options: {
-          emailRedirectTo: `${window.location.origin}/email-confirmed`,
-          data: {
-            full_name: formData.fullName,
-            institution: "UFBA",
-            phone: formData.phone,
-            researcher_route: preRegisteredProfile.researcher_route || "pesquisador",
-            profile_id: profileIdToUse,
-          },
-        },
-      });
-
-      if (authError) {
-        toast({
-          title: "Erro no registro",
-          description: authError.message,
-          variant: "destructive",
-        });
-        setIsLoading(false);
-        return;
-      }
-
-      toast({
-        title: "Senha redefinida com sucesso!",
-        description: "Um email de confirmação foi enviado para " + formData.email + ". Por favor, confirme seu email.",
-        duration: 8000,
-      });
-
-      setRegisteredEmail(formData.email);
-      setSuccess(true);
-      setShowForgotPassword(false);
-      setShowPasswordResetForm(false);
-    } catch (error: any) {
-      toast({
-        title: "Erro",
-        description: error.message,
-        variant: "destructive",
-      });
+      setRecoverySent(true);
+      toast({ title: "Solicitação recebida", description: "Se este e-mail estiver cadastrado, você receberá um link para redefinir sua senha. Verifique também a pasta de spam." });
+    } catch {
+      toast({ title: "Erro ao enviar recuperação", description: "Não foi possível conectar ao serviço. Tente novamente mais tarde.", variant: "destructive" });
     } finally {
       setIsLoading(false);
     }
@@ -744,139 +542,7 @@ export function Sign() {
     );
   }
 
-  if (showPasswordResetForm) {
-    console.log("Renderizando formulário de redefinição de senha");
-    return (
-      <div
-        className={styles.sign}
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          overflow: "hidden",
-          height: "100vh",
-          width: "100vw",
-        }}
-      >
-        <HomeButton />
-        <div className={styles.container}>
-          <div className={styles.logo}>
-            <img src={logocpgg} alt="CPGG" />
-          </div>
-
-          <div className={styles.formBox} style={{ maxWidth: "600px", margin: "0 auto" }}>
-            <div className={styles.formTitle}>
-              <p>Redefinir Senha</p>
-            </div>
-
-            <div
-              style={{
-                backgroundColor: "#fef3c7",
-                padding: "15px",
-                borderRadius: "8px",
-                marginBottom: "20px",
-                border: "1px solid #fbbf24",
-              }}
-            >
-              <p
-                style={{
-                  fontSize: "14px",
-                  color: "#92400e",
-                  textAlign: "center",
-                  fontWeight: "500",
-                  margin: 0,
-                }}
-              >
-                ⚠️ Para redefinir sua senha, preencha novamente seus dados e a nova senha. Sua descrição e foto de
-                perfil serão mantidas.
-              </p>
-            </div>
-
-            <form onSubmit={handlePasswordReset} className={styles.form}>
-              <input
-                type="text"
-                name="fullName"
-                placeholder="Nome completo"
-                value={formData.fullName}
-                onChange={handleInputChange}
-                required
-                disabled={isLoading}
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Novo email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                disabled={isLoading}
-              />
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Telefone"
-                value={formData.phone}
-                onChange={handleInputChange}
-                required
-                disabled={isLoading}
-              />
-              <input
-                type="password"
-                name="password"
-                placeholder="Nova senha (mínimo 6 caracteres)"
-                value={formData.password}
-                onChange={handleInputChange}
-                required
-                disabled={isLoading}
-                minLength={6}
-              />
-              <input
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirmar nova senha"
-                value={formData.confirmPassword}
-                onChange={handleInputChange}
-                required
-                disabled={isLoading}
-              />
-              <div style={{ display: "flex", justifyContent: "center", margin: "15px 0" }}>
-                <ReCAPTCHA
-                  ref={recaptchaResetRef}
-                  sitekey={RECAPTCHA_SITE_KEY}
-                  onChange={(token) => setCaptchaToken(token)}
-                  onExpired={() => setCaptchaToken(null)}
-                />
-              </div>
-              <button type="submit" disabled={isLoading || !captchaToken}>
-                {isLoading ? "Redefinindo..." : "Redefinir Senha e Criar Nova Conta"}
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setShowPasswordResetForm(false);
-                  setShowForgotPassword(false);
-                }}
-                disabled={isLoading}
-                style={{
-                  marginTop: "10px",
-                  backgroundColor: "#6b7280",
-                  cursor: isLoading ? "not-allowed" : "pointer",
-                  opacity: isLoading ? 0.6 : 1,
-                }}
-              >
-                Voltar
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   if (showForgotPassword) {
-    console.log("Renderizando formulário de verificação de email");
     return (
       <div
         className={styles.sign}
@@ -904,7 +570,7 @@ export function Sign() {
 
             <form onSubmit={handleVerifyEmail} className={styles.form}>
               <p style={{ marginBottom: "20px", fontSize: "14px", color: "#666", textAlign: "center" }}>
-                Digite seu email cadastrado para iniciar a redefinição de senha.
+                {recoverySent ? "Se este e-mail estiver cadastrado, o link de recuperação será enviado. Verifique sua caixa de entrada e a pasta de spam." : "Digite seu email cadastrado para receber o link de redefinição de senha."}
               </p>
               <input
                 type="email"
@@ -914,9 +580,9 @@ export function Sign() {
                 required
                 disabled={isLoading}
               />
-              <button type="submit" disabled={isLoading}>
-                {isLoading ? "Verificando..." : "Enviar"}
-              </button>
+              <Button type="submit" disabled={isLoading || recoverySent}>
+                {isLoading ? "Enviando..." : recoverySent ? "Solicitação recebida" : "Enviar link"}
+              </Button>
               <button
                 type="button"
                 onClick={() => {
@@ -1110,7 +776,6 @@ export function Sign() {
               className={styles.forgotPassword}
               onClick={() => {
                 setShowForgotPassword(true);
-                setShowPasswordResetForm(false);
                 setResetEmail("");
               }}
               disabled={isLoading}
