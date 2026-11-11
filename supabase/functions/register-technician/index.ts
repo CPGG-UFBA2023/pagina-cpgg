@@ -92,8 +92,11 @@ serve(async (req) => {
 
     const first_name = full_name.trim().split(" ")[0];
 
+    const { data: existingProfile } = await supabase
+      .from("user_profiles").select("id").eq("user_id", user_id).maybeSingle();
+
     // Create user profile if it doesn't exist (ignore duplicates so we don't overwrite existing researcher profiles)
-    const { error: profileError } = await supabase
+    const { error: profileError } = existingProfile ? { error: null } : await supabase
       .from("user_profiles")
       .insert(
         {
