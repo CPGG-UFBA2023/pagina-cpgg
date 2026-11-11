@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { HomeButton } from '@/components/HomeButton';
+import { Button } from '@/components/ui/button';
 import styles from './ResetPassword.module.css';
 
 const logocpgg = 'https://imgur.com/6HRTVzo.png';
@@ -12,27 +13,32 @@ export function ResetPassword() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [isValidSession, setIsValidSession] = useState(false);
+  const [checking, setChecking] = useState(true);
+  const recoveryLink = useRef(new URLSearchParams(window.location.hash.slice(1)).get('type') === 'recovery');
+  const submitting = useRef(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
   useEffect(() => {
-    // Verificar se há uma sessão de recuperação válida
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
+    let mounted = true;
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (mounted && event === 'PASSWORD_RECOVERY' && session) {
+        recoveryLink.current = true;
         setIsValidSession(true);
-      } else {
-        toast({
-          title: "Link inválido ou expirado",
-          description: "Por favor, solicite um novo link de redefinição de senha.",
-          variant: "destructive",
-        });
-        setTimeout(() => navigate('/login'), 3000);
+        setChecking(false);
       }
     });
-  }, [navigate, toast]);
+    supabase.auth.getUser().then(({ data: { user }, error }) => {
+      if (!mounted) return;
+      setIsValidSession(recoveryLink.current && Boolean(user) && !error);
+      setChecking(false);
+    });
+    return () => { mounted = false; subscription.unsubscribe(); };
+  }, []);
 
   const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isValidSession || submitting.current) return;
     
     if (newPassword !== confirmPassword) {
       toast({
@@ -52,6 +58,7 @@ export function ResetPassword() {
       return;
     }
 
+    submitting.current = true;
     setLoading(true);
 
     try {
@@ -71,9 +78,7 @@ export function ResetPassword() {
       // Fazer logout para forçar novo login com a nova senha
       await supabase.auth.signOut();
       
-      setTimeout(() => {
-        navigate('/login');
-      }, 2000);
+      navigate('/login', { replace: true });
 
     } catch (error: any) {
       toast({
@@ -82,6 +87,7 @@ export function ResetPassword() {
         variant: "destructive",
       });
     } finally {
+      submitting.current = false;
       setLoading(false);
     }
   };
@@ -94,7 +100,8 @@ export function ResetPassword() {
           <div className={styles.logo}>
             <img src={logocpgg} alt="CPGG" />
           </div>
-          <p className={styles.message}>Verificando link de recuperação...</p>
+          <p className={styles.message}>{checking ? 'Verificando link de recuperação...' : 'Link inválido ou expirado. Solicite um novo link de recuperação.'}</p>
+          {!checking && <Button onClick={() => navigate('/sign')}>Solicitar novo link</Button>}
         </div>
       </div>
     );
@@ -141,9 +148,9 @@ export function ResetPassword() {
               />
             </div>
 
-            <button type="submit" disabled={loading} className={styles.submitButton}>
+            <Button type="submit" disabled={loading} className={styles.submitButton}>
               {loading ? 'Redefinindo...' : 'Redefinir Senha'}
-            </button>
+            </Button>
           </form>
         </div>
       </div>
