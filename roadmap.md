@@ -1,8 +1,8 @@
 # Revisão da versão em inglês
 # Recuperação de senha
 
-- [ ] Substituir recriação de conta por envio seguro do link de recuperação
-- [ ] Testar prevenção de envios repetidos e tratamento de falhas
+- [x] Substituir recriação de conta por envio seguro do link de recuperação
+- [x] Testar prevenção de envios repetidos e tratamento de falhas
 - [ ] Corrigir entrega real — credenciais SMTP do Supabase externo rejeitadas; exige atualização pelo responsável
 
 # Controle de acessos

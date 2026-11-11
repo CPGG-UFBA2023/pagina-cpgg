@@ -26,6 +26,6 @@ describe('Password recovery', () => {
     const error = { status: 500, code: 'unexpected_failure' };
     const request = createRecoveryRequest(async () => ({ error }));
     expect((await request('tech@example.org', 'https://cpgg.example.org')).error).toEqual(error);
-    expect(recoveryErrorMessage(error)).not.toBe(recoveryErrorMessage({ status: 429 }));
+    expect(recoveryErrorMessage(error) === recoveryErrorMessage({ status: 429 })).toBe(false);
   });
 });
