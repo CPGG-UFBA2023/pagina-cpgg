@@ -5,3 +5,4 @@
 - Atas uses page-scoped responsive grid and dialog styles to override legacy global fixed-height layout rules without changing other pages.
 - Physical-space notifications claim a deterministic reservation primary key before SMTP and persist notification state; this prevents concurrent requests, older forms, and uncertain retries from sending duplicate emails.
 - Password recovery sends a Supabase recovery link and updates the existing account only in a recovery session; never delete, recreate, or detach a profile to reset a password.
+- Construction-document links resolve asset pointers against the published Lovable origin so PDFs also open from externally hosted copies of the site.

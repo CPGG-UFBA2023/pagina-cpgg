@@ -30,7 +30,7 @@ export function DocumentosSede() {
               <a
                 key={doc.url}
                 className={styles.docCard}
-                href={doc.url}
+                href={new URL(doc.url, 'https://pagina-cpgg.lovable.app').href}
                 target="_blank"
                 rel="noopener noreferrer"
               >
