@@ -7,6 +7,7 @@ import { LanguageProvider } from '@/contexts/LanguageContext'
 import { VisitorTracker } from '@/components/VisitorTracker'
 import { useEffect } from 'react'
 import { prepareLoginResources } from '@/lib/loginResources'
+import { ChangePassword } from '@/components/ChangePassword'
 
 export function App() {
   useEffect(() => {
@@ -18,6 +19,7 @@ export function App() {
       <LanguageProvider>
         <VisitorTracker />
         <Router />
+        <ChangePassword />
         <Toaster />
       </LanguageProvider>
     </BrowserRouter>

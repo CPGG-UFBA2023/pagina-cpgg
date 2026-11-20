@@ -1,4 +1,10 @@
 # Revisão da versão em inglês
+# Acesso de Michel
+
+- [x] Concluir conta de Michel com senha provisória válida e vínculo ao LAIGA
+- [x] Mostrar troca de senha após login, exigindo senha atual e nova
+- [x] Verificar troca de senha e acesso com a conta real de Michel
+
 # Recuperação de senha
 
 - [x] Substituir recriação de conta por envio seguro do link de recuperação
